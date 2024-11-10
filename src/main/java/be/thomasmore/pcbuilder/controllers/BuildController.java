@@ -16,7 +16,8 @@ public class BuildController {
 
     @GetMapping("/builder")
     public String builds(Model model) {
-        Optional<CPU> cpuFromDb = buildRepository.findById(1);
+        Iterable<CPU> cpuFromDb = buildRepository.findAll();
+        model.addAttribute("allProcessors", cpuFromDb);
         return "builder";
     }
 

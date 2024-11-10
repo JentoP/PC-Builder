@@ -5,8 +5,16 @@
 <body class="d-flex flex-column h-100" >
 <header th:replace="~{fragments/header :: header}"></header>
 
-<h1 >Build your PC</h1>
-<p>Test one two three</p>
+<h1 >Build a personal computer</h1>
+<h2>Processors</h2>
+<div th:each="CPU : ${allProcessors}">
+    <a th:href="@{/builder/{id}(id=${CPU.id})}">
+<h3 th:text="${CPU.name}"></h3>
+    </a>
+</div>
+
+</div>
+
 </body>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>

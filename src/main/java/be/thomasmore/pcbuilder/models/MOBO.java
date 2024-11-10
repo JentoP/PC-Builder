@@ -15,16 +15,15 @@ public class MOBO {
     private String memoryType;
     private String interfaceType;
     private String socketType;
-    private Integer price;
+    private Double price;
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
-
     public Integer getId() {
         return id;
     }

@@ -20,6 +20,9 @@ body h2 {
     padding: 2px;
 
 }
+body h3{
+    color: white;
+}
 body a {
     text-decoration: none;
     color: black;

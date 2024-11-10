@@ -14,13 +14,13 @@ public class RAM {
     private String memoryType;
     private Integer timings;
     private Integer clockSpeed;
-    private Integer price;
+    private Double price;
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
