@@ -4,8 +4,20 @@ body.d-flex.flex-column.h-100 {
     color: white;
     margin-left: 20px;
 }
+body h1 {
+    background: linear-gradient(to bottom, #f3ab26,#f7864b,#fb3490,#965be9, #7b3cd0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    padding: 2px;
+}
+p {
+    color: white;
+    padding: 2px;
+}
 body h2 {
     color:  #f3ab26;
+    padding: 2px;
 
 }
 body a {
@@ -31,8 +43,10 @@ body a {
     color: #f3ab26 !important;
 }
 
-body h1 {
-    background: linear-gradient(to bottom, #f3ab26,#f7864b,#fb3490,#965be9, #7b3cd0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.footer{
+    margin-left: -20px;
+    background-color: #00021a;
+    border-top: 4px solid #7b3cd0;
+    color: #f3ab26;
+    font-size: 20px;
 }

@@ -11,7 +11,7 @@ public class MOBO {
     private String manufacturer;
     private String architecture;
     private Integer wattageUsage;
-    private Integer moboFormFactor;
+    private String moboFormFactor;
     private String memoryType;
     private String interfaceType;
     private String socketType;
@@ -65,11 +65,11 @@ public class MOBO {
         this.wattageUsage = wattageUsage;
     }
 
-    public Integer getMoboFormFactor() {
+    public String getMoboFormFactor() {
         return moboFormFactor;
     }
 
-    public void setMoboFormFactor(Integer moboFormFactor) {
+    public void setMoboFormFactor(String moboFormFactor) {
         this.moboFormFactor = moboFormFactor;
     }
 
