@@ -1,6 +1,8 @@
-Bouw je eigen PC eenvoudig met onze applicatie. Kies componenten zoals moederborden en CPU's en controleer compatibiliteit voordat je de build opslaat.
+Bouw je eigen PC eenvoudig met onze applicatie. 
+Kies componenten zoals moederborden en CPU's en controleer compatibiliteit voordat je de build opslaat.
 
 Hoe het werkt
+
 Componentselectie: Kies een moederbord uit een lijst.
 
 Compatibiliteitscontrole: Vind CPU's die passen bij je gekozen moederbord.
