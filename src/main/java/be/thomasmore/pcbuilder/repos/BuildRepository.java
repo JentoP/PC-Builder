@@ -1,4 +1,4 @@
-package be.thomasmore.pcbuilder.Repos;
+package be.thomasmore.pcbuilder.repos;
 
 import be.thomasmore.pcbuilder.models.Build;
 import org.springframework.data.repository.CrudRepository;

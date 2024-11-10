@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Log In</h1>
 
 </body>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </html>

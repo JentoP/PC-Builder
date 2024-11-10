@@ -15,6 +15,15 @@ public class Cooling {
     private boolean RGB;
     private String socketType;
     private String color;
+    private Integer price;
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public String getColor() {
         return color;

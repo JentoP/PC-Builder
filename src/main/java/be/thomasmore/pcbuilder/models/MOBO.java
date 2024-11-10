@@ -15,6 +15,15 @@ public class MOBO {
     private String memoryType;
     private String interfaceType;
     private String socketType;
+    private Integer price;
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;

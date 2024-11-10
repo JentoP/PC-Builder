@@ -1,33 +1,38 @@
-body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 5rem;
-}
-html {
-    height: 100%;
-}
-
-.helloworld {
-    color: black;
-    text-decoration: none;
-    font-size: 50px;
-    font-family: "Calibri Light", sans-serif;
-}
-
-.helloworld:hover {
-    color: lightskyblue;
-    text-decoration: none;
-    font-size: 50px;
-    font-family: "Calibri Light", sans-serif;
-}
-
-.navbar-title {
-    color: lightskyblue;
-    text-decoration: none;
-}
-
-.navbar-title:hover {
+body.d-flex.flex-column.h-100 {
+    margin-top: 100px;
+    background-color: #01042d;
     color: white;
+    margin-left: 20px;
+}
+body h2 {
+    color:  #f3ab26;
+
+}
+body a {
     text-decoration: none;
+    color: black;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #01042d !important;
+    border-bottom: 4px solid #7b3cd0;
+    color: #f3ab26;
+    font-size: 20px;
+}
+
+.navbar-nav .nav-link, .navbar-brand {
+    color: white !important;
+}
+
+.navbar-nav .nav-link:hover, .navbar-brand:hover {
+    color: #f3ab26 !important;
+}
+
+body h1 {
+    background: linear-gradient(to bottom, #f3ab26,#f7864b,#fb3490,#965be9, #7b3cd0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

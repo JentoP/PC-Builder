@@ -15,6 +15,15 @@ public class DATA {
     private Integer wattageUsage;
     private Integer capacity;
     private Integer cacheMemory;
+    private Integer price;
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;

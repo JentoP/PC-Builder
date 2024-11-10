@@ -14,6 +14,15 @@ public class RAM {
     private String memoryType;
     private Integer timings;
     private Integer clockSpeed;
+    private Integer price;
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;

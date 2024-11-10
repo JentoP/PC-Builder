@@ -1,4 +1,4 @@
-package be.thomasmore.pcbuilder.Controllers;
+package be.thomasmore.pcbuilder.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

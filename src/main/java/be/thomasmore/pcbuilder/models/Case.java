@@ -13,6 +13,15 @@ public class Case {
     private String moboFormFactor;
     private String psuFormFactor;
     private String color;
+    private Integer price;
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;
