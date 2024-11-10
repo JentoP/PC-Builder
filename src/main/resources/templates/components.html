@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
+
+<body class="d-flex flex-column h-100">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<h1>Components in stock</h1>
+<h2>Processors</h2>
+<div class="container p-2" th:each="CPU : ${allProcessors}">
+    <a th:href="@{/component/processors/{id}(id=${CPU.id})}">
+        <h3 th:text="${CPU.name}"></h3>
+    </a>
+</div>
+
+<h2>Motherboards</h2>
+<div class="container p-2" th:each="MOBO : ${allMotherboards}">
+    <a th:href="@{/component/motherboards/{id}(id=${MOBO.id})}">
+        <h3 th:text="${MOBO.name}"></h3>
+    </a>
+</div>
+</body>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>

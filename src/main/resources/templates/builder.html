@@ -2,16 +2,15 @@
 <html class="h-100" lang="en">
 <head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
 
-<body class="d-flex flex-column h-100" >
+<body class="d-flex flex-column h-100">
 <header th:replace="~{fragments/header :: header}"></header>
 
-<h1 >Build a personal computer</h1>
-<h2>Processors</h2>
-<div th:each="CPU : ${allProcessors}">
-    <a th:href="@{/builder/{id}(id=${CPU.id})}">
-<h3 th:text="${CPU.name}"></h3>
-    </a>
-</div>
+<h1>Build a personal computer</h1>
+<h2>Getting Started</h2>
+<p>
+    You can build a computer by selecting a processor, motherboard, RAM and other components that are compatible with
+    each other.
+    In order to save a build, you need to first register an account.</p>
 
 </div>
 

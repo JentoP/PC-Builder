@@ -3,5 +3,5 @@ package be.thomasmore.pcbuilder.repos;
 import be.thomasmore.pcbuilder.models.*;
 import org.springframework.data.repository.CrudRepository;
 
-public interface BuildRepository extends CrudRepository<CPU, Integer> {
+public interface PowerRepository extends CrudRepository<PSU, Integer> {
 }
