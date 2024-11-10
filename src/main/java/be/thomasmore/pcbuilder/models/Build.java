@@ -8,24 +8,24 @@ import java.time.LocalDateTime;
 @Entity
 public class Build {
     @Id
-    private Long id;
-    private Long userId;
+    private Integer id;
+    private Integer userId;
     private LocalDateTime createdAt;
     private String buildName;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
