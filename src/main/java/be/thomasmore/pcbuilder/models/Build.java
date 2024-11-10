@@ -1,10 +1,9 @@
-package be.thomasmore.pcbuilder.Models;
+package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 public class Build {
