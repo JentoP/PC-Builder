@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Component details')}"></head>
+
+<body class="d-flex flex-column h-100">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main th:object="${component}" th:if="${component}">
+    <h1>Processor Specifications</h1>
+    <h3 th:text="${component.name}"></h3>
+
+    <div class="row p-2">
+        <div class="col-6 col-sm-4 p-1 m-1">
+            <h2>Manufacturer</h2>
+            <h3 th:text="${component.manufacturer}"></h3>
+        </div>
+        <div class="col-6 col-sm-4 p-1 m-1">
+            <h2>Architecture</h2>
+            <h3 th:text="${component.architecture}"></h3>
+        </div>
+        <div class="col-6 col-sm-4 p-1 m-1">
+            <h2>Socket Type</h2>
+            <h3 th:text="${component.socketType}"></h3>
+        </div>
+    </div>
+</main>
+<main th:object="${component}" th:unless="${component}">
+    <h3>No component found.</h3>
+</main>
+</body>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>

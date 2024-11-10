@@ -23,6 +23,7 @@ body h2 {
 }
 body h3{
     color: white;
+    padding: 2px;
 }
 body a {
     text-decoration: none;
