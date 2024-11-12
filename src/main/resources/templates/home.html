@@ -3,16 +3,45 @@
 <head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
 <header th:replace="~{fragments/header :: header}"></header>
 
-<body class="d-flex flex-column h-100">
-<h1 class="gradient-text">Welcome</h1>
-<h2>Assemble a personal computer using the system builder.</h2>
-<!--<img th:src="@{/img/banner.jpeg}" alt="Banner">-->
+<body class="d-flex flex-column h-100 extra-margin">
+<h1 class="gradient-text">Welcome to <i>Computers, assemble!</i></h1>
+<div class="row">
+    <div class="intro-container col">
+        <h2>Your Ultimate Destination for Custom-Built Computers</h2>
+        <p>At BuildYourPC, we believe that every individual deserves a computer that matches their unique needs and
+            personality. Whether you're a gamer seeking the ultimate performance, a creative professional looking for
+            powerful graphics, or just need a reliable machine for everyday use, we’ve got you covered.</p>
+        <h4>Why Choose Us?</h4>
+        <ul>
+            <li>Expert Guidance: Our knowledgeable team is here to help you every step of the way, ensuring you get the
+                perfect components for your custom build.
+            </li>
+            <li>Quality Components: We only use the highest quality parts from trusted brands, guaranteeing top-notch
+                performance and durability.
+            </li>
+            <li>Personalized Experience: Tailor your computer to your exact specifications. From the CPU to the case,
+                every component is chosen by you, for you.
+            </li>
+        </ul>
+        <h4>Start Building Today!</h4>
+        <p>Ready to create your dream machine? Our intuitive builder tool makes it easy to select and customize your
+            components. Plus, our customer support team is always on hand to answer any questions and provide
+            assistance.</p>
+        <p>Join the BuildYourPC community today and take the first step towards a truly personalized computing
+            experience. Let’s build something great together!</p>
+    </div>
 
-<div class="d-flex justify-content-sm-center mt-5">
-<button type="button" class="btn-custom pb-3 pt-3"><a th:href="@{/builder}">BUILD NOW</a>
-  </button>
+    <div class="col">
+        <div class="d-flex justify-content-center mt-5">
+            <img th:src="@{/img/banner.jpeg}" alt="Banner" width="450" height="250">
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn-custom pb-3 pt-3">
+                <a th:href="@{/builder}" style="color: inherit; text-decoration: none;">BUILD NOW</a>
+            </button>
+        </div>
+    </div>
 </div>
 </body>
-
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </html>

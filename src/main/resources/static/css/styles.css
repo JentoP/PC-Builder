@@ -5,7 +5,9 @@ body.d-flex.flex-column.h-100 {
     color: white;
     margin-left: 20px;
 }
-
+.extra-margin{
+    margin-bottom: 200px;
+}
 body h1 {
     background: linear-gradient(to bottom, #f3ab26, #f7864b, #fb3490, #965be9, #7b3cd0);
     -webkit-background-clip: text;
@@ -85,7 +87,7 @@ body p {
 .footer {
     margin-left: -20px;
     background: linear-gradient(to left, #000000, #01040e, #01042d);
-    font-size: 20px;
+    font-size: 14px;
     border-top: 2px solid #7b3cd0;
 }
 
@@ -103,10 +105,19 @@ body p {
     padding: 10px 25px 10px 25px;
     border-radius: 10px;
     font-size: 20px;
-    margin: 20px;
+    margin-top: 25px;
+    cursor: pointer;
+    margin-bottom: 100px;
 }
 
 .btn-custom:hover {
     border: #7b3cd0 2px solid;
     transition: border 1s ease;
+}
+
+.intro-container {
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
