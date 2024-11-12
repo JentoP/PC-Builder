@@ -5,39 +5,73 @@ body.d-flex.flex-column.h-100 {
     color: white;
     margin-left: 20px;
 }
+
 body h1 {
-    background: linear-gradient(to bottom, #f3ab26,#f7864b,#fb3490,#965be9, #7b3cd0);
+    background: linear-gradient(to bottom, #f3ab26, #f7864b, #fb3490, #965be9, #7b3cd0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
     padding: 2px;
 }
-p {
-    color: white;
-    padding: 2px;
-}
-body h2 {
-    color:  #f3ab26;
-    padding: 2px;
 
-}
-body h3{
-    color: white;
+body h2 {
+    background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 10px;
+    margin-bottom: -2px;
     padding: 2px;
 }
+
+body h3 {
+    color: white;
+    padding-right: 2px;
+}
+
 body a {
     text-decoration: none;
-    color: black;
+    color: white;
+}
+
+.list {
+    text-decoration: none;
+    font-size: 24px;
+    padding: 1px;
+    margin: 2px;
+}
+
+.list:hover {
+    /*color: #f3ab26;*/
+    color: #7b3cd0;
+}
+
+body p {
+    color: white;
+    padding: 2px;
+    font-size: 16px;
 }
 
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #01042d !important;
-    border-bottom: 4px solid #7b3cd0;
-    color: #f3ab26;
+    background: linear-gradient(to left, #000000, #01040e, #01042d, #01042d);
     font-size: 20px;
+}
+
+.gradient-border-top {
+    position: relative;
+    display: inline-block;
+}
+
+.gradient-border-top::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, #7b3cd0, #ff8c00);
 }
 
 .navbar-nav .nav-link, .navbar-brand {
@@ -45,13 +79,34 @@ body a {
 }
 
 .navbar-nav .nav-link:hover, .navbar-brand:hover {
-    color: #f3ab26 !important;
+    color: #7b3cd0 !important;
 }
 
-.footer{
+.footer {
     margin-left: -20px;
-    background-color: #01042d;
-    border-top: 4px solid #7b3cd0;
-    color: #f3ab26;
+    background: linear-gradient(to left, #000000, #01040e, #01042d);
     font-size: 20px;
+    border-top: 2px solid #7b3cd0;
+}
+
+.button-container {
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    padding: 10px;
+}
+
+.btn-custom {
+    background: none;
+    color: white;
+    border: white 2px solid;
+    padding: 10px 25px 10px 25px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin: 20px;
+}
+
+.btn-custom:hover {
+    border: #7b3cd0 2px solid;
+    transition: border 1s ease;
 }

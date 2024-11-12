@@ -8,17 +8,18 @@
 <h1>Components in stock</h1>
 <h2>Processors</h2>
 <div class="container p-2" th:each="CPU : ${allProcessors}">
-    <a th:href="@{/processors/{id}(id=${CPU.id})}">
-        <h3 th:text="${CPU.name}"></h3>
-    </a>
+    <ul class="list">
+        <li><a th:href="@{/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}"></a></li>
+    </ul>
 </div>
 
 <h2>Motherboards</h2>
 <div class="container p-2" th:each="MOBO : ${allMotherboards}">
-    <a th:href="@{/motherboards/{id}(id=${MOBO.id})}">
-        <h3 th:text="${MOBO.name}"></h3>
-    </a>
+    <ul class="list">
+        <li><a th:href="@{/processors/{id}(id=${MOBO.id})}" th:text="${MOBO.name}"></a></li>
+    </ul>
 </div>
+
 </body>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>

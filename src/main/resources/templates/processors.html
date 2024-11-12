@@ -22,12 +22,41 @@
             <h2>Socket Type</h2>
             <h3 th:text="${component.socketType}"></h3>
         </div>
+        <div class="col-6 col-sm-4 p-1 m-1">
+            <h2>Model</h2>
+            <h3 th:text="${component.cpuModel}"></h3>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-6 col-sm-4 p-1 m-1">
+            <h2>Max Clock Speed</h2>
+            <h3 th:text="|${component.clockSpeed} GHz|"></h3>
+        </div>
+        <div class="col-6 col-sm-4 p-1 m-1">
+            <h2>Core Count</h2>
+            <h3 th:text="${component.coreCount}"></h3>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-6 col-sm-4 p-1 m-1">
+            <h2>Price</h2>
+            <h3 th:text="${#strings.replace(#numbers.formatDecimal(component.price,0,'POINT',2,'COMMA'),',00', '') }+' EURO'"></h3>
+        </div>
+    </div>
+    <div class="button-container d-flex justify-content-between">
+        <a class="button btn btn-warning" th:href="@{|/processors/${previousId}|}"><<</a>
+        <a class="button btn btn-warning" th:href="@{|/components|}">Go back</a>
+        <a class="button btn btn-warning" th:href="@{|/processors/${nextId}|}">>></a>
     </div>
 </main>
+
 <main th:object="${component}" th:unless="${component}">
     <h3>No component found.</h3>
+    <a class="button btn btn-warning mt-5" th:href="@{|/components|}">Go back</a>
+
 </main>
 </body>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
+
 </html>

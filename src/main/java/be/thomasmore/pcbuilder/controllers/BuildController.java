@@ -46,8 +46,12 @@ public class BuildController {
     @GetMapping("/processors/{id}")
     public String getProcessor(@PathVariable Integer id, Model model) {
         Optional<CPU> cpuFromDb = processors.findById(id);
+        long count = processors.count();
         if (cpuFromDb.isPresent()) {
             model.addAttribute("component", cpuFromDb.get());
+            model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            model.addAttribute("nextId", id < count ? id + 1 : 1);
+
         }
         return "processors";
     }
