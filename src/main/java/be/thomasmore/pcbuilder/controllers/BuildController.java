@@ -40,7 +40,20 @@ public class BuildController {
         model.addAttribute("allProcessors", cpuFromDb);
         Iterable<MOBO> moboFromDb = motherboards.findAll();
         model.addAttribute("allMotherboards", moboFromDb);
-        return "components";
+        Iterable<CHASSIS> caseFromDb = cases.findAll();
+        model.addAttribute("allCases", caseFromDb);
+        Iterable<COOLING> coolingFromDb = coolingSolutions.findAll();
+        model.addAttribute("allCooling", coolingFromDb);
+        Iterable<GPU> graphicCardFromDb = graphicCards.findAll();
+        model.addAttribute("allGraphicCards", graphicCardFromDb);
+        Iterable<RAM> memoryFromDb = memoryKits.findAll();
+        model.addAttribute("allMemory", memoryFromDb);
+        Iterable<PSU> powerFromDb = powerSupplies.findAll();
+        model.addAttribute("allPowerSupplies", powerFromDb);
+        Iterable<DATA> storageFromDb = storage.findAll();
+        model.addAttribute("allStorage", storageFromDb);
+
+        return "componentlist";
     }
 
     @GetMapping("/processors/{id}")
@@ -53,6 +66,7 @@ public class BuildController {
             model.addAttribute("nextId", id < count ? id + 1 : 1);
 
         }
+
         return "processors";
     }
 

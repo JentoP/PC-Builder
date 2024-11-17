@@ -4,9 +4,10 @@ body.d-flex.flex-column.h-100 {
     background-color: black;
     color: white;
     margin-left: 20px;
+
 }
-.extra-margin{
-    margin-bottom: 200px;
+.bottom-margin {
+    margin-bottom: 120px;
 }
 body h1 {
     background: linear-gradient(to bottom, #f3ab26, #f7864b, #fb3490, #965be9, #7b3cd0);
@@ -39,11 +40,11 @@ body a {
     text-decoration: none;
     font-size: 24px;
     padding: 1px;
-    margin: 2px;
+    margin-left: 30px;
+    margin-bottom: 15px;
 }
 
 .list:hover {
-    /*color: #f3ab26;*/
     color: #7b3cd0;
 }
 
@@ -101,13 +102,12 @@ body p {
 .btn-custom {
     background: none;
     color: white;
-    border: white 2px solid;
-    padding: 10px 25px 10px 25px;
+    border: black solid 2px;
+    padding: 10px 10px 10px 10px;
     border-radius: 10px;
     font-size: 20px;
-    margin-top: 25px;
     cursor: pointer;
-    margin-bottom: 100px;
+    margin-top: 10px
 }
 
 .btn-custom:hover {
