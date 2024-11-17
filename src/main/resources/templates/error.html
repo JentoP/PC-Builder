@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Oops, looks like you are in the wrong place.</h1>
+<div class="container mt-5">
+    <a class="btn-custom" th:href="@{|/home|}">Click here button below to go back to the main page.</a>
+</div>
+</body>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>
