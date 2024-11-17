@@ -46,9 +46,9 @@
             <a href="#memory-list" data-toggle="collapse" title="Click to view the list of memory">
                 <h2>Memory</h2>
                 <div class="collapse show" id="memory-list">
-                    <div th:each="MEMORY : ${allMemory}">
+                    <div th:each="RAM : ${allMemory}">
                         <ul class="list">
-                            <li><a th:href="@{/memory/{id}(id=${MEMORY.id})}" th:text="${MEMORY.name}"></a></li>
+                            <li><a th:href="@{/memory/{id}(id=${RAM.id})}" th:text="${RAM.name}"></a></li>
                         </ul>
                     </div>
                 </div>

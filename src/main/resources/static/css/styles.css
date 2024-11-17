@@ -6,9 +6,11 @@ body.d-flex.flex-column.h-100 {
     margin-left: 20px;
 
 }
+
 .bottom-margin {
     margin-bottom: 120px;
 }
+
 body h1 {
     background: linear-gradient(to bottom, #f3ab26, #f7864b, #fb3490, #965be9, #7b3cd0);
     -webkit-background-clip: text;
@@ -24,10 +26,16 @@ body h2 {
     margin-top: 10px;
     margin-bottom: -2px;
     padding: 2px;
+    border-bottom: #7b3cd0 1px solid;
 }
 
 body h3 {
-    color: white;
+    background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    font-size: 26px;
     padding-right: 2px;
 }
 

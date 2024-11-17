@@ -9,13 +9,22 @@ public class MOBO {
     private Integer id;
     private String name;
     private String manufacturer;
-    private String architecture;
+    private String chipset;
     private Integer wattageUsage;
     private String moboFormFactor;
     private String memoryType;
     private String interfaceType;
     private String socketType;
+    private boolean m2Support;
     private Double price;
+
+    public boolean isM2Support() {
+        return m2Support;
+    }
+
+    public void setM2Support(boolean m2Support) {
+        this.m2Support = m2Support;
+    }
 
     public Double getPrice() {
         return price;
@@ -48,12 +57,12 @@ public class MOBO {
         this.manufacturer = manufacturer;
     }
 
-    public String getArchitecture() {
-        return architecture;
+    public String getChipset() {
+        return chipset;
     }
 
-    public void setArchitecture(String architecture) {
-        this.architecture = architecture;
+    public void setChipset(String chipset) {
+        this.chipset = chipset;
     }
 
     public Integer getWattageUsage() {

@@ -57,65 +57,99 @@ public class BuildController {
     }
 
     @GetMapping("/processors/{id}")
-    public String getProcessor(@PathVariable Integer id, Model model) {
+    public String processors(@PathVariable Integer id, Model model) {
         Optional<CPU> cpuFromDb = processors.findById(id);
         long count = processors.count();
         if (cpuFromDb.isPresent()) {
-            model.addAttribute("component", cpuFromDb.get());
+            model.addAttribute("cpu", cpuFromDb.get());
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
 
         }
-
         return "processors";
     }
 
-    @GetMapping("/component/motherboards/{id}")
-    public String getMotherboard(@PathVariable Integer id, Model model) {
+    @GetMapping("/motherboards/{id}")
+    public String motherboards(@PathVariable Integer id, Model model) {
         Optional<MOBO> moboFromDb = motherboards.findById(id);
-        model.addAttribute("component", moboFromDb);
+        long count = motherboards.count();
+        if (moboFromDb.isPresent()) {
+            model.addAttribute("mobo", moboFromDb.get());
+            model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            model.addAttribute("nextId", id < count ? id + 1 : 1);
+        }
         return "motherboards";
     }
 
-    @GetMapping("/component/cases/{id}")
-    public String getCase(@PathVariable Integer id, Model model) {
+    @GetMapping("/cases/{id}")
+    public String cases(@PathVariable Integer id, Model model) {
         Optional<CHASSIS> caseFromDb = cases.findById(id);
-        model.addAttribute("component", caseFromDb);
+        long count = cases.count();
+        if (caseFromDb.isPresent()) {
+            model.addAttribute("cases", caseFromDb.get());
+            model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            model.addAttribute("nextId", id < count ? id + 1 : 1);
+        }
         return "cases";
     }
 
-    @GetMapping("/component/cooling/{id}")
-    public String getCooling(@PathVariable Integer id, Model model) {
+    @GetMapping("/cooling/{id}")
+    public String cooling(@PathVariable Integer id, Model model) {
         Optional<COOLING> coolingFromDb = coolingSolutions.findById(id);
-        model.addAttribute("component", coolingFromDb);
+        long count = coolingSolutions.count();
+        if (coolingFromDb.isPresent()) {
+            model.addAttribute("cooling", coolingFromDb.get());
+            model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            model.addAttribute("nextId", id < count ? id + 1 : 1);
+        }
         return "cooling";
     }
 
-    @GetMapping("/component/graphicCards/{id}")
-    public String getGraphicCard(@PathVariable Integer id, Model model) {
+    @GetMapping("/graphiccards/{id}")
+    public String graphicCards(@PathVariable Integer id, Model model) {
         Optional<GPU> graphicCardFromDb = graphicCards.findById(id);
-        model.addAttribute("component", graphicCardFromDb);
-        return "graphicCards";
+        long count = graphicCards.count();
+        if (graphicCardFromDb.isPresent()) {
+            model.addAttribute("gpu", graphicCardFromDb.get());
+            model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            model.addAttribute("nextId", id < count ? id + 1 : 1);
+        }
+        return "graphiccards";
     }
 
-    @GetMapping("/component/memoryKits/{id}")
-    public String getMemoryKit(@PathVariable Integer id, Model model) {
+    @GetMapping("/memory/{id}")
+    public String memory(@PathVariable Integer id, Model model) {
         Optional<RAM> memoryKitsFromDb = memoryKits.findById(id);
-        model.addAttribute("component", memoryKitsFromDb);
-        return "memoryKits";
+        long count = memoryKits.count();
+        if (memoryKitsFromDb.isPresent()) {
+            model.addAttribute("memory", memoryKitsFromDb.get());
+            model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            model.addAttribute("nextId", id < count ? id + 1 : 1);
+        }
+        return "memory";
     }
 
-    @GetMapping("/component/powerSupplies/{id}")
-    public String getPowerSupply(@PathVariable Integer id, Model model) {
+    @GetMapping("/powersupplies/{id}")
+    public String powerSupplies(@PathVariable Integer id, Model model) {
         Optional<PSU> powerSuppliesFromDb = powerSupplies.findById(id);
-        model.addAttribute("component", powerSuppliesFromDb);
-        return "powerSupply";
+        long count = powerSupplies.count();
+        if (powerSuppliesFromDb.isPresent()) {
+            model.addAttribute("psu", powerSuppliesFromDb.get());
+            model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            model.addAttribute("nextId", id < count ? id + 1 : 1);
+        }
+        return "powersupplies";
     }
 
-    @GetMapping("/component/storage/{id}")
-    public String getStorage(@PathVariable Integer id, Model model) {
+    @GetMapping("/storage/{id}")
+    public String storage(@PathVariable Integer id, Model model) {
         Optional<DATA> storageFromDb = storage.findById(id);
-        model.addAttribute("component", storageFromDb);
+        long count = storage.count();
+        if (storageFromDb.isPresent()) {
+            model.addAttribute("data", storageFromDb.get());
+            model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            model.addAttribute("nextId", id < count ? id + 1 : 1);
+        }
         return "storage";
     }
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Motherboard details')}"></head>
+
+<body class="d-flex flex-column h-100">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main th:object="${mobo}" th:if="${mobo}">
+    <h1>Motherboard Specifications</h1>
+    <div class="container">
+        <h2 th:text="${mobo.name}"></h2>
+
+        <div class="row p-2">
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Manufacturer</h3>
+                <h4 th:text="${mobo.manufacturer}"></h4>
+            </div>
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Chipset</h3>
+                <h4 th:text="${mobo.chipset}"></h4>
+            </div>
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Socket Type</h3>
+                <h4 th:text="${mobo.socketType}"></h4>
+            </div>
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Memory Type</h3>
+                <h4 th:text="${mobo.memoryType}"></h4>
+            </div>
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Form Factor</h3>
+                <h4 th:text="${mobo.moboFormFactor}"></h4>
+            </div>
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Interface</h3>
+                <h4 th:text="${mobo.interfaceType}"></h4>
+            </div>
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Wattage</h3>
+                <h4 th:text="|${mobo.wattageUsage} watt| "></h4>
+            </div>
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>NVMe slot</h3>
+                <h4 th:if="${mobo.m2Support}">Has M.2 support</h4>
+                <h4 th:unless="${mobo.m2Support}">No M.2 support</h4>
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Price</h3>
+                <h4 th:text="${#strings.replace(#numbers.formatDecimal(mobo.price,0,'POINT',2,'COMMA'),',00', '') }+' EURO'"></h4>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-5 bottom-margin">
+            <a class="button btn btn-secondary" th:href="@{|/motherboards/${previousId}|}"><<</a>
+            <a class="button btn btn-secondary" th:href="@{|/components|}">Go back</a>
+            <a class="button btn btn-secondary" th:href="@{|/motherboards/${nextId}|}">>></a>
+        </div>
+    </div>
+</main>
+
+<main th:object="${mobo}" th:unless="${mobo}">
+    <h3>No mobo found.</h3>
+    <a class="button btn btn-primary mt-5" th:href="@{|/components|}">Go back</a>
+
+</main>
+</body>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</html>

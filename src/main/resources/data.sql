@@ -31,12 +31,11 @@ VALUES (1, 'NVIDIA GeForce RTX 3080', 'NVIDIA', 320, 'RTX 3080', 'Ampere', 10, '
        (3, 'NVIDIA GeForce RTX 3070', 'NVIDIA', 220, 'RTX 3070', 'Ampere', 8, 'PCIe 4.0', '1.50 GHz', 'Black', 500),
        (4, 'AMD Radeon RX 6700 XT', 'AMD', 230, 'RX 6700 XT', 'RDNA 2', 12, 'PCIe 4.0', '1.94 GHz', 'Red', 480);
 
-INSERT INTO MOBO (ID, NAME, MANUFACTURER, ARCHITECTURE, WATTAGE_USAGE, MOBO_FORM_FACTOR, MEMORY_TYPE, INTERFACE_TYPE,
-                  SOCKET_TYPE, PRICE)
-VALUES (1, 'ASUS ROG Strix Z690-E', 'ASUS', 'LGA1700', 70, 'ATX', 'DDR5', 'PCIe 5.0', 'LGA1700', 400),
-       (2, 'MSI MAG B550 TOMAHAWK', 'MSI', 'AM4', 60, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 180),
-       (3, 'Gigabyte AORUS X570 Master', 'Gigabyte', 'AM4', 80, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 360),
-       (4, 'ASRock B450M Pro4', 'ASRock', 'AM4', 50, 'Micro-ATX', 'DDR4', 'PCIe 3.0', 'AM4', 80);
+INSERT INTO MOBO (ID, NAME, MANUFACTURER, CHIPSET, WATTAGE_USAGE, MOBO_FORM_FACTOR, MEMORY_TYPE, INTERFACE_TYPE, SOCKET_TYPE, PRICE, M2SUPPORT)
+VALUES (1, 'ASUS ROG Strix Z690-E', 'ASUS', 'Z690', 70, 'ATX', 'DDR5', 'PCIe 5.0', 'LGA1700', 400, 'Yes'),
+       (2, 'MSI MAG B550 TOMAHAWK', 'MSI', 'B550', 60, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 180, 'Yes'),
+       (3, 'Gigabyte AORUS X570 Master', 'Gigabyte', 'X570', 80, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 360, 'Yes'),
+       (4, 'ASRock B450M Pro4', 'ASRock', 'B450', 50, 'Micro-ATX', 'DDR4', 'PCIe 3.0', 'AM4', 80, 'No');
 
 INSERT INTO PSU (ID, NAME, MANUFACTURER, WATTAGE_CAPACITY, PSU_MODEL, EFFICIENCY, PSU_FORM_FACTOR, COLOR, PRICE)
 VALUES (1, 'Corsair RM750x', 'Corsair', 750, 'RM750x', '80+ Gold', 'ATX', 'Black', 130),
