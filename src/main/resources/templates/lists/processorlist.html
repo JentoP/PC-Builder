@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Processors</h1>
+<p>On this page you can find all available processor components currently in stock.</p>
+<p>You can search and filter by chipset, name, manufacturer, or price. To see more details about a components click on the component's name.</p>
+
+<!--Filter button-->
+<div class="container">
+    <div class="row">
+    <button type="button" class="btn-custom col text-start" data-bs-toggle="modal" data-bs-target="#filter">
+        Filter
+    </button>
+    <!--Search function-->
+<!--            <div class="col col-4" th:text=" |${CPU.size()} processors found|"/>-->
+        <div class="col col-8 text-end">
+            <form th:action="@{|/lists/processorlist|}">
+                <input type="search" id="searchWord" name="searchWord" th:value="${param.searchWord}" class="align-middle">
+                <button type="submit" class="btn-custom btn-sm">Search</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!--Modal-->
+<div class="modal fade" id="filter" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <form action="/componentlist">
+            <div class="modal-content">
+                <!--                Modal header-->
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modalLabel">Filters</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!--                Modal body-->
+                <div class="modal-body mx-2">
+                    <div class="row border rounded mt-3">
+                        <div class="col-12 p-1">
+                            <h4>Filter by</h4>
+                        </div>
+                        <div class="col-12 p-1">
+                            <label for="filterManufacturer" class="form-label">Manufacturer</label>
+                            <div class="input-group">
+                                <input th:value="*{param.filterManufacturer}" type="text" class="form-control"
+                                       id="filterManufacturer" name="filterManufacturer">
+                                <!--                                <span class="input-group-text"> guests</span>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<main class="container">
+    <h2>CPU's in stock</h2>
+    <div class="row">
+        <div class="col-md-6 btn-custom">
+            <a><div th:each="CPU : ${cpuList}">
+                    <ul class="list">
+                        <li><a th:href="@{/components/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}" title="Click to view more details about this processor"></a></li>
+                    </ul>
+                </div></a>
+        </div>
+    </div>
+<!--        <div class="col-md-6 btn-custom">-->
+<!--            <a title="Click to view the list of motherboards">-->
+<!--                <h2>Motherboards</h2>-->
+<!--                <div th:each="MOBO : ${allMotherboards}">-->
+<!--                    <ul class="list">-->
+<!--                        <li><a th:href="@{/motherboards/{id}(id=${MOBO.id})}" th:text="${MOBO.name}"></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </a></div>-->
+<!--    </div>-->
+
+
+<!--    <div class="row mt-3">-->
+<!--        <div class="col-md-6 btn-custom">-->
+<!--            <a title="Click to view the list of memory">-->
+<!--                <h2>Memory</h2>-->
+<!--                <div th:each="RAM : ${allMemory}">-->
+<!--                    <ul class="list">-->
+<!--                        <li><a th:href="@{/memory/{id}(id=${RAM.id})}" th:text="${RAM.name}"></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </a></div>-->
+
+<!--        <div class="col-md-6 btn-custom">-->
+<!--            <a title="Click to view the list of graphic cards">-->
+<!--                <h2>Graphic Cards</h2>-->
+<!--                <div th:each="GPU : ${allGraphicCards}">-->
+<!--                    <ul class="list">-->
+<!--                        <li><a th:href="@{/graphiccards/{id}(id=${GPU.id})}" th:text="${GPU.name}"></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </a></div>-->
+<!--    </div>-->
+
+
+<!--    <div class="row mt-3">-->
+<!--        <div class="col-md-6 btn-custom">-->
+<!--            <a title="Click to view the list of storage">-->
+<!--                <h2>Storage</h2>-->
+<!--                <div th:each="STORAGE : ${allStorage}">-->
+<!--                    <ul class="list">-->
+<!--                        <li><a th:href="@{/storage/{id}(id=${STORAGE.id})}" th:text="${STORAGE.name}"></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </a></div>-->
+
+<!--        <div class="col-md-6 btn-custom" title="Click to view the list of power supplies">-->
+<!--            <a><h2>Power Supplies</h2>-->
+<!--                <div th:each="PSU : ${allPowerSupplies}">-->
+<!--                    <ul class="list">-->
+<!--                        <li><a th:href="@{/powersupplies/{id}(id=${PSU.id})}" th:text="${PSU.name}"></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </a></div>-->
+<!--    </div>-->
+
+
+<!--    <div class="row mt-3">-->
+<!--        <div class="col-md-6 btn-custom">-->
+<!--            <a title="Click to view the list of cases">-->
+<!--                <h2>Cases</h2>-->
+<!--                <div th:each="CASE : ${allCases}">-->
+<!--                    <ul class="list">-->
+<!--                        <li><a th:href="@{/cases/{id}(id=${CASE.id})}" th:text="${CASE.name}"></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </a></div>-->
+
+<!--        &lt;!&ndash;        <div class="col-md-6 btn-custom">&ndash;&gt;-->
+<!--        &lt;!&ndash;            <a href="#cooling-list" data-toggle="collapse" title="Click to view the list of cooling">&ndash;&gt;-->
+<!--        &lt;!&ndash;                <h2>Cooling</h2>&ndash;&gt;-->
+<!--        &lt;!&ndash;                <div class="collapse show" id="cooling-list">&ndash;&gt;-->
+<!--        &lt;!&ndash;                    <div th:each="COOLING : ${allCooling}">&ndash;&gt;-->
+<!--        &lt;!&ndash;                        <ul class="list">&ndash;&gt;-->
+<!--        &lt;!&ndash;                            <li><a th:href="@{/cooling/{id}(id=${COOLING.id})}" th:text="${COOLING.name}"></a></li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                        </ul>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;            </a></div>&ndash;&gt;-->
+<!--        <div class="col-md-6 btn-custom">-->
+<!--            <a title="Click to view the list of cooling">-->
+<!--                <h2>Cooling</h2>-->
+<!--                <div th:each="COOLING : ${allCooling}">-->
+<!--                    <ul class="list">-->
+<!--                        <li><a th:href="@{/cooling/{id}(id=${COOLING.id})}" th:text="${COOLING.name}"></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </a></div>-->
+    </div>
+    <div class="bottom-margin"></div>
+</main>
+</body>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>

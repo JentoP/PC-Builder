@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -28,18 +29,13 @@ public class BuildController {
     private ProcessorRepository processors;
     @Autowired
     private StorageRepository storage;
+    @Autowired
+    private ChassisRepository chassisRepository;
+    @Autowired
+    private ProcessorRepository processorRepository;
 
     @GetMapping("/builder")
     public String builds(Model model) {
-
-
-
-
-
-
-
-
-
 
 
         return "builder";
@@ -47,6 +43,8 @@ public class BuildController {
 
     @GetMapping({"/components"})
     public String components(Model model) {
+
+//        Iterating over all the repositories
         Iterable<CPU> cpuFromDb = processors.findAll();
         model.addAttribute("allProcessors", cpuFromDb);
         Iterable<MOBO> moboFromDb = motherboards.findAll();
@@ -64,10 +62,28 @@ public class BuildController {
         Iterable<DATA> storageFromDb = storage.findAll();
         model.addAttribute("allStorage", storageFromDb);
 
-        return "componentlist";
+
+//            Future use
+//            List<MOBO> moboList = motherboards.findBySearch(searchWord);
+//            List<CHASSIS> caseList = cases.findBySearch(searchWord);
+//            List<COOLING> coolingList = coolingSolutions.findBySearch(searchWord);
+//            List<GPU> gpuList = graphicCards.findBySearch(searchWord);
+//            List<RAM> memoryList = memoryKits.findBySearch(searchWord);
+//            List<PSU> powerList = powerSupplies.findBySearch(searchWord);
+//            List<DATA> storageList = storage.findBySearch(searchWord);
+
+        return "components";
     }
 
-    @GetMapping("/processors/{id}")
+
+    @GetMapping({"/lists/processorlist"})
+    public String processorList(Model model, @RequestParam(required = false) String searchWord) {
+        List<CPU> cpuList = processorRepository.findBySearch(searchWord);
+        model.addAttribute("cpuList", cpuList);
+        return "/lists/processorlist";
+    }
+
+    @GetMapping("/components/processors/{id}")
     public String processors(@PathVariable Integer id, Model model) {
         Optional<CPU> cpuFromDb = processors.findById(id);
         long count = processors.count();
@@ -77,10 +93,10 @@ public class BuildController {
             model.addAttribute("nextId", id < count ? id + 1 : 1);
 
         }
-        return "processors";
+        return "components/processors";
     }
 
-    @GetMapping("/motherboards/{id}")
+    @GetMapping("/components/motherboards/{id}")
     public String motherboards(@PathVariable Integer id, Model model) {
         Optional<MOBO> moboFromDb = motherboards.findById(id);
         long count = motherboards.count();
@@ -89,10 +105,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "motherboards";
+        return "components/motherboards";
     }
 
-    @GetMapping("/cases/{id}")
+    @GetMapping("/components/cases/{id}")
     public String cases(@PathVariable Integer id, Model model) {
         Optional<CHASSIS> caseFromDb = cases.findById(id);
         long count = cases.count();
@@ -101,10 +117,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "cases";
+        return "components/cases";
     }
 
-    @GetMapping("/cooling/{id}")
+    @GetMapping("/components/cooling/{id}")
     public String cooling(@PathVariable Integer id, Model model) {
         Optional<COOLING> coolingFromDb = coolingSolutions.findById(id);
         long count = coolingSolutions.count();
@@ -113,10 +129,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "cooling";
+        return "components/cooling";
     }
 
-    @GetMapping("/graphiccards/{id}")
+    @GetMapping("/components/graphiccards/{id}")
     public String graphicCards(@PathVariable Integer id, Model model) {
         Optional<GPU> graphicCardFromDb = graphicCards.findById(id);
         long count = graphicCards.count();
@@ -125,10 +141,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "graphiccards";
+        return "components/graphiccards";
     }
 
-    @GetMapping("/memory/{id}")
+    @GetMapping("/components/memory/{id}")
     public String memory(@PathVariable Integer id, Model model) {
         Optional<RAM> memoryKitsFromDb = memoryKits.findById(id);
         long count = memoryKits.count();
@@ -137,10 +153,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "memory";
+        return "components/memory";
     }
 
-    @GetMapping("/powersupplies/{id}")
+    @GetMapping("/components/powersupplies/{id}")
     public String powerSupplies(@PathVariable Integer id, Model model) {
         Optional<PSU> powerSuppliesFromDb = powerSupplies.findById(id);
         long count = powerSupplies.count();
@@ -149,10 +165,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "powersupplies";
+        return "components/powersupplies";
     }
 
-    @GetMapping("/storage/{id}")
+    @GetMapping("/components/storage/{id}")
     public String storage(@PathVariable Integer id, Model model) {
         Optional<DATA> storageFromDb = storage.findById(id);
         long count = storage.count();
@@ -161,6 +177,6 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "storage";
+        return "components/storage";
     }
 }
