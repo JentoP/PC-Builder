@@ -4,7 +4,6 @@ body.d-flex.flex-column.h-100 {
     background-color: black;
     color: white;
     margin-left: 20px;
-
 }
 
 .bottom-margin {
@@ -24,7 +23,7 @@ body h2 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-top: 10px;
-    margin-bottom: -2px;
+    margin-bottom: 5px;
     padding: 2px;
     border-bottom: #7b3cd0 1px solid;
 }
