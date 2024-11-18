@@ -10,7 +10,7 @@ public class RAM {
     private String name;
     private String manufacturer;
     private Integer wattageUsage;
-    private String memoryCapacity;
+    private Integer memoryCapacity;
     private String memoryType;
     private Integer timings;
     private Integer clockSpeed;
@@ -56,11 +56,11 @@ public class RAM {
         this.wattageUsage = wattageUsage;
     }
 
-    public String getMemoryCapacity() {
+    public Integer getMemoryCapacity() {
         return memoryCapacity;
     }
 
-    public void setMemoryCapacity(String memoryCapacity) {
+    public void setMemoryCapacity(Integer memoryCapacity) {
         this.memoryCapacity = memoryCapacity;
     }
 

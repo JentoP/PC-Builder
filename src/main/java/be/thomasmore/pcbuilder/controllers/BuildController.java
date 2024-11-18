@@ -30,20 +30,10 @@ public class BuildController {
     @Autowired
     private StorageRepository storage;
     @Autowired
-    private ChassisRepository chassisRepository;
-    @Autowired
     private ProcessorRepository processorRepository;
 
     @GetMapping("/builder")
     public String builds(Model model) {
-
-
-        return "builder";
-    }
-
-    @GetMapping({"/components"})
-    public String components(Model model) {
-
 //        Iterating over all the repositories
         Iterable<CPU> cpuFromDb = processors.findAll();
         model.addAttribute("allProcessors", cpuFromDb);
@@ -62,6 +52,11 @@ public class BuildController {
         Iterable<DATA> storageFromDb = storage.findAll();
         model.addAttribute("allStorage", storageFromDb);
 
+        return "builder";
+    }
+
+    @GetMapping({"/components"})
+    public String components(Model model) {
 
 //            Future use
 //            List<MOBO> moboList = motherboards.findBySearch(searchWord);
@@ -74,14 +69,26 @@ public class BuildController {
 
         return "components";
     }
-
-
     @GetMapping({"/lists/processorlist"})
-    public String processorList(Model model, @RequestParam(required = false) String searchWord) {
-        List<CPU> cpuList = processorRepository.findBySearch(searchWord);
-        model.addAttribute("cpuList", cpuList);
+    public String processorList(Model model,
+                                @RequestParam(value = "filterManufacturer", required = false) String filterManufacturer,
+                                @RequestParam(required = false) String searchWord) {
+
+        List<CPU> filteredProcessors;
+
+        if ((filterManufacturer == null || filterManufacturer.isEmpty()) &&
+                (searchWord == null || searchWord.isEmpty())) {
+            filteredProcessors = (List<CPU>) processors.findAll();
+        } else if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
+            filteredProcessors = processors.findByManufacturer(filterManufacturer);
+        } else {
+            filteredProcessors = processorRepository.findBySearch(searchWord);
+        }
+
+        model.addAttribute("filteredProcessors", filteredProcessors);
         return "/lists/processorlist";
     }
+
 
     @GetMapping("/components/processors/{id}")
     public String processors(@PathVariable Integer id, Model model) {

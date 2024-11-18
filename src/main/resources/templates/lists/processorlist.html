@@ -6,74 +6,65 @@
 <body class="d-flex flex-column h-100">
 <h1>Processors</h1>
 <p>On this page you can find all available processor components currently in stock.</p>
-<p>You can search and filter by chipset, name, manufacturer, or price. To see more details about a components click on the component's name.</p>
-
-<!--Filter button-->
-<div class="container">
-    <div class="row">
-    <button type="button" class="btn-custom col text-start" data-bs-toggle="modal" data-bs-target="#filter">
-        Filter
-    </button>
-    <!--Search function-->
-<!--            <div class="col col-4" th:text=" |${CPU.size()} processors found|"/>-->
-        <div class="col col-8 text-end">
-            <form th:action="@{|/lists/processorlist|}">
-                <input type="search" id="searchWord" name="searchWord" th:value="${param.searchWord}" class="align-middle">
-                <button type="submit" class="btn-custom btn-sm">Search</button>
-            </form>
-        </div>
-    </div>
-
-</div>
-
-<!--Modal-->
-<div class="modal fade" id="filter" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog ">
-        <form action="/componentlist">
-            <div class="modal-content">
-                <!--                Modal header-->
-                <div class="modal-header">
-                    <h3 class="modal-title" id="modalLabel">Filters</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <!--                Modal body-->
-                <div class="modal-body mx-2">
-                    <div class="row border rounded mt-3">
-                        <div class="col-12 p-1">
-                            <h4>Filter by</h4>
-                        </div>
-                        <div class="col-12 p-1">
-                            <label for="filterManufacturer" class="form-label">Manufacturer</label>
-                            <div class="input-group">
-                                <input th:value="*{param.filterManufacturer}" type="text" class="form-control"
-                                       id="filterManufacturer" name="filterManufacturer">
-                                <!--                                <span class="input-group-text"> guests</span>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-
+<p>You can search and filter by chipset, name, manufacturer, or price. To see more details about a components click on
+    the component's name.</p>
 
 <main class="container">
     <h2>CPU's in stock</h2>
+
+    <div class="row">
+    <div class="col-md-2 mt-5">
+        <h4>Filters</h4>
+
+        <div class="text-start">
+            <form th:action="@{|/lists/processorlist|}" method="get" class="row">
+                <input name="searchWord" th:value="${param.searchWord}" class="filter-box">
+            </form>
+            <button type="submit" class="btn-custom">Search</button>
+        </div>
+
+        <form th:action="@{|/lists/processorlist|} " method="get" class="col mt-5 text-start">
+            <h5>Filter by</h5>
+            <div class="input-group row">
+                <label for="filtering" class="form-label">Manufacturer</label>
+                <select id="filtering" name="filterManufacturer" class="filter-box">
+                    <option value="">--Select--</option>
+                    <option value="Intel">Intel</option>
+                    <option value="AMD">AMD</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-custom">Filter</button>
+
+        </form>
+
+    </div>
+
+<div class="col-md-9">
+    <h3>Results</h3>
     <div class="row">
         <div class="col-md-6 btn-custom">
-            <a><div th:each="CPU : ${cpuList}">
-                    <ul class="list">
-                        <li><a th:href="@{/components/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}" title="Click to view more details about this processor"></a></li>
-                    </ul>
-                </div></a>
+            <div th:each="CPU : ${filteredProcessors}">
+                <ul class="list">
+                    <li><a th:href="@{/components/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}"
+                           title="Click to view more details about this processor"></a></li>
+                </ul>
+            </div>
         </div>
     </div>
+</div>
+
+</main>
+<!--<main class="container">-->
+<!--    <h2>CPU's in stock</h2>-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-6 btn-custom">-->
+<!--            <a><div th:each="CPU : ${cpuList}">-->
+<!--                    <ul class="list">-->
+<!--                        <li><a th:href="@{/components/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}" title="Click to view more details about this processor"></a></li>-->
+<!--                    </ul>-->
+<!--                </div></a>-->
+<!--        </div>-->
+<!--    </div>-->
 <!--        <div class="col-md-6 btn-custom">-->
 <!--            <a title="Click to view the list of motherboards">-->
 <!--                <h2>Motherboards</h2>-->
@@ -162,8 +153,8 @@
 <!--                    </ul>-->
 <!--                </div>-->
 <!--            </a></div>-->
-    </div>
-    <div class="bottom-margin"></div>
+</div>
+<div class="bottom-margin"></div>
 </main>
 </body>
 <footer th:replace="~{fragments/footer :: footer}"></footer>

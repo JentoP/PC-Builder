@@ -44,7 +44,7 @@ VALUES (1, 'Corsair RM750x', 'Corsair', 750, 'RM750x', '80+ Gold', 'ATX', 'Black
        (4, 'Cooler Master V850', 'Cooler Master', 850, 'V850', '80+ Platinum', 'ATX', 'Black', 160);
 
 INSERT INTO RAM (ID, NAME, MANUFACTURER, WATTAGE_USAGE, MEMORY_CAPACITY, MEMORY_TYPE, TIMINGS, CLOCK_SPEED, PRICE)
-VALUES (1, 'G.SKILL Trident Z RGB', 'G.SKILL', 10, '16GB', 'DDR4', 16, 3200, 100),
-       (2, 'Corsair Vengeance LPX', 'Corsair', 9, '8GB', 'DDR4', 18, 3000, 50),
-       (3, 'Kingston HyperX Fury', 'Kingston', 10, '16GB', 'DDR4', 17, 3200, 90),
-       (4, 'Crucial Ballistix', 'Crucial', 9, '16GB', 'DDR4', 16, 3600, 110);
+VALUES (1, 'G.SKILL Trident Z RGB', 'G.SKILL', 10, 16, 'DDR4', 16, 3200, 100),
+       (2, 'Corsair Vengeance LPX', 'Corsair', 9, 8, 'DDR4', 18, 3000, 50),
+       (3, 'Kingston HyperX Fury', 'Kingston', 10, 16, 'DDR4', 17, 3200, 90),
+       (4, 'Crucial Ballistix', 'Crucial', 9, 16, 'DDR4', 16, 3600, 110);

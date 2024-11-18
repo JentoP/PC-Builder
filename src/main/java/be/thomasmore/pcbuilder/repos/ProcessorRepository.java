@@ -15,4 +15,7 @@ public interface ProcessorRepository extends CrudRepository<CPU, Integer> {
             "(c.cpuModel ILIKE CONCAT('%', :searchWord, '%')) OR" +
             "(c.socketType ILIKE CONCAT('%', :searchWord, '%'))")
     List<CPU> findBySearch(@Param("searchWord") String searchWord);
+
+    @Query("select c from CPU c WHERE (:filterManufacturer IS NULL OR :filterManufacturer = c.manufacturer)")
+    List<CPU> findByManufacturer(@Param("filterManufacturer") String filterManufacturer);
 }

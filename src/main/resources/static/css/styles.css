@@ -6,7 +6,7 @@ body.d-flex.flex-column.h-100 {
     margin-left: 20px;
 }
 
-.modal-content{
+.modal-content {
     background-color: black !important;
     color: white;
     border: 2px solid #7b3cd0 !important;
@@ -113,13 +113,34 @@ body p {
     padding: 10px;
 }
 
+.filter-box {
+    background: none;
+    color: white;
+    border: #24113b 2px solid;
+    /*padding: 10px 10px 10px 10px;*/
+    border-radius: 2px;
+    font-size: 14px;
+    /*margin-top: 10px*/
+}
+
+
+option {
+    background-color: black !important; /* Set background color for the select box */
+    color: white; /* Set text color to white */
+}
+
+.select.form-select option {
+    background-color: black; /* Set background color for the options */
+    color: white; /* Set text color to white */
+}
+
 .btn-custom {
     background: none;
     color: white;
     border: black solid 2px;
     padding: 10px 10px 10px 10px;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
     margin-top: 10px
 }
