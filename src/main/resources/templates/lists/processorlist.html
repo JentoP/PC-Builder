@@ -12,59 +12,78 @@
 <main class="container">
     <h2>CPU's in stock</h2>
 
-    <div class="row">
-    <div class="col-md-2 mt-5">
-        <h4>Filters</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 mt-5">
+                <h4>Filters</h4>
+                <!--Search-->
+                <div class="text-start">
+                    <form th:action="@{|/lists/processorlist|}" method="get" class="">
+                        <input name="searchWord" th:value="${param.searchWord}" class="filter-box">
+                    </form>
+                    <button type="submit" class="btn-custom">Search</button>
+                </div>
+                <!--Filters-->
+                <form th:action="@{|/lists/processorlist|}" method="get" class="col mt-5 text-start">
+                    <h5>Filter by</h5>
 
-        <div class="text-start">
-            <form th:action="@{|/lists/processorlist|}" method="get" class="row">
-                <input name="searchWord" th:value="${param.searchWord}" class="filter-box">
-            </form>
-            <button type="submit" class="btn-custom">Search</button>
-        </div>
+                    <!-- Manufacturer Filter -->
+                    <div class="input-group row">
+                        <label for="filterManufacturer" class="form-label">Manufacturer</label>
+                        <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
+                            <option value="">--Select--</option>
+                            <option value="Intel">Intel</option>
+                            <option value="AMD">AMD</option>
+                        </select>
+                    </div>
 
-        <form th:action="@{|/lists/processorlist|} " method="get" class="col mt-5 text-start">
-            <h5>Filter by</h5>
-            <div class="input-group row">
-                <label for="filtering" class="form-label">Manufacturer</label>
-                <select id="filtering" name="filterManufacturer" class="filter-box">
-                    <option value="">--Select--</option>
-                    <option value="Intel">Intel</option>
-                    <option value="AMD">AMD</option>
-                </select>
+                    <!-- Socket Type Filter -->
+                    <div class="input-group row mt-3">
+                        <label for="filterSocket" class="form-label">Socket Type</label>
+                        <select id="filterSocket" name="filterSocket" class="filter-box">
+                            <option value="">--Select--</option>
+                            <option value="LGA1700">LGA1700</option>
+                            <option value="AM4">AM4</option>
+                        </select>
+                    </div>
+
+                    <!-- Price Range Filter -->
+                    <div class="input-group row mt-3">
+                        <label for="filterMinPrice" class="form-label">Min Price</label>
+                        <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
+                               placeholder="Minimum Price">
+                    </div>
+                    <div class="input-group row mt-3">
+                        <label for="filterMaxPrice" class="form-label">Max Price</label>
+                        <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
+                               placeholder="Maximum Price">
+                    </div>
+
+                    <button type="submit" class="btn-custom mt-3">Filter</button>
+                </form>
+
+
             </div>
-            <button type="submit" class="btn-custom">Filter</button>
-
-        </form>
-
-    </div>
-
-<div class="col-md-9">
-    <h3>Results</h3>
-    <div class="row">
-        <div class="col-md-6 btn-custom">
-            <div th:each="CPU : ${filteredProcessors}">
-                <ul class="list">
-                    <li><a th:href="@{/components/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}"
-                           title="Click to view more details about this processor"></a></li>
-                </ul>
+            <!--Listing-->
+            <div class="col-md-9">
+                <h3>Results</h3>
+                <div class="row">
+                    <div class="col-md-6 btn-custom">
+                        <div th:each="CPU : ${filteredProcessors}">
+                            <ul class="list">
+                                <li><a th:href="@{/components/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}"
+                                       title="Click to view more details about this processor"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </main>
-<!--<main class="container">-->
-<!--    <h2>CPU's in stock</h2>-->
-<!--    <div class="row">-->
-<!--        <div class="col-md-6 btn-custom">-->
-<!--            <a><div th:each="CPU : ${cpuList}">-->
-<!--                    <ul class="list">-->
-<!--                        <li><a th:href="@{/components/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}" title="Click to view more details about this processor"></a></li>-->
-<!--                    </ul>-->
-<!--                </div></a>-->
-<!--        </div>-->
-<!--    </div>-->
+
+<!--    <div class="row mt-3">-->
 <!--        <div class="col-md-6 btn-custom">-->
 <!--            <a title="Click to view the list of motherboards">-->
 <!--                <h2>Motherboards</h2>-->
@@ -133,17 +152,7 @@
 <!--                </div>-->
 <!--            </a></div>-->
 
-<!--        &lt;!&ndash;        <div class="col-md-6 btn-custom">&ndash;&gt;-->
-<!--        &lt;!&ndash;            <a href="#cooling-list" data-toggle="collapse" title="Click to view the list of cooling">&ndash;&gt;-->
-<!--        &lt;!&ndash;                <h2>Cooling</h2>&ndash;&gt;-->
-<!--        &lt;!&ndash;                <div class="collapse show" id="cooling-list">&ndash;&gt;-->
-<!--        &lt;!&ndash;                    <div th:each="COOLING : ${allCooling}">&ndash;&gt;-->
-<!--        &lt;!&ndash;                        <ul class="list">&ndash;&gt;-->
-<!--        &lt;!&ndash;                            <li><a th:href="@{/cooling/{id}(id=${COOLING.id})}" th:text="${COOLING.name}"></a></li>&ndash;&gt;-->
-<!--        &lt;!&ndash;                        </ul>&ndash;&gt;-->
-<!--        &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--        &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--        &lt;!&ndash;            </a></div>&ndash;&gt;-->
+<!--    <div class="row mt-3">-->
 <!--        <div class="col-md-6 btn-custom">-->
 <!--            <a title="Click to view the list of cooling">-->
 <!--                <h2>Cooling</h2>-->
@@ -153,9 +162,9 @@
 <!--                    </ul>-->
 <!--                </div>-->
 <!--            </a></div>-->
-</div>
+<!--</div>-->
+
 <div class="bottom-margin"></div>
-</main>
 </body>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </html>

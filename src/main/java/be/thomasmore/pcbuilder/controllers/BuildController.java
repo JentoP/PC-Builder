@@ -69,23 +69,32 @@ public class BuildController {
 
         return "components";
     }
+
     @GetMapping({"/lists/processorlist"})
     public String processorList(Model model,
-                                @RequestParam(value = "filterManufacturer", required = false) String filterManufacturer,
+                                @RequestParam(required = false) String filterManufacturer,
+                                @RequestParam(required = false) String filterSocket,
+                                @RequestParam(required = false) Float filterMinPrice,
+                                @RequestParam(required = false) Float filterMaxPrice,
                                 @RequestParam(required = false) String searchWord) {
+        Iterable<CPU> filteredProcessors = processors.findAll();
+//        List<CPU> filteredProcessors;
 
-        List<CPU> filteredProcessors;
-
-        if ((filterManufacturer == null || filterManufacturer.isEmpty()) &&
-                (searchWord == null || searchWord.isEmpty())) {
-            filteredProcessors = (List<CPU>) processors.findAll();
-        } else if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
-            filteredProcessors = processors.findByManufacturer(filterManufacturer);
-        } else {
+        if ((filterManufacturer != null && !filterManufacturer.isEmpty()) || (filterSocket != null && !filterSocket.isEmpty()) || (filterMinPrice != null && filterMaxPrice != null && filterMinPrice <= filterMaxPrice)) {
+            if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
+                filteredProcessors = processors.findByManufacturer(filterManufacturer);
+            }
+            if (filterSocket != null && !filterSocket.isEmpty()) {
+                filteredProcessors = processors.findBySocket(filterSocket);
+            }
+            if (filterMinPrice != null && filterMaxPrice != null && filterMinPrice <= filterMaxPrice) {
+                filteredProcessors = processors.findByPrice(filterMinPrice, filterMaxPrice);
+            }
+        } else if (searchWord != null && !searchWord.isEmpty()) {
             filteredProcessors = processorRepository.findBySearch(searchWord);
         }
-
         model.addAttribute("filteredProcessors", filteredProcessors);
+
         return "/lists/processorlist";
     }
 
