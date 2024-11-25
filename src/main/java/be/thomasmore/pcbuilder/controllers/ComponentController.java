@@ -32,6 +32,9 @@ public class ComponentController {
     @Autowired
     private ProcessorRepository processorRepository;
 
+    private static final double DEFAULT_MIN_PRICE = 0.0;
+    private static final double DEFAULT_MAX_PRICE = Double.MAX_VALUE;
+
     @GetMapping({"/components"})
     public String components(Model model) {
 
@@ -57,7 +60,7 @@ public class ComponentController {
                                 @RequestParam(required = false) String filterArchitecture,
                                 @RequestParam(required = false) String searchWord) {
 
-        List<CPU> filteredProcessors = (List<CPU>) processors.findAll();
+        Iterable<CPU> filteredProcessors = processors.findAll();
 //first checks and applies filters based on the param
         if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
             filteredProcessors = processors.findByManufacturer(filterManufacturer);
@@ -74,8 +77,8 @@ public class ComponentController {
 //        filters price range if one price has a param, defaults the other value if null
         if (filterMinPrice != null || filterMaxPrice != null) {
             filteredProcessors = processors.findByPrice(
-                    filterMinPrice != null ? filterMinPrice : 0.0,
-                    filterMaxPrice != null ? filterMaxPrice : Double.MAX_VALUE
+                    filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
+                    filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
         }
 //        if user uses search then no filters are applied but the search is applied
@@ -88,6 +91,53 @@ public class ComponentController {
         return "/lists/processorlist";
     }
 
+
+    @GetMapping({"/lists/motherboardlist"})
+    public String motherboardList(Model model,
+                                  @RequestParam(required = false) String filterManufacturer,
+                                  @RequestParam(required = false) String filterSocket,
+                                  @RequestParam(required = false) Double filterMinPrice,
+                                  @RequestParam(required = false) Double filterMaxPrice,
+                                  @RequestParam(required = false) String filterChipset,
+                                  @RequestParam(required = false) String filterMemory,
+                                  @RequestParam(required = false) String filterMoboFormFactor,
+                                  @RequestParam(required = false) String searchWord) {
+
+        Iterable<MOBO> filteredMotherboard = motherboards.findAll();
+
+        //first checks and applies filters based on the param
+        if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
+            filteredMotherboard = motherboards.findByManufacturer(filterManufacturer);
+        }
+        if (filterSocket != null && !filterSocket.isEmpty()) {
+            filteredMotherboard = motherboards.findBySocket(filterSocket);
+        }
+        if (filterMemory != null && !filterMemory.isEmpty()) {
+            filteredMotherboard = motherboards.findByMemoryType(filterMemory);
+        }
+        if (filterMoboFormFactor != null && !filterMoboFormFactor.isEmpty()) {
+            filteredMotherboard = motherboards.findByMoboFormFactor(filterMoboFormFactor);
+        }
+
+        if (filterChipset != null && !filterChipset.isEmpty()) {
+            filteredMotherboard = motherboards.findByChipset(filterChipset);
+        }
+//        filters price range if one price has a param, defaults the other value if null
+        if (filterMinPrice != null || filterMaxPrice != null) {
+            filteredMotherboard = motherboards.findByPrice(
+                    filterMinPrice != null ? filterMinPrice : 0.0,
+                    filterMaxPrice != null ? filterMaxPrice : Double.MAX_VALUE
+            );
+        }
+//        if user uses search then no filters are applied but the search is applied
+        if (searchWord != null && !searchWord.isEmpty()) {
+            filteredMotherboard = motherboards.findBySearch(searchWord);
+        }
+
+        model.addAttribute("filteredMotherboard", filteredMotherboard);
+
+        return "/lists/motherboardlist";
+    }
 
 
     @GetMapping("/components/processor/{id}")
@@ -112,7 +162,7 @@ public class ComponentController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/mobodetails";
+        return "components/motherboarddetails";
     }
 
     @GetMapping("/components/case/{id}")

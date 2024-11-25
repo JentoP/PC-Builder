@@ -17,4 +17,24 @@ public interface MotherboardRepository extends CrudRepository<MOBO, Integer> {
             "(m.moboFormFactor ILIKE CONCAT('%', :searchWord, '%')) OR" +
             "(m.interfaceType ILIKE CONCAT('%', :searchWord, '%'))")
     List<MOBO> findBySearch(@Param("searchWord") String searchWord);
+
+    @Query("SELECT m FROM MOBO m WHERE :filterManufacturer IS NULL OR :filterManufacturer = m.manufacturer")
+    List<MOBO> findByManufacturer(@Param("filterManufacturer") String filterManufacturer);
+
+    @Query("SELECT m FROM MOBO m WHERE " +
+            "(:filterMinPrice IS NULL OR m.price >= :filterMinPrice) AND " +
+            "(:filterMaxPrice IS NULL OR m.price <= :filterMaxPrice)")
+    List<MOBO> findByPrice(@Param("filterMinPrice") Double filterMinPrice, @Param("filterMaxPrice") Double filterMaxPrice);
+
+    @Query("SELECT m FROM MOBO m WHERE :filterSocket IS NULL OR :filterSocket = m.socketType")
+    List<MOBO> findBySocket(@Param("filterSocket") String filterSocket);
+
+    @Query("SELECT m FROM MOBO m WHERE :filterChipset IS NULL OR :filterChipset = m.chipset")
+    List<MOBO> findByChipset(@Param("filterChipset") String filterChipset);
+
+    @Query("SELECT m FROM MOBO m WHERE :filterMemory IS NULL OR :filterMemory = m.memoryType")
+    List<MOBO> findByMemoryType(@Param("filterMemory") String filterMemory);
+
+    @Query("SELECT m FROM MOBO m WHERE :filterMoboFormFactor IS NULL OR :filterMoboFormFactor = m.moboFormFactor")
+    List<MOBO> findByMoboFormFactor(@Param("filterMoboFormFactor") String filterMoboFormFactor);
 }

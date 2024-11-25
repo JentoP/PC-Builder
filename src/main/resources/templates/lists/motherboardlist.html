@@ -5,11 +5,13 @@
 
 <body class="d-flex flex-column h-100">
 <h1>Processors</h1>
-<p>On this page you can find all available processor components currently in stock.</p>
-<p>You can search and filter by name, socket, manufacturer, core type or price. To see more details about a component click on
+<p>On this page you can find all available motherboard components currently in stock.</p>
+<p>You can search and filter by name, chipset, manufacturer, or price. To see more details about a component click on
     the component's name.</p>
 
-<main class="container">
+<main class="container" >
+<!--      th:object="${filteredMotherboard}"-->
+
     <h2>CPU's in stock</h2>
 
     <div class="container">
@@ -18,13 +20,13 @@
                 <h4>Filters</h4>
                 <!--Search-->
                 <div class="text-start">
-                    <form th:action="@{|/lists/processorlist|}" method="get" class="">
+                    <form th:action="@{|/lists/motherboardlist|}" method="get" class="">
                         <input name="searchWord" th:value="${param.searchWord}" class="filter-box">
                         <button type="submit" class="btn-custom">Search</button>
                     </form>
                 </div>
                 <!--Filters-->
-                <form th:action="@{|/lists/processorlist|}" method="get" class="col mt-5 text-start">
+                <form th:action="@{|/lists/motherboardlist|}" method="get" class="col mt-5 text-start">
                     <h5>Filter by</h5>
 
                     <!-- Manufacturer Filter -->
@@ -32,8 +34,33 @@
                         <label for="filterManufacturer" class="form-label">Manufacturer</label>
                         <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                             <option value="">--Select--</option>
-                            <option value="Intel">Intel</option>
-                            <option value="AMD">AMD</option>
+                            <option value="ASUS">ASUS</option>
+                            <option value="MSI">MSI</option>
+                            <option value="Gigabyte">Gigabyte</option>
+                            <option value="ASRock">ASRock</option>
+                        </select>
+                    </div>
+
+                    <!-- Form Factor Filter -->
+                    <div class="input-group row mt-3">
+                        <label for="filterMoboFormFactor" class="form-label">Form Factor</label>
+                        <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
+                            <option value="">--Select--</option>
+                            <option value="ATX">ATX</option>
+                            <option value="Mini-ATX">Mini-ATX</option>
+                            <option value="Micro-ATX">M-ATX</option>
+                        </select>
+                    </div>
+
+                    <!-- Chipset Filter -->
+                    <div class="input-group row mt-3">
+                        <label for="filterChipset" class="form-label mt-3">Chipset</label>
+                        <select id="filterChipset" name="filterChipset" class="filter-box">
+                            <option value="">--Select--</option>
+                            <option value="Z690">Z690</option>
+                            <option value="X570">X570</option>
+                            <option value="B550">B550</option>
+                            <option value="B450">B450</option>
                         </select>
                     </div>
 
@@ -47,42 +74,14 @@
                         </select>
                     </div>
 
-                    <!-- Architecture Filter -->
+                    <!-- Memory type Filter-->
                     <div class="input-group row mt-3">
-                        <label for="filterArchitecture" class="form-label mt-3">Architecture Type</label>
-                        <select id="filterArchitecture" name="filterArchitecture" class="filter-box"
-                                th:value="${param.filterArchitecture}">
+                        <label for="filterMemory" class="form-label mt-3">Memory Type</label>
+                        <select id="filterMemory" name="filterMemory" class="filter-box">
                             <option value="">--Select--</option>
-                            <option value="Raptor Lake">
-                                Raptor Lake
-                            </option>
-                            <option value="Alder Lake">Alder
-                                Lake
-                            </option>
-                            <option value="Lunar Lake">Lunar
-                                Lake
-                            </option>
-                            <option value="Zen 3">Zen 3</option>
-                            <option value="Zen 4">Zen 4</option>
-                            <option value="Zen 5">Zen 5</option>
-                        </select>
-                    </div>
-
-                    <!-- CPU model Filter-->
-                    <div class="input-group row mt-3">
-                        <label for="filterCore" class="form-label mt-3">Model/Core Type</label>
-                        <select id="filterCore" name="filterCore" class="filter-box">
-                            <option value="">--Select--</option>
-                            <option value="i9">Core i9</option>
-                            <option value="i7">Core i7</option>
-                            <option value="i5">Core i5</option>
-                            <option value="i3">Core i3</option>
-                            <option value="Ryzen 9">Ryzen 9</option>
-                            <option value="Ryzen 7">Ryzen 7</option>
-                            <option value="Ryzen 5">Ryzen 5</option>
-                            <option value="Ultra Core 9">Ultra Core 9</option>
-                            <option value="Ultra Core 7">Ultra Core 7</option>
-                            <option value="Ultra Core 5">Ultra Core 5</option>
+                            <option value="DDR3">DDR3</option>
+                            <option value="DDR4">DDR4</option>
+                            <option value="DDR5">DDR5</option>
                         </select>
                     </div>
 
@@ -110,10 +109,10 @@
                 <h3>Results</h3>
                 <div class="row">
                     <div class="col-md-6 btn-custom">
-                        <div th:each="CPU : ${filteredProcessors}">
+                        <div th:each="MOBO : ${filteredMotherboard}">
                             <ul class="list">
-                                <li><a th:href="@{/components/processor/{id}(id=${CPU.id})}" th:text="${CPU.name}"
-                                       title="Click to view more details about this processor."></a></li>
+                                <li><a th:href="@{/components/motherboard/{id}(id=${MOBO.id})}" th:text="${MOBO.name}"
+                                       title="Click to view more details about this motherboard."></a></li>
                             </ul>
                         </div>
                     </div>
