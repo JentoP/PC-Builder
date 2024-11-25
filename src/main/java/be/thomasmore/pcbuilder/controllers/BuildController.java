@@ -123,7 +123,7 @@ public class BuildController {
             model.addAttribute("nextId", id < count ? id + 1 : 1);
 
         }
-        return "processordetails";
+        return "/components/processordetails";
     }
 
     @GetMapping("/components/motherboarddetails/{id}")
