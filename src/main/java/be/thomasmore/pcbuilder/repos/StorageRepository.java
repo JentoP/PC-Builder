@@ -15,4 +15,5 @@ public interface StorageRepository extends CrudRepository<DATA, Integer> {
             "(d.interfaceType ILIKE CONCAT('%', :searchWord, '%')) OR" +
             "(d.storageType ILIKE CONCAT('%', :searchWord, '%'))")
     List<DATA> findBySearch(@Param("searchWord") String searchWord);
+
 }

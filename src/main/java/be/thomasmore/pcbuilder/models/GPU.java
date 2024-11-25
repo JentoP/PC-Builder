@@ -1,7 +1,11 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.Collection;
 
 @Entity
 public class GPU {
@@ -17,6 +21,10 @@ public class GPU {
     private String clockSpeed;
     private String color;
     private Double price;
+
+    @OneToMany(mappedBy = "gpu", fetch = FetchType.LAZY)
+    private Collection<Build> builds;
+
 
     public Double getPrice() {
         return price;
@@ -103,5 +111,15 @@ public class GPU {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+
+
+    public Collection<Build> getBuilds() {
+        return builds;
+    }
+
+    public void setBuilds(Collection<Build> builds) {
+        this.builds = builds;
     }
 }

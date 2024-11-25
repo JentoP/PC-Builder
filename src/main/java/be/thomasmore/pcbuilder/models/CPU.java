@@ -1,7 +1,11 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.Collection;
 
 @Entity
 public class CPU {
@@ -16,6 +20,9 @@ public class CPU {
     private Integer coreCount;
     private Integer clockSpeed;
     private Double price;
+
+    @OneToMany(mappedBy = "cpu", fetch = FetchType.LAZY)
+    private Collection<Build> builds;
 
     public Double getPrice() {
         return price;
@@ -94,5 +101,14 @@ public class CPU {
 
     public void setClockSpeed(Integer clockSpeed) {
         this.clockSpeed = clockSpeed;
+    }
+
+
+    public Collection<Build> getBuilds() {
+        return builds;
+    }
+
+    public void setBuilds(Collection<Build> builds) {
+        this.builds = builds;
     }
 }

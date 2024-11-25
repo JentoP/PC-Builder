@@ -1,7 +1,11 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.Collection;
 
 @Entity
 public class CHASSIS {
@@ -14,6 +18,10 @@ public class CHASSIS {
     private String psuFormFactor;
     private String color;
     private Double price;
+
+    @OneToMany(mappedBy = "chassis", fetch = FetchType.LAZY)
+    private Collection<Build> builds;
+
 
     public Double getPrice() {
         return price;
@@ -77,5 +85,14 @@ public class CHASSIS {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+
+    public Collection<Build> getBuilds() {
+        return builds;
+    }
+
+    public void setBuilds(Collection<Build> builds) {
+        this.builds = builds;
     }
 }

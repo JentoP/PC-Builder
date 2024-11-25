@@ -1,7 +1,11 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.Collection;
 
 @Entity
 public class MOBO {
@@ -17,6 +21,9 @@ public class MOBO {
     private String socketType;
     private boolean m2Support;
     private Double price;
+
+    @OneToMany(mappedBy = "mobo", fetch = FetchType.LAZY)
+    private Collection<Build> builds;
 
     public boolean isM2Support() {
         return m2Support;
@@ -103,5 +110,14 @@ public class MOBO {
 
     public void setSocketType(String socketType) {
         this.socketType = socketType;
+    }
+
+
+    public Collection<Build> getBuilds() {
+        return builds;
+    }
+
+    public void setBuilds(Collection<Build> builds) {
+        this.builds = builds;
     }
 }

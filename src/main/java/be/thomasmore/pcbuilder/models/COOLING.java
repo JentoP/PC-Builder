@@ -1,7 +1,11 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.Collection;
 
 @Entity
 public class COOLING {
@@ -16,6 +20,10 @@ public class COOLING {
     private String socketType;
     private String color;
     private Double price;
+
+    @OneToMany(mappedBy = "coolingSolution", fetch = FetchType.LAZY)
+    private Collection<Build> builds;
+
 
     public Double getPrice() {
         return price;
@@ -95,5 +103,14 @@ public class COOLING {
 
     public void setRGB(boolean RGB) {
         this.RGB = RGB;
+    }
+
+
+    public Collection<Build> getBuilds() {
+        return builds;
+    }
+
+    public void setBuilds(Collection<Build> builds) {
+        this.builds = builds;
     }
 }

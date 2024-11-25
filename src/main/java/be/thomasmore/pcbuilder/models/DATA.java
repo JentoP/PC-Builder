@@ -1,7 +1,8 @@
 package be.thomasmore.pcbuilder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Collection;
 
 @Entity
 public class DATA {
@@ -16,6 +17,9 @@ public class DATA {
     private Integer capacity;
     private Integer cacheMemory;
     private Double price;
+    @ManyToMany(mappedBy = "storage", fetch = FetchType.LAZY)
+    private Collection<Build> builds;
+
 
     public Double getPrice() {
         return price;
@@ -95,5 +99,14 @@ public class DATA {
 
     public void setCacheMemory(Integer cacheMemory) {
         this.cacheMemory = cacheMemory;
+    }
+
+
+    public Collection<Build> getBuilds() {
+        return builds;
+    }
+
+    public void setBuilds(Collection<Build> builds) {
+        this.builds = builds;
     }
 }
