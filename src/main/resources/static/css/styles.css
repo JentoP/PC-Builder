@@ -125,13 +125,13 @@ body p {
 
 
 option {
-    background-color: black !important; /* Set background color for the select box */
-    color: white; /* Set text color to white */
+    background-color: black !important;
+    color: white;
 }
 
 .select.form-select option {
-    background-color: black; /* Set background color for the options */
-    color: white; /* Set text color to white */
+    background-color: black;
+    color: white;
 }
 
 .btn-custom {

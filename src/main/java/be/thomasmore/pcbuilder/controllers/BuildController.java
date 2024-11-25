@@ -74,32 +74,46 @@ public class BuildController {
     public String processorList(Model model,
                                 @RequestParam(required = false) String filterManufacturer,
                                 @RequestParam(required = false) String filterSocket,
-                                @RequestParam(required = false) Float filterMinPrice,
-                                @RequestParam(required = false) Float filterMaxPrice,
+                                @RequestParam(required = false) Double filterMinPrice,
+                                @RequestParam(required = false) Double filterMaxPrice,
+                                @RequestParam(required = false) String filterCore,
+                                @RequestParam(required = false) String filterArchitecture,
                                 @RequestParam(required = false) String searchWord) {
-        Iterable<CPU> filteredProcessors = processors.findAll();
-//        List<CPU> filteredProcessors;
 
-        if ((filterManufacturer != null && !filterManufacturer.isEmpty()) || (filterSocket != null && !filterSocket.isEmpty()) || (filterMinPrice != null && filterMaxPrice != null && filterMinPrice <= filterMaxPrice)) {
-            if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
-                filteredProcessors = processors.findByManufacturer(filterManufacturer);
-            }
-            if (filterSocket != null && !filterSocket.isEmpty()) {
-                filteredProcessors = processors.findBySocket(filterSocket);
-            }
-            if (filterMinPrice != null && filterMaxPrice != null && filterMinPrice <= filterMaxPrice) {
-                filteredProcessors = processors.findByPrice(filterMinPrice, filterMaxPrice);
-            }
-        } else if (searchWord != null && !searchWord.isEmpty()) {
-            filteredProcessors = processorRepository.findBySearch(searchWord);
+        List<CPU> filteredProcessors = (List<CPU>) processors.findAll();
+//first checks and applies filters based on the param
+        if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
+            filteredProcessors = processors.findByManufacturer(filterManufacturer);
         }
+        if (filterSocket != null && !filterSocket.isEmpty()) {
+            filteredProcessors = processors.findBySocket(filterSocket);
+        }
+        if (filterCore != null && !filterCore.isEmpty()) {
+            filteredProcessors = processors.findByCore(filterCore);
+        }
+        if (filterArchitecture != null && !filterArchitecture.isEmpty()) {
+            filteredProcessors = processors.findByArchitecture(filterArchitecture);
+        }
+//        filters price range if one price has a param, defaults the other value if null
+        if (filterMinPrice != null || filterMaxPrice != null) {
+            filteredProcessors = processors.findByPrice(
+                    filterMinPrice != null ? filterMinPrice : 0.0,
+                    filterMaxPrice != null ? filterMaxPrice : Double.MAX_VALUE
+            );
+        }
+//        if user uses search then no filters are applied but the search is applied
+        if (searchWord != null && !searchWord.isEmpty()) {
+            filteredProcessors = processors.findBySearch(searchWord);
+        }
+
         model.addAttribute("filteredProcessors", filteredProcessors);
 
         return "/lists/processorlist";
     }
 
 
-    @GetMapping("/components/processors/{id}")
+
+    @GetMapping("/components/processordetails/{id}")
     public String processors(@PathVariable Integer id, Model model) {
         Optional<CPU> cpuFromDb = processors.findById(id);
         long count = processors.count();
@@ -109,10 +123,10 @@ public class BuildController {
             model.addAttribute("nextId", id < count ? id + 1 : 1);
 
         }
-        return "components/processors";
+        return "processordetails";
     }
 
-    @GetMapping("/components/motherboards/{id}")
+    @GetMapping("/components/motherboarddetails/{id}")
     public String motherboards(@PathVariable Integer id, Model model) {
         Optional<MOBO> moboFromDb = motherboards.findById(id);
         long count = motherboards.count();
@@ -121,10 +135,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/motherboards";
+        return "components/motherboarddetails";
     }
 
-    @GetMapping("/components/cases/{id}")
+    @GetMapping("/components/casedetails/{id}")
     public String cases(@PathVariable Integer id, Model model) {
         Optional<CHASSIS> caseFromDb = cases.findById(id);
         long count = cases.count();
@@ -133,10 +147,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/cases";
+        return "components/casedetails";
     }
 
-    @GetMapping("/components/cooling/{id}")
+    @GetMapping("/components/coolingdetails/{id}")
     public String cooling(@PathVariable Integer id, Model model) {
         Optional<COOLING> coolingFromDb = coolingSolutions.findById(id);
         long count = coolingSolutions.count();
@@ -145,10 +159,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/cooling";
+        return "components/coolingdetails";
     }
 
-    @GetMapping("/components/graphiccards/{id}")
+    @GetMapping("/components/gpudetails/{id}")
     public String graphicCards(@PathVariable Integer id, Model model) {
         Optional<GPU> graphicCardFromDb = graphicCards.findById(id);
         long count = graphicCards.count();
@@ -157,10 +171,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/graphiccards";
+        return "components/gpudetails";
     }
 
-    @GetMapping("/components/memory/{id}")
+    @GetMapping("/components/memorydetails/{id}")
     public String memory(@PathVariable Integer id, Model model) {
         Optional<RAM> memoryKitsFromDb = memoryKits.findById(id);
         long count = memoryKits.count();
@@ -169,10 +183,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/memory";
+        return "components/memorydetails";
     }
 
-    @GetMapping("/components/powersupplies/{id}")
+    @GetMapping("/components/psudetails/{id}")
     public String powerSupplies(@PathVariable Integer id, Model model) {
         Optional<PSU> powerSuppliesFromDb = powerSupplies.findById(id);
         long count = powerSupplies.count();
@@ -181,10 +195,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/powersupplies";
+        return "components/psudetails";
     }
 
-    @GetMapping("/components/storage/{id}")
+    @GetMapping("/components/storagedetails/{id}")
     public String storage(@PathVariable Integer id, Model model) {
         Optional<DATA> storageFromDb = storage.findById(id);
         long count = storage.count();
@@ -193,6 +207,6 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/storage";
+        return "components/storagedetails";
     }
 }

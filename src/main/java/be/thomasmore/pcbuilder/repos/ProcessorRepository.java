@@ -22,7 +22,32 @@ public interface ProcessorRepository extends CrudRepository<CPU, Integer> {
     @Query("select c from CPU c WHERE :filterSocket IS NULL OR :filterSocket = c.socketType")
     List<CPU> findBySocket(@Param("filterSocket") String filterSocket);
 
-    @Query("select c from CPU c WHERE (:filterMinPrice IS NULL OR :filterMaxPrice IS NULL) OR (c.price BETWEEN :filterMinPrice AND :filterMaxPrice)")
-    List<CPU> findByPrice(@Param("filterMinPrice") Float filterMinPrice, @Param("filterMaxPrice") Float filterMaxPrice);
+//    @Query("select c from CPU c WHERE " +
+//            "(:filterMinPrice IS NULL OR :filterMaxPrice IS NULL) OR " +
+//            "(c.price BETWEEN :filterMinPrice AND :filterMaxPrice)")
+//    List<CPU> findByPrice(@Param("filterMinPrice") Float filterMinPrice, @Param("filterMaxPrice") Float filterMaxPrice);
+
+//    @Query("SELECT c FROM CPU c WHERE " +
+//            "(:filterMinPrice IS NULL OR :filterMaxPrice IS NULL OR " +
+//            "c.price BETWEEN :filterMinPrice AND :filterMaxPrice)")
+//    List<CPU> findByPrice(@Param("filterMinPrice") Float filterMinPrice, @Param("filterMaxPrice") Float filterMaxPrice);
+
+//    @Query("SELECT c FROM CPU c WHERE " +
+//            "(:filterMinPrice IS NULL OR c.price >= :filterMinPrice) AND " +
+//            "(:filterMaxPrice IS NULL OR c.price <= :filterMaxPrice)")
+//    List<CPU> findByPrice(@Param("filterMinPrice") Float filterMinPrice, @Param("filterMaxPrice") Float filterMaxPrice);
+@Query("SELECT c FROM CPU c WHERE " +
+        "(:filterMinPrice IS NULL OR c.price >= :filterMinPrice) AND " +
+        "(:filterMaxPrice IS NULL OR c.price <= :filterMaxPrice)")
+List<CPU> findByPrice(@Param("filterMinPrice") Double filterMinPrice, @Param("filterMaxPrice") Double filterMaxPrice);
+
+
+    @Query("select c from CPU c WHERE :filterCore IS NULL OR" +
+            "(c.cpuModel ILIKE CONCAT('%', :filterCore, '%'))")
+    List<CPU> findByCore(@Param("filterCore") String filterCore);
+
+    @Query("select c from CPU c WHERE :filterArchitecture IS NULL OR :filterArchitecture = c.architecture")
+    List<CPU> findByArchitecture(@Param("filterArchitecture") String filterArchitecture);
+
 }
 

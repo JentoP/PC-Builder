@@ -47,6 +47,45 @@
                         </select>
                     </div>
 
+                    <!-- Architecture Filter -->
+                    <div class="input-group row mt-3">
+                        <label for="filterArchitecture" class="form-label mt-3">Architecture Type</label>
+                        <select id="filterArchitecture" name="filterArchitecture" class="filter-box"
+                                th:value="${param.filterArchitecture}">
+                            <option value="">--Select--</option>
+                            <option value="Raptor Lake" th:selected="${param.filterArchitecture == 'Raptor Lake'}">
+                                Raptor Lake
+                            </option>
+                            <option value="Alder Lake" th:selected="${param.filterArchitecture == 'Alder Lake'}">Alder
+                                Lake
+                            </option>
+                            <option value="Lunar Lake" th:selected="${param.filterArchitecture == 'Lunar Lake'}">Lunar
+                                Lake
+                            </option>
+                            <option value="Zen 3" th:selected="${param.filterArchitecture == 'Zen 3'}">Zen 3</option>
+                            <option value="Zen 4" th:selected="${param.filterArchitecture == 'Zen 4'}">Zen 4</option>
+                            <option value="Zen 5" th:selected="${param.filterArchitecture == 'Zen 5'}">Zen 5</option>
+                        </select>
+                    </div>
+
+                    <!-- CPU model Filter-->
+                    <div class="input-group row mt-3">
+                        <label for="filterCore" class="form-label mt-3">Model/Core Type</label>
+                        <select id="filterCore" name="filterCore" class="filter-box">
+                            <option value="">--Select--</option>
+                            <option value="i9">Core i9</option>
+                            <option value="i7">Core i7</option>
+                            <option value="i5">Core i5</option>
+                            <option value="i3">Core i3</option>
+                            <option value="Ryzen 9">Ryzen 9</option>
+                            <option value="Ryzen 7">Ryzen 7</option>
+                            <option value="Ryzen 5">Ryzen 5</option>
+                            <option value="Ultra Core 9">Ultra Core 9</option>
+                            <option value="Ultra Core 7">Ultra Core 7</option>
+                            <option value="Ultra Core 5">Ultra Core 5</option>
+                        </select>
+                    </div>
+
                     <!-- Price Range Filter -->
                     <div class="input-group row mt-3">
                         <label for="filterMinPrice" class="form-label">Min Price</label>
@@ -59,19 +98,21 @@
                                placeholder="Maximum Price">
                     </div>
 
+
                     <button type="submit" class="btn-custom mt-3">Filter</button>
                 </form>
+                <div class="bottom-margin"></div>
 
 
             </div>
-            <!--Listing-->
+            <!--Results-->
             <div class="col-md-9">
                 <h3>Results</h3>
                 <div class="row">
                     <div class="col-md-6 btn-custom">
                         <div th:each="CPU : ${filteredProcessors}">
                             <ul class="list">
-                                <li><a th:href="@{/components/processors/{id}(id=${CPU.id})}" th:text="${CPU.name}"
+                                <li><a th:href="@{/components/processordetails/{id}(id=${CPU.id})}" th:text="${CPU.name}"
                                        title="Click to view more details about this processor"></a></li>
                             </ul>
                         </div>
@@ -80,89 +121,7 @@
             </div>
         </div>
     </div>
-
 </main>
-
-<!--    <div class="row mt-3">-->
-<!--        <div class="col-md-6 btn-custom">-->
-<!--            <a title="Click to view the list of motherboards">-->
-<!--                <h2>Motherboards</h2>-->
-<!--                <div th:each="MOBO : ${allMotherboards}">-->
-<!--                    <ul class="list">-->
-<!--                        <li><a th:href="@{/motherboards/{id}(id=${MOBO.id})}" th:text="${MOBO.name}"></a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </a></div>-->
-<!--    </div>-->
-
-
-<!--    <div class="row mt-3">-->
-<!--        <div class="col-md-6 btn-custom">-->
-<!--            <a title="Click to view the list of memory">-->
-<!--                <h2>Memory</h2>-->
-<!--                <div th:each="RAM : ${allMemory}">-->
-<!--                    <ul class="list">-->
-<!--                        <li><a th:href="@{/memory/{id}(id=${RAM.id})}" th:text="${RAM.name}"></a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </a></div>-->
-
-<!--        <div class="col-md-6 btn-custom">-->
-<!--            <a title="Click to view the list of graphic cards">-->
-<!--                <h2>Graphic Cards</h2>-->
-<!--                <div th:each="GPU : ${allGraphicCards}">-->
-<!--                    <ul class="list">-->
-<!--                        <li><a th:href="@{/graphiccards/{id}(id=${GPU.id})}" th:text="${GPU.name}"></a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </a></div>-->
-<!--    </div>-->
-
-
-<!--    <div class="row mt-3">-->
-<!--        <div class="col-md-6 btn-custom">-->
-<!--            <a title="Click to view the list of storage">-->
-<!--                <h2>Storage</h2>-->
-<!--                <div th:each="STORAGE : ${allStorage}">-->
-<!--                    <ul class="list">-->
-<!--                        <li><a th:href="@{/storage/{id}(id=${STORAGE.id})}" th:text="${STORAGE.name}"></a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </a></div>-->
-
-<!--        <div class="col-md-6 btn-custom" title="Click to view the list of power supplies">-->
-<!--            <a><h2>Power Supplies</h2>-->
-<!--                <div th:each="PSU : ${allPowerSupplies}">-->
-<!--                    <ul class="list">-->
-<!--                        <li><a th:href="@{/powersupplies/{id}(id=${PSU.id})}" th:text="${PSU.name}"></a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </a></div>-->
-<!--    </div>-->
-
-
-<!--    <div class="row mt-3">-->
-<!--        <div class="col-md-6 btn-custom">-->
-<!--            <a title="Click to view the list of cases">-->
-<!--                <h2>Cases</h2>-->
-<!--                <div th:each="CASE : ${allCases}">-->
-<!--                    <ul class="list">-->
-<!--                        <li><a th:href="@{/cases/{id}(id=${CASE.id})}" th:text="${CASE.name}"></a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </a></div>-->
-
-<!--    <div class="row mt-3">-->
-<!--        <div class="col-md-6 btn-custom">-->
-<!--            <a title="Click to view the list of cooling">-->
-<!--                <h2>Cooling</h2>-->
-<!--                <div th:each="COOLING : ${allCooling}">-->
-<!--                    <ul class="list">-->
-<!--                        <li><a th:href="@{/cooling/{id}(id=${COOLING.id})}" th:text="${COOLING.name}"></a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </a></div>-->
-<!--</div>-->
 
 <div class="bottom-margin"></div>
 </body>
