@@ -90,12 +90,12 @@
                     <div class="input-group row mt-3">
                         <label for="filterMinPrice" class="form-label">Min Price</label>
                         <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                               placeholder="Minimum Price">
+                               placeholder="Minimum Price"  step="50">
                     </div>
                     <div class="input-group row mt-3">
                         <label for="filterMaxPrice" class="form-label">Max Price</label>
                         <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                               placeholder="Maximum Price">
+                               placeholder="Maximum Price"  step="50">
                     </div>
 
 
@@ -112,7 +112,7 @@
                     <div class="col-md-6 btn-custom">
                         <div th:each="CPU : ${filteredProcessors}">
                             <ul class="list">
-                                <li><a th:href="@{/components/processordetails/{id}(id=${CPU.id})}" th:text="${CPU.name}"
+                                <li><a th:href="@{/components/processor/{id}(id=${CPU.id})}" th:text="${CPU.name}"
                                        title="Click to view more details about this processor"></a></li>
                             </ul>
                         </div>

@@ -113,7 +113,7 @@ public class BuildController {
 
 
 
-    @GetMapping("/components/processordetails/{id}")
+    @GetMapping("/components/processor/{id}")
     public String processors(@PathVariable Integer id, Model model) {
         Optional<CPU> cpuFromDb = processors.findById(id);
         long count = processors.count();
@@ -126,7 +126,7 @@ public class BuildController {
         return "/components/processordetails";
     }
 
-    @GetMapping("/components/motherboarddetails/{id}")
+    @GetMapping("/components/motherboard/{id}")
     public String motherboards(@PathVariable Integer id, Model model) {
         Optional<MOBO> moboFromDb = motherboards.findById(id);
         long count = motherboards.count();
@@ -135,10 +135,10 @@ public class BuildController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/motherboarddetails";
+        return "components/mobodetails";
     }
 
-    @GetMapping("/components/casedetails/{id}")
+    @GetMapping("/components/case/{id}")
     public String cases(@PathVariable Integer id, Model model) {
         Optional<CHASSIS> caseFromDb = cases.findById(id);
         long count = cases.count();
@@ -150,7 +150,7 @@ public class BuildController {
         return "components/casedetails";
     }
 
-    @GetMapping("/components/coolingdetails/{id}")
+    @GetMapping("/components/cooling/{id}")
     public String cooling(@PathVariable Integer id, Model model) {
         Optional<COOLING> coolingFromDb = coolingSolutions.findById(id);
         long count = coolingSolutions.count();
@@ -162,7 +162,7 @@ public class BuildController {
         return "components/coolingdetails";
     }
 
-    @GetMapping("/components/gpudetails/{id}")
+    @GetMapping("/components/graphiccard/{id}")
     public String graphicCards(@PathVariable Integer id, Model model) {
         Optional<GPU> graphicCardFromDb = graphicCards.findById(id);
         long count = graphicCards.count();
@@ -174,7 +174,7 @@ public class BuildController {
         return "components/gpudetails";
     }
 
-    @GetMapping("/components/memorydetails/{id}")
+    @GetMapping("/components/memory/{id}")
     public String memory(@PathVariable Integer id, Model model) {
         Optional<RAM> memoryKitsFromDb = memoryKits.findById(id);
         long count = memoryKits.count();
@@ -186,7 +186,7 @@ public class BuildController {
         return "components/memorydetails";
     }
 
-    @GetMapping("/components/psudetails/{id}")
+    @GetMapping("/components/powersupply/{id}")
     public String powerSupplies(@PathVariable Integer id, Model model) {
         Optional<PSU> powerSuppliesFromDb = powerSupplies.findById(id);
         long count = powerSupplies.count();
@@ -198,7 +198,7 @@ public class BuildController {
         return "components/psudetails";
     }
 
-    @GetMapping("/components/storagedetails/{id}")
+    @GetMapping("/components/storage/{id}")
     public String storage(@PathVariable Integer id, Model model) {
         Optional<DATA> storageFromDb = storage.findById(id);
         long count = storage.count();
