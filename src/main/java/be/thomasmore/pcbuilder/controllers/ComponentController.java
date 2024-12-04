@@ -92,6 +92,46 @@ public class ComponentController {
     }
 
 
+//    @GetMapping({"/lists/motherboardlist"})
+//    public String motherboardList(Model model,
+//                                  @RequestParam(required = false) String filterManufacturer,
+//                                  @RequestParam(required = false) String filterSocket,
+//                                  @RequestParam(required = false) Double filterMinPrice,
+//                                  @RequestParam(required = false) Double filterMaxPrice,
+//                                  @RequestParam(required = false) String filterChipset,
+//                                  @RequestParam(required = false) String filterMemory,
+//                                  @RequestParam(required = false) String filterMoboFormFactor,
+//                                  @RequestParam(required = false) String searchWord) {
+//
+//
+//        List<MOBO> filteredMotherboard;
+//        if (searchWord != null && !searchWord.isEmpty()) {
+//            filteredMotherboard = motherboards.findBySearch(searchWord
+//            );
+//
+//        } else if (filterMinPrice != null || filterMaxPrice != null) {
+//            filteredMotherboard = motherboards.findByPrice(
+//                    filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
+//                    filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
+//            );
+//
+//        }
+//        if (filterManufacturer == null && filterSocket == null && filterChipset == null && filterMemory == null && filterMoboFormFactor == null) {
+//            filteredMotherboard = (List<MOBO>) motherboards.findAll();
+//
+//        } else {
+//            filteredMotherboard = motherboards.findByFilter(
+//                    filterManufacturer,
+//                    filterSocket,
+//                    filterChipset,
+//                    filterMemory,
+//                    filterMoboFormFactor);
+//        }
+//        model.addAttribute("filteredMotherboard", filteredMotherboard);
+//
+//        return "/lists/motherboardlist";
+//    }
+
     @GetMapping({"/lists/motherboardlist"})
     public String motherboardList(Model model,
                                   @RequestParam(required = false) String filterManufacturer,
@@ -103,42 +143,32 @@ public class ComponentController {
                                   @RequestParam(required = false) String filterMoboFormFactor,
                                   @RequestParam(required = false) String searchWord) {
 
-        Iterable<MOBO> filteredMotherboard = motherboards.findAll();
+        List<MOBO> filteredMotherboard;
 
-        //first checks and applies filters based on the param
-        if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
-            filteredMotherboard = motherboards.findByManufacturer(filterManufacturer);
-        }
-        if (filterSocket != null && !filterSocket.isEmpty()) {
-            filteredMotherboard = motherboards.findBySocket(filterSocket);
-        }
-        if (filterMemory != null && !filterMemory.isEmpty()) {
-            filteredMotherboard = motherboards.findByMemoryType(filterMemory);
-        }
-        if (filterMoboFormFactor != null && !filterMoboFormFactor.isEmpty()) {
-            filteredMotherboard = motherboards.findByMoboFormFactor(filterMoboFormFactor);
-        }
-
-        if (filterChipset != null && !filterChipset.isEmpty()) {
-            filteredMotherboard = motherboards.findByChipset(filterChipset);
-        }
-//        filters price range if one price has a param, defaults the other value if null
-        if (filterMinPrice != null || filterMaxPrice != null) {
-            filteredMotherboard = motherboards.findByPrice(
-                    filterMinPrice != null ? filterMinPrice : 0.0,
-                    filterMaxPrice != null ? filterMaxPrice : Double.MAX_VALUE
-            );
-        }
-//        if user uses search then no filters are applied but the search is applied
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredMotherboard = motherboards.findBySearch(searchWord);
+        } else if (filterMinPrice != null || filterMaxPrice != null) {
+            filteredMotherboard = motherboards.findByPrice(
+                    filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
+                    filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
+            );
+        } else if (filterManufacturer == null && filterSocket == null && filterChipset == null &&
+                filterMemory == null && filterMoboFormFactor == null) {
+            filteredMotherboard = (List<MOBO>) motherboards.findAll();
+        } else {
+            filteredMotherboard = motherboards.findByFilter(
+                    filterManufacturer,
+                    filterSocket,
+                    filterChipset,
+                    filterMemory,
+                    filterMoboFormFactor);
         }
-
+        Iterable<MOBO> allMotherboards = motherboards.findAll();
+        model.addAttribute("allMotherboards", allMotherboards);
         model.addAttribute("filteredMotherboard", filteredMotherboard);
 
         return "/lists/motherboardlist";
     }
-
 
     @GetMapping("/components/processor/{id}")
     public String processors(@PathVariable Integer id, Model model) {

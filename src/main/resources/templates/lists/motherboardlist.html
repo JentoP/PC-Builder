@@ -9,33 +9,37 @@
 <p>You can search and filter by name, chipset, manufacturer, or price. To see more details about a component click on
     the component's name.</p>
 
-<main class="container" >
+<main class="container">
     <h2>CPU's in stock</h2>
 
     <div class="container">
         <div class="row">
             <div class="col-md-2 mt-5">
-                <h4>Filters</h4>
+<!--                <h4>Search</h4>-->
                 <!--Search-->
-                <div class="text-start">
+                <div class="justify-content-center">
                     <form th:action="@{|/lists/motherboardlist|}" method="get" class="">
-                        <input name="searchWord" th:value="${param.searchWord}" class="filter-box">
+                        <span>
+                        <label><input name="searchWord" class="filter-box"></label>
                         <button type="submit" class="btn-custom">Search</button>
+                        </span>
                     </form>
                 </div>
                 <!--Filters-->
                 <form th:action="@{|/lists/motherboardlist|}" method="get" class="col mt-5 text-start">
-                    <h5>Filter by</h5>
+                    <h4>Filter by</h4>
 
                     <!-- Manufacturer Filter -->
                     <div class="input-group row">
                         <label for="filterManufacturer" class="form-label">Manufacturer</label>
-                        <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
-                            <option value="">--Select--</option>
-                            <option value="ASUS">ASUS</option>
-                            <option value="MSI">MSI</option>
-                            <option value="Gigabyte">Gigabyte</option>
-                            <option value="ASRock">ASRock</option>
+                        <select th:object="${allMotherboards}" id="filterManufacturer" name="filterManufacturer"
+                                class="filter-box">
+                            <option th:each="MOBO : ${allMotherboards}"
+                                    th:selected="${MOBO.manufacturer}"
+                                    th:text="${MOBO.manufacturer}"
+<!--                                    th:value="${MOBO.id}">-->
+
+                            </option>
                         </select>
                     </div>
 
@@ -83,23 +87,25 @@
                         </select>
                     </div>
 
+                    <h4 class="mt-5">Set Price Range</h4>
                     <!-- Price Range Filter -->
                     <div class="input-group row mt-3">
                         <label for="filterMinPrice" class="form-label">Min Price</label>
                         <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                               placeholder="Minimum Price"  step="50">
+                               placeholder="Minimum Price" step="50">
                     </div>
                     <div class="input-group row mt-3">
                         <label for="filterMaxPrice" class="form-label">Max Price</label>
                         <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                               placeholder="Maximum Price"  step="50">
+                               placeholder="Maximum Price" step="50">
                     </div>
 
+                    <div class="p-2 m-2 justify-content-center"><a href="/lists/motherboardlist"
+                                                                   class="btn-custom mt-3 small">Clear Filters</a>
+                        <button type="submit" class="button btn-custom mt-3">Filter</button>
+                    </div>
 
-                    <button type="submit" class="btn-custom mt-3">Filter</button>
                 </form>
-                <div class="bottom-margin"></div>
-
 
             </div>
             <!--Results-->
@@ -118,6 +124,8 @@
             </div>
         </div>
     </div>
+    <div class="bottom-margin"></div>
+
 </main>
 
 <div class="bottom-margin"></div>
