@@ -144,7 +144,6 @@ public class ComponentController {
                                   @RequestParam(required = false) String searchWord) {
 
         List<MOBO> filteredMotherboard;
-
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredMotherboard = motherboards.findBySearch(searchWord);
         } else if (filterMinPrice != null || filterMaxPrice != null) {
