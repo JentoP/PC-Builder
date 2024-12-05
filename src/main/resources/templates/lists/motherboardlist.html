@@ -13,9 +13,8 @@
     <h2>CPU's in stock</h2>
 
     <div class="container">
-        <div class="row">
+        <div class=" row">
             <div class="col-md-2 mt-5">
-                <!--                <h4>Search</h4>-->
                 <!--Search-->
                 <div class="text-center">
                     <form th:action="@{|/lists/motherboardlist|}" method="get" class="">
@@ -25,83 +24,92 @@
                         </span>
                     </form>
                 </div>
+
                 <!--Filters-->
-                <form th:action="@{|/lists/motherboardlist|}" method="get" class="col mt-5 text-start">
-                    <h4>Filter by</h4>
-                    <div class="input-group row mt-3">
-                        <label for="filterManufacturer" class="form-label">Manufacturer</label>
-                        <select id="filterManufacturer" class="filter-box">
-                            <option value="">--select--</option>
-                            <option th:each="m : ${allMotherboards}"
-                                    th:value="${m.manufacturer}"
-                                    th:text="${m.manufacturer}"></option>
-                        </select></div>
+                <div class="text-center ">
+                <button class="btn-custom small" type="button" data-toggle="collapse" data-target="#filterSection"
+                        aria-expanded="false" aria-controls="filterSection"> Show Filters
+                </button>
+                </div>
 
-                    <!-- Form Factor Filter -->
-                    <div class="input-group row mt-3">
-                        <label for="filterMoboFormFactor" class="form-label">Form Factor</label>
-                        <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
-                            <option value="">--Select--</option>
-                            <option value="ATX">ATX</option>
-                            <option value="Mini-ATX">Mini-ATX</option>
-                            <option value="Micro-ATX">M-ATX</option>
-                        </select>
-                    </div>
+                <div class="collapse" id="filterSection">
+                    <form th:action="@{|/lists/motherboardlist|}" method="get" class="col mt-5 text-start">
+                        <h4>Filter by</h4>
+                        <div class="input-group row mt-3">
+                            <label for="filterManufacturer" class="form-label">Manufacturer</label>
+                            <select id="filterManufacturer" class="filter-box">
+                                <option value="">--select--</option>
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="${m.manufacturer}"
+                                        th:text="${m.manufacturer}"></option>
+                            </select></div>
 
-                    <!-- Chipset Filter -->
-                    <div class="input-group row mt-3">
-                        <label for="filterChipset" class="form-label mt-3">Chipset</label>
-                        <select id="filterChipset" name="filterChipset" class="filter-box">
-                            <option value="">--Select--</option>
-                            <option value="Z690">Z690</option>
-                            <option value="X570">X570</option>
-                            <option value="B550">B550</option>
-                            <option value="B450">B450</option>
-                        </select>
-                    </div>
+                        <!-- Form Factor Filter -->
+                        <div class="input-group row mt-3">
+                            <label for="filterMoboFormFactor" class="form-label">Form Factor</label>
+                            <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
+                                <option value="">--Select--</option>
+                                <option value="ATX">ATX</option>
+                                <option value="Mini-ATX">Mini-ATX</option>
+                                <option value="Micro-ATX">M-ATX</option>
+                            </select>
+                        </div>
 
-                    <!-- Socket Type Filter -->
-                    <div class="input-group row mt-3">
-                        <label for="filterSocket" class="form-label">Socket Type</label>
-                        <select id="filterSocket" name="filterSocket" class="filter-box">
-                            <option value="">--Select--</option>
-                            <option value="LGA1700">LGA1700</option>
-                            <option value="AM4">AM4</option>
-                        </select>
-                    </div>
+                        <!-- Chipset Filter -->
+                        <div class="input-group row mt-3">
+                            <label for="filterChipset" class="form-label mt-3">Chipset</label>
+                            <select id="filterChipset" name="filterChipset" class="filter-box">
+                                <option value="">--Select--</option>
+                                <option value="Z690">Z690</option>
+                                <option value="X570">X570</option>
+                                <option value="B550">B550</option>
+                                <option value="B450">B450</option>
+                            </select>
+                        </div>
 
-                    <!-- Memory type Filter-->
-                    <div class="input-group row mt-3">
-                        <label for="filterMemory" class="form-label mt-3">Memory Type</label>
-                        <select id="filterMemory" name="filterMemory" class="filter-box">
-                            <option value="">--Select--</option>
-                            <option value="DDR3">DDR3</option>
-                            <option value="DDR4">DDR4</option>
-                            <option value="DDR5">DDR5</option>
-                        </select>
-                    </div>
+                        <!-- Socket Type Filter -->
+                        <div class="input-group row mt-3">
+                            <label for="filterSocket" class="form-label">Socket Type</label>
+                            <select id="filterSocket" name="filterSocket" class="filter-box">
+                                <option value="">--Select--</option>
+                                <option value="LGA1700">LGA1700</option>
+                                <option value="AM4">AM4</option>
+                            </select>
+                        </div>
 
-                    <h4 class="mt-5">Set Price Range</h4>
-                    <!-- Price Range Filter -->
-                    <div class="input-group row mt-3">
-                        <label for="filterMinPrice" class="form-label">Min Price</label>
-                        <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                               placeholder="Minimum Price" step="50">
-                    </div>
-                    <div class="input-group row mt-3">
-                        <label for="filterMaxPrice" class="form-label">Max Price</label>
-                        <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                               placeholder="Maximum Price" step="50">
-                    </div>
+                        <!-- Memory type Filter-->
+                        <div class="input-group row mt-3">
+                            <label for="filterMemory" class="form-label mt-3">Memory Type</label>
+                            <select id="filterMemory" name="filterMemory" class="filter-box">
+                                <option value="">--Select--</option>
+                                <option value="DDR3">DDR3</option>
+                                <option value="DDR4">DDR4</option>
+                                <option value="DDR5">DDR5</option>
+                            </select>
+                        </div>
+
+                        <h4 class="mt-5">Set Price Range</h4>
+                        <!-- Price Range Filter -->
+                        <div class="input-group row mt-3">
+                            <label for="filterMinPrice" class="form-label">Min Price</label>
+                            <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
+                                   placeholder="Minimum Price" step="50">
+                        </div>
+                        <div class="input-group row mt-3">
+                            <label for="filterMaxPrice" class="form-label">Max Price</label>
+                            <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
+                                   placeholder="Maximum Price" step="50">
+                        </div>
 
 
-                    <div class="input-group row mt-3">
-                        <button type="submit" class="button btn-custom mt-2 text-center">Filter</button>
-                        <a href="/lists/motherboardlist" class="btn-custom mt-5 small text-center">Clear Filters</a>
-                    </div>
+                        <div class="container row mt-2">
+                            <button type="submit" class="button btn-custom mt-2 text-center">Filter</button>
+                            <a href="/lists/motherboardlist" class="btn-custom mt-5 small text-center">Clear Filters</a>
+                        </div>
 
-                </form>
+                    </form>
 
+                </div>
             </div>
             <!--Results-->
             <div class="col-md-9">
