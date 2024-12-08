@@ -50,6 +50,7 @@ public class ComponentController {
         return "components";
     }
 
+
     @GetMapping({"/lists/processorlist"})
     public String processorList(Model model,
                                 @RequestParam(required = false) String filterManufacturer,
@@ -90,47 +91,6 @@ public class ComponentController {
 
         return "/lists/processorlist";
     }
-
-
-//    @GetMapping({"/lists/motherboardlist"})
-//    public String motherboardList(Model model,
-//                                  @RequestParam(required = false) String filterManufacturer,
-//                                  @RequestParam(required = false) String filterSocket,
-//                                  @RequestParam(required = false) Double filterMinPrice,
-//                                  @RequestParam(required = false) Double filterMaxPrice,
-//                                  @RequestParam(required = false) String filterChipset,
-//                                  @RequestParam(required = false) String filterMemory,
-//                                  @RequestParam(required = false) String filterMoboFormFactor,
-//                                  @RequestParam(required = false) String searchWord) {
-//
-//
-//        List<MOBO> filteredMotherboard;
-//        if (searchWord != null && !searchWord.isEmpty()) {
-//            filteredMotherboard = motherboards.findBySearch(searchWord
-//            );
-//
-//        } else if (filterMinPrice != null || filterMaxPrice != null) {
-//            filteredMotherboard = motherboards.findByPrice(
-//                    filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
-//                    filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
-//            );
-//
-//        }
-//        if (filterManufacturer == null && filterSocket == null && filterChipset == null && filterMemory == null && filterMoboFormFactor == null) {
-//            filteredMotherboard = (List<MOBO>) motherboards.findAll();
-//
-//        } else {
-//            filteredMotherboard = motherboards.findByFilter(
-//                    filterManufacturer,
-//                    filterSocket,
-//                    filterChipset,
-//                    filterMemory,
-//                    filterMoboFormFactor);
-//        }
-//        model.addAttribute("filteredMotherboard", filteredMotherboard);
-//
-//        return "/lists/motherboardlist";
-//    }
 
     @GetMapping({"/lists/motherboardlist"})
     public String motherboardList(Model model,
