@@ -38,7 +38,7 @@ public class ComponentController {
     @GetMapping({"/components"})
     public String components(Model model) {
 
-//            Future use
+//            Future uses
 //            List<MOBO> moboList = motherboards.findBySearch(searchWord);
 //            List<CHASSIS> caseList = cases.findBySearch(searchWord);
 //            List<COOLING> coolingList = coolingSolutions.findBySearch(searchWord);
