@@ -11,8 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class BuildController {
@@ -36,7 +35,7 @@ public class BuildController {
     private ProcessorRepository processorRepository;
 
     @GetMapping("/builder")
-    public String builds(Model model) {
+    public String pcBuilder(Model model) {
         model.addAttribute("allProcessors", processors.findAll());
         model.addAttribute("allMotherboards", motherboards.findAll());
         model.addAttribute("allCases", cases.findAll());

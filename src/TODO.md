@@ -1,6 +1,6 @@
 # TO DO LIST
 ## MINIMUM REQUIREMENTS
-### Database connection testing
+### Database connection
 - Minstens 4 tabellen moeten gerelateerd zijn
 
 ### UML Schema
@@ -35,4 +35,8 @@
 - Toont deze build op de pagina
 - Voegt de build toe aan de gebruiker zijn account
 - Print de data van deze build in een txt file
-- 
+
+### Components
+- Add images to the db?
+- Add more components
+- Add more categories

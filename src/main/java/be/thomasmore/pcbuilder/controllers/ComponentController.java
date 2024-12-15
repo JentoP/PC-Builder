@@ -106,9 +106,7 @@ public class ComponentController {
                                   @RequestParam(required = false) String filterMemory,
                                   @RequestParam(required = false) String filterMoboFormFactor) {
 
-        Iterable<MOBO> filteredMotherboard = motherboards.findAll();
-
-//        List<MOBO> filteredMotherboard;
+        List<MOBO> filteredMotherboard;
 
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredMotherboard = motherboards.findBySearch(searchWord);
@@ -117,8 +115,7 @@ public class ComponentController {
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
-        }
-         else {
+        } else {
             filteredMotherboard = motherboards.findByFilter(
                     filterManufacturer,
                     filterSocket,
