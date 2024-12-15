@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class ComponentController {
@@ -51,7 +52,7 @@ public class ComponentController {
     }
 
 
-    @GetMapping({"/lists/processorlist"})
+    @GetMapping({"/lists/processors"})
     public String processorList(Model model,
                                 @RequestParam(required = false) String filterManufacturer,
                                 @RequestParam(required = false) String filterSocket,
@@ -89,21 +90,22 @@ public class ComponentController {
 
         model.addAttribute("filteredProcessors", filteredProcessors);
 
-        return "/lists/processorlist";
+        return "/lists/processors";
     }
 
-    @GetMapping({"/lists/motherboardlist"})
+    @GetMapping({"/lists/motherboards"})
     public String motherboardList(Model model,
-                                  @RequestParam(required = false) String filterManufacturer,
-                                  @RequestParam(required = false) String filterSocket,
+                                  @RequestParam(required = false) String searchWord,
                                   @RequestParam(required = false) Double filterMinPrice,
                                   @RequestParam(required = false) Double filterMaxPrice,
+                                  @RequestParam(required = false) String filterManufacturer,
+                                  @RequestParam(required = false) String filterSocket,
                                   @RequestParam(required = false) String filterChipset,
                                   @RequestParam(required = false) String filterMemory,
-                                  @RequestParam(required = false) String filterMoboFormFactor,
-                                  @RequestParam(required = false) String searchWord) {
+                                  @RequestParam(required = false) String filterMoboFormFactor) {
 
         List<MOBO> filteredMotherboard;
+
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredMotherboard = motherboards.findBySearch(searchWord);
         } else if (filterMinPrice != null || filterMaxPrice != null) {
@@ -122,11 +124,11 @@ public class ComponentController {
                     filterMemory,
                     filterMoboFormFactor);
         }
-        Iterable<MOBO> allMotherboards = motherboards.findAll();
-        model.addAttribute("allMotherboards", allMotherboards);
+
+        model.addAttribute("allMotherboards", motherboards.findAll());
         model.addAttribute("filteredMotherboard", filteredMotherboard);
 
-        return "/lists/motherboardlist";
+        return "/lists/motherboards";
     }
 
     @GetMapping("/components/processor/{id}")

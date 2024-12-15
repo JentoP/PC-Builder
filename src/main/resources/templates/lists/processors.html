@@ -6,7 +6,8 @@
 <body class="d-flex flex-column h-100">
 <h1>Processors</h1>
 <p>On this page you can find all available processor components currently in stock.</p>
-<p>You can search and filter by name, socket, manufacturer, core type or price. To see more details about a component click on
+<p>You can search and filter by name, socket, manufacturer, core type or price. To see more details about a component
+    click on
     the component's name.</p>
 
 <main class="container">
@@ -18,22 +19,24 @@
                 <h4>Filters</h4>
                 <!--Search-->
                 <div class="text-start">
-                    <form th:action="@{|/lists/processorlist|}" method="get" class="">
+                    <form th:action="@{|/lists/processors|}" method="get" class="">
                         <input name="searchWord" th:value="${param.searchWord}" class="filter-box">
                         <button type="submit" class="btn-custom">Search</button>
                     </form>
                 </div>
                 <!--Filters-->
-                <form th:action="@{|/lists/processorlist|}" method="get" class="col mt-5 text-start">
+                <form th:action="@{|/lists/processors|}" method="get" class="col mt-5 text-start" th:object="${filteredProcessors}">
                     <h5>Filter by</h5>
 
                     <!-- Manufacturer Filter -->
                     <div class="input-group row">
                         <label for="filterManufacturer" class="form-label">Manufacturer</label>
-                        <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
+                        <select id="filterManufacturer" name="filterManufacturer" class="filter-box" th:field="${filteredProcessors}">
                             <option value="">--Select--</option>
-                            <option value="Intel">Intel</option>
-                            <option value="AMD">AMD</option>
+                            <option th:each="p : ${allProcessors}"
+                                    th:value="*{p.manufacturer}"
+                                    th:text="*{p.manufacturer}"
+                            ></option>
                         </select>
                     </div>
 
@@ -90,12 +93,12 @@
                     <div class="input-group row mt-3">
                         <label for="filterMinPrice" class="form-label">Min Price</label>
                         <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                               placeholder="Minimum Price"  step="50">
+                               placeholder="Minimum Price" step="50">
                     </div>
                     <div class="input-group row mt-3">
                         <label for="filterMaxPrice" class="form-label">Max Price</label>
                         <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                               placeholder="Maximum Price"  step="50">
+                               placeholder="Maximum Price" step="50">
                     </div>
 
 

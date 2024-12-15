@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Motherboards</h1>
+<p>On this page you can find all available motherboard components currently in stock.</p>
+<p>You can search and filter by name, chipset, manufacturer, or price. To see more details about a component click on
+    the component's name.</p>
+
+<main class="container">
+    <h2>Motherboards in stock</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 mt-5">
+                <!--Search-->
+                <div class="text-center">
+                    <form th:action="@{|/lists/motherboards|}" method="get" class="">
+                        <span>
+                        <label><input name="searchWord" class="filter-box" placeholder="Search..."></label>
+                        <button type="submit" class="btn-custom small">Search</button>
+                        </span>
+                    </form>
+                </div>
+
+                <!--Filters-->
+
+
+                <div id="filterSection">
+                    <form th:action="@{|/lists/motherboards|}" method="get" class="col text-start">
+                        <h4 class="mt-5">Filter by</h4>
+
+                        <!--                        MOBO Filter-->
+                        <div class="input-group row mt-3">
+                            <label for="filterManufacturer" class="form-label">Manufacturer</label>
+                            <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
+                                <option value="">----</option>
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="*{m.manufacturer}"
+                                        th:text="*{m.manufacturer}"
+                                ></option>
+                            </select></div>
+
+                        <!-- Form Factor Filter -->
+                        <div class="input-group row mt-3">
+                            <label for="filterMoboFormFactor" class="form-label">Form Factor</label>
+                            <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
+                                <option value="">----</option>
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="*{m.moboFormFactor}"
+                                        th:text="*{m.moboFormFactor}"
+                                ></option>
+                            </select>
+                        </div>
+
+                        <!-- Chipset Filter -->
+                        <div class="input-group row mt-3">
+                            <label for="filterChipset" class="form-label">Chipset</label>
+                            <select id="filterChipset" name="filterChipset" class="filter-box">
+                                <option value="">----</option>
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="*{m.chipset}"
+                                        th:text="*{m.chipset}"
+                                ></option>
+                            </select>
+                        </div>
+
+                        <!-- Socket Type Filter -->
+                        <div class="input-group row mt-3">
+                            <label for="filterSocket" class="form-label">Socket Type</label>
+                            <select id="filterSocket" name="filterSocket" class="filter-box">
+                                <option value="">----</option>
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="*{m.socketType}"
+                                        th:text="*{m.socketType}"
+                                ></option>
+                            </select>
+                        </div>
+
+                        <!-- Memory type Filter-->
+                        <div class="input-group row mt-3">
+                            <label for="filterMemory" class="form-label">Memory Type</label>
+                            <select id="filterMemory" name="filterMemory" class="filter-box">
+                                <option value="">----</option>
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="*{m.memoryType}"
+                                        th:text="*{m.memoryType}"
+                                ></option>
+                            </select>
+                        </div>
+
+                        <h4 class="mt-5">Set Price Range</h4>
+                        <!-- Price Range Filter -->
+                        <div class="input-group row mt-3">
+                            <label for="filterMinPrice" class="form-label">Minimum</label>
+                            <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
+                                   placeholder="Min price in euros" step="10">
+                        </div>
+                        <div class="input-group row mt-3">
+                            <label for="filterMaxPrice" class="form-label">Maximum</label>
+                            <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
+                                   placeholder="Max price in euros" step="10">
+                        </div>
+
+
+                        <div class="container row mt-2">
+                            <button type="submit" class="button btn-custom mt-2 text-center">Filter</button>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="applied-filters text-start">
+                    <span>Applied Filters:</span>
+                    <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                        th:text="|Searched for: ${param.searchWord}|"></ul>
+                    <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                        th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+                    <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
+                        th:text="|Form Factor: ${param.filterMoboFormFactor}|"></li>
+                    <li th:if="${not #strings.isEmpty(param.filterChipset)}"
+                        th:text="|Chipset: ${param.filterChipset}|"></li>
+                    <li th:if="${not #strings.isEmpty(param.filterSocket)}"
+                        th:text="|Socket Type: ${param.filterSocket}|"></li>
+                    <li th:if="${not #strings.isEmpty(param.filterMemory)}"
+                        th:text="|Memory Type: ${param.filterMemory}|"></li>
+                    <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                        th:text="|Min Price: € ${param.filterMinPrice} EURO|"></li>
+                    <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                        th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+
+                </div>
+                <a th:href="@{|/lists/motherboards|}" class="btn-custom-small">Clear Filters</a>
+
+            </div>
+            <!--Results-->
+            <div class="col-md-9">
+                <h3>Results</h3>
+
+                <div class="row">
+                    <div class="col-md-6 btn-custom">
+                        <div th:each="MOBO : ${filteredMotherboard}">
+                            <ul class="list">
+                                <li><a th:href="@{/components/motherboard/{id}(id=${MOBO.id})}" th:text="${MOBO.name}"
+                                       title="Click to view more details about this motherboard."></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-margin"></div>
+
+</main>
+
+<div class="bottom-margin"></div>
+
+</body>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>
