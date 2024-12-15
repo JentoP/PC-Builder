@@ -100,7 +100,7 @@ body p {
 .btn-custom {
     background: none;
     color: white;
-    border: black solid 2px;
+    border: #000000 solid 2px;
     padding: 10px 10px 10px 10px;
     border-radius: 10px;
     font-size: 18px;

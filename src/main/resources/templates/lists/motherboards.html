@@ -25,16 +25,15 @@
                     </form>
                 </div>
 
+
                 <!--Filters-->
-
-
                 <div id="filterSection">
                     <form th:action="@{|/lists/motherboards|}" method="get" class="col text-start">
                         <h4 class="mt-5">Filter by</h4>
 
                         <!--                        MOBO Filter-->
-                        <div class="input-group row mt-3">
-                            <label for="filterManufacturer" class="form-label">Manufacturer</label>
+                        <label for="filterManufacturer" class="form-label mt-2">Manufacturer</label>
+                        <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="m : ${allMotherboards}"
@@ -44,8 +43,8 @@
                             </select></div>
 
                         <!-- Form Factor Filter -->
-                        <div class="input-group row mt-3">
-                            <label for="filterMoboFormFactor" class="form-label">Form Factor</label>
+                        <label for="filterMoboFormFactor" class="form-label mt-2">Form Factor</label>
+                        <div class="container input-group row">
                             <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="m : ${allMotherboards}"
@@ -56,8 +55,8 @@
                         </div>
 
                         <!-- Chipset Filter -->
-                        <div class="input-group row mt-3">
-                            <label for="filterChipset" class="form-label">Chipset</label>
+                        <label for="filterChipset" class="form-label mt-2">Chipset</label>
+                        <div class="container input-group row">
                             <select id="filterChipset" name="filterChipset" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="m : ${allMotherboards}"
@@ -68,8 +67,8 @@
                         </div>
 
                         <!-- Socket Type Filter -->
-                        <div class="input-group row mt-3">
-                            <label for="filterSocket" class="form-label">Socket Type</label>
+                        <label for="filterSocket" class="form-label mt-2">Socket Type</label>
+                        <div class="container input-group row">
                             <select id="filterSocket" name="filterSocket" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="m : ${allMotherboards}"
@@ -80,8 +79,8 @@
                         </div>
 
                         <!-- Memory type Filter-->
-                        <div class="input-group row mt-3">
-                            <label for="filterMemory" class="form-label">Memory Type</label>
+                        <label for="filterMemory" class="form-label mt-2">Memory Type</label>
+                        <div class="container input-group row">
                             <select id="filterMemory" name="filterMemory" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="m : ${allMotherboards}"
@@ -91,22 +90,24 @@
                             </select>
                         </div>
 
-                        <h4 class="mt-5">Set Price Range</h4>
+
                         <!-- Price Range Filter -->
-                        <div class="input-group row mt-3">
-                            <label for="filterMinPrice" class="form-label">Minimum</label>
+                        <h4 class="mt-5">Set Price Range</h4>
+                        <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+                        <div class="container input-group row">
                             <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
                                    placeholder="Min price in euros" step="10">
                         </div>
-                        <div class="input-group row mt-3">
-                            <label for="filterMaxPrice" class="form-label">Maximum</label>
+                        <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
+
+                        <div class="container input-group row">
                             <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
                                    placeholder="Max price in euros" step="10">
                         </div>
 
 
                         <div class="container row mt-2">
-                            <button type="submit" class="button btn-custom mt-2 text-center">Filter</button>
+                            <button type="submit" class="btn-custom text-center">Apply filters</button>
                         </div>
 
                     </form>

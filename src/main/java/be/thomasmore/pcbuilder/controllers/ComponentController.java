@@ -2,6 +2,7 @@ package be.thomasmore.pcbuilder.controllers;
 
 import be.thomasmore.pcbuilder.models.*;
 import be.thomasmore.pcbuilder.repos.*;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Controller
@@ -104,7 +106,9 @@ public class ComponentController {
                                   @RequestParam(required = false) String filterMemory,
                                   @RequestParam(required = false) String filterMoboFormFactor) {
 
-        List<MOBO> filteredMotherboard;
+        Iterable<MOBO> filteredMotherboard = motherboards.findAll();
+
+//        List<MOBO> filteredMotherboard;
 
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredMotherboard = motherboards.findBySearch(searchWord);
