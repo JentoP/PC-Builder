@@ -117,10 +117,8 @@ public class ComponentController {
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
-        } else if (filterManufacturer == null && filterSocket == null && filterChipset == null &&
-                filterMemory == null && filterMoboFormFactor == null) {
-            filteredMotherboard = (List<MOBO>) motherboards.findAll();
-        } else {
+        }
+         else {
             filteredMotherboard = motherboards.findByFilter(
                     filterManufacturer,
                     filterSocket,
