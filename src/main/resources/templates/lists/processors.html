@@ -19,9 +19,7 @@
                     <form th:action="@{|/lists/processors|}" method="get" class="">
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
-                        <div class="container row small">
                         <button type="submit" class="btn-custom small">ZOEKEN</button>
-                        </div>
                         </span>
                     </form>
                 </div>
@@ -36,11 +34,12 @@
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allProcessors}"
-                                        th:value="*{m.manufacturer}"
-                                        th:text="*{m.manufacturer}"
+                                <option th:each="p : ${allProcessors}"
+                                        th:value="*{p.manufacturer}"
+                                        th:text="*{p.manufacturer}"
                                 ></option>
-                            </select></div>
+                            </select>
+                        </div>
 
                         <!-- Socket Filter -->
                         <label for="filterSocket" class="form-label mt-2">Socket</label>
@@ -82,22 +81,20 @@
                         <h5 class="mt-5">Stel Prijsklasse In</h5>
                         <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
                         <div class="container input-group row">
-                            <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                                   placeholder="Min prijs in euro" step="10">
+                            <input type="range" id="filterMinPrice" name="filterMinPrice" class="filter-box" min="0" max="1000" step="10" value="0" oninput="this.nextElementSibling.value = this.value">
+                            <output>0</output>
                         </div>
                         <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
-
                         <div class="container input-group row">
-                            <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                                   placeholder="Max prijs in euro" step="10">
-                        </div>
+                            <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0" max="1000" step="10" th:value="${#lists.max(filteredProcessors.![price])}" oninput="this.nextElementSibling.value = this.value">
+                            <output th:text="${#lists.max(filteredProcessors.![price])}">1000</output>                        </div>
 
                         <div class="container row mt-4 small">
                             <button type="submit" class="btn-custom">TOEPASSEN</button>
                         </div>
 
                     </form>
-                    <div th:if="${filteredProcessors} != null AND ${!filteredProcessors.isEmpty()}" class="container">
+                    <div class="container">
                         <h6 class="mt-5 small">Toegepaste filters:</h6>
                         <div class="applied-filters text-start">
                             <ul th:if="${not #strings.isEmpty(param.searchWord)}"

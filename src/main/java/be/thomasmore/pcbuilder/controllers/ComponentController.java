@@ -32,8 +32,6 @@ public class ComponentController {
     private ProcessorRepository processors;
     @Autowired
     private StorageRepository storage;
-    @Autowired
-    private ProcessorRepository processorRepository;
 
     private static final double DEFAULT_MIN_PRICE = 0.0;
     private static final double DEFAULT_MAX_PRICE = Double.MAX_VALUE;
@@ -64,7 +62,8 @@ public class ComponentController {
                                 @RequestParam(required = false) Integer filterCore,
                                 @RequestParam(required = false) String filterArchitecture,
                                 @RequestParam(required = false) String filterCpuModel,
-                                @RequestParam(required = false) Double filterClockSpeed) {
+                                @RequestParam(required = false) Double filterClockSpeed,
+                                @RequestParam(required = false) Double filterWattage) {
 
         List<CPU> filteredProcessors;
 
@@ -82,7 +81,8 @@ public class ComponentController {
                     filterCore,
                     filterArchitecture,
                     filterCpuModel,
-                    filterClockSpeed);
+                    filterClockSpeed,
+                    filterWattage);
         }
 
         model.addAttribute("allProcessors", processors.findAll());

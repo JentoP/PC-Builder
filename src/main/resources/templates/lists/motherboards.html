@@ -21,9 +21,7 @@
                     <form th:action="@{|/lists/motherboards|}" method="get" class="">
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
-                        <div class="container row small">
                         <button type="submit" class="btn-custom small">ZOEKEN</button>
-                        </div>
                         </span>
                     </form>
                 </div>
@@ -139,15 +137,12 @@
                             <a th:href="@{|/lists/motherboards|}" class="btn-custom small">FILTERS WISSEN</a>
                         </div>
                     </div>
-
                 </div>
-
-
             </div>
+
             <!--Results-->
             <div class="col-md-9">
                 <h3>Resultaten</h3>
-
                 <div class="row">
                     <div class="col-md-6">
                         <div th:each="MOBO : ${filteredMotherboard}">

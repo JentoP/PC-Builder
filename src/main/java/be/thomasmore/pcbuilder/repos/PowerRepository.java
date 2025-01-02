@@ -17,9 +17,9 @@ public interface PowerRepository extends CrudRepository<PSU, Integer> {
             @Param("searchWord") String searchWord);
 
     @Query("SELECT p FROM PSU p WHERE " +
-            "(:filterManufacturer IS NULL OR :filterManufacturer = p.manufacturer) AND " +
-            "(:filterWattage IS NULL OR :filterWattage = p.wattageCapacity) AND " +
-            "(:filterEfficiency IS NULL OR :filterEfficiency = p.efficiency) AND " +
+            "(:filterManufacturer IS NULL OR :filterManufacturer = p.manufacturer) OR " +
+            "(:filterWattage IS NULL OR :filterWattage = p.wattageCapacity) OR " +
+            "(:filterEfficiency IS NULL OR :filterEfficiency = p.efficiency) OR " +
             "(:filterPsuFormFactor IS NULL OR :filterPsuFormFactor = p.psuFormFactor)")
     List<PSU> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,

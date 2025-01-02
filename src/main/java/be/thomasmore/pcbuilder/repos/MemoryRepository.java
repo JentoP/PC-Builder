@@ -17,9 +17,9 @@ public interface MemoryRepository extends CrudRepository<RAM, Integer> {
             @Param("searchWord") String searchWord);
 
     @Query("SELECT r FROM RAM r WHERE " +
-            "(:filterManufacturer IS NULL OR :filterManufacturer = r.manufacturer) AND " +
-            "(:filterMemoryCapacity IS NULL OR :filterMemoryCapacity = r.memoryCapacity) AND " +
-            "(:filterMemoryType IS NULL OR :filterMemoryType = r.memoryType) AND " +
+            "(:filterManufacturer IS NULL OR :filterManufacturer = r.manufacturer) OR " +
+            "(:filterMemoryCapacity IS NULL OR :filterMemoryCapacity = r.memoryCapacity) OR " +
+            "(:filterMemoryType IS NULL OR :filterMemoryType = r.memoryType) OR " +
             "(:filterTimings IS NULL OR :filterTimings = r.timings)")
     List<RAM> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,

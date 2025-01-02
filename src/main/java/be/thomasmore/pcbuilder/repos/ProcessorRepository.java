@@ -24,13 +24,16 @@ public interface ProcessorRepository extends CrudRepository<CPU, Integer> {
             "(:filterCore IS NULL OR :filterCore = p.coreCount) OR " +
             "(:filterArchitecture IS NULL OR :filterArchitecture = p.architecture) OR " +
             "(:filterCpuModel IS NULL OR :filterCpuModel = p.cpuModel) OR " +
-            "(:filterClockSpeed IS NULL OR :filterClockSpeed = p.clockSpeed)")
+            "(:filterClockSpeed IS NULL OR :filterClockSpeed = p.clockSpeed) OR " +
+            "(:filterWattage IS NULL OR :filterWattage = p.wattageUsage)")
     List<CPU> findByFilter(@Param("filterManufacturer") String filterManufacturer,
                            @Param("filterSocket") String filterSocket,
                            @Param("filterCore") Integer filterCore,
                            @Param("filterArchitecture") String filterArchitecture,
                            @Param("filterCpuModel") String filterCpuModel,
-                           @Param("filterClockSpeed") Double filterClockSpeed);
+                           @Param("filterClockSpeed") Double filterClockSpeed,
+                           @Param("filterWattage") Double filterWattage);
+
 
     @Query("SELECT p FROM CPU p WHERE " +
             "(:filterMinPrice IS NULL OR p.price >= :filterMinPrice) AND " +

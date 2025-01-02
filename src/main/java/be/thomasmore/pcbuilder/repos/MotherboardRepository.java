@@ -22,11 +22,11 @@ public interface MotherboardRepository extends CrudRepository<MOBO, Integer> {
 
 
     @Query("SELECT m FROM MOBO m WHERE " +
-            ":filterManufacturer IS NULL OR :filterManufacturer = m.manufacturer OR " +
-            ":filterSocket IS NULL OR :filterSocket = m.socketType OR " +
-            ":filterChipset IS NULL OR :filterChipset = m.chipset OR " +
-            ":filterMemory IS NULL OR :filterMemory = m.memoryType OR " +
-            ":filterMoboFormFactor IS NULL OR :filterMoboFormFactor = m.moboFormFactor")
+            "(:filterManufacturer IS NULL OR :filterManufacturer = m.manufacturer) OR " +
+            "(:filterSocket IS NULL OR :filterSocket = m.socketType) OR " +
+            "(:filterChipset IS NULL OR :filterChipset = m.chipset) OR " +
+            "(:filterMemory IS NULL OR :filterMemory = m.memoryType) OR " +
+            "(:filterMoboFormFactor IS NULL OR :filterMoboFormFactor = m.moboFormFactor)")
     List<MOBO> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,
             @Param("filterSocket") String filterSocket,
