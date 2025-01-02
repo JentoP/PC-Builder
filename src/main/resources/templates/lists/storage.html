@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Opslag')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Opslag</h1>
+<p>Op deze pagina vind je alle beschikbare opslagcomponenten die momenteel op voorraad zijn.</p>
+<p>Je kunt zoeken en filteren op naam, fabrikant, interface type, opslagtype, capaciteit of prijs. Klik op de naam van een component om meer details te zien.</p>
+
+<main class="container">
+  <h2>Opslag in stock</h2>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-2 mt-5">
+        <!--Search-->
+        <div class="">
+          <form th:action="@{|/lists/storage|}" method="get" class="">
+                        <span>
+                        <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
+                        <div class="container row small">
+                        <button type="submit" class="btn-custom small">ZOEKEN</button>
+                        </div>
+                        </span>
+          </form>
+        </div>
+
+        <!--Filters-->
+        <div id="filterSection">
+          <form th:action="@{|/lists/storage|}" method="get" class="col text-start">
+            <h5 class="mt-4">Filter op</h5>
+
+            <!-- Manufacturer Filter -->
+            <label for="filterManufacturer" class="form-label mt-2">Fabrikant</label>
+            <div class="container input-group row">
+              <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
+                <option value="">----</option>
+                <option th:each="s : ${allStorage}"
+                        th:value="*{s.manufacturer}"
+                        th:text="*{s.manufacturer}"
+                ></option>
+              </select></div>
+
+            <!-- Interface Type Filter -->
+            <label for="filterInterfaceType" class="form-label mt-2">Interface Type</label>
+            <div class="container input-group row">
+              <select id="filterInterfaceType" name="filterInterfaceType" class="filter-box">
+                <option value="">----</option>
+                <option th:each="s : ${allStorage}"
+                        th:value="*{s.interfaceType}"
+                        th:text="*{s.interfaceType}"
+                ></option>
+              </select>
+            </div>
+
+            <!-- Storage Type Filter -->
+            <label for="filterStorageType" class="form-label mt-2">Opslagtype</label>
+            <div class="container input-group row">
+              <select id="filterStorageType" name="filterStorageType" class="filter-box">
+                <option value="">----</option>
+                <option th:each="s : ${allStorage}"
+                        th:value="*{s.storageType}"
+                        th:text="*{s.storageType}"
+                ></option>
+              </select>
+            </div>
+
+            <!-- Capacity Filter -->
+            <label for="filterCapacity" class="form-label mt-2">Capaciteit</label>
+            <div class="container input-group row">
+              <select id="filterCapacity" name="filterCapacity" class="filter-box">
+                <option value="">----</option>
+                <option th:each="s : ${allStorage}"
+                        th:value="*{s.capacity}"
+                        th:text="*{s.capacity} GB"
+                ></option>
+              </select>
+            </div>
+
+            <!-- Price Range Filter -->
+            <h5 class="mt-5">Stel Prijsklasse In</h5>
+            <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+            <div class="container input-group row">
+              <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
+                     placeholder="Min prijs in euro" step="10">
+            </div>
+            <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
+
+            <div class="container input-group row">
+              <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
+                     placeholder="Max prijs in euro" step="10">
+            </div>
+
+            <div class="container row mt-4 small">
+              <button type="submit" class="btn-custom">TOEPASSEN</button>
+            </div>
+
+          </form>
+          <div th:if="${filteredStorage} != null AND ${!filteredStorage.isEmpty()}" class="container">
+            <h6 class="mt-5 small">Toegepaste filters:</h6>
+            <div class="applied-filters text-start">
+              <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                  th:text="|Searched for: ${param.searchWord}|"></ul>
+              <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                  th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterInterfaceType)}"
+                  th:text="|Interface Type: ${param.filterInterfaceType}|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterStorageType)}"
+                  th:text="|Storage Type: ${param.filterStorageType}|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterCapacity)}"
+                  th:text="|Capacity: ${param.filterCapacity} GB|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                  th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                  th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+            </div>
+
+            <div class="small">
+              <a th:href="@{|/lists/storage|}" class="btn-custom small">FILTERS WISSEN</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Results-->
+      <div class="col-md-9">
+        <h3>Resultaten</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div th:each="DATA : ${filteredStorage}">
+              <ul class="list">
+                <li><a th:href="@{/components/storage/{id}(id=${DATA.id})}" th:text="${DATA.name}"
+                       title="Click to view more details about this storage component."></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-margin"></div>
+</main>
+
+<div class="bottom-margin"></div>
+
+</body>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>

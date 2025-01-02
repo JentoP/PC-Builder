@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
-<head th:replace="~{fragments/header :: headerelement('Processoren')}"></head>
+<head th:replace="~{fragments/header :: headerelement('Geheugen')}"></head>
 <header th:replace="~{fragments/header :: header}"></header>
 
 <body class="d-flex flex-column h-100">
-<h1>Processoren</h1>
-<p>Op deze pagina vind je alle beschikbare processorcomponenten die momenteel op voorraad zijn.</p>
-<p>Je kunt zoeken en filteren op naam, fabrikant, socket, kern, architectuur of prijs. Klik op de naam van een component om meer details te zien.</p>
+<h1>Geheugen</h1>
+<p>Op deze pagina vind je alle beschikbare geheugencomponenten die momenteel op voorraad zijn.</p>
+<p>Je kunt zoeken en filteren op naam, fabrikant, geheugen capaciteit, type, timings, of prijs. Klik op de naam van een component om meer details te zien.</p>
 
 <main class="container">
-    <h2>Processoren in stock</h2>
+    <h2>Geheugen in stock</h2>
     <div class="container">
         <div class="row">
 
             <div class="col-md-2 mt-5">
                 <!--Search-->
                 <div class="">
-                    <form th:action="@{|/lists/processors|}" method="get" class="">
+                    <form th:action="@{|/lists/memory|}" method="get" class="">
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
                         <div class="container row small">
@@ -28,7 +28,7 @@
 
                 <!--Filters-->
                 <div id="filterSection">
-                    <form th:action="@{|/lists/processors|}" method="get" class="col text-start">
+                    <form th:action="@{|/lists/memory|}" method="get" class="col text-start">
                         <h5 class="mt-4">Filter op</h5>
 
                         <!-- Manufacturer Filter -->
@@ -36,44 +36,44 @@
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allProcessors}"
+                                <option th:each="m : ${allMemory}"
                                         th:value="*{m.manufacturer}"
                                         th:text="*{m.manufacturer}"
                                 ></option>
                             </select></div>
 
-                        <!-- Socket Filter -->
-                        <label for="filterSocket" class="form-label mt-2">Socket</label>
+                        <!-- Memory Capacity Filter -->
+                        <label for="filterMemoryCapacity" class="form-label mt-2">Geheugen Capaciteit</label>
                         <div class="container input-group row">
-                            <select id="filterSocket" name="filterSocket" class="filter-box">
+                            <select id="filterMemoryCapacity" name="filterMemoryCapacity" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allProcessors}"
-                                        th:value="*{m.socketType}"
-                                        th:text="*{m.socketType}"
+                                <option th:each="m : ${allMemory}"
+                                        th:value="*{m.memoryCapacity}"
+                                        th:text="*{m.memoryCapacity} GB"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Core Filter -->
-                        <label for="filterCore" class="form-label mt-2">Kern</label>
+                        <!-- Memory Type Filter -->
+                        <label for="filterMemoryType" class="form-label mt-2">Geheugen Type</label>
                         <div class="container input-group row">
-                            <select id="filterCore" name="filterCore" class="filter-box">
+                            <select id="filterMemoryType" name="filterMemoryType" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allProcessors}"
-                                        th:value="*{m.coreCount}"
-                                        th:text="*{m.coreCount}"
+                                <option th:each="m : ${allMemory}"
+                                        th:value="*{m.memoryType}"
+                                        th:text="*{m.memoryType}"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Architecture Filter -->
-                        <label for="filterArchitecture" class="form-label mt-2">Architectuur</label>
+                        <!-- Timings Filter -->
+                        <label for="filterTimings" class="form-label mt-2">Timings</label>
                         <div class="container input-group row">
-                            <select id="filterArchitecture" name="filterArchitecture" class="filter-box">
+                            <select id="filterTimings" name="filterTimings" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allProcessors}"
-                                        th:value="*{m.architecture}"
-                                        th:text="*{m.architecture}"
+                                <option th:each="m : ${allMemory}"
+                                        th:value="*{m.timings}"
+                                        th:text="*{m.timings}"
                                 ></option>
                             </select>
                         </div>
@@ -97,19 +97,19 @@
                         </div>
 
                     </form>
-                    <div th:if="${filteredProcessors} != null AND ${!filteredProcessors.isEmpty()}" class="container">
+                    <div th:if="${filteredMemory} != null AND ${!filteredMemory.isEmpty()}" class="container">
                         <h6 class="mt-5 small">Toegepaste filters:</h6>
                         <div class="applied-filters text-start">
                             <ul th:if="${not #strings.isEmpty(param.searchWord)}"
                                 th:text="|Searched for: ${param.searchWord}|"></ul>
                             <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
                                 th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterSocket)}"
-                                th:text="|Socket: ${param.filterSocket}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterCore)}"
-                                th:text="|Core: ${param.filterCore}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterArchitecture)}"
-                                th:text="|Architecture: ${param.filterArchitecture}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterMemoryCapacity)}"
+                                th:text="|Memory Capacity: ${param.filterMemoryCapacity} GB|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterMemoryType)}"
+                                th:text="|Memory Type: ${param.filterMemoryType}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterTimings)}"
+                                th:text="|Timings: ${param.filterTimings}|"></li>
                             <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
                                 th:text="|Min Price: € ${param.filterMinPrice}|"></li>
                             <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="small">
-                            <a th:href="@{|/lists/processors|}" class="btn-custom small">FILTERS WISSEN</a>
+                            <a th:href="@{|/lists/memory|}" class="btn-custom small">FILTERS WISSEN</a>
                         </div>
                     </div>
                 </div>
@@ -128,10 +128,10 @@
                 <h3>Resultaten</h3>
                 <div class="row">
                     <div class="col-md-6">
-                        <div th:each="CPU : ${filteredProcessors}">
+                        <div th:each="RAM : ${filteredMemory}">
                             <ul class="list">
-                                <li><a th:href="@{/components/processor/{id}(id=${CPU.id})}" th:text="${CPU.name}"
-                                       title="Click to view more details about this processor."></a></li>
+                                <li><a th:href="@{/components/memory/{id}(id=${RAM.id})}" th:text="${RAM.name}"
+                                       title="Click to view more details about this memory component."></a></li>
                             </ul>
                         </div>
                     </div>

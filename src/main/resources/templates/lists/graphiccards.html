@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Grafische Kaarten')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Grafische Kaarten</h1>
+<p>Op deze pagina vind je alle beschikbare grafische kaarten die momenteel op voorraad zijn.</p>
+<p>Je kunt zoeken en filteren op naam, fabrikant, chipset, geheugen capaciteit, interface type of prijs. Klik op de naam van een component om meer details te zien.</p>
+
+<main class="container">
+  <h2>Grafische Kaarten in stock</h2>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-2 mt-5">
+        <!--Search-->
+        <div class="">
+          <form th:action="@{|/lists/graphiccards|}" method="get" class="">
+                        <span>
+                        <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
+                        <div class="container row small">
+                        <button type="submit" class="btn-custom small">ZOEKEN</button>
+                        </div>
+                        </span>
+          </form>
+        </div>
+
+        <!--Filters-->
+        <div id="filterSection">
+          <form th:action="@{|/lists/graphiccards|}" method="get" class="col text-start">
+            <h5 class="mt-4">Filter op</h5>
+
+            <!-- Manufacturer Filter -->
+            <label for="filterManufacturer" class="form-label mt-2">Fabrikant</label>
+            <div class="container input-group row">
+              <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
+                <option value="">----</option>
+                <option th:each="g : ${allGraphicCards}"
+                        th:value="*{g.manufacturer}"
+                        th:text="*{g.manufacturer}"
+                ></option>
+              </select></div>
+
+            <!-- Chipset Filter -->
+            <label for="filterChipset" class="form-label mt-2">Chipset</label>
+            <div class="container input-group row">
+              <select id="filterChipset" name="filterChipset" class="filter-box">
+                <option value="">----</option>
+                <option th:each="g : ${allGraphicCards}"
+                        th:value="*{g.chipset}"
+                        th:text="*{g.chipset}"
+                ></option>
+              </select>
+            </div>
+
+            <!-- Memory Capacity Filter -->
+            <label for="filterMemoryCapacity" class="form-label mt-2">Geheugen Capaciteit</label>
+            <div class="container input-group row">
+              <select id="filterMemoryCapacity" name="filterMemoryCapacity" class="filter-box">
+                <option value="">----</option>
+                <option th:each="g : ${allGraphicCards}"
+                        th:value="*{g.memoryCapacity}"
+                        th:text="*{g.memoryCapacity} GB"
+                ></option>
+              </select>
+            </div>
+
+            <!-- Interface Type Filter -->
+            <label for="filterInterfaceType" class="form-label mt-2">Interface Type</label>
+            <div class="container input-group row">
+              <select id="filterInterfaceType" name="filterInterfaceType" class="filter-box">
+                <option value="">----</option>
+                <option th:each="g : ${allGraphicCards}"
+                        th:value="*{g.interfaceType}"
+                        th:text="*{g.interfaceType}"
+                ></option>
+              </select>
+            </div>
+
+            <!-- Price Range Filter -->
+            <h5 class="mt-5">Stel Prijsklasse In</h5>
+            <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+            <div class="container input-group row">
+              <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
+                     placeholder="Min prijs in euro" step="10">
+            </div>
+            <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
+
+            <div class="container input-group row">
+              <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
+                     placeholder="Max prijs in euro" step="10">
+            </div>
+
+            <div class="container row mt-4 small">
+              <button type="submit" class="btn-custom">TOEPASSEN</button>
+            </div>
+
+          </form>
+          <div th:if="${filteredGraphicCards} != null AND ${!filteredGraphicCards.isEmpty()}" class="container">
+            <h6 class="mt-5 small">Toegepaste filters:</h6>
+            <div class="applied-filters text-start">
+              <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                  th:text="|Searched for: ${param.searchWord}|"></ul>
+              <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                  th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterChipset)}"
+                  th:text="|Chipset: ${param.filterChipset}|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterMemoryCapacity)}"
+                  th:text="|Memory Capacity: ${param.filterMemoryCapacity} GB|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterInterfaceType)}"
+                  th:text="|Interface Type: ${param.filterInterfaceType}|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                  th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+              <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                  th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+            </div>
+
+            <div class="small">
+              <a th:href="@{|/lists/graphiccards|}" class="btn-custom small">FILTERS WISSEN</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Results-->
+      <div class="col-md-9">
+        <h3>Resultaten</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div th:each="GPU : ${filteredGraphicCards}">
+              <ul class="list">
+                <li><a th:href="@{/components/graphiccard/{id}(id=${GPU.id})}" th:text="${GPU.name}"
+                       title="Click to view more details about this graphics card."></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-margin"></div>
+</main>
+
+<div class="bottom-margin"></div>
+
+</body>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>
