@@ -5,11 +5,12 @@
 
 <body class="d-flex flex-column h-100">
 <h1>Koeling</h1>
-<p>Op deze pagina vind je alle beschikbare koelingcomponenten die momenteel op voorraad zijn.</p>
-<p>Je kunt zoeken en filteren op naam, fabrikant, socket type, fan grootte, radiator grootte of prijs. Klik op de naam van een component om meer details te zien.</p>
+<p>Op deze pagina vind je alle beschikbare koelingsoplossingen die momenteel op voorraad zijn.</p>
+<p>Je kunt zoeken en filteren op naam, fabrikant, socket-type, ventilatorformaat, radiateurformaat of prijs. Klik op de
+    naam van een component om meer details te zien.</p>
 
 <main class="container">
-    <h2>Koeling in stock</h2>
+    <h2>Koelingsoplossingen in stock</h2>
     <div class="container">
         <div class="row">
 
@@ -20,7 +21,7 @@
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
                         <div class="container row small">
-                        <button type="submit" class="btn-custom small">ZOEKEN</button>
+                        <button type="submit" class="btn-custom small mt-2">ZOEKEN</button>
                         </div>
                         </span>
                     </form>
@@ -36,89 +37,96 @@
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="c : ${allCooling}"
-                                        th:value="*{c.manufacturer}"
-                                        th:text="*{c.manufacturer}"
+                                <option th:each="p : ${allCooling}"
+                                        th:value="${p.manufacturer}"
+                                        th:text="${p.manufacturer}"
                                 ></option>
-                            </select></div>
+                            </select>
+                        </div>
 
                         <!-- Socket Type Filter -->
                         <label for="filterSocketType" class="form-label mt-2">Socket Type</label>
                         <div class="container input-group row">
                             <select id="filterSocketType" name="filterSocketType" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="c : ${allCooling}"
-                                        th:value="*{c.socketType}"
-                                        th:text="*{c.socketType}"
+                                <option th:each="p : ${allCooling}"
+                                        th:value="${p.socketType}"
+                                        th:text="${p.socketType}"
                                 ></option>
                             </select>
                         </div>
 
                         <!-- Fan Size Filter -->
-                        <label for="filterFanSize" class="form-label mt-2">Fan Grootte</label>
+                        <label for="filterFanSize" class="form-label mt-2">Ventilatorformaat</label>
                         <div class="container input-group row">
                             <select id="filterFanSize" name="filterFanSize" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="c : ${allCooling}"
-                                        th:value="*{c.fanSize}"
-                                        th:text="*{c.fanSize}"
+                                <option th:each="p : ${allCooling}"
+                                        th:value="${p.fanSize}"
+                                        th:text="${p.fanSize}"
                                 ></option>
                             </select>
                         </div>
 
                         <!-- Radiator Size Filter -->
-                        <label for="filterRadiatorSize" class="form-label mt-2">Radiator Grootte</label>
+                        <label for="filterRadiatorSize" class="form-label mt-2">Radiateurformaat</label>
                         <div class="container input-group row">
                             <select id="filterRadiatorSize" name="filterRadiatorSize" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="c : ${allCooling}"
-                                        th:value="*{c.radiatorSize}"
-                                        th:text="*{c.radiatorSize}"
+                                <option th:each="p : ${allCooling}"
+                                        th:value="${p.radiatorSize}"
+                                        th:text="${p.radiatorSize}"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Price Range Filter -->
-                        <h5 class="mt-5">Stel Prijsklasse In</h5>
-                        <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
-                        <div class="container input-group row">
-                            <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                                   placeholder="Min prijs in euro" step="10">
-                        </div>
-                        <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
-
-                        <div class="container input-group row">
-                            <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                                   placeholder="Max prijs in euro" step="10">
-                        </div>
-
                         <div class="container row mt-4 small">
-                            <button type="submit" class="btn-custom">TOEPASSEN</button>
+                            <button type="submit" class="btn-custom small">TOEPASSEN</button>
                         </div>
-
                     </form>
-                    <div th:if="${filteredCooling} != null AND ${!filteredCooling.isEmpty()}" class="container">
-                        <h6 class="mt-5 small">Toegepaste filters:</h6>
-                        <div class="applied-filters text-start">
-                            <ul th:if="${not #strings.isEmpty(param.searchWord)}"
-                                th:text="|Searched for: ${param.searchWord}|"></ul>
-                            <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
-                                th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterSocketType)}"
-                                th:text="|Socket Type: ${param.filterSocketType}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterFanSize)}"
-                                th:text="|Fan Size: ${param.filterFanSize}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterRadiatorSize)}"
-                                th:text="|Radiator Size: ${param.filterRadiatorSize}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                                th:text="|Min Price: € ${param.filterMinPrice}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                                th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
-                        </div>
+                </div>
 
-                        <div class="small">
-                            <a th:href="@{|/lists/cooling|}" class="btn-custom small">FILTERS WISSEN</a>
-                        </div>
+                <form th:action="@{|/lists/cooling|}" method="get" class="col text-start">
+                    <h5 class="mt-5">Stel Prijsklasse In</h5>
+                    <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMinPrice" name="filterMinPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="0" oninput="this.nextElementSibling.value = this.value">
+                        <output>0</output>
+                    </div>
+                    <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="1000"
+                               oninput="this.nextElementSibling.value = this.value">
+                        <output>1000</output>
+                    </div>
+                    <div class="container row mt-4 small">
+                        <button type="submit" class="btn-custom small">PRIJS INSTELLEN</button>
+                    </div>
+                </form>
+
+                <div class="container">
+                    <h6 class="mt-5 small">Toegepaste filters:</h6>
+                    <div class="applied-filters text-start">
+                        <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                            th:text="|Searched for: ${param.searchWord}|"></ul>
+                        <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                            th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterSocketType)}"
+                            th:text="|Socket Type: ${param.filterSocketType}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterFanSize)}"
+                            th:text="|Fan Size: ${param.filterFanSize}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterRadiatorSize)}"
+                            th:text="|Radiator Size: ${param.filterRadiatorSize}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                    </div>
+
+                    <div class="small">
+                        <a th:href="@{|/lists/cooling|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>
@@ -131,15 +139,15 @@
                         <div th:each="COOLING : ${filteredCooling}">
                             <ul class="list">
                                 <li><a th:href="@{/components/cooling/{id}(id=${COOLING.id})}" th:text="${COOLING.name}"
-                                       title="Click to view more details about this cooling component."></a></li>
+                                       title="Click to view more details about this cooling solution."></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="bottom-margin"></div>
     </div>
-    <div class="bottom-margin"></div>
 </main>
 
 <div class="bottom-margin"></div>

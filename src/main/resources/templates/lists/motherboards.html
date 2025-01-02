@@ -6,9 +6,8 @@
 <body class="d-flex flex-column h-100">
 <h1>Moederborden</h1>
 <p>Op deze pagina vind je alle beschikbare moederbordcomponenten die momenteel op voorraad zijn.</p>
-<p>Je kunt zoeken en filteren op naam, chipset, fabrikant of prijs. Klik op de naam van een component om meer details te
-    zien.</p>
-
+<p>Je kunt zoeken en filteren op naam, fabrikant, socket, chipset, geheugen of prijs. Klik op de naam van een component
+    om meer details te zien.</p>
 
 <main class="container">
     <h2>Moederborden in stock</h2>
@@ -21,36 +20,38 @@
                     <form th:action="@{|/lists/motherboards|}" method="get" class="">
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
-                        <button type="submit" class="btn-custom small">ZOEKEN</button>
+                        <div class="container row small">
+                        <button type="submit" class="btn-custom small mt-2">ZOEKEN</button>
+                        </div>
                         </span>
                     </form>
                 </div>
-
 
                 <!--Filters-->
                 <div id="filterSection">
                     <form th:action="@{|/lists/motherboards|}" method="get" class="col text-start">
                         <h5 class="mt-4">Filter op</h5>
 
-                        <!-- MOBO Filter-->
+                        <!-- Manufacturer Filter -->
                         <label for="filterManufacturer" class="form-label mt-2">Fabrikant</label>
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allMotherboards}"
-                                        th:value="*{m.manufacturer}"
-                                        th:text="*{m.manufacturer}"
+                                <option th:each="p : ${allMotherboards}"
+                                        th:value="${p.manufacturer}"
+                                        th:text="${p.manufacturer}"
                                 ></option>
-                            </select></div>
+                            </select>
+                        </div>
 
-                        <!-- Form Factor Filter -->
-                        <label for="filterMoboFormFactor" class="form-label mt-2">Formaat</label>
+                        <!-- Socket Filter -->
+                        <label for="filterSocket" class="form-label mt-2">Socket</label>
                         <div class="container input-group row">
-                            <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
+                            <select id="filterSocket" name="filterSocket" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allMotherboards}"
-                                        th:value="*{m.moboFormFactor}"
-                                        th:text="*{m.moboFormFactor}"
+                                <option th:each="p : ${allMotherboards}"
+                                        th:value="${p.socketType}"
+                                        th:text="${p.socketType}"
                                 ></option>
                             </select>
                         </div>
@@ -60,82 +61,86 @@
                         <div class="container input-group row">
                             <select id="filterChipset" name="filterChipset" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allMotherboards}"
-                                        th:value="*{m.chipset}"
-                                        th:text="*{m.chipset}"
+                                <option th:each="p : ${allMotherboards}"
+                                        th:value="${p.chipset}"
+                                        th:text="${p.chipset}"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Socket Type Filter -->
-                        <label for="filterSocket" class="form-label mt-2">Socket Type</label>
-                        <div class="container input-group row">
-                            <select id="filterSocket" name="filterSocket" class="filter-box">
-                                <option value="">----</option>
-                                <option th:each="m : ${allMotherboards}"
-                                        th:value="*{m.socketType}"
-                                        th:text="*{m.socketType}"
-                                ></option>
-                            </select>
-                        </div>
-
-                        <!-- Memory type Filter-->
-                        <label for="filterMemory" class="form-label mt-2">Memory Type</label>
+                        <!-- Memory Filter -->
+                        <label for="filterMemory" class="form-label mt-2">Geheugen</label>
                         <div class="container input-group row">
                             <select id="filterMemory" name="filterMemory" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allMotherboards}"
-                                        th:value="*{m.memoryType}"
-                                        th:text="*{m.memoryType}"
+                                <option th:each="p : ${allMotherboards}"
+                                        th:value="${p.memoryType}"
+                                        th:text="${p.memoryType}"
                                 ></option>
                             </select>
                         </div>
 
-
-                        <!-- Price Range Filter -->
-                        <h5 class="mt-5">Stel Prijsklasse In</h5>
-                        <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+                        <!-- Form Factor Filter -->
+                        <label for="filterMoboFormFactor" class="form-label mt-2">Form Factor</label>
                         <div class="container input-group row">
-                            <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                                   placeholder="Min prijs in euro" step="10">
+                            <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
+                                <option value="">----</option>
+                                <option th:each="p : ${allMotherboards}"
+                                        th:value="${p.moboFormFactor}"
+                                        th:text="${p.moboFormFactor}"
+                                ></option>
+                            </select>
                         </div>
-                        <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
-
-                        <div class="container input-group row">
-                            <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                                   placeholder="Max prijs in euro" step="10">
-                        </div>
-
 
                         <div class="container row mt-4 small">
-                            <button type="submit" class="btn-custom">TOEPASSEN</button>
+                            <button type="submit" class="btn-custom small">TOEPASSEN</button>
                         </div>
-
                     </form>
-                    <div class="container">
-                        <h6 class="mt-5 small">Toegepaste filters:</h6>
-                        <div class="applied-filters text-start">
-                            <ul th:if="${not #strings.isEmpty(param.searchWord)}"
-                                th:text="|Searched for: ${param.searchWord}|"></ul>
-                            <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
-                                th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterSocket)}"
-                                th:text="|Socket: ${param.filterSocket}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterChipset)}"
-                                th:text="|Chipset: ${param.filterChipset}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMemory)}"
-                                th:text="|Memory: ${param.filterMemory}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
-                                th:text="|Form Factor: ${param.filterMoboFormFactor}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                                th:text="|Min Price: € ${param.filterMinPrice}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                                th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
-                        </div>
+                </div>
 
-                        <div class="small">
-                            <a th:href="@{|/lists/motherboards|}" class="btn-custom small">FILTERS WISSEN</a>
-                        </div>
+                <form th:action="@{|/lists/motherboards|}" method="get" class="col text-start">
+                    <h5 class="mt-5">Stel Prijsklasse In</h5>
+                    <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMinPrice" name="filterMinPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="0" oninput="this.nextElementSibling.value = this.value">
+                        <output>0</output>
+                    </div>
+                    <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="1000"
+                               oninput="this.nextElementSibling.value = this.value">
+                        <output>1000</output>
+                    </div>
+                    <div class="container row mt-4 small">
+                        <button type="submit" class="btn-custom small">PRIJS INSTELLEN</button>
+                    </div>
+                </form>
+
+                <div class="container">
+                    <h6 class="mt-5 small">Toegepaste filters:</h6>
+                    <div class="applied-filters text-start">
+                        <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                            th:text="|Searched for: ${param.searchWord}|"></ul>
+                        <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                            th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterSocket)}"
+                            th:text="|Socket: ${param.filterSocket}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterChipset)}"
+                            th:text="|Chipset: ${param.filterChipset}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMemory)}"
+                            th:text="|Memory: ${param.filterMemory}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
+                            th:text="|Form Factor: ${param.filterMoboFormFactor}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                    </div>
+
+                    <div class="small">
+                        <a th:href="@{|/lists/motherboards|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>
@@ -155,9 +160,8 @@
                 </div>
             </div>
         </div>
+        <div class="bottom-margin"></div>
     </div>
-    <div class="bottom-margin"></div>
-
 </main>
 
 <div class="bottom-margin"></div>

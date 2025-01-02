@@ -41,4 +41,7 @@ public interface MotherboardRepository extends CrudRepository<MOBO, Integer> {
     List<MOBO> findByPrice(
             @Param("filterMinPrice") Double filterMinPrice,
             @Param("filterMaxPrice") Double filterMaxPrice);
+
+    @Query("SELECT m FROM MOBO m")
+    List<MOBO> findByAll();
 }

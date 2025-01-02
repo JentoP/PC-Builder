@@ -6,7 +6,8 @@
 <body class="d-flex flex-column h-100">
 <h1>Processoren</h1>
 <p>Op deze pagina vind je alle beschikbare processorcomponenten die momenteel op voorraad zijn.</p>
-<p>Je kunt zoeken en filteren op naam, fabrikant, socket, kern, architectuur of prijs. Klik op de naam van een component om meer details te zien.</p>
+<p>Je kunt zoeken en filteren op naam, fabrikant, socket, kern, architectuur of prijs. Klik op de naam van een component
+    om meer details te zien.</p>
 
 <main class="container">
     <h2>Processoren in stock</h2>
@@ -19,7 +20,9 @@
                     <form th:action="@{|/lists/processors|}" method="get" class="">
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
-                        <button type="submit" class="btn-custom small">ZOEKEN</button>
+                       <div class="container row small">
+                        <button type="submit" class="btn-custom small mt-2">ZOEKEN</button>
+                        </div>
                         </span>
                     </form>
                 </div>
@@ -35,37 +38,37 @@
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="p : ${allProcessors}"
-                                        th:value="*{p.manufacturer}"
-                                        th:text="*{p.manufacturer}"
+                                        th:value="${p.manufacturer}"
+                                        th:text="${p.manufacturer}"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Socket Filter -->
+                        <!--                         Socket Filter -->
                         <label for="filterSocket" class="form-label mt-2">Socket</label>
                         <div class="container input-group row">
                             <select id="filterSocket" name="filterSocket" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allProcessors}"
-                                        th:value="*{m.socketType}"
-                                        th:text="*{m.socketType}"
+                                <option th:each="p : ${allProcessors}"
+                                        th:value="*{p.socketType}"
+                                        th:text="*{p.socketType}"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Core Filter -->
+                        <!--                         Core Filter -->
                         <label for="filterCore" class="form-label mt-2">Kern</label>
                         <div class="container input-group row">
                             <select id="filterCore" name="filterCore" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allProcessors}"
-                                        th:value="*{m.coreCount}"
-                                        th:text="*{m.coreCount}"
+                                <option th:each="p : ${allProcessors}"
+                                        th:value="*{p.coreCount}"
+                                        th:text="*{p.coreCount}"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Architecture Filter -->
+                        <!--                         Architecture Filter -->
                         <label for="filterArchitecture" class="form-label mt-2">Architectuur</label>
                         <div class="container input-group row">
                             <select id="filterArchitecture" name="filterArchitecture" class="filter-box">
@@ -77,46 +80,54 @@
                             </select>
                         </div>
 
-                        <!-- Price Range Filter -->
-                        <h5 class="mt-5">Stel Prijsklasse In</h5>
-                        <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
-                        <div class="container input-group row">
-                            <input type="range" id="filterMinPrice" name="filterMinPrice" class="filter-box" min="0" max="1000" step="10" value="0" oninput="this.nextElementSibling.value = this.value">
-                            <output>0</output>
-                        </div>
-                        <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
-                        <div class="container input-group row">
-                            <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0" max="1000" step="10" value="1000" oninput="this.nextElementSibling.value = this.value">
-                            <output>1000</output>
-                        </div>
 
                         <div class="container row mt-4 small">
-                            <button type="submit" class="btn-custom">TOEPASSEN</button>
+                            <button type="submit" class="btn-custom small">TOEPASSEN</button>
                         </div>
 
                     </form>
-                    <div class="container">
-                        <h6 class="mt-5 small">Toegepaste filters:</h6>
-                        <div class="applied-filters text-start">
-                            <ul th:if="${not #strings.isEmpty(param.searchWord)}"
-                                th:text="|Searched for: ${param.searchWord}|"></ul>
-                            <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
-                                th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterSocket)}"
-                                th:text="|Socket: ${param.filterSocket}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterCore)}"
-                                th:text="|Core: ${param.filterCore}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterArchitecture)}"
-                                th:text="|Architecture: ${param.filterArchitecture}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                                th:text="|Min Price: € ${param.filterMinPrice}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                                th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
-                        </div>
+                </div>
+                <form th:action="@{|/lists/processors|}" method="get" class="col text-start">
+                    <h5 class="mt-5">Stel Prijsklasse In</h5>
+                    <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMinPrice" name="filterMinPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="0" oninput="this.nextElementSibling.value = this.value">
+                        <output>0</output>
+                    </div>
+                    <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="1000"
+                               oninput="this.nextElementSibling.value = this.value">
+                        <output>1000</output>
+                    </div>
+                    <div class="container row mt-4 small">
+                        <button type="submit" class="btn-custom small">PRIJS INSTELLEN</button>
+                    </div>
+                </form>
 
-                        <div class="small">
-                            <a th:href="@{|/lists/processors|}" class="btn-custom small">FILTERS WISSEN</a>
-                        </div>
+                <div class="container">
+                    <h6 class="mt-5 small">Toegepaste filters:</h6>
+                    <div class="applied-filters text-start">
+                        <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                            th:text="|Searched for: ${param.searchWord}|"></ul>
+                        <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                            th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterSocket)}"
+                            th:text="|Socket: ${param.filterSocket}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterCore)}"
+                            th:text="|Core: ${param.filterCore}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterArchitecture)}"
+                            th:text="|Architecture: ${param.filterArchitecture}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                    </div>
+
+                    <div class="small">
+                        <a th:href="@{|/lists/processors|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>
@@ -136,8 +147,8 @@
                 </div>
             </div>
         </div>
+        <div class="bottom-margin"></div>
     </div>
-    <div class="bottom-margin"></div>
 </main>
 
 <div class="bottom-margin"></div>

@@ -5,8 +5,8 @@
 
 <body class="d-flex flex-column h-100">
 <h1>Geheugen</h1>
-<p>Op deze pagina vind je alle beschikbare geheugencomponenten die momenteel op voorraad zijn.</p>
-<p>Je kunt zoeken en filteren op naam, fabrikant, geheugen capaciteit, type, timings, of prijs. Klik op de naam van een component om meer details te zien.</p>
+<p>Op deze pagina vind je alle beschikbare geheugenkits die momenteel op voorraad zijn.</p>
+<p>Je kunt zoeken en filteren op naam, fabrikant, geheugencapaciteit, geheugentype of prijs. Klik op de naam van een component om meer details te zien.</p>
 
 <main class="container">
     <h2>Geheugen in stock</h2>
@@ -20,7 +20,7 @@
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
                         <div class="container row small">
-                        <button type="submit" class="btn-custom small">ZOEKEN</button>
+                        <button type="submit" class="btn-custom small mt-2">ZOEKEN</button>
                         </div>
                         </span>
                     </form>
@@ -36,32 +36,33 @@
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allMemory}"
-                                        th:value="*{m.manufacturer}"
-                                        th:text="*{m.manufacturer}"
+                                <option th:each="p : ${allMemory}"
+                                        th:value="${p.manufacturer}"
+                                        th:text="${p.manufacturer}"
                                 ></option>
-                            </select></div>
+                            </select>
+                        </div>
 
                         <!-- Memory Capacity Filter -->
-                        <label for="filterMemoryCapacity" class="form-label mt-2">Geheugen Capaciteit</label>
+                        <label for="filterMemoryCapacity" class="form-label mt-2">Geheugencapaciteit</label>
                         <div class="container input-group row">
                             <select id="filterMemoryCapacity" name="filterMemoryCapacity" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allMemory}"
-                                        th:value="*{m.memoryCapacity}"
-                                        th:text="|*{m.memoryCapacity} GB|"
+                                <option th:each="p : ${allMemory}"
+                                        th:value="${p.memoryCapacity}"
+                                        th:text="${p.memoryCapacity}"
                                 ></option>
                             </select>
                         </div>
 
                         <!-- Memory Type Filter -->
-                        <label for="filterMemoryType" class="form-label mt-2">Geheugen Type</label>
+                        <label for="filterMemoryType" class="form-label mt-2">Geheugentype</label>
                         <div class="container input-group row">
                             <select id="filterMemoryType" name="filterMemoryType" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allMemory}"
-                                        th:value="*{m.memoryType}"
-                                        th:text="*{m.memoryType}"
+                                <option th:each="p : ${allMemory}"
+                                        th:value="${p.memoryType}"
+                                        th:text="${p.memoryType}"
                                 ></option>
                             </select>
                         </div>
@@ -71,54 +72,60 @@
                         <div class="container input-group row">
                             <select id="filterTimings" name="filterTimings" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="m : ${allMemory}"
-                                        th:value="*{m.timings}"
-                                        th:text="*{m.timings}"
+                                <option th:each="p : ${allMemory}"
+                                        th:value="${p.timings}"
+                                        th:text="${p.timings}"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Price Range Filter -->
-                        <h5 class="mt-5">Stel Prijsklasse In</h5>
-                        <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
-                        <div class="container input-group row">
-                            <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                                   placeholder="Min prijs in euro" step="10">
-                        </div>
-                        <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
-
-                        <div class="container input-group row">
-                            <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                                   placeholder="Max prijs in euro" step="10">
-                        </div>
-
                         <div class="container row mt-4 small">
-                            <button type="submit" class="btn-custom">TOEPASSEN</button>
+                            <button type="submit" class="btn-custom small">TOEPASSEN</button>
                         </div>
-
                     </form>
-                    <div th:if="${filteredMemory} != null AND ${!filteredMemory.isEmpty()}" class="container">
-                        <h6 class="mt-5 small">Toegepaste filters:</h6>
-                        <div class="applied-filters text-start">
-                            <ul th:if="${not #strings.isEmpty(param.searchWord)}"
-                                th:text="|Searched for: ${param.searchWord}|"></ul>
-                            <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
-                                th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMemoryCapacity)}"
-                                th:text="|Memory Capacity: ${param.filterMemoryCapacity} GB|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMemoryType)}"
-                                th:text="|Memory Type: ${param.filterMemoryType}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterTimings)}"
-                                th:text="|Timings: ${param.filterTimings}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                                th:text="|Min Price: € ${param.filterMinPrice}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                                th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
-                        </div>
+                </div>
 
-                        <div class="small">
-                            <a th:href="@{|/lists/memory|}" class="btn-custom small">FILTERS WISSEN</a>
-                        </div>
+                <form th:action="@{|/lists/memory|}" method="get" class="col text-start">
+                    <h5 class="mt-5">Stel Prijsklasse In</h5>
+                    <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMinPrice" name="filterMinPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="0" oninput="this.nextElementSibling.value = this.value">
+                        <output>0</output>
+                    </div>
+                    <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="1000"
+                               oninput="this.nextElementSibling.value = this.value">
+                        <output>1000</output>
+                    </div>
+                    <div class="container row mt-4 small">
+                        <button type="submit" class="btn-custom small">PRIJS INSTELLEN</button>
+                    </div>
+                </form>
+
+                <div class="container">
+                    <h6 class="mt-5 small">Toegepaste filters:</h6>
+                    <div class="applied-filters text-start">
+                        <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                            th:text="|Searched for: ${param.searchWord}|"></ul>
+                        <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                            th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMemoryCapacity)}"
+                            th:text="|Memory Capacity: ${param.filterMemoryCapacity}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMemoryType)}"
+                            th:text="|Memory Type: ${param.filterMemoryType}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterTimings)}"
+                            th:text="|Timings: ${param.filterTimings}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                    </div>
+
+                    <div class="small">
+                        <a th:href="@{|/lists/memory|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>
@@ -131,15 +138,15 @@
                         <div th:each="RAM : ${filteredMemory}">
                             <ul class="list">
                                 <li><a th:href="@{/components/memory/{id}(id=${RAM.id})}" th:text="${RAM.name}"
-                                       title="Click to view more details about this memory component."></a></li>
+                                       title="Click to view more details about this memory kit."></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="bottom-margin"></div>
     </div>
-    <div class="bottom-margin"></div>
 </main>
 
 <div class="bottom-margin"></div>

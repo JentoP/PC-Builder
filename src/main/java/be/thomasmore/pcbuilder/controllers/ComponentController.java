@@ -39,15 +39,6 @@ public class ComponentController {
     @GetMapping({"/components"})
     public String components(Model model) {
 
-//            Future uses
-//            List<MOBO> moboList = motherboards.findBySearch(searchWord);
-//            List<CHASSIS> caseList = cases.findBySearch(searchWord);
-//            List<COOLING> coolingList = coolingSolutions.findBySearch(searchWord);
-//            List<GPU> gpuList = graphicCards.findBySearch(searchWord);
-//            List<RAM> memoryList = memoryKits.findBySearch(searchWord);
-//            List<PSU> powerList = powerSupplies.findBySearch(searchWord);
-//            List<DATA> storageList = storage.findBySearch(searchWord);
-
         return "components";
     }
 
@@ -64,26 +55,35 @@ public class ComponentController {
                                 @RequestParam(required = false) String filterCpuModel,
                                 @RequestParam(required = false) Double filterClockSpeed,
                                 @RequestParam(required = false) Double filterWattage) {
-
+//      declare list
         List<CPU> filteredProcessors;
 
+//      check first for  search
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredProcessors = processors.findBySearch(searchWord);
+
+//      check for price filter
         } else if (filterMinPrice != null || filterMaxPrice != null) {
             filteredProcessors = processors.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
-        } else {
-            filteredProcessors = processors.findByFilter(
-                    filterManufacturer,
-                    filterSocket,
-                    filterCore,
-                    filterArchitecture,
-                    filterCpuModel,
-                    filterClockSpeed,
-                    filterWattage);
-        }
+
+//      if no filters are applied give all results
+        } else if (filterManufacturer == null && filterSocket == null && filterCore == null && filterArchitecture == null && filterCpuModel == null && filterClockSpeed == null && filterWattage == null) {
+            filteredProcessors = (List<CPU>) processors.findAll();
+
+//      if filters are applied give individual filtered results
+        } else filteredProcessors = processors.findByFilter(
+                filterManufacturer == null ? "" : filterManufacturer,
+                filterSocket == null ? "" : filterSocket,
+                filterCore == null ? 0 : filterCore,
+                filterArchitecture == null ? "" : filterArchitecture,
+                filterCpuModel == null ? "" : filterCpuModel,
+                filterClockSpeed == null ? 0.0 : filterClockSpeed,
+                filterWattage == null ? 0.0 : filterWattage
+        );
+
 
         model.addAttribute("allProcessors", processors.findAll());
         model.addAttribute("filteredProcessors", filteredProcessors);
@@ -102,30 +102,42 @@ public class ComponentController {
                                   @RequestParam(required = false) String filterChipset,
                                   @RequestParam(required = false) String filterMemory,
                                   @RequestParam(required = false) String filterMoboFormFactor) {
+//      declare list
+        List<MOBO> filteredMotherboards;
 
-        List<MOBO> filteredMotherboard;
-
+//      check first for search
         if (searchWord != null && !searchWord.isEmpty()) {
-            filteredMotherboard = motherboards.findBySearch(searchWord);
+            filteredMotherboards = motherboards.findBySearch(searchWord);
+
+//      check for price filter
         } else if (filterMinPrice != null || filterMaxPrice != null) {
-            filteredMotherboard = motherboards.findByPrice(
+            filteredMotherboards = motherboards.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
+
+//      if no filters are applied give all results
+        } else if (filterManufacturer == null && filterSocket == null && filterChipset == null && filterMemory == null && filterMoboFormFactor == null) {
+            filteredMotherboards = (List<MOBO>) motherboards.findAll();
+
+//      if filters are applied give individual filtered results
         } else {
-            filteredMotherboard = motherboards.findByFilter(
-                    filterManufacturer,
-                    filterSocket,
-                    filterChipset,
-                    filterMemory,
-                    filterMoboFormFactor);
+            filteredMotherboards = motherboards.findByFilter(
+                    filterManufacturer == null ? "" : filterManufacturer,
+                    filterSocket == null ? "" : filterSocket,
+                    filterChipset == null ? "" : filterChipset,
+                    filterMemory == null ? "" : filterMemory,
+                    filterMoboFormFactor == null ? "" : filterMoboFormFactor
+            );
         }
 
         model.addAttribute("allMotherboards", motherboards.findAll());
-        model.addAttribute("filteredMotherboard", filteredMotherboard);
+        model.addAttribute("filteredMotherboards", filteredMotherboards);
 
         return "/lists/motherboards";
     }
+
+
     @GetMapping({"/lists/memory"})
     public String memoryList(Model model,
                              @RequestParam(required = false) String searchWord,
@@ -135,22 +147,32 @@ public class ComponentController {
                              @RequestParam(required = false) String filterMemoryCapacity,
                              @RequestParam(required = false) String filterMemoryType,
                              @RequestParam(required = false) String filterTimings) {
-
+//      declare list
         List<RAM> filteredMemory;
 
+//      check first for search
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredMemory = memoryKits.findBySearch(searchWord);
+
+//      check for price filter
         } else if (filterMinPrice != null || filterMaxPrice != null) {
             filteredMemory = memoryKits.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
+
+//      if no filters are applied give all results
+        } else if (filterManufacturer == null && filterMemoryCapacity == null && filterMemoryType == null && filterTimings == null) {
+            filteredMemory = (List<RAM>) memoryKits.findAll();
+
+//      if filters are applied give individual filtered results
         } else {
             filteredMemory = memoryKits.findByFilter(
-                    filterManufacturer,
-                    filterMemoryCapacity,
-                    filterMemoryType,
-                    filterTimings);
+                    filterManufacturer == null ? "" : filterManufacturer,
+                    filterMemoryCapacity == null ? "" : filterMemoryCapacity,
+                    filterMemoryType == null ? "" : filterMemoryType,
+                    filterTimings == null ? "" : filterTimings
+            );
         }
 
         model.addAttribute("allMemory", memoryKits.findAll());
@@ -158,6 +180,8 @@ public class ComponentController {
 
         return "/lists/memory";
     }
+
+
     @GetMapping({"/lists/graphiccards"})
     public String graphicCardList(Model model,
                                   @RequestParam(required = false) String searchWord,
@@ -167,22 +191,32 @@ public class ComponentController {
                                   @RequestParam(required = false) String filterChipset,
                                   @RequestParam(required = false) String filterMemoryCapacity,
                                   @RequestParam(required = false) String filterInterfaceType) {
-
+//      declare list
         List<GPU> filteredGraphicCards;
 
+//      check first for search
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredGraphicCards = graphicCards.findBySearch(searchWord);
+
+//      check for price filter
         } else if (filterMinPrice != null || filterMaxPrice != null) {
             filteredGraphicCards = graphicCards.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
+
+//      if no filters are applied give all results
+        } else if (filterManufacturer == null && filterChipset == null && filterMemoryCapacity == null && filterInterfaceType == null) {
+            filteredGraphicCards = (List<GPU>) graphicCards.findAll();
+
+//      if filters are applied give individual filtered results
         } else {
             filteredGraphicCards = graphicCards.findByFilter(
-                    filterManufacturer,
-                    filterChipset,
-                    filterMemoryCapacity,
-                    filterInterfaceType);
+                    filterManufacturer == null ? "" : filterManufacturer,
+                    filterChipset == null ? "" : filterChipset,
+                    filterMemoryCapacity == null ? "" : filterMemoryCapacity,
+                    filterInterfaceType == null ? "" : filterInterfaceType
+            );
         }
 
         model.addAttribute("allGraphicCards", graphicCards.findAll());
@@ -190,6 +224,9 @@ public class ComponentController {
 
         return "/lists/graphiccards";
     }
+
+
+
     @GetMapping({"/lists/storage"})
     public String storageList(Model model,
                               @RequestParam(required = false) String searchWord,
@@ -199,22 +236,32 @@ public class ComponentController {
                               @RequestParam(required = false) String filterInterfaceType,
                               @RequestParam(required = false) String filterStorageType,
                               @RequestParam(required = false) String filterCapacity) {
-
+//      declare list
         List<DATA> filteredStorage;
 
+//      check first for search
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredStorage = storage.findBySearch(searchWord);
+
+//      check for price filter
         } else if (filterMinPrice != null || filterMaxPrice != null) {
             filteredStorage = storage.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
+
+//      if no filters are applied give all results
+        } else if (filterManufacturer == null && filterInterfaceType == null && filterStorageType == null && filterCapacity == null) {
+            filteredStorage = (List<DATA>) storage.findAll();
+
+//      if filters are applied give individual filtered results
         } else {
             filteredStorage = storage.findByFilter(
-                    filterManufacturer,
-                    filterInterfaceType,
-                    filterStorageType,
-                    filterCapacity);
+                    filterManufacturer == null ? "" : filterManufacturer,
+                    filterInterfaceType == null ? "" : filterInterfaceType,
+                    filterStorageType == null ? "" : filterStorageType,
+                    filterCapacity == null ? "" : filterCapacity
+            );
         }
 
         model.addAttribute("allStorage", storage.findAll());
@@ -222,6 +269,8 @@ public class ComponentController {
 
         return "/lists/storage";
     }
+
+
     @GetMapping({"/lists/cooling"})
     public String coolingList(Model model,
                               @RequestParam(required = false) String searchWord,
@@ -231,22 +280,32 @@ public class ComponentController {
                               @RequestParam(required = false) String filterSocketType,
                               @RequestParam(required = false) String filterFanSize,
                               @RequestParam(required = false) String filterRadiatorSize) {
-
+//      declare list
         List<COOLING> filteredCooling;
 
+//      check first for search
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredCooling = coolingSolutions.findBySearch(searchWord);
+
+//      check for price filter
         } else if (filterMinPrice != null || filterMaxPrice != null) {
             filteredCooling = coolingSolutions.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
+
+//      if no filters are applied give all results
+        } else if (filterManufacturer == null && filterSocketType == null && filterFanSize == null && filterRadiatorSize == null) {
+            filteredCooling = (List<COOLING>) coolingSolutions.findAll();
+
+//      if filters are applied give individual filtered results
         } else {
             filteredCooling = coolingSolutions.findByFilter(
-                    filterManufacturer,
-                    filterSocketType,
-                    filterFanSize,
-                    filterRadiatorSize);
+                    filterManufacturer == null ? "" : filterManufacturer,
+                    filterSocketType == null ? "" : filterSocketType,
+                    filterFanSize == null ? "" : filterFanSize,
+                    filterRadiatorSize == null ? "" : filterRadiatorSize
+            );
         }
 
         model.addAttribute("allCooling", coolingSolutions.findAll());
@@ -254,6 +313,7 @@ public class ComponentController {
 
         return "/lists/cooling";
     }
+
     @GetMapping({"/lists/cases"})
     public String caseList(Model model,
                            @RequestParam(required = false) String searchWord,
@@ -263,22 +323,32 @@ public class ComponentController {
                            @RequestParam(required = false) String filterMoboFormFactor,
                            @RequestParam(required = false) String filterPsuFormFactor,
                            @RequestParam(required = false) Boolean filterSidePanel) {
-
+//      declare list
         List<CHASSIS> filteredCases;
 
+//      check first for search
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredCases = cases.findBySearch(searchWord);
+
+//      check for price filter
         } else if (filterMinPrice != null || filterMaxPrice != null) {
             filteredCases = cases.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
+
+//      if no filters are applied give all results
+        } else if (filterManufacturer == null && filterMoboFormFactor == null && filterPsuFormFactor == null && filterSidePanel == null) {
+            filteredCases = (List<CHASSIS>) cases.findAll();
+
+//      if filters are applied give individual filtered results
         } else {
             filteredCases = cases.findByFilter(
-                    filterManufacturer,
-                    filterMoboFormFactor,
-                    filterPsuFormFactor,
-                    filterSidePanel);
+                    filterManufacturer == null ? "" : filterManufacturer,
+                    filterMoboFormFactor == null ? "" : filterMoboFormFactor,
+                    filterPsuFormFactor == null ? "" : filterPsuFormFactor,
+                    filterSidePanel
+            );
         }
 
         model.addAttribute("allCases", cases.findAll());
@@ -299,6 +369,7 @@ public class ComponentController {
         }
         return "/components/processordetails";
     }
+
     @GetMapping({"/lists/powersupplies"})
     public String powerSuppliesList(Model model,
                                     @RequestParam(required = false) String searchWord,

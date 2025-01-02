@@ -5,8 +5,8 @@
 
 <body class="d-flex flex-column h-100">
 <h1>Behuizingen</h1>
-<p>Op deze pagina vind je alle beschikbare behuizingscomponenten die momenteel op voorraad zijn.</p>
-<p>Je kunt zoeken en filteren op naam, fabrikant, moederbord formaat, voeding formaat, zijpaneel of prijs. Klik op de naam van een component om meer details te zien.</p>
+<p>Op deze pagina vind je alle beschikbare behuizingen die momenteel op voorraad zijn.</p>
+<p>Je kunt zoeken en filteren op naam, fabrikant, moederbord-formfactor, voeding-formfactor, zijpaneel of prijs. Klik op de naam van een component om meer details te zien.</p>
 
 <main class="container">
     <h2>Behuizingen in stock</h2>
@@ -20,7 +20,7 @@
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
                         <div class="container row small">
-                        <button type="submit" class="btn-custom small">ZOEKEN</button>
+                        <button type="submit" class="btn-custom small mt-2">ZOEKEN</button>
                         </div>
                         </span>
                     </form>
@@ -36,89 +36,96 @@
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="c : ${allCases}"
-                                        th:value="*{c.manufacturer}"
-                                        th:text="*{c.manufacturer}"
+                                <option th:each="p : ${allCases}"
+                                        th:value="${p.manufacturer}"
+                                        th:text="${p.manufacturer}"
                                 ></option>
-                            </select></div>
+                            </select>
+                        </div>
 
-                        <!-- Mobo Form Factor Filter -->
-                        <label for="filterMoboFormFactor" class="form-label mt-2">Moederbord Formaat</label>
+                        <!-- Motherboard Form Factor Filter -->
+                        <label for="filterMoboFormFactor" class="form-label mt-2">Moederbord-formfactor</label>
                         <div class="container input-group row">
                             <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="c : ${allCases}"
-                                        th:value="*{c.moboFormFactor}"
-                                        th:text="*{c.moboFormFactor}"
+                                <option th:each="p : ${allCases}"
+                                        th:value="${p.moboFormFactor}"
+                                        th:text="${p.moboFormFactor}"
                                 ></option>
                             </select>
                         </div>
 
                         <!-- PSU Form Factor Filter -->
-                        <label for="filterPsuFormFactor" class="form-label mt-2">Voeding Formaat</label>
+                        <label for="filterPsuFormFactor" class="form-label mt-2">Voeding-formfactor</label>
                         <div class="container input-group row">
                             <select id="filterPsuFormFactor" name="filterPsuFormFactor" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="c : ${allCases}"
-                                        th:value="*{c.psuFormFactor}"
-                                        th:text="*{c.psuFormFactor}"
+                                <option th:each="p : ${allCases}"
+                                        th:value="${p.psuFormFactor}"
+                                        th:text="${p.psuFormFactor}"
                                 ></option>
                             </select>
                         </div>
 
-                        <!-- Side Panel Filter -->
-                        <label for="filterSidePanel" class="form-label mt-2">Zijpaneel</label>
-                        <div class="container input-group row">
-                            <select id="filterSidePanel" name="filterSidePanel" class="filter-box">
-                                <option value="">----</option>
-                                <option th:each="c : ${allCases}"
-                                        th:value="*{c.sidePanel}"
-                                        th:text="*{c.sidePanel ? 'Ja' : 'Nee'}"
-                                ></option>
-                            </select>
-                        </div>
-
-                        <!-- Price Range Filter -->
-                        <h5 class="mt-5">Stel Prijsklasse In</h5>
-                        <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
-                        <div class="container input-group row">
-                            <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                                   placeholder="Min prijs in euro" step="10">
-                        </div>
-                        <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
-
-                        <div class="container input-group row">
-                            <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                                   placeholder="Max prijs in euro" step="10">
-                        </div>
+<!--                        &lt;!&ndash; Side Panel Filter &ndash;&gt;-->
+<!--                        <label for="filterSidePanel" class="form-label mt-2">Zijpaneel</label>-->
+<!--                        <div class="container input-group row">-->
+<!--                            <select id="filterSidePanel" name="filterSidePanel" class="filter-box">-->
+<!--                                <option value="">&#45;&#45;&#45;&#45;</option>-->
+<!--                                <option th:each="p : ${#lists.newArrayList('Ja', 'Nee')}"-->
+<!--                                        th:value="${p}"-->
+<!--                                        th:text="${p}"-->
+<!--                                ></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
 
                         <div class="container row mt-4 small">
-                            <button type="submit" class="btn-custom">TOEPASSEN</button>
+                            <button type="submit" class="btn-custom small">TOEPASSEN</button>
                         </div>
-
                     </form>
-                    <div th:if="${filteredCases} != null AND ${!filteredCases.isEmpty()}" class="container">
-                        <h6 class="mt-5 small">Toegepaste filters:</h6>
-                        <div class="applied-filters text-start">
-                            <ul th:if="${not #strings.isEmpty(param.searchWord)}"
-                                th:text="|Searched for: ${param.searchWord}|"></ul>
-                            <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
-                                th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
-                                th:text="|Mobo Form Factor: ${param.filterMoboFormFactor}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterPsuFormFactor)}"
-                                th:text="|PSU Form Factor: ${param.filterPsuFormFactor}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterSidePanel)}"
-                                th:text="|Side Panel: ${param.filterSidePanel ? 'Ja' : 'Nee'}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                                th:text="|Min Price: € ${param.filterMinPrice}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                                th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
-                        </div>
+                </div>
 
-                        <div class="small">
-                            <a th:href="@{|/lists/cases|}" class="btn-custom small">FILTERS WISSEN</a>
-                        </div>
+                <form th:action="@{|/lists/cases|}" method="get" class="col text-start">
+                    <h5 class="mt-5">Stel Prijsklasse In</h5>
+                    <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMinPrice" name="filterMinPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="0" oninput="this.nextElementSibling.value = this.value">
+                        <output>0</output>
+                    </div>
+                    <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
+                    <div class="container input-group row">
+                        <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0"
+                               max="1000" step="10" value="1000"
+                               oninput="this.nextElementSibling.value = this.value">
+                        <output>1000</output>
+                    </div>
+                    <div class="container row mt-4 small">
+                        <button type="submit" class="btn-custom small">PRIJS INSTELLEN</button>
+                    </div>
+                </form>
+
+                <div class="container">
+                    <h6 class="mt-5 small">Toegepaste filters:</h6>
+                    <div class="applied-filters text-start">
+                        <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                            th:text="|Searched for: ${param.searchWord}|"></ul>
+                        <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                            th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
+                            th:text="|Motherboard Form Factor: ${param.filterMoboFormFactor}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterPsuFormFactor)}"
+                            th:text="|PSU Form Factor: ${param.filterPsuFormFactor}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterSidePanel)}"
+                            th:text="|Side Panel: ${param.filterSidePanel}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                        <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                    </div>
+
+                    <div class="small">
+                        <a th:href="@{|/lists/cases|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>
@@ -138,8 +145,8 @@
                 </div>
             </div>
         </div>
+        <div class="bottom-margin"></div>
     </div>
-    <div class="bottom-margin"></div>
 </main>
 
 <div class="bottom-margin"></div>
