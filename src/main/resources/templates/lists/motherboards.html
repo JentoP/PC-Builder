@@ -114,21 +114,21 @@
                         </div>
 
                     </form>
-                    <div th:if="${filteredMotherboard} != null AND ${!filteredMotherboard.isEmpty()}" class="container">
+                    <div class="container">
                         <h6 class="mt-5 small">Toegepaste filters:</h6>
                         <div class="applied-filters text-start">
                             <ul th:if="${not #strings.isEmpty(param.searchWord)}"
                                 th:text="|Searched for: ${param.searchWord}|"></ul>
                             <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
                                 th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
-                                th:text="|Form Factor: ${param.filterMoboFormFactor}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterSocket)}"
+                                th:text="|Socket: ${param.filterSocket}|"></li>
                             <li th:if="${not #strings.isEmpty(param.filterChipset)}"
                                 th:text="|Chipset: ${param.filterChipset}|"></li>
-                            <li th:if="${not #strings.isEmpty(param.filterSocket)}"
-                                th:text="|Socket Type: ${param.filterSocket}|"></li>
                             <li th:if="${not #strings.isEmpty(param.filterMemory)}"
-                                th:text="|Memory Type: ${param.filterMemory}|"></li>
+                                th:text="|Memory: ${param.filterMemory}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
+                                th:text="|Form Factor: ${param.filterMoboFormFactor}|"></li>
                             <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
                                 th:text="|Min Price: € ${param.filterMinPrice}|"></li>
                             <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
@@ -139,6 +139,7 @@
                             <a th:href="@{|/lists/motherboards|}" class="btn-custom small">FILTERS WISSEN</a>
                         </div>
                     </div>
+
                 </div>
 
 

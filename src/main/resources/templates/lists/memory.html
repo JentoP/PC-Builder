@@ -49,7 +49,7 @@
                                 <option value="">----</option>
                                 <option th:each="m : ${allMemory}"
                                         th:value="*{m.memoryCapacity}"
-                                        th:text="*{m.memoryCapacity} GB"
+                                        th:text="|*{m.memoryCapacity} GB|"
                                 ></option>
                             </select>
                         </div>

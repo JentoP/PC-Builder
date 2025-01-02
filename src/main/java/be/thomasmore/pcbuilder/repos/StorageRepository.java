@@ -17,9 +17,9 @@ public interface StorageRepository extends CrudRepository<DATA, Integer> {
             @Param("searchWord") String searchWord);
 
     @Query("SELECT d FROM DATA d WHERE " +
-            "(:filterManufacturer IS NULL OR :filterManufacturer = d.manufacturer) AND " +
-            "(:filterInterfaceType IS NULL OR :filterInterfaceType = d.interfaceType) AND " +
-            "(:filterStorageType IS NULL OR :filterStorageType = d.storageType) AND " +
+            "(:filterManufacturer IS NULL OR :filterManufacturer = d.manufacturer) OR " +
+            "(:filterInterfaceType IS NULL OR :filterInterfaceType = d.interfaceType) OR " +
+            "(:filterStorageType IS NULL OR :filterStorageType = d.storageType) OR " +
             "(:filterCapacity IS NULL OR :filterCapacity = d.capacity)")
     List<DATA> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,

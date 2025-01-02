@@ -61,8 +61,10 @@ public class ComponentController {
                                 @RequestParam(required = false) Double filterMaxPrice,
                                 @RequestParam(required = false) String filterManufacturer,
                                 @RequestParam(required = false) String filterSocket,
-                                @RequestParam(required = false) String filterCore,
-                                @RequestParam(required = false) String filterArchitecture) {
+                                @RequestParam(required = false) Integer filterCore,
+                                @RequestParam(required = false) String filterArchitecture,
+                                @RequestParam(required = false) String filterCpuModel,
+                                @RequestParam(required = false) Double filterClockSpeed) {
 
         List<CPU> filteredProcessors;
 
@@ -78,7 +80,9 @@ public class ComponentController {
                     filterManufacturer,
                     filterSocket,
                     filterCore,
-                    filterArchitecture);
+                    filterArchitecture,
+                    filterCpuModel,
+                    filterClockSpeed);
         }
 
         model.addAttribute("allProcessors", processors.findAll());
@@ -295,7 +299,40 @@ public class ComponentController {
         }
         return "/components/processordetails";
     }
+    @GetMapping({"/lists/powersupplies"})
+    public String powerSuppliesList(Model model,
+                                    @RequestParam(required = false) String searchWord,
+                                    @RequestParam(required = false) Double filterMinPrice,
+                                    @RequestParam(required = false) Double filterMaxPrice,
+                                    @RequestParam(required = false) String filterManufacturer,
+                                    @RequestParam(required = false) String filterWattage,
+                                    @RequestParam(required = false) String filterEfficiency,
+                                    @RequestParam(required = false) String filterPsuFormFactor) {
 
+        List<PSU> filteredPowerSupplies;
+
+        if (searchWord != null && !searchWord.isEmpty()) {
+            filteredPowerSupplies = powerSupplies.findBySearch(searchWord);
+        } else if (filterMinPrice != null || filterMaxPrice != null) {
+            filteredPowerSupplies = powerSupplies.findByPrice(
+                    filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
+                    filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
+            );
+        } else {
+            filteredPowerSupplies = powerSupplies.findByFilter(
+                    filterManufacturer,
+                    filterWattage,
+                    filterEfficiency,
+                    filterPsuFormFactor);
+        }
+
+        model.addAttribute("allPowerSupplies", powerSupplies.findAll());
+        model.addAttribute("filteredPowerSupplies", filteredPowerSupplies);
+
+        return "/lists/powersupplies";
+    }
+
+    //methods for detail pages
     @GetMapping("/components/motherboard/{id}")
     public String motherboards(@PathVariable Integer id, Model model) {
         Optional<MOBO> moboFromDb = motherboards.findById(id);

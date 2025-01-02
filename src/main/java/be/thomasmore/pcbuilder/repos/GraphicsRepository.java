@@ -17,9 +17,9 @@ public interface GraphicsRepository extends CrudRepository<GPU, Integer> {
             @Param("searchWord") String searchWord);
 
     @Query("SELECT g FROM GPU g WHERE " +
-            "(:filterManufacturer IS NULL OR :filterManufacturer = g.manufacturer) AND " +
-            "(:filterChipset IS NULL OR :filterChipset = g.chipset) AND " +
-            "(:filterMemoryCapacity IS NULL OR :filterMemoryCapacity = g.memoryCapacity) AND " +
+            "(:filterManufacturer IS NULL OR :filterManufacturer = g.manufacturer) OR " +
+            "(:filterChipset IS NULL OR :filterChipset = g.chipset) OR " +
+            "(:filterMemoryCapacity IS NULL OR :filterMemoryCapacity = g.memoryCapacity) OR " +
             "(:filterInterfaceType IS NULL OR :filterInterfaceType = g.interfaceType)")
     List<GPU> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,

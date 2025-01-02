@@ -61,7 +61,7 @@
                 <option value="">----</option>
                 <option th:each="g : ${allGraphicCards}"
                         th:value="*{g.memoryCapacity}"
-                        th:text="*{g.memoryCapacity} GB"
+                        th:text="|*{g.memoryCapacity} GB|"
                 ></option>
               </select>
             </div>

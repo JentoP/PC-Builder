@@ -17,9 +17,9 @@ public interface CoolingRepository extends CrudRepository<COOLING, Integer> {
             @Param("searchWord") String searchWord);
 
     @Query("SELECT c FROM COOLING c WHERE " +
-            "(:filterManufacturer IS NULL OR :filterManufacturer = c.manufacturer) AND " +
-            "(:filterSocketType IS NULL OR :filterSocketType = c.socketType) AND " +
-            "(:filterFanSize IS NULL OR :filterFanSize = c.fanSize) AND " +
+            "(:filterManufacturer IS NULL OR :filterManufacturer = c.manufacturer) OR " +
+            "(:filterSocketType IS NULL OR :filterSocketType = c.socketType) OR " +
+            "(:filterFanSize IS NULL OR :filterFanSize = c.fanSize) OR " +
             "(:filterRadiatorSize IS NULL OR :filterRadiatorSize = c.radiatorSize)")
     List<COOLING> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,
@@ -28,7 +28,7 @@ public interface CoolingRepository extends CrudRepository<COOLING, Integer> {
             @Param("filterRadiatorSize") String filterRadiatorSize);
 
     @Query("SELECT c FROM COOLING c WHERE " +
-            "(:filterMinPrice IS NULL OR c.price >= :filterMinPrice) AND " +
+            "(:filterMinPrice IS NULL OR c.price >= :filterMinPrice) OR " +
             "(:filterMaxPrice IS NULL OR c.price <= :filterMaxPrice)")
     List<COOLING> findByPrice(
             @Param("filterMinPrice") Double filterMinPrice,
