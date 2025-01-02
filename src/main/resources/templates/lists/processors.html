@@ -86,8 +86,9 @@
                         </div>
                         <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
                         <div class="container input-group row">
-                            <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0" max="1000" step="10" th:value="${#lists.max(filteredProcessors.![price])}" oninput="this.nextElementSibling.value = this.value">
-                            <output th:text="${#lists.max(filteredProcessors.![price])}">1000</output>                        </div>
+                            <input type="range" id="filterMaxPrice" name="filterMaxPrice" class="filter-box" min="0" max="1000" step="10" value="1000" oninput="this.nextElementSibling.value = this.value">
+                            <output>1000</output>
+                        </div>
 
                         <div class="container row mt-4 small">
                             <button type="submit" class="btn-custom">TOEPASSEN</button>
