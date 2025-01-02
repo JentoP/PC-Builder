@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
-<head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
+<head th:replace="~{fragments/header :: headerelement('Moederborden')}"></head>
 <header th:replace="~{fragments/header :: header}"></header>
 
 <body class="d-flex flex-column h-100">
-<h1>Motherboards</h1>
-<p>On this page you can find all available motherboard components currently in stock.</p>
-<p>You can search and filter by name, chipset, manufacturer, or price. To see more details about a component click on
-    the component's name.</p>
+<h1>Moederborden</h1>
+<p>Op deze pagina vind je alle beschikbare moederbordcomponenten die momenteel op voorraad zijn.</p>
+<p>Je kunt zoeken en filteren op naam, chipset, fabrikant of prijs. Klik op de naam van een component om meer details te
+    zien.</p>
+
 
 <main class="container">
-    <h2>Motherboards in stock</h2>
-
+    <h2>Moederborden in stock</h2>
     <div class="container">
         <div class="row">
+
             <div class="col-md-2 mt-5">
                 <!--Search-->
-                <div class="text-center">
+                <div class="">
                     <form th:action="@{|/lists/motherboards|}" method="get" class="">
                         <span>
-                        <label><input name="searchWord" class="filter-box" placeholder="Search..."></label>
-                        <button type="submit" class="btn-custom small">Search</button>
+                        <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
+                        <div class="container row small">
+                        <button type="submit" class="btn-custom small">ZOEKEN</button>
+                        </div>
                         </span>
                     </form>
                 </div>
@@ -29,10 +32,10 @@
                 <!--Filters-->
                 <div id="filterSection">
                     <form th:action="@{|/lists/motherboards|}" method="get" class="col text-start">
-                        <h5 class="mt-5">Filter by</h5>
+                        <h5 class="mt-4">Filter op</h5>
 
-                        <!--                        MOBO Filter-->
-                        <label for="filterManufacturer" class="form-label mt-2">Manufacturer</label>
+                        <!-- MOBO Filter-->
+                        <label for="filterManufacturer" class="form-label mt-2">Fabrikant</label>
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
@@ -43,7 +46,7 @@
                             </select></div>
 
                         <!-- Form Factor Filter -->
-                        <label for="filterMoboFormFactor" class="form-label mt-2">Form Factor</label>
+                        <label for="filterMoboFormFactor" class="form-label mt-2">Formaat</label>
                         <div class="container input-group row">
                             <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
                                 <option value="">----</option>
@@ -92,56 +95,60 @@
 
 
                         <!-- Price Range Filter -->
-                        <h5 class="mt-5">Set Price Range</h5>
+                        <h5 class="mt-5">Stel Prijsklasse In</h5>
                         <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
                         <div class="container input-group row">
                             <input type="number" id="filterMinPrice" name="filterMinPrice" class="filter-box"
-                                   placeholder="Min price in euros" step="10">
+                                   placeholder="Min prijs in euro" step="10">
                         </div>
                         <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
 
                         <div class="container input-group row">
                             <input type="number" id="filterMaxPrice" name="filterMaxPrice" class="filter-box"
-                                   placeholder="Max price in euros" step="10">
+                                   placeholder="Max prijs in euro" step="10">
                         </div>
 
 
-                        <div class="container row mt-2">
-                            <button type="submit" class="btn-custom text-center">Apply filters</button>
+                        <div class="container row mt-4 small">
+                            <button type="submit" class="btn-custom">TOEPASSEN</button>
                         </div>
 
                     </form>
+                    <div th:if="${filteredMotherboard} != null AND ${!filteredMotherboard.isEmpty()}" class="container">
+                        <h6 class="mt-5 small">Toegepaste filters:</h6>
+                        <div class="applied-filters text-start">
+                            <ul th:if="${not #strings.isEmpty(param.searchWord)}"
+                                th:text="|Searched for: ${param.searchWord}|"></ul>
+                            <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
+                                th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
+                                th:text="|Form Factor: ${param.filterMoboFormFactor}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterChipset)}"
+                                th:text="|Chipset: ${param.filterChipset}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterSocket)}"
+                                th:text="|Socket Type: ${param.filterSocket}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterMemory)}"
+                                th:text="|Memory Type: ${param.filterMemory}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
+                                th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
+                                th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                        </div>
 
+                        <div class="small">
+                            <a th:href="@{|/lists/motherboards|}" class="btn-custom small">FILTERS WISSEN</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="applied-filters text-start">
-                    <span>Applied Filters:</span>
-                    <ul th:if="${not #strings.isEmpty(param.searchWord)}"
-                        th:text="|Searched for: ${param.searchWord}|"></ul>
-                    <li th:if="${not #strings.isEmpty(param.filterManufacturer)}"
-                        th:text="|Manufacturer: ${param.filterManufacturer}|"></li>
-                    <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
-                        th:text="|Form Factor: ${param.filterMoboFormFactor}|"></li>
-                    <li th:if="${not #strings.isEmpty(param.filterChipset)}"
-                        th:text="|Chipset: ${param.filterChipset}|"></li>
-                    <li th:if="${not #strings.isEmpty(param.filterSocket)}"
-                        th:text="|Socket Type: ${param.filterSocket}|"></li>
-                    <li th:if="${not #strings.isEmpty(param.filterMemory)}"
-                        th:text="|Memory Type: ${param.filterMemory}|"></li>
-                    <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                        th:text="|Min Price: € ${param.filterMinPrice} EURO|"></li>
-                    <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                        th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
 
-                </div>
-                <a th:href="@{|/lists/motherboards|}" class="btn-custom-small">Clear Filters</a>
 
             </div>
             <!--Results-->
             <div class="col-md-9">
-                <h3>Results</h3>
+                <h3>Resultaten</h3>
 
                 <div class="row">
-                    <div class="col-md-6 btn-custom">
+                    <div class="col-md-6">
                         <div th:each="MOBO : ${filteredMotherboard}">
                             <ul class="list">
                                 <li><a th:href="@{/components/motherboard/{id}(id=${MOBO.id})}" th:text="${MOBO.name}"

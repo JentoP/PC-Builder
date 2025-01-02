@@ -65,7 +65,7 @@ public class ComponentController {
                                 @RequestParam(required = false) String searchWord) {
 
         Iterable<CPU> filteredProcessors = processors.findAll();
-//first checks and applies filters based on the param
+//      first checks and applies filters based on the param
         if (filterManufacturer != null && !filterManufacturer.isEmpty()) {
             filteredProcessors = processors.findByManufacturer(filterManufacturer);
         }

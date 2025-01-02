@@ -1,68 +1,68 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
-<head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
+<head th:replace="~{fragments/header :: headerelement('Alle componenten')}"></head>
 <header th:replace="~{fragments/header :: header}"></header>
 
 <body class="d-flex flex-column h-100">
-<h1>Components</h1>
+<h1>Componenten</h1>
 <main class="container">
         <div class="row">
-            <div class="col-md-6 btn-custom">
+            <div class="col-md-6">
                 <a th:href="@{/lists/processors}" class="d-flex align-items-center justify-content-between" title="Click to view the list of processors">
                     <img th:src="@{/img/icons/gradient/cpu.png}" alt="cpu" width="40" height="40" class="m-3">
                     <h2 class="flex-grow-1">Processors</h2>
                 </a>
             </div>
 
-            <div class="col-md-6 btn-custom">
+            <div class="col-md-6">
                 <a th:href="@{/lists/motherboards}" class="d-flex align-items-center justify-content-between" title="Click to view the list of motherboards">
                     <img th:src="@{/img/icons/gradient/motherboard.png}" alt="motherboard" width="40" height="40" class="m-3">
-                    <h2 class="flex-grow-1">Motherboards</h2>
+                    <h2 class="flex-grow-1">Moederborden</h2>
                 </a>
             </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col-md-6 btn-custom">
+            <div class="col-md-6">
                 <a th:href="@{/lists/memorylist}" class="d-flex align-items-center justify-content-between" title="Click to view the list of memory">
                     <img th:src="@{/img/icons/gradient/ram-memory.png}" alt="memory" width="40" height="40" class="m-3">
                     <h2 class="flex-grow-1">Memory</h2>
                 </a>
             </div>
 
-            <div class="col-md-6 btn-custom">
+            <div class="col-md-6">
                 <a th:href="@{/lists/gpulist}" class="d-flex align-items-center justify-content-between" title="Click to view the list of graphic cards">
                     <img th:src="@{/img/icons/gradient/video-card.png}" alt="graphic card" width="40" height="40" class="m-3">
-                    <h2 class="flex-grow-1">Graphic Cards</h2>
+                    <h2 class="flex-grow-1">Grafische Kaarten</h2>
                 </a>
             </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col-md-6 btn-custom">
+            <div class="col-md-6">
                 <a th:href="@{/lists/storagelist}" class="d-flex align-items-center justify-content-between" title="Click to view the list of storage">
                     <img th:src="@{/img/icons/gradient/ssd.png}" alt="storage" width="40" height="40" class="m-3">
                     <h2 class="flex-grow-1">Storage</h2>
                 </a>
             </div>
 
-            <div class="col-md-6 btn-custom">
+            <div class="col-md-6">
                 <a th:href="@{/lists/powerlist}" class="d-flex align-items-center justify-content-between" title="Click to view the list of power supplies">
                     <img th:src="@{/img/icons/gradient/power.png}" alt="power supply" width="40" height="40" class="m-3">
-                    <h2 class="flex-grow-1">Power Supplies</h2>
+                    <h2 class="flex-grow-1">Voedingen</h2>
                 </a>
             </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col-md-6 btn-custom">
+            <div class="col-md-6">
                 <a th:href="@{/lists/caselist}" class="d-flex align-items-center justify-content-between" title="Click to view the list of cases">
                     <img th:src="@{/img/icons/gradient/computer.png}" alt="case" width="40" height="40" class="m-3">
                     <h2 class="flex-grow-1">Cases</h2>
                 </a>
             </div>
 
-            <div class="col-md-6 btn-custom">
+            <div class="col-md-6">
                 <a th:href="@{/lists/coolinglist}" class="d-flex align-items-center justify-content-between" title="Click to view the list of cooling">
                     <img th:src="@{/img/icons/gradient/fan.png}" alt="cooling" width="40" height="40" class="m-3">
                     <h2 class="flex-grow-1">Cooling</h2>
