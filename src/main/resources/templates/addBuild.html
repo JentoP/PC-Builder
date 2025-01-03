@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('PC Build')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Create Your PC Build</h1>
+
+<!-- PC Build Form -->
+<form th:action="@{/builder}" method="POST" th:object="${pcBuild}">
+    <div>
+        <label for="buildName">Build Name:</label>
+        <input type="text" id="buildName" th:field="*{buildName}" />
+    </div>
+
+    <!-- Select CPU -->
+    <div>
+        <h3>Select a CPU:</h3>
+        <ul>
+            <li th:each="cpu : ${allCPUs}">
+                <input type="radio" th:id="cpu_{cpu.id}" th:value="${cpu.id}" th:field="*{selectedCPU}" />
+                <label th:for="cpu_{cpu.id}" th:text="${cpu.name}"></label>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Select MOBO -->
+    <div>
+        <h3>Select a MOBO:</h3>
+        <ul>
+            <li th:each="mobo : ${allMOBOS}">
+                <input type="radio" th:id="mobo_{mobo.id}" th:value="${mobo.id}" th:field="*{selectedMOBO}" />
+                <label th:for="mobo_{mobo.id}" th:text="${mobo.name}"></label>
+            </li>
+        </ul>
+    </div>
+
+<!--    &lt;!&ndash; Other Components &ndash;&gt;-->
+<!--    <div>-->
+<!--        <h3>Select a Chassis:</h3>-->
+<!--        <ul>-->
+<!--            <li th:each="chassis : ${allChassis}">-->
+<!--                <input type="radio" th:id="chassis_{chassis.id}" th:value="${chassis.id}" th:field="*{selectedChassis}" />-->
+<!--                <label th:for="chassis_{chassis.id}" th:text="${chassis.name}"></label>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <h3>Select a Cooling Solution:</h3>-->
+<!--        <ul>-->
+<!--            <li th:each="cooling : ${allCoolingSolutions}">-->
+<!--                <input type="radio" th:id="cooling_{cooling.id}" th:value="${cooling.id}" th:field="*{selectedCooling}" />-->
+<!--                <label th:for="${cooling.id}" th:text="${cooling.name}"></label>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <h3>Select a Graphics Card:</h3>-->
+<!--        <ul>-->
+<!--            <li th:each="graphic : ${allGraphicsCards}">-->
+<!--                <input type="radio" th:id="graphic_{graphic.id}" th:value="${graphic.id}" th:field="*{selectedGraphics}" />-->
+<!--                <label th:for="${graphic.id}" th:text="${graphic.name}"></label>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <h3>Select a Memory Kit:</h3>-->
+<!--        <ul>-->
+<!--            <li th:each="memory : ${allMemoryKits}">-->
+<!--                <input type="radio" th:id="memory_{memory.id}" th:value="${memory.id}" th:field="*{selectedMemory}" />-->
+<!--                <label th:for="memory_{memory.id}" th:text="${memory.name}"></label>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <h3>Select a Power Supply:</h3>-->
+<!--        <ul>-->
+<!--            <li th:each="power : ${allPowerSupplies}">-->
+<!--                <input type="radio" th:id="power_{power.id}" th:value="${power.id}" th:field="*{selectedPower}" />-->
+<!--                <label th:for="power_{power.id}" th:text="${power.name}"></label>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <h3>Select Storage:</h3>-->
+<!--        <ul>-->
+<!--            <li th:each="storage : ${allStorage}">-->
+<!--                <input type="radio" th:id="storage_{storage.id}" th:value="${storage.id}" th:field="*{selectedStorage}" />-->
+<!--                <label th:for="storage_{storage.id}" th:text="${storage.name}"></label>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+    <div>
+        <button type="submit">Create Build</button>
+    </div>
+</form>
+
+<script>
+    // Optionally, you can add more functionality or validation with JavaScript here
+</script>
+
+</body>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>
