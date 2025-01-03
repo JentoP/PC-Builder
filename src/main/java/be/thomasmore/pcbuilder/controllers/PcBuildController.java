@@ -65,61 +65,47 @@ public class PcBuildController {
         }
     }
 
-    // Get the form to edit an existing PC build
-    @GetMapping("/editbuild/{id}")
-    public String editPcBuild(@PathVariable Integer id, Model model) {
-        model.addAttribute("pcBuild", createPcBuild(id));
-        List<CPU> allCPUs = (List<CPU>) processors.findAll();
-        List<MOBO> allMOBOS = (List<MOBO>) motherboards.findAll();
-        model.addAttribute("allCPUs", allCPUs);
-        model.addAttribute("allMOBOS", allMOBOS);
-        return "editbuild";
+    // Add or edit a PC build, depending on the presence of an ID
+    @GetMapping({"/addbuild", "/editbuild/{id}"})
+    public String addOrEditPcBuild(@PathVariable(required = false) Integer id, Model model) {
+        PcBuild pcBuild = createPcBuild(id);  // Fetch the build or create a new one
+        model.addAttribute("pcBuild", pcBuild);
+
+        Iterable<CPU> allCPUs =  processors.findAll();
+        Iterable<MOBO> allMOBOS =  motherboards.findAll();
+        model.addAttribute("allProcessors", allCPUs);
+        model.addAttribute("allMotherboards", allMOBOS);
+
+        // Add a flag to distinguish between "edit" and "add" modes in the template
+        model.addAttribute("isEditMode", id != null);
+
+        return "managebuild";  // Use the same template for both add and edit operations.
     }
 
-    // Handle the POST request to save the edited PC build
-    @PostMapping("/editbuild/{id}")
-    public String editPcBuildPost(@PathVariable Integer id, PcBuild pcBuild, Model model, @RequestParam("selectedCPUId") Integer selectedCPUId) {
+    // Handle the POST request to add or edit a PC build
+    @PostMapping({"/addbuild", "/editbuild/{id}"})
+    public String addOrEditPcBuildPost(@PathVariable(required = false) Integer id,
+                                       PcBuild pcBuild,
+                                       Model model,
+                                       @RequestParam("selectedCPUId") Integer selectedCPUId) {
         Optional<CPU> selectedCPU = processors.findById(selectedCPUId);
         if (selectedCPU.isPresent()) {
             pcBuild.setSelectedCPU(selectedCPU.get());
         } else {
             model.addAttribute("errorMessage", "Invalid CPU selected");
-            return "user/addbuild";
+            return "managebuild";
         }
+
         // Validate compatibility between selected CPU and MOBO
         if (!isCompatible(pcBuild.getSelectedCPU(), pcBuild.getSelectedMOBO())) {
             model.addAttribute("errorMessage", "Selected CPU and motherboard are not compatible.");
-            return "editbuild";
+            return "managebuild";
         }
 
+        // Save the new or updated PC build
         pcBuildRepository.save(pcBuild);
-        return "redirect:/pcbuilds";
-    }
 
-    // Display the form to add a new PC build
-    @GetMapping("/addbuild")
-    public String addPcBuild(Model model) {
-        Iterable<CPU> allCPUs = processors.findAll();
-        Iterable<MOBO> allMOBOS = motherboards.findAll();
-        model.addAttribute("allProcessors", allCPUs);
-        model.addAttribute("allMotherboards", allMOBOS);
-        model.addAttribute("pcBuild", new PcBuild()); // Empty build object
-        return "addbuild";
-    }
-
-    // Handle the POST request to add a new PC build
-    @PostMapping("/addbuild")
-    public String addPcBuildPost(Model model, PcBuild pcBuild) {
-        // Validate compatibility between selected CPU and MOBO
-        if (!isCompatible(pcBuild.getSelectedCPU(), pcBuild.getSelectedMOBO())) {
-            model.addAttribute("errorMessage", "Selected CPU and motherboard are not compatible.");
-            model.addAttribute("allProcessors", processors.findAll());
-            model.addAttribute("allMotherboards", motherboards.findAll());
-            return "addbuild";
-        }
-
-        PcBuild savedPcBuild = pcBuildRepository.save(pcBuild);
-        return "redirect:/pcbuilds";
+        return "redirect:/pcbuilds"; // Redirect to the list of PC builds
     }
 
     // Handle the request to delete a PC build

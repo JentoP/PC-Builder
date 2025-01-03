@@ -206,4 +206,14 @@ input[type="range"]::-webkit-slider-thumb {
     border: #24113b 2px solid;
     border-radius: 2px;
     font-size: 14px;
+    padding: 15px;
+    margin-left: 10px;
+}
+.build-text {
+    background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    font-size: 24px;
+    padding: 1px;
 }
