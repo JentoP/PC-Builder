@@ -77,15 +77,15 @@ public class PcBuildController {
         if (!isCompatible(pcBuild.getSelectedCPU(), pcBuild.getSelectedMOBO())) {
 //            Flash attributes are used to pass the errorMessage to the view on redirect.
             redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten waren niet compatibel met elkaar. Probeer opnieuw");
-           if(pcBuild.getId() != null) {
-               return "redirect:/editbuild/" + pcBuild.getId();
-           }
+            if (pcBuild.getId() != null) {
+                return "redirect:/editbuild/" + pcBuild.getId();
+            }
             return "redirect:/addbuild";
         }
 
         // Save the new or updated PC build
         pcBuildRepository.save(pcBuild);
-
+        redirectAttributes.addFlashAttribute("successMessage", "Uw build werd opgeslagen!");
         return "redirect:/pcbuilds"; // Redirect to the list of PC builds
     }
 
@@ -121,11 +121,11 @@ public class PcBuildController {
         return "redirect:/pcbuilds";
     }
 
-        // List all PC builds for the user
-        @GetMapping("/pcbuilds")
-        public String viewPcBuilds (Model model){
-            Iterable<PcBuild> pcBuilds = pcBuildRepository.findAll();
-            model.addAttribute("pcBuilds", pcBuilds);
-            return "pcbuilds"; // Display all PC builds
-        }
+    // List all PC builds for the user
+    @GetMapping("/pcbuilds")
+    public String viewPcBuilds(Model model) {
+        Iterable<PcBuild> pcBuilds = pcBuildRepository.findAll();
+        model.addAttribute("pcBuilds", pcBuilds);
+        return "pcbuilds"; // Display all PC builds
     }
+}

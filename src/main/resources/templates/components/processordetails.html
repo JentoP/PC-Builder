@@ -4,10 +4,9 @@
 
 <body class="d-flex flex-column h-100">
 <header th:replace="~{fragments/header :: header}"></header>
+<h1>Processor Specifications</h1>
 
-<main th:object="${cpu}" th:if="${cpu}">
-    <h1>Processor Specifications</h1>
-    <div class="container">
+<main th:object="${cpu}" th:if="${cpu}" class="container">
         <h2 th:text="${cpu.name}"></h2>
 
         <div class="row p-2">
@@ -53,7 +52,6 @@
             <a class="btn-custom" th:href="@{|/lists/processors|}">GA TERUG</a>
             <a class="btn-custom" th:href="@{|/components/processor/${nextId}|}">>></a>
         </div>
-    </div>
 </main>
 
 <main th:object="${cpu}" th:unless="${cpu}">

@@ -5,37 +5,36 @@
 
 <body class="d-flex flex-column h-100">
 <h1>Bekijk uw PC's</h1>
-<h2 th:text="${pcBuild.buildName}">Build Name</h2>
 <main class="container">
+    <h2 th:text="${pcBuild.buildName}">Build Name</h2>
 
-  <!-- Display error message if any -->
-  <div th:if="${errorMessage}" class="alert-message">
-    <p th:text="${errorMessage}"></p>
-  </div>
+    <!-- Display error message if any -->
+    <div th:if="${errorMessage}" class="alert-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
 
     <div class="row">
-      <h3 class="">Componenten</h3>
-      <p><strong>Processor:</strong> <span th:text="${pcBuild.selectedCPU.name}"></span></p>
-      <p><strong>Moederbord:</strong> <span th:text="${pcBuild.selectedMOBO.name}"></span></p>
-      <p><strong>Prijs:</strong> <span th:text="${pcBuild.calculateTotalPrice()}"></span></p>
-<!--      <p><strong>Grafische Kaart:</strong> <span th:text="${pcBuild.selectedGPU.name}">GPU Name</span></p>-->
-<!--      <p><strong>Geheugen:</strong> <span th:text="${pcBuild.selectedRAM.name}">RAM Name</span></p>-->
-<!--      <p><strong>Opslag:</strong> <span th:text="${pcBuild.selectedStorage.name}">Storage Name</span></p>-->
-<!--      <p><strong>Voeding:</strong> <span th:text="${pcBuild.selectedPSU.name}">Power Supply Name</span></p>-->
-<!--      <p><strong>Koeling:</strong> <span th:text="${pcBuild.selectedCooling.name}">Cooling Name</span></p>-->
-
-      <hr>
-
-<!--      <p><strong>Totaal Prijs:</strong> €<span th:text="${pcBuild.price}">Total Price</span></p>-->
-
-      <div class="d-flex justify-content-between mt-5 bottom-margin">
-        <a th:href="@{/editbuild/{id}(id=${pcBuild.id})}" class="btn-custom">BEWERKEN</a>
-        <a th:href="@{/pcbuilds}" class="btn-custom">TERUG</a>
-        <a th:href="@{/deletebuild/{id}(id=${pcBuild.id})}" class="btn-custom" onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">Verwijderen</a>
-
-      </div>
+        <h3 class="">Componenten</h3>
+        <div class="list"></div>
+        <h5>Processor: </h5>
+        <strong><p th:text="${pcBuild.selectedCPU.name}"></p></strong>
+        <h5>Moederbord: </h5>
+        <strong><p th:text="${pcBuild.selectedMOBO.name}"></p></strong>
+        <h5>Totale prijs: </h5>
+        <strong><p th:text="${pcBuild.calculateTotalPrice()}"></p></strong>
+        <!--      <p><strong>Grafische Kaart:</strong> <span th:text="${pcBuild.selectedGPU.name}">GPU Name</span></p>-->
+        <!--      <p><strong>Geheugen:</strong> <span th:text="${pcBuild.selectedRAM.name}">RAM Name</span></p>-->
+        <!--      <p><strong>Opslag:</strong> <span th:text="${pcBuild.selectedStorage.name}">Storage Name</span></p>-->
+        <!--      <p><strong>Voeding:</strong> <span th:text="${pcBuild.selectedPSU.name}">Power Supply Name</span></p>-->
+        <!--      <p><strong>Koeling:</strong> <span th:text="${pcBuild.selectedCooling.name}">Cooling Name</span></p>-->
+        <div class="d-flex justify-content-between mt-5 bottom-margin">
+            <a th:href="@{/editbuild/{id}(id=${pcBuild.id})}" class="btn-custom">BEWERKEN</a>
+            <a th:href="@{/pcbuilds}" class="btn-custom">TERUG</a>
+            <a th:href="@{/deletebuild/{id}(id=${pcBuild.id})}" class="btn-custom"
+               onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">Verwijderen</a>
+        </div>
     </div>
-  <div class="bottom-margin"></div>
+    <div class="bottom-margin"></div>
 
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>

@@ -6,10 +6,10 @@
 
 <body class="d-flex flex-column h-100">
 <h1 th:text="${isEditMode} ? 'Beheer uw PC' : 'Assembleer uw PC'"></h1>
-<p th:text="${isEditMode} ? 'Beheer uw computer, maak aanpassingen aan uw componenten hieronder.' : 'Maak uw eigen computer, kies componenten uit de lijst hieronder. Voor meer info over een component bezoek de componenten pagina.'"></p>
 
 <main class="container">
     <h2>Computer</h2>
+    <p th:text="${isEditMode} ? 'Beheer uw computer, maak aanpassingen aan uw componenten hieronder.' : 'Maak uw eigen computer, kies componenten uit de lijst hieronder. Voor meer info over een component bezoek de componenten pagina.'"></p>
 
 
     <!-- Display error message if any -->
@@ -20,14 +20,17 @@
     <form th:action="@{${isEditMode} ? '/editbuild/' + ${pcBuild.id} : '/addbuild'}" method="post">
         <!-- PC Build Name -->
         <div class="form-group row">
+            <div class="col-2">
             <label for="pcBuildName" class="build-text">Naam van uw PC</label>
-            <input type="text" id="pcBuildName" name="buildName" class="form-box" th:field="${pcBuild.buildName}" required>
+            <input type="text" id="pcBuildName" name="buildName" class="form-box" th:field="${pcBuild.buildName}"
+                   required>
+            </div>
         </div>
         <!-- CPU Selection -->
-        <div th:if ="${isEditMode}" class="form-group mt-3">
+        <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedCPU" class="build-text">Kies een processor</label>
             <p>De processor is het brein van uw pc. Het doet al het denkwerk.</p>
-            <select  id="selectedCPU" name="selectedCPU" class="form-box">
+            <select id="selectedCPU" name="selectedCPU" class="form-box">
                 <option th:each="CPU : ${allProcessors}"
                         th:value="${CPU.id}"
                         th:selected="${CPU.id == pcBuild.selectedCPU.id}"
@@ -38,7 +41,7 @@
         <div th:unless="${isEditMode}" class="form-group mt-3">
             <label for="selectedAddCPU" class="build-text">Kies een processor</label>
             <p>De processor is het brein van uw pc. Het doet al het denkwerk.</p>
-            <select  id="selectedAddCPU" name="selectedCPU" class="form-box">
+            <select id="selectedAddCPU" name="selectedCPU" class="form-box">
                 <option th:each="CPU : ${allProcessors}"
                         th:value="${CPU.id}"
                         th:text="${CPU.name}">
@@ -47,7 +50,7 @@
         </div>
 
         <!-- Moederbord Selection -->
-        <div class="form-group mt-3">
+        <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedMOBO" class="build-text">Kies een moederbord</label>
             <p>De processor is het hart van uw pc. Alles stroomt hierdoor. </p>
 
@@ -59,11 +62,21 @@
                 </option>
             </select>
         </div>
+        <div th:unless="${isEditMode}" class="form-group mt-3">
+            <label for="selectedAddMOBO" class="build-text">Kies een moederbord</label>
+            <p>De processor is het hart van uw pc. Alles stroomt hierdoor. </p>
 
+            <select id="selectedAddMOBO" name="selectedMOBO" class="form-box">
+                <option th:each="mobo : ${allMotherboards}"
+                        th:value="${mobo.id}"
+                        th:text="${mobo.name}">
+                </option>
+            </select>
+        </div>
         <!-- Submit Button -->
         <div class="mt-3">
             <button class="btn-custom" type="submit"
-                    th:text="${isEditMode} ? 'AANPASSINGEN OPSLAAN' : 'PC AANMAKEN'"></button>
+                    th:text="${isEditMode} ? 'WIJZIGINGEN OPSLAAN' : 'PC AANMAKEN'"></button>
         </div>
     </form>
 </main>
