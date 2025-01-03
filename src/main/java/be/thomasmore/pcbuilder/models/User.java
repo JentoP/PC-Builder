@@ -11,9 +11,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String username;
-
-    @OneToMany(mappedBy = "user")  // One user can have multiple builds
-    private List<PcBuild> pcBuilds;
+//
+//    @OneToMany(mappedBy = "user")  // One user can have multiple builds
+//    private List<PcBuild> pcBuilds;
 
     public Integer getId() {
         return id;
@@ -31,11 +31,11 @@ public class User {
         this.username = username;
     }
 
-    public List<PcBuild> getPcBuilds() {
-        return pcBuilds;
-    }
+//    public List<PcBuild> getPcBuilds() {
+//        return pcBuilds;
+//    }
 
-    public void setPcBuilds(List<PcBuild> pcBuilds) {
-        this.pcBuilds = pcBuilds;
-    }
+//    public void setPcBuilds(List<PcBuild> pcBuilds) {
+//        this.pcBuilds = pcBuilds;
+//    }
 }

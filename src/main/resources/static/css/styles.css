@@ -205,9 +205,10 @@ input[type="range"]::-webkit-slider-thumb {
     color: white;
     border: #24113b 2px solid;
     border-radius: 2px;
-    font-size: 14px;
+    font-size: 18px;
     padding: 15px;
     margin-left: 10px;
+    margin-bottom: 30px;
 }
 .build-text {
     background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
@@ -216,4 +217,5 @@ input[type="range"]::-webkit-slider-thumb {
     text-decoration: none;
     font-size: 24px;
     padding: 1px;
+
 }

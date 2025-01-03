@@ -3,7 +3,7 @@ package be.thomasmore.pcbuilder.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "pc_builds")
+@Table(name = "pcbuilds")
 public class PcBuild {
 
     @Id
@@ -12,8 +12,8 @@ public class PcBuild {
 
     private String buildName;
 
-    @ManyToOne
-    private User user;
+//    @ManyToOne
+//    private User user;
 
     // Many-to-One relationship with CPU: Each build has exactly one CPU
     @ManyToOne
@@ -25,6 +25,16 @@ public class PcBuild {
     @JoinColumn(name = "mobo_id", nullable = false)
     private MOBO selectedMOBO;
 
+    private Double totalPrice;
+
+    public Double calculateTotalPrice() {
+        if (selectedCPU != null && selectedMOBO != null) {
+            this.totalPrice = selectedCPU.getPrice() + selectedMOBO.getPrice();
+            return this.totalPrice;
+        } else {
+            return this.totalPrice = 0.0;
+        }
+    }
     // Getters and setters for all fields
 
     public Integer getId() {
@@ -43,13 +53,13 @@ public class PcBuild {
         this.buildName = buildName;
     }
 
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public CPU getSelectedCPU() {
         return selectedCPU;

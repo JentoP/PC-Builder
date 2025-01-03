@@ -12,10 +12,10 @@ VALUES (1, 'Corsair H100i', 'Corsair', TRUE, 120, 240, TRUE, 'LGA1151', 'Black',
 
 INSERT INTO CPU (NAME, MANUFACTURER, ARCHITECTURE, WATTAGE_USAGE, SOCKET_TYPE, CPU_MODEL, CORE_COUNT, CLOCK_SPEED,
                  PRICE)
-VALUES ( 'Intel Core i9-12900K', 'Intel', 'Alder Lake', 125, 'LGA1700', 'i9-12900K', 16, 3.2, 600),
-       ( 'AMD Ryzen 9 5900X', 'AMD', 'Zen 3', 105, 'AM4', 'Ryzen 9 5900X', 12, 3.7, 550),
+VALUES ('Intel Core i9-12900K', 'Intel', 'Alder Lake', 125, 'LGA1700', 'i9-12900K', 16, 3.2, 600),
+       ('AMD Ryzen 9 5900X', 'AMD', 'Zen 3', 105, 'AM4', 'Ryzen 9 5900X', 12, 3.7, 550),
        ('Intel Core i7-12700K', 'Intel', 'Alder Lake', 125, 'LGA1700', 'i7-12700K', 12, 3.6, 420),
-       ( 'AMD Ryzen 5 5600X', 'AMD', 'Zen 3', 65, 'AM4', 'Ryzen 5 5600X', 6, 3.7, 300);
+       ('AMD Ryzen 5 5600X', 'AMD', 'Zen 3', 65, 'AM4', 'Ryzen 5 5600X', 6, 3.7, 300);
 
 INSERT INTO DATA (ID, NAME, MANUFACTURER, DATA_MODEL, INTERFACE_TYPE, STORAGE_TYPE, WATTAGE_USAGE, CAPACITY,
                   CACHE_MEMORY, PRICE)
@@ -31,7 +31,8 @@ VALUES (1, 'NVIDIA GeForce RTX 3080', 'NVIDIA', 320, 'RTX 3080', 'Ampere', 10, '
        (3, 'NVIDIA GeForce RTX 3070', 'NVIDIA', 220, 'RTX 3070', 'Ampere', 8, 'PCIe 4.0', '1.50 GHz', 'Black', 500),
        (4, 'AMD Radeon RX 6700 XT', 'AMD', 230, 'RX 6700 XT', 'RDNA 2', 12, 'PCIe 4.0', '1.94 GHz', 'Red', 480);
 
-INSERT INTO MOBO (NAME, MANUFACTURER, CHIPSET, WATTAGE_USAGE, MOBO_FORM_FACTOR, MEMORY_TYPE, INTERFACE_TYPE, SOCKET_TYPE, PRICE, M2SUPPORT)
+INSERT INTO MOBO (NAME, MANUFACTURER, CHIPSET, WATTAGE_USAGE, MOBO_FORM_FACTOR, MEMORY_TYPE, INTERFACE_TYPE,
+                  SOCKET_TYPE, PRICE, M2SUPPORT)
 VALUES ('ASUS ROG Strix Z690-E', 'ASUS', 'Z690', 70, 'ATX', 'DDR5', 'PCIe 5.0', 'LGA1700', 400, 'Yes'),
        ('MSI MAG B550 TOMAHAWK', 'MSI', 'B550', 60, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 180, 'Yes'),
        ('Gigabyte AORUS X570 Master', 'Gigabyte', 'X570', 80, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 360, 'Yes'),
@@ -48,3 +49,12 @@ VALUES (1, 'G.SKILL Trident Z RGB', 'G.SKILL', 10, 16, 'DDR4', 16, 3200, 100),
        (2, 'Corsair Vengeance LPX', 'Corsair', 9, 8, 'DDR4', 18, 3000, 50),
        (3, 'Kingston HyperX Fury', 'Kingston', 10, 16, 'DDR4', 17, 3200, 90),
        (4, 'Crucial Ballistix', 'Crucial', 9, 16, 'DDR4', 16, 3600, 110);
+
+INSERT INTO PCBUILDS (BUILD_NAME, CPU_ID, MOBO_ID)
+VALUES ('My PC Build',
+        1,
+        1),
+       ('My PC Build 2',
+        2,
+        2);
+

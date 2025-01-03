@@ -5,23 +5,23 @@
 
 <body class="d-flex flex-column h-100">
 <h1 th:text="${isEditMode} ? 'Uw PC beheren' : 'Uw PC bouwen'"></h1>
-<p th:text="${isEditMode} ? 'Beheer uw computer' : 'Maak uw eigen computer, kies componenten uit de lijst hieronder. Voor meer info over een component bezoek de componenten pagina'"></p>
+<p th:text="${isEditMode} ? 'Beheer uw computer' : 'Maak uw eigen computer, kies componenten uit de lijst hieronder. Voor meer info over een component bezoek de componenten pagina.'"></p>
 
 <main class="container">
     <h2>Computer</h2>
 
 
-        <!-- Display error message if any -->
-        <div th:if="${errorMessage}" class="alert alert-danger">
-            <p th:text="${errorMessage}"></p>
-        </div>
+    <!-- Display error message if any -->
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
 
     <form th:action="@{${isEditMode} ? '/editbuild/' + ${pcBuild.id} : '/addbuild'}" method="post">
         <!-- PC Build Name -->
         <div class="form-group row">
             <label for="pcBuildName" class="build-text">Naam van uw PC</label>
             <input type="text" id="pcBuildName" name="name" class="form-box" th:value="${pcBuild.buildName}" required>
-    </div>
+        </div>
         <!-- CPU Selection -->
         <div class="form-group mt-3">
             <label for="selectedCPU" class="build-text">Kies een processor</label>
@@ -65,7 +65,8 @@
 
         <!-- Submit Button -->
         <div class="mt-4">
-            <button class="btn-custom" type="submit" th:text="${isEditMode} ? 'AANPASSINGEN OPSLAAN' : 'PC AANMAKEN'"></button>
+            <button class="btn-custom" type="submit"
+                    th:text="${isEditMode} ? 'AANPASSINGEN OPSLAAN' : 'PC AANMAKEN'"></button>
         </div>
     </form>
 </main>
