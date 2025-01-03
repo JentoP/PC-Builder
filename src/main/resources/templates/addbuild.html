@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/header :: headerelement('PC Build Toevoegen')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>PC Build Toevoegen</h1>
+<p>Maak je eigen custom PC build.</p>
+
+<main class="container">
+    <h2>PC Build Details</h2>
+
+<!--    &lt;!&ndash; Display error message if any &ndash;&gt;-->
+<!--    <div th:if="${errorMessage}" class="alert alert-danger">-->
+<!--        <p th:text="${errorMessage}"></p>-->
+<!--    </div>-->
+
+    <form th:action="@{/user/addbuild}" method="post">
+        <!-- PC Build Name -->
+        <div class="form-group">
+            <label for="pcBuildName">PC Build Naam</label>
+            <input type="text" id="pcBuildName" name="name" class="form-box" th:value="${pcBuild.buildName}" required>
+        </div>
+
+        <!-- CPU Selection -->
+        <div class="form-group mt-3">
+            <label for="selectedCPU">Kies Processor</label>
+            <select id="selectedCPU" name="selectedCPU" class="filter-box">
+                <option th:each="CPU : ${allProcessors}"
+                        th:value="${CPU.id}"
+                        th:text="${CPU.name}">
+                </option>
+            </select>
+        </div>
+
+        <!-- Moederbord Selection -->
+        <div class="form-group mt-3">
+            <label for="selectedMOBO">Kies Moederbord</label>
+            <select id="selectedMOBO" name="selectedMOBO" class="filter-box">
+                <option th:each="mobo : ${allMotherboards}"
+                        th:value="${mobo.id}"
+                        th:text="${mobo.name}">
+                </option>
+            </select>
+        </div>
+
+<!--        &lt;!&ndash; GPU Selection &ndash;&gt;-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="selectedGPU">Kies Grafische Kaart</label>-->
+<!--            <select id="selectedGPU" name="selectedGPU" class="form-control">-->
+<!--                <option th:each="gpu : ${allGraphicsCards}" th:value="${gpu.id}" th:text="${gpu.name}"></option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; RAM Selection &ndash;&gt;-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="selectedRAM">Kies Geheugen</label>-->
+<!--            <select id="selectedRAM" name="selectedRAM" class="form-control">-->
+<!--                <option th:each="ram : ${allMemoryKits}" th:value="${ram.id}" th:text="${ram.name}"></option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+        <!-- Submit Button -->
+        <div class="mt-4">
+            <button type="submit" class="btn-custom small">Opslaan</button>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

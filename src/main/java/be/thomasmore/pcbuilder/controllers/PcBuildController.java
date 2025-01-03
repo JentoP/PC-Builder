@@ -5,14 +5,12 @@ import be.thomasmore.pcbuilder.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/user")
 public class PcBuildController {
     @Autowired
     private ChassisRepository cases;
@@ -33,6 +31,12 @@ public class PcBuildController {
     @Autowired
     private PcBuildRepository pcBuildRepository;
 
+    @RequestMapping("/builder")
+    public String pcBuilderHome() {
+
+        return "builder";
+    }
+
     // Create or edit a PC build based on ID.
     @ModelAttribute("pcBuild")
     public PcBuild createPcBuild(@PathVariable(required = false) Integer id) {
@@ -47,6 +51,20 @@ public class PcBuildController {
         }
     }
 
+    // View specific PC build details
+    @GetMapping("/viewbuild/{id}")
+    public String viewPcBuild(@PathVariable Integer id, Model model) {
+        Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
+        if (optionalPcBuild.isPresent()) {
+            PcBuild pcBuild = optionalPcBuild.get();
+            model.addAttribute("pcBuild", pcBuild);
+            return "viewbuild"; // Show build details
+        } else {
+            model.addAttribute("errorMessage", "PC Build not found.");
+            return "error"; // Redirect to error page
+        }
+    }
+
     // Get the form to edit an existing PC build
     @GetMapping("/editbuild/{id}")
     public String editPcBuild(@PathVariable Integer id, Model model) {
@@ -55,31 +73,38 @@ public class PcBuildController {
         List<MOBO> allMOBOS = (List<MOBO>) motherboards.findAll();
         model.addAttribute("allCPUs", allCPUs);
         model.addAttribute("allMOBOS", allMOBOS);
-        return "user/editbuild";
+        return "editbuild";
     }
 
     // Handle the POST request to save the edited PC build
     @PostMapping("/editbuild/{id}")
-    public String editPcBuildPost(@PathVariable Integer id, PcBuild pcBuild, Model model) {
+    public String editPcBuildPost(@PathVariable Integer id, PcBuild pcBuild, Model model, @RequestParam("selectedCPUId") Integer selectedCPUId) {
+        Optional<CPU> selectedCPU = processors.findById(selectedCPUId);
+        if (selectedCPU.isPresent()) {
+            pcBuild.setSelectedCPU(selectedCPU.get());
+        } else {
+            model.addAttribute("errorMessage", "Invalid CPU selected");
+            return "user/addbuild";
+        }
         // Validate compatibility between selected CPU and MOBO
         if (!isCompatible(pcBuild.getSelectedCPU(), pcBuild.getSelectedMOBO())) {
             model.addAttribute("errorMessage", "Selected CPU and motherboard are not compatible.");
-            return "user/editbuild";
+            return "editbuild";
         }
 
         pcBuildRepository.save(pcBuild);
-        return "redirect:/user/pcbuilds";
+        return "redirect:/pcbuilds";
     }
 
     // Display the form to add a new PC build
     @GetMapping("/addbuild")
     public String addPcBuild(Model model) {
-        List<CPU> allCPUs = (List<CPU>) processors.findAll();
-        List<MOBO> allMOBOS = (List<MOBO>) motherboards.findAll();
-        model.addAttribute("allCPUs", allCPUs);
-        model.addAttribute("allMOBOS", allMOBOS);
+        Iterable<CPU> allCPUs = processors.findAll();
+        Iterable<MOBO> allMOBOS = motherboards.findAll();
+        model.addAttribute("allProcessors", allCPUs);
+        model.addAttribute("allMotherboards", allMOBOS);
         model.addAttribute("pcBuild", new PcBuild()); // Empty build object
-        return "user/addbuild";
+        return "addbuild";
     }
 
     // Handle the POST request to add a new PC build
@@ -88,13 +113,13 @@ public class PcBuildController {
         // Validate compatibility between selected CPU and MOBO
         if (!isCompatible(pcBuild.getSelectedCPU(), pcBuild.getSelectedMOBO())) {
             model.addAttribute("errorMessage", "Selected CPU and motherboard are not compatible.");
-            model.addAttribute("allCPUs", processors.findAll());
-            model.addAttribute("allMOBOS", motherboards.findAll());
-            return "user/addbuild";
+            model.addAttribute("allProcessors", processors.findAll());
+            model.addAttribute("allMotherboards", motherboards.findAll());
+            return "addbuild";
         }
 
         PcBuild savedPcBuild = pcBuildRepository.save(pcBuild);
-        return "redirect:/user/pcbuilds";
+        return "redirect:/pcbuilds";
     }
 
     // Handle the request to delete a PC build
@@ -104,7 +129,7 @@ public class PcBuildController {
         if (pcBuild.isPresent()) {
             pcBuildRepository.deleteById(id);
         }
-        return "redirect:/user/pcbuilds";
+        return "redirect:/pcbuilds";
     }
 
     // Check if the selected CPU and motherboard are compatible
@@ -120,6 +145,6 @@ public class PcBuildController {
     public String viewPcBuilds(Model model) {
         List<PcBuild> pcBuilds = (List<PcBuild>) pcBuildRepository.findAll();
         model.addAttribute("pcBuilds", pcBuilds);
-        return "user/pcbuilds"; // Display all PC builds
+        return "pcbuilds"; // Display all PC builds
     }
 }

@@ -19,9 +19,6 @@ public class RAM {
     private Integer timings;
     private Integer clockSpeed;
     private Double price;
-//    @OneToMany(mappedBy = "ram", fetch = FetchType.LAZY)
-//    private Collection<PcBuild> pcBuilds;
-
     public Double getPrice() {
         return price;
     }
@@ -93,13 +90,4 @@ public class RAM {
     public void setClockSpeed(Integer clockSpeed) {
         this.clockSpeed = clockSpeed;
     }
-
-
-//    public Collection<PcBuild> getBuilds() {
-//        return pcBuilds;
-//    }
-//
-//    public void setBuilds(Collection<PcBuild> pcBuilds) {
-//        this.pcBuilds = pcBuilds;
-//    }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head th:replace="~{fragments/header :: headerelement('Systeem bouwer')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Assembleer uw PC</h1>
+<h2>Aan de slag</h2>
+<p>
+    Je kunt een computer bouwen door een processor, moederbord, RAM en andere onderdelen te selecteren die compatibel
+    zijn
+    met elkaar.
+    Om een build op te slaan, moet je eerst een account registreren.
+</p>
+<main class="container">
+    <div class="container">
+        <div class="row text-center m-5">
+            <a class="btn-custom col m-4 " th:href="@{/login}" role="button">INLOGGEN</a>
+            <a class="btn-custom col m-4 " th:href="@{/register}" role="button">REGISTREREN</a>
+        </div>
+        <div class="row text-center m-5">
+            <a class="btn-custom col m-4 " th:href="@{/pcbuilds}" role="button">PC BUILDS</a>
+            <a class="btn-custom col m-4 " th:href="@{/viewbuild}" role="button">VIEW</a>
+        </div>
+        <div class="row text-center m-5">
+            <a class="btn-custom col m-4 " th:href="@{/addbuild}" role="button">ADD</a>
+            <a class="btn-custom col m-4 " th:href="@{/editbuild}" role="button">EDIT</a>
+        </div>
+    </div>
+
+</main>
+
+
+</body>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>

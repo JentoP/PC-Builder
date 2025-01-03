@@ -144,11 +144,11 @@
                                     <a th:text="${CPU.name}" t></a>
                                     <span class='small' th:text="'€ ' + ${CPU.price}" Style="margin-left: 50px"></span>
                                     <a th:href="@{/components/processor/{id}(id=${CPU.id})}" class="btn-custom"
-                                       Style="margin-left: 200px" th:text="'View'"
-                                       title="Click to view more details about this processor."></a>
-                                    <a th:href="@{/user/addbuild?selectedCPUId=${CPU.id}}" class="btn-custom"
-                                       Style="margin-left: 20px" th:text="'Add to build'"
-                                       title="Click to add this processor to your build."></a>
+                                       Style="margin-left: 200px" th:text="'DETAILS'"
+                                       title="Klik hier om details over deze processor te bekijken"></a>
+                                    <a th:href="@{/addbuild?selectedCPUId=${CPU.id}}" class="btn-custom"
+                                       Style="margin-left: 20px" th:text="'TOEVOEGEN AAN BUILD'"
+                                       title="Klik hier om deze processor toe te voegen aan je build."></a>
                                 </li>
                             </ul>
                         </div>

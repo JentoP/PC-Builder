@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/header :: headerelement('PC Build Bekijken')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>PC Build Bekijken</h1>
+<p>Bekijk de details van deze PC build.</p>
+
+<main class="container">
+  <h2>PC Build: <span th:text="${pcBuild.name}">Build Name</span></h2>
+
+  <!-- Display error message if any -->
+  <div th:if="${errorMessage}" class="alert alert-danger">
+    <p th:text="${errorMessage}"></p>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Componenten</h5>
+      <p><strong>Processor:</strong> <span th:text="${pcBuild.selectedCPU.name}">Processor Name</span></p>
+      <p><strong>Moederbord:</strong> <span th:text="${pcBuild.selectedMOBO.name}">Motherboard Name</span></p>
+      <p><strong>Grafische Kaart:</strong> <span th:text="${pcBuild.selectedGPU.name}">GPU Name</span></p>
+      <p><strong>Geheugen:</strong> <span th:text="${pcBuild.selectedRAM.name}">RAM Name</span></p>
+      <p><strong>Opslag:</strong> <span th:text="${pcBuild.selectedStorage.name}">Storage Name</span></p>
+      <p><strong>Voeding:</strong> <span th:text="${pcBuild.selectedPSU.name}">Power Supply Name</span></p>
+      <p><strong>Koeling:</strong> <span th:text="${pcBuild.selectedCooling.name}">Cooling Name</span></p>
+
+      <hr>
+
+      <p><strong>Totaal Prijs:</strong> €<span th:text="${pcBuild.price}">Total Price</span></p>
+
+      <div class="mt-4">
+        <a th:href="@{/user/editbuild/{id}(id=${pcBuild.id})}" class="btn btn-primary">Bewerken</a>
+        <a th:href="@{/user/deletebuild/{id}(id=${pcBuild.id})}" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">Verwijderen</a>
+        <a th:href="@{/user/pcbuilds}" class="btn btn-secondary">Terug naar de lijst</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
