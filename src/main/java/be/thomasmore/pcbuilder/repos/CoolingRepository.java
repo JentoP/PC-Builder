@@ -24,8 +24,8 @@ public interface CoolingRepository extends CrudRepository<COOLING, Integer> {
     List<COOLING> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,
             @Param("filterSocketType") String filterSocketType,
-            @Param("filterFanSize") String filterFanSize,
-            @Param("filterRadiatorSize") String filterRadiatorSize);
+            @Param("filterFanSize") Integer filterFanSize,
+            @Param("filterRadiatorSize") Integer filterRadiatorSize);
 
     @Query("SELECT c FROM COOLING c WHERE " +
             "(:filterMinPrice IS NULL OR c.price >= :filterMinPrice) OR " +

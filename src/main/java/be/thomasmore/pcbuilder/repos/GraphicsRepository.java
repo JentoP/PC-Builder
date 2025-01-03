@@ -24,7 +24,7 @@ public interface GraphicsRepository extends CrudRepository<GPU, Integer> {
     List<GPU> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,
             @Param("filterChipset") String filterChipset,
-            @Param("filterMemoryCapacity") String filterMemoryCapacity,
+            @Param("filterMemoryCapacity") Integer filterMemoryCapacity,
             @Param("filterInterfaceType") String filterInterfaceType);
 
     @Query("SELECT g FROM GPU g WHERE " +

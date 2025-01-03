@@ -19,13 +19,11 @@ public interface ChassisRepository extends CrudRepository<CHASSIS, Integer> {
     @Query("SELECT c FROM CHASSIS c WHERE " +
             "(:filterManufacturer IS NULL OR :filterManufacturer = c.manufacturer) OR " +
             "(:filterMoboFormFactor IS NULL OR :filterMoboFormFactor = c.moboFormFactor) OR " +
-            "(:filterPsuFormFactor IS NULL OR :filterPsuFormFactor = c.psuFormFactor) OR " +
-            "(:filterSidePanel IS NULL OR :filterSidePanel = c.sidePanel)")
+            "(:filterPsuFormFactor IS NULL OR :filterPsuFormFactor = c.psuFormFactor)")
     List<CHASSIS> findByFilter(
             @Param("filterManufacturer") String filterManufacturer,
             @Param("filterMoboFormFactor") String filterMoboFormFactor,
-            @Param("filterPsuFormFactor") String filterPsuFormFactor,
-            @Param("filterSidePanel") Boolean filterSidePanel);
+            @Param("filterPsuFormFactor") String filterPsuFormFactor);
 
     @Query("SELECT c FROM CHASSIS c WHERE " +
             "(:filterMinPrice IS NULL OR c.price >= :filterMinPrice) AND " +

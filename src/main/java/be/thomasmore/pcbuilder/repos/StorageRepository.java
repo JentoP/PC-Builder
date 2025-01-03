@@ -25,7 +25,7 @@ public interface StorageRepository extends CrudRepository<DATA, Integer> {
             @Param("filterManufacturer") String filterManufacturer,
             @Param("filterInterfaceType") String filterInterfaceType,
             @Param("filterStorageType") String filterStorageType,
-            @Param("filterCapacity") String filterCapacity);
+            @Param("filterCapacity") Integer filterCapacity);
 
     @Query("SELECT d FROM DATA d WHERE " +
             "(:filterMinPrice IS NULL OR d.price >= :filterMinPrice) AND " +

@@ -2,7 +2,6 @@ package be.thomasmore.pcbuilder.controllers;
 
 import be.thomasmore.pcbuilder.models.*;
 import be.thomasmore.pcbuilder.repos.*;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Controller
 public class ComponentController {
@@ -144,9 +141,9 @@ public class ComponentController {
                              @RequestParam(required = false) Double filterMinPrice,
                              @RequestParam(required = false) Double filterMaxPrice,
                              @RequestParam(required = false) String filterManufacturer,
-                             @RequestParam(required = false) String filterMemoryCapacity,
+                             @RequestParam(required = false) Integer filterMemoryCapacity,
                              @RequestParam(required = false) String filterMemoryType,
-                             @RequestParam(required = false) String filterTimings) {
+                             @RequestParam(required = false) Integer filterClockSpeed) {
 //      declare list
         List<RAM> filteredMemory;
 
@@ -162,16 +159,16 @@ public class ComponentController {
             );
 
 //      if no filters are applied give all results
-        } else if (filterManufacturer == null && filterMemoryCapacity == null && filterMemoryType == null && filterTimings == null) {
+        } else if (filterManufacturer == null && filterMemoryCapacity == 0 && filterMemoryType == null && filterClockSpeed == 0) {
             filteredMemory = (List<RAM>) memoryKits.findAll();
 
 //      if filters are applied give individual filtered results
         } else {
             filteredMemory = memoryKits.findByFilter(
                     filterManufacturer == null ? "" : filterManufacturer,
-                    filterMemoryCapacity == null ? "" : filterMemoryCapacity,
+                    filterMemoryCapacity == null ? 0 : filterMemoryCapacity,
                     filterMemoryType == null ? "" : filterMemoryType,
-                    filterTimings == null ? "" : filterTimings
+                    filterClockSpeed == null ? 0 : filterClockSpeed
             );
         }
 
@@ -189,7 +186,7 @@ public class ComponentController {
                                   @RequestParam(required = false) Double filterMaxPrice,
                                   @RequestParam(required = false) String filterManufacturer,
                                   @RequestParam(required = false) String filterChipset,
-                                  @RequestParam(required = false) String filterMemoryCapacity,
+                                  @RequestParam(required = false) Integer filterMemoryCapacity,
                                   @RequestParam(required = false) String filterInterfaceType) {
 //      declare list
         List<GPU> filteredGraphicCards;
@@ -206,7 +203,7 @@ public class ComponentController {
             );
 
 //      if no filters are applied give all results
-        } else if (filterManufacturer == null && filterChipset == null && filterMemoryCapacity == null && filterInterfaceType == null) {
+        } else if (filterManufacturer == null && filterChipset == null && filterMemoryCapacity == 0 && filterInterfaceType == null) {
             filteredGraphicCards = (List<GPU>) graphicCards.findAll();
 
 //      if filters are applied give individual filtered results
@@ -214,7 +211,7 @@ public class ComponentController {
             filteredGraphicCards = graphicCards.findByFilter(
                     filterManufacturer == null ? "" : filterManufacturer,
                     filterChipset == null ? "" : filterChipset,
-                    filterMemoryCapacity == null ? "" : filterMemoryCapacity,
+                    filterMemoryCapacity == null ? 0 : filterMemoryCapacity,
                     filterInterfaceType == null ? "" : filterInterfaceType
             );
         }
@@ -235,7 +232,7 @@ public class ComponentController {
                               @RequestParam(required = false) String filterManufacturer,
                               @RequestParam(required = false) String filterInterfaceType,
                               @RequestParam(required = false) String filterStorageType,
-                              @RequestParam(required = false) String filterCapacity) {
+                              @RequestParam(required = false) Integer filterCapacity) {
 //      declare list
         List<DATA> filteredStorage;
 
@@ -260,7 +257,7 @@ public class ComponentController {
                     filterManufacturer == null ? "" : filterManufacturer,
                     filterInterfaceType == null ? "" : filterInterfaceType,
                     filterStorageType == null ? "" : filterStorageType,
-                    filterCapacity == null ? "" : filterCapacity
+                    filterCapacity == null ? 0 : filterCapacity
             );
         }
 
@@ -278,8 +275,8 @@ public class ComponentController {
                               @RequestParam(required = false) Double filterMaxPrice,
                               @RequestParam(required = false) String filterManufacturer,
                               @RequestParam(required = false) String filterSocketType,
-                              @RequestParam(required = false) String filterFanSize,
-                              @RequestParam(required = false) String filterRadiatorSize) {
+                              @RequestParam(required = false) Integer filterFanSize,
+                              @RequestParam(required = false) Integer filterRadiatorSize) {
 //      declare list
         List<COOLING> filteredCooling;
 
@@ -303,8 +300,8 @@ public class ComponentController {
             filteredCooling = coolingSolutions.findByFilter(
                     filterManufacturer == null ? "" : filterManufacturer,
                     filterSocketType == null ? "" : filterSocketType,
-                    filterFanSize == null ? "" : filterFanSize,
-                    filterRadiatorSize == null ? "" : filterRadiatorSize
+                    filterFanSize == null ? 0 : filterFanSize,
+                    filterRadiatorSize == null ? 0 : filterRadiatorSize
             );
         }
 
@@ -321,8 +318,7 @@ public class ComponentController {
                            @RequestParam(required = false) Double filterMaxPrice,
                            @RequestParam(required = false) String filterManufacturer,
                            @RequestParam(required = false) String filterMoboFormFactor,
-                           @RequestParam(required = false) String filterPsuFormFactor,
-                           @RequestParam(required = false) Boolean filterSidePanel) {
+                           @RequestParam(required = false) String filterPsuFormFactor) {
 //      declare list
         List<CHASSIS> filteredCases;
 
@@ -338,7 +334,7 @@ public class ComponentController {
             );
 
 //      if no filters are applied give all results
-        } else if (filterManufacturer == null && filterMoboFormFactor == null && filterPsuFormFactor == null && filterSidePanel == null) {
+        } else if (filterManufacturer == null && filterMoboFormFactor == null && filterPsuFormFactor == null) {
             filteredCases = (List<CHASSIS>) cases.findAll();
 
 //      if filters are applied give individual filtered results
@@ -346,8 +342,7 @@ public class ComponentController {
             filteredCases = cases.findByFilter(
                     filterManufacturer == null ? "" : filterManufacturer,
                     filterMoboFormFactor == null ? "" : filterMoboFormFactor,
-                    filterPsuFormFactor == null ? "" : filterPsuFormFactor,
-                    filterSidePanel
+                    filterPsuFormFactor == null ? "" : filterPsuFormFactor
             );
         }
 

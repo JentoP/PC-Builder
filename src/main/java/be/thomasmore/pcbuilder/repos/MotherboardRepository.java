@@ -20,7 +20,6 @@ public interface MotherboardRepository extends CrudRepository<MOBO, Integer> {
     List<MOBO> findBySearch(
             @Param("searchWord") String searchWord);
 
-
     @Query("SELECT m FROM MOBO m WHERE " +
             "(:filterManufacturer IS NULL OR :filterManufacturer = m.manufacturer) OR " +
             "(:filterSocket IS NULL OR :filterSocket = m.socketType) OR " +
@@ -34,14 +33,10 @@ public interface MotherboardRepository extends CrudRepository<MOBO, Integer> {
             @Param("filterMemory") String filterMemory,
             @Param("filterMoboFormFactor") String filterMoboFormFactor);
 
-
     @Query("SELECT m FROM MOBO m WHERE " +
             "(:filterMinPrice IS NULL OR m.price >= :filterMinPrice) AND " +
             "(:filterMaxPrice IS NULL OR m.price <= :filterMaxPrice)")
     List<MOBO> findByPrice(
             @Param("filterMinPrice") Double filterMinPrice,
             @Param("filterMaxPrice") Double filterMaxPrice);
-
-    @Query("SELECT m FROM MOBO m")
-    List<MOBO> findByAll();
 }

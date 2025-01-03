@@ -1,6 +1,5 @@
 package be.thomasmore.pcbuilder.controllers;
 
-import be.thomasmore.pcbuilder.models.*;
 import be.thomasmore.pcbuilder.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
 
 @Controller
 public class BuildController {
@@ -31,19 +29,18 @@ public class BuildController {
     private ProcessorRepository processors;
     @Autowired
     private StorageRepository storage;
-    @Autowired
-    private ProcessorRepository processorRepository;
+
 
     @GetMapping("/builder")
     public String pcBuilder(Model model) {
-        model.addAttribute("allProcessors", processors.findAll());
-        model.addAttribute("allMotherboards", motherboards.findAll());
-        model.addAttribute("allCases", cases.findAll());
-        model.addAttribute("allCooling", coolingSolutions.findAll());
-        model.addAttribute("allGraphicCards", graphicCards.findAll());
-        model.addAttribute("allMemory", memoryKits.findAll());
-        model.addAttribute("allPowerSupplies", powerSupplies.findAll());
-        model.addAttribute("allStorage", storage.findAll());
+//        model.addAttribute("allProcessors", processors.findAll());
+//        model.addAttribute("allMotherboards", motherboards.findAll());
+//        model.addAttribute("allCases", cases.findAll());
+//        model.addAttribute("allCooling", coolingSolutions.findAll());
+//        model.addAttribute("allGraphicCards", graphicCards.findAll());
+//        model.addAttribute("allMemory", memoryKits.findAll());
+//        model.addAttribute("allPowerSupplies", powerSupplies.findAll());
+//        model.addAttribute("allStorage", storage.findAll());
 
         return "builder";
     }
