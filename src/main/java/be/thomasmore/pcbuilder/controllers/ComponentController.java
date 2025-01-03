@@ -468,6 +468,7 @@ public class ComponentController {
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
+
         return "components/psudetails";
     }
 
