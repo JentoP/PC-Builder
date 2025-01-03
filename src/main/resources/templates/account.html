@@ -4,8 +4,12 @@
 <header th:replace="~{fragments/header :: header}"></header>
 
 <body class="d-flex flex-column h-100">
-<h1>Log In</h1>
-
+<main class="container">
+    <div class="container">
+        <div class="row text-center m-5">
+            <a class="btn-custom col m-4 " th:href="@{/login}" role="button">INLOGGEN</a>
+            <a class="btn-custom col m-4 " th:href="@{/register}" role="button">REGISTREREN</a>
+        </div>
 </body>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>

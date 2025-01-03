@@ -14,7 +14,7 @@
   </div>
 
     <div class="row">
-      <h5 class="">Componenten</h5>
+      <h3 class="">Componenten</h3>
       <p><strong>Processor:</strong> <span th:text="${pcBuild.selectedCPU.name}"></span></p>
       <p><strong>Moederbord:</strong> <span th:text="${pcBuild.selectedMOBO.name}"></span></p>
       <p><strong>Prijs:</strong> <span th:text="${pcBuild.calculateTotalPrice()}"></span></p>
@@ -28,10 +28,11 @@
 
 <!--      <p><strong>Totaal Prijs:</strong> €<span th:text="${pcBuild.price}">Total Price</span></p>-->
 
-      <div class="mt-4">
+      <div class="d-flex justify-content-between mt-5 bottom-margin">
         <a th:href="@{/editbuild/{id}(id=${pcBuild.id})}" class="btn-custom">BEWERKEN</a>
-<!--        <a th:href="@{/deletebuild/{id}(id=${pcBuild.id})}" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">Verwijderen</a>-->
         <a th:href="@{/pcbuilds}" class="btn-custom">TERUG</a>
+        <a th:href="@{/deletebuild/{id}(id=${pcBuild.id})}" class="btn-custom" onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">Verwijderen</a>
+
       </div>
     </div>
   <div class="bottom-margin"></div>
