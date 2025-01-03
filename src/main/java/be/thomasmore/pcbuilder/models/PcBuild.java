@@ -2,43 +2,30 @@ package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/*
- * @author Jento Pieters
- *
- * Entity Annotation: The @Entity annotation defines PcBuild as a JPA entity.
- *
- * Relationships:
- * @ManyToOne establishes a many-to-one relationship with the User entity.
- * @ManyToMany with @JoinTable sets up the many-to-many relationship between PcBuild and Component, specifying the join table and columns.
- */
 @Entity
+@Table(name = "pc_builds")
 public class PcBuild {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String buildName;
+
     @ManyToOne
     private User user;
-    @ManyToMany
-    @JoinTable(
-            name = "build_components",
-            joinColumns = @JoinColumn(name = "build_id"),
-            inverseJoinColumns = @JoinColumn(name = "component_id")
-    )
-    private List<Component> components = new ArrayList<>();
 
-    public boolean addComponent(Component component) {
-        for (Component existingComponent : components) {
-            if (!existingComponent.isCompatibleWith(component)) {
-                return false;
-            }
-        }
-        components.add(component);
-        return true;
-    }
+    // Many-to-One relationship with CPU: Each build has exactly one CPU
+    @ManyToOne
+    @JoinColumn(name = "cpu_id", nullable = false)
+    private CPU selectedCPU;
+
+    // Many-to-One relationship with MOBO: Each build has exactly one MOBO
+    @ManyToOne
+    @JoinColumn(name = "mobo_id", nullable = false)
+    private MOBO selectedMOBO;
+
+    // Getters and setters for all fields
 
     public Integer getId() {
         return id;
@@ -64,11 +51,19 @@ public class PcBuild {
         this.user = user;
     }
 
-    public List<Component> getComponents() {
-        return components;
+    public CPU getSelectedCPU() {
+        return selectedCPU;
     }
 
-    public void setComponents(List<Component> components) {
-        this.components = components;
+    public void setSelectedCPU(CPU selectedCPU) {
+        this.selectedCPU = selectedCPU;
+    }
+
+    public MOBO getSelectedMOBO() {
+        return selectedMOBO;
+    }
+
+    public void setSelectedMOBO(MOBO selectedMOBO) {
+        this.selectedMOBO = selectedMOBO;
     }
 }

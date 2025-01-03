@@ -24,18 +24,18 @@ VALUES (1, 'Samsung 970 Evo', 'Samsung', 'MZ-V7E1T0BW', 'NVMe', 'SSD', 5, 1000, 
        (3, 'Western Digital Blue', 'Western Digital', 'WD10EZEX', 'SATA', 'HDD', 6, 1000, 64, 50),
        (4, 'Crucial MX500', 'Crucial', 'CT1000MX500SSD1', 'SATA', 'SSD', 5, 1000, 512, 120);
 
-INSERT INTO GPU (NAME, MANUFACTURER, WATTAGE_USAGE, GPU_MODEL, CHIPSET, MEMORY_CAPACITY, INTERFACE_TYPE,
+INSERT INTO GPU (ID, NAME, MANUFACTURER, WATTAGE_USAGE, GPU_MODEL, CHIPSET, MEMORY_CAPACITY, INTERFACE_TYPE,
                  CLOCK_SPEED, COLOR, PRICE)
-VALUES ('NVIDIA GeForce RTX 3080', 'NVIDIA', 320, 'RTX 3080', 'Ampere', 10, 'PCIe 4.0', '1.44 GHz', 'Black', 700),
-       ( 'AMD Radeon RX 6800 XT', 'AMD', 300, 'RX 6800 XT', 'RDNA 2', 16, 'PCIe 4.0', '1.82 GHz', 'Red', 650),
-       ( 'NVIDIA GeForce RTX 3070', 'NVIDIA', 220, 'RTX 3070', 'Ampere', 8, 'PCIe 4.0', '1.50 GHz', 'Black', 500),
-       ( 'AMD Radeon RX 6700 XT', 'AMD', 230, 'RX 6700 XT', 'RDNA 2', 12, 'PCIe 4.0', '1.94 GHz', 'Red', 480);
+VALUES (1, 'NVIDIA GeForce RTX 3080', 'NVIDIA', 320, 'RTX 3080', 'Ampere', 10, 'PCIe 4.0', '1.44 GHz', 'Black', 700),
+       (2, 'AMD Radeon RX 6800 XT', 'AMD', 300, 'RX 6800 XT', 'RDNA 2', 16, 'PCIe 4.0', '1.82 GHz', 'Red', 650),
+       (3, 'NVIDIA GeForce RTX 3070', 'NVIDIA', 220, 'RTX 3070', 'Ampere', 8, 'PCIe 4.0', '1.50 GHz', 'Black', 500),
+       (4, 'AMD Radeon RX 6700 XT', 'AMD', 230, 'RX 6700 XT', 'RDNA 2', 12, 'PCIe 4.0', '1.94 GHz', 'Red', 480);
 
-INSERT INTO MOBO (ID, NAME, MANUFACTURER, CHIPSET, WATTAGE_USAGE, MOBO_FORM_FACTOR, MEMORY_TYPE, INTERFACE_TYPE, SOCKET_TYPE, PRICE, M2SUPPORT)
-VALUES (1, 'ASUS ROG Strix Z690-E', 'ASUS', 'Z690', 70, 'ATX', 'DDR5', 'PCIe 5.0', 'LGA1700', 400, 'Yes'),
-       (2, 'MSI MAG B550 TOMAHAWK', 'MSI', 'B550', 60, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 180, 'Yes'),
-       (3, 'Gigabyte AORUS X570 Master', 'Gigabyte', 'X570', 80, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 360, 'Yes'),
-       (4, 'ASRock B450M Pro4', 'ASRock', 'B450', 50, 'Micro-ATX', 'DDR4', 'PCIe 3.0', 'AM4', 80, 'No');
+INSERT INTO MOBO (NAME, MANUFACTURER, CHIPSET, WATTAGE_USAGE, MOBO_FORM_FACTOR, MEMORY_TYPE, INTERFACE_TYPE, SOCKET_TYPE, PRICE, M2SUPPORT)
+VALUES ('ASUS ROG Strix Z690-E', 'ASUS', 'Z690', 70, 'ATX', 'DDR5', 'PCIe 5.0', 'LGA1700', 400, 'Yes'),
+       ('MSI MAG B550 TOMAHAWK', 'MSI', 'B550', 60, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 180, 'Yes'),
+       ('Gigabyte AORUS X570 Master', 'Gigabyte', 'X570', 80, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 360, 'Yes'),
+       ('ASRock B450M Pro4', 'ASRock', 'B450', 50, 'Micro-ATX', 'DDR4', 'PCIe 3.0', 'AM4', 80, 'No');
 
 INSERT INTO PSU (ID, NAME, MANUFACTURER, WATTAGE_CAPACITY, PSU_MODEL, EFFICIENCY, PSU_FORM_FACTOR, COLOR, PRICE)
 VALUES (1, 'Corsair RM750x', 'Corsair', 750, 'RM750x', '80+ Gold', 'ATX', 'Black', 130),

@@ -50,8 +50,8 @@
                             <select id="filterSocket" name="filterSocket" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="p : ${allProcessors}"
-                                        th:value="*{p.socketType}"
-                                        th:text="*{p.socketType}"
+                                        th:value="${p.socketType}"
+                                        th:text="${p.socketType}"
                                 ></option>
                             </select>
                         </div>
@@ -62,8 +62,8 @@
                             <select id="filterCore" name="filterCore" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="p : ${allProcessors}"
-                                        th:value="*{p.coreCount}"
-                                        th:text="*{p.coreCount}"
+                                        th:value="${p.coreCount}"
+                                        th:text="${p.coreCount}"
                                 ></option>
                             </select>
                         </div>
@@ -74,8 +74,8 @@
                             <select id="filterArchitecture" name="filterArchitecture" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="m : ${allProcessors}"
-                                        th:value="*{m.architecture}"
-                                        th:text="*{m.architecture}"
+                                        th:value="${m.architecture}"
+                                        th:text="${m.architecture}"
                                 ></option>
                             </select>
                         </div>
@@ -106,6 +106,7 @@
                         <button type="submit" class="btn-custom small">PRIJS INSTELLEN</button>
                     </div>
                 </form>
+
 
                 <div class="container">
                     <h6 class="mt-5 small">Toegepaste filters:</h6>

@@ -2,19 +2,16 @@ package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
-/*
- * @author Jento Pieters
- *
- * Entity and Discriminator:
- * The @Entity and @DiscriminatorValue("CPU") annotations mark this class as a JPA entity and set the discriminator value to "CPU."
- */
 @Entity
-@DiscriminatorValue("CPU")
-@Table(name = "CPU")
-public class CPU extends Component {
-//    private Integer id;
+public class CPU {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String name;
     private String manufacturer;
     private String architecture;
@@ -25,33 +22,40 @@ public class CPU extends Component {
     private Integer clockSpeed;
     private Double price;
 
-    /*
-     * Compatibility Check:
-     * The isCompatibleWith method checks if the other component is a motherboard (MOBO) and compares the socket types for compatibility.
-     */
-    @Override
-    public boolean isCompatibleWith(Component other) {
-        if (other instanceof MOBO) {
-            return ((MOBO) other).getSocketType().equals(this.socketType);
-        }
-        return false;
+    // Many-to-One relationship with PcBuild (A CPU can be part of many builds)
+    @OneToMany(mappedBy = "selectedCPU")
+    private List<PcBuild> pcBuilds = new ArrayList<>();
+
+    // Many-to-Many relationship with MOBO (CPU can be compatible with multiple MOBOS)
+    @ManyToMany
+    @JoinTable(
+            name = "cpu_mobo_compatibility",
+            joinColumns = @JoinColumn(name = "cpu_id"),
+            inverseJoinColumns = @JoinColumn(name = "mobo_id")
+    )
+    private List<MOBO> compatibleMOBOs;
+
+    // Getters and setters for all fields
+    public List<PcBuild> getPcBuilds() {
+        return pcBuilds;
     }
 
-    public Double getPrice() {
-        return price;
+    public void setPcBuilds(List<PcBuild> pcBuilds) {
+        this.pcBuilds = pcBuilds;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public boolean isCompatibleWith(MOBO mobo) {
+        return this.socketType.equals(mobo.getSocketType());
     }
 
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
+    // Getters and setters for all fields
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -115,5 +119,13 @@ public class CPU extends Component {
 
     public void setClockSpeed(Integer clockSpeed) {
         this.clockSpeed = clockSpeed;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

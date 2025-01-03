@@ -2,17 +2,19 @@ package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * @author Jento Pieters
- *
- * Entity and Discriminator:
- * The @Entity and @DiscriminatorValue("MOBO") annotations mark this class as a JPA entity and set the discriminator value to "MOBO."
- *
  */
 @Entity
-@DiscriminatorValue("MOBO")
-public class MOBO extends Component {
-//    private Integer id;
+public class MOBO {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String name;
     private String manufacturer;
     private String chipset;
@@ -24,42 +26,34 @@ public class MOBO extends Component {
     private boolean m2Support;
     private Double price;
 
-    /*
-     * Compatibility Check:
-     * The isCompatibleWith method checks if the other component is a CPU and compares the socket types for compatibility.
-     */
-    @Override
-    public boolean isCompatibleWith(Component other) {
-        if (other instanceof CPU) {
-            return ((CPU) other).getSocketType().equals(this.socketType);
-        } // Add compatibility checks for other components like RAM, GPU, etc. return true
-        return true;
+    // Many-to-One relationship with PcBuild (A MOBO can be part of many builds)
+    @OneToMany(mappedBy = "selectedMOBO")
+    private List<PcBuild> pcBuilds = new ArrayList<>();
+
+    // Many-to-Many relationship with CPU (A motherboard can be compatible with many CPUs)
+    @ManyToMany(mappedBy = "compatibleMOBOs")
+    private List<CPU> compatibleCPUs;
+
+    // Getters and setters for all fields
+    public List<PcBuild> getPcBuilds() {
+        return pcBuilds;
     }
 
-    //Getters and setters
-    public boolean hasM2Support() {
-        return m2Support;
+    public void setPcBuilds(List<PcBuild> pcBuilds) {
+        this.pcBuilds = pcBuilds;
     }
 
-    public void setM2Support(boolean m2Support) {
-        this.m2Support = m2Support;
+    public boolean isCompatibleWith(CPU cpu) {
+        return this.socketType.equals(cpu.getSocketType());
     }
 
-    public Double getPrice() {
-        return price;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setId(Integer id) {
+        this.id = id;
     }
-
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
 
     public String getName() {
         return name;
@@ -124,4 +118,22 @@ public class MOBO extends Component {
     public void setSocketType(String socketType) {
         this.socketType = socketType;
     }
+
+    public boolean isM2Support() {
+        return m2Support;
+    }
+
+    public void setM2Support(boolean m2Support) {
+        this.m2Support = m2Support;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+
 }

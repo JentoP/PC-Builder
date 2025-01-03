@@ -9,8 +9,6 @@ public class OrderItem {
     private Long id;
     private int quantity;
     @ManyToOne
-    private Component component;
-    @ManyToOne
     private Order order;
 
     public Long getId() {
@@ -27,14 +25,6 @@ public class OrderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Component getComponent() {
-        return component;
-    }
-
-    public void setComponent(Component component) {
-        this.component = component;
     }
 
     public Order getOrder() {
