@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/header :: headerelement('Edit PC Build')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<h1>Edit PC Build</h1>
+
+<main class="container">
+    <h2>Edit Build: <span th:text="${pcBuild.buildName}"></span></h2>
+
+    <form th:action="@{/builder}" th:object="${pcBuild}" method="post">
+        <div class="form-group">
+            <label for="buildName">Build Name:</label>
+            <input type="text" id="buildName" th:field="${buildName}" class="form-control" required>
+        </div>
+
+        <!-- CPU Selection -->
+        <div class="form-group">
+            <label for="selectedCPU">Select Processor:</label>
+            <select id="selectedCPU" th:field="${selectedCPU}" class="form-control" multiple>
+                <option th:each="cpu : ${allCPUs}" th:value="${cpu.id}" th:text="${cpu.name}"></option>
+            </select>
+        </div>
+
+        <!-- MOBO Selection -->
+        <div class="form-group">
+            <label for="selectedMOBO">Select Motherboard:</label>
+            <select id="selectedMOBO" th:field="${selectedMOBO}" class="form-control" multiple>
+                <option th:each="mobo : ${allMOBOS}" th:value="${mobo.id}" th:text="${mobo.name}"></option>
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

@@ -137,19 +137,27 @@
             <div class="col-md-9">
                 <h3>Resultaten</h3>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col">
                         <div th:each="CPU : ${filteredProcessors}">
                             <ul class="list">
-                                <li><a th:href="@{/components/processor/{id}(id=${CPU.id})}" th:text="${CPU.name}"
-                                       title="Click to view more details about this processor."></a></li>
+                                <li>
+                                    <a th:text="${CPU.name}" t></a>
+                                    <span class='small' th:text="'€ ' + ${CPU.price}" Style="margin-left: 50px"></span>
+                                    <a th:href="@{/components/processor/{id}(id=${CPU.id})}" class="btn-custom"
+                                       Style="margin-left: 200px" th:text="'View'"
+                                       title="Click to view more details about this processor."></a>
+                                    <a th:href="@{/user/addbuild?selectedCPUId=${CPU.id}}" class="btn-custom"
+                                       Style="margin-left: 20px" th:text="'Add to build'"
+                                       title="Click to add this processor to your build."></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="bottom-margin"></div>
     </div>
+    <div class="bottom-margin"></div>
 </main>
 
 <div class="bottom-margin"></div>

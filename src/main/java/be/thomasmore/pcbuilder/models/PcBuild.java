@@ -8,7 +8,7 @@ public class PcBuild {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer buildId;
 
     private String buildName;
 
@@ -28,11 +28,11 @@ public class PcBuild {
     // Getters and setters for all fields
 
     public Integer getId() {
-        return id;
+        return buildId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.buildId = id;
     }
 
     public String getBuildName() {
