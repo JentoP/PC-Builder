@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="~{fragments/header :: headerelement('PC Build Toevoegen')}"></head>
+<head th:replace="~{fragments/header :: headerelement('PC Build Toevoegen')}">
+</head>
 <header th:replace="~{fragments/header :: header}"></header>
 
 <body class="d-flex flex-column h-100">
-<h1 th:text="${isEditMode} ? 'Uw PC beheren' : 'Uw PC bouwen'"></h1>
+<h1 th:text="${isEditMode} ? 'Beheer uw PC' : 'Assembleer uw PC'"></h1>
 <p th:text="${isEditMode} ? 'Beheer uw computer' : 'Maak uw eigen computer, kies componenten uit de lijst hieronder. Voor meer info over een component bezoek de componenten pagina.'"></p>
 
 <main class="container">
@@ -12,7 +13,7 @@
 
 
     <!-- Display error message if any -->
-    <div th:if="${errorMessage}" class="alert alert-danger">
+    <div th:if="${errorMessage}" class="alert-message">
         <p th:text="${errorMessage}"></p>
     </div>
 
@@ -47,29 +48,14 @@
             </select>
         </div>
 
-        <!--        &lt;!&ndash; GPU Selection &ndash;&gt;-->
-        <!--        <div class="form-group mt-3">-->
-        <!--            <label for="selectedGPU">Kies Grafische Kaart</label>-->
-        <!--            <select id="selectedGPU" name="selectedGPU" class="form-control">-->
-        <!--                <option th:each="gpu : ${allGraphicsCards}" th:value="${gpu.id}" th:text="${gpu.name}"></option>-->
-        <!--            </select>-->
-        <!--        </div>-->
-
-        <!--        &lt;!&ndash; RAM Selection &ndash;&gt;-->
-        <!--        <div class="form-group mt-3">-->
-        <!--            <label for="selectedRAM">Kies Geheugen</label>-->
-        <!--            <select id="selectedRAM" name="selectedRAM" class="form-control">-->
-        <!--                <option th:each="ram : ${allMemoryKits}" th:value="${ram.id}" th:text="${ram.name}"></option>-->
-        <!--            </select>-->
-        <!--        </div>-->
-
         <!-- Submit Button -->
-        <div class="mt-4">
+        <div class="mt-3">
             <button class="btn-custom" type="submit"
                     th:text="${isEditMode} ? 'AANPASSINGEN OPSLAAN' : 'PC AANMAKEN'"></button>
         </div>
     </form>
 </main>
+<div class="bottom-margin"></div>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>

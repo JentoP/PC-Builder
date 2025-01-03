@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,28 +52,14 @@ public class PcBuildController {
         }
     }
 
-    // View specific PC build details
-    @GetMapping("/viewbuild/{id}")
-    public String viewPcBuild(@PathVariable Integer id, Model model) {
-        Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
-        if (optionalPcBuild.isPresent()) {
-            PcBuild pcBuild = optionalPcBuild.get();
-            model.addAttribute("pcBuild", pcBuild);
-            return "viewbuild"; // Show build details
-        } else {
-            model.addAttribute("errorMessage", "PC Build not found.");
-            return "error"; // Redirect to error page
-        }
-    }
-
     // Add or edit a PC build, depending on the presence of an ID
     @GetMapping({"/addbuild", "/editbuild/{id}"})
     public String addOrEditPcBuild(@PathVariable(required = false) Integer id, Model model) {
         PcBuild pcBuild = createPcBuild(id);  // Fetch the build or create a new one
         model.addAttribute("pcBuild", pcBuild);
 
-        Iterable<CPU> allCPUs =  processors.findAll();
-        Iterable<MOBO> allMOBOS =  motherboards.findAll();
+        Iterable<CPU> allCPUs = processors.findAll();
+        Iterable<MOBO> allMOBOS = motherboards.findAll();
         model.addAttribute("allProcessors", allCPUs);
         model.addAttribute("allMotherboards", allMOBOS);
 
@@ -84,22 +71,13 @@ public class PcBuildController {
 
     // Handle the POST request to add or edit a PC build
     @PostMapping({"/addbuild", "/editbuild/{id}"})
-    public String addOrEditPcBuildPost(@PathVariable(required = false) Integer id,
-                                       PcBuild pcBuild,
-                                       Model model,
-                                       @RequestParam("selectedCPUId") Integer selectedCPUId) {
-        Optional<CPU> selectedCPU = processors.findById(selectedCPUId);
-        if (selectedCPU.isPresent()) {
-            pcBuild.setSelectedCPU(selectedCPU.get());
-        } else {
-            model.addAttribute("errorMessage", "Invalid CPU selected");
-            return "managebuild";
-        }
+    public String addOrEditPcBuildPost(@ModelAttribute PcBuild pcBuild, Model model, RedirectAttributes redirectAttributes) {
 
         // Validate compatibility between selected CPU and MOBO
         if (!isCompatible(pcBuild.getSelectedCPU(), pcBuild.getSelectedMOBO())) {
-            model.addAttribute("errorMessage", "Selected CPU and motherboard are not compatible.");
-            return "managebuild";
+//            Flash attributes are used to pass the errorMessage to the view on redirect.
+            redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten waren niet compatibel met elkaar. Probeer opnieuw");
+            return "redirect:/addbuild";
         }
 
         // Save the new or updated PC build
@@ -126,11 +104,25 @@ public class PcBuildController {
         return selectedCPU.getSocketType().equals(selectedMOBO.getSocketType());
     }
 
-    // List all PC builds for the user
-    @GetMapping("/pcbuilds")
-    public String viewPcBuilds(Model model) {
-        List<PcBuild> pcBuilds = (List<PcBuild>) pcBuildRepository.findAll();
-        model.addAttribute("pcBuilds", pcBuilds);
-        return "pcbuilds"; // Display all PC builds
+    // View specific PC build details
+    @GetMapping("/viewbuild/{id}")
+    public String viewPcBuild(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes) {
+        Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
+        if (optionalPcBuild.isPresent()) {
+            PcBuild pcBuild = optionalPcBuild.get();
+            model.addAttribute("pcBuild", pcBuild);
+            return "viewbuild"; // Show build details
+
+        }
+        redirectAttributes.addFlashAttribute("errorMessage", "PC build not found.");
+        return "redirect:/pcbuilds";
     }
-}
+
+        // List all PC builds for the user
+        @GetMapping("/pcbuilds")
+        public String viewPcBuilds (Model model){
+            Iterable<PcBuild> pcBuilds = pcBuildRepository.findAll();
+            model.addAttribute("pcBuilds", pcBuilds);
+            return "pcbuilds"; // Display all PC builds
+        }
+    }

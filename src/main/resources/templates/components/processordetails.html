@@ -49,16 +49,16 @@
             </div>
         </div>
         <div class="d-flex justify-content-between mt-5 bottom-margin">
-            <a class="button btn btn-secondary" th:href="@{|/components/processor/${previousId}|}"><<</a>
-            <a class="button btn btn-secondary" th:href="@{|/lists/processors|}">Go back</a>
-            <a class="button btn btn-secondary" th:href="@{|/components/processor/${nextId}|}">>></a>
+            <a class="btn-custom" th:href="@{|/components/processor/${previousId}|}"><<</a>
+            <a class="btn-custom" th:href="@{|/lists/processors|}">GA TERUG</a>
+            <a class="btn-custom" th:href="@{|/components/processor/${nextId}|}">>></a>
         </div>
     </div>
 </main>
 
 <main th:object="${cpu}" th:unless="${cpu}">
     <h3>No cpu found.</h3>
-    <a class="button btn btn-primary mt-5" th:href="@{|/templates/components|}">Go back</a>
+    <a class="btn-custom mt-5" th:href="@{|/components|}">GA TERUG</a>
 
 </main>
 </body>

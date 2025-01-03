@@ -4,34 +4,26 @@
 <header th:replace="~{fragments/header :: header}"></header>
 
 <body class="d-flex flex-column h-100">
-<h1>Uw PC Builds</h1>
-<p>Bekijk en beheer je gemaakte PC builds.</p>
-
+<h1>Bekijk uw PC's</h1>
 <main class="container">
-    <h2>Uw PC's</h2>
-    <div class="container">
-        <div class="row">
-            <!-- Display all the PC builds -->
-            <div th:each="pcBuild : ${pcBuilds}" class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${pcBuild.buildName}">PC Build Name</h5>
-                        <p><strong>Processor:</strong> <span th:text="${pcBuild.selectedCPU.name}">Processor Name</span></p>
-                        <p><strong>Moederbord:</strong> <span th:text="${pcBuild.selectedMOBO.name}">Motherboard Name</span></p>
-<!--                        <p><strong>Graphics Card:</strong> <span th:text="${pcBuild.selectedGPU.name}">GPU Name</span></p>-->
-<!--                        <p><strong>Memory:</strong> <span th:text="${pcBuild.selectedRAM.name}">RAM Name</span></p>-->
-                        <p><strong>Prijs:</strong> €<span th:text="${pcBuild.price}">Price</span></p>
-
-                        <!-- Edit and Delete buttons -->
-                        <a th:href="@{/user/editbuild/{id}(id=${pcBuild.id})}" class="btn btn-primary">Bewerken</a>
-                        <a th:href="@{/user/deletebuild/{id}(id=${pcBuild.id})}" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">Verwijderen</a>
-                    </div>
-                </div>
+    <div class="row">
+        <!-- Display all the PC builds -->
+        <div th:each="pcBuild : ${pcBuilds}" class="col-md-6">
+            <div class="d-flex align-items-center justify-content-between  mt-3"
+                 title="Klik hier om deze build te bekijken">
+                <img th:src="@{/img/icons/gradient/computer.png}" alt="cpu" width="40" height="40" class="m-3">
+                <h2 class="flex-grow-1" th:text="${pcBuild.buildName}">PC Build Name</h2>
+                <a type="button" class="btn-custom" th:href="@{/viewbuild/{id}(id=${pcBuild.id})}">BEKIJKEN</a>
             </div>
         </div>
+        <div class="bottom-margin"></div>
     </div>
+    <div class="mt-5 text-center">
+    <a class="btn-custom" th:href="@{/addbuild}" role="button">NIEUWE PC MAKEN</a>
+    </div>
+    <div class="bottom-margin"></div>
 </main>
-
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
+
 </html>

@@ -99,7 +99,7 @@ body p {
     background: none;
     color: white;
     border: #162370 solid 2px;
-    padding: 5px 8px 5px 8px;
+    padding: 8px 10px 8px 10px;
     border-radius: 10px;
     cursor: pointer;
     margin-top: 10px;
@@ -107,6 +107,7 @@ body p {
     font-family: "Calibri Light", sans-serif;
     letter-spacing: 3px;
     font-weight: bold;
+    text-align: center;
 }
 
 .btn-custom:hover {
@@ -200,6 +201,7 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 50%;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
 }
+
 .form-box {
     background: none;
     color: white;
@@ -210,6 +212,7 @@ input[type="range"]::-webkit-slider-thumb {
     margin-left: 10px;
     margin-bottom: 30px;
 }
+
 .build-text {
     background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
     -webkit-background-clip: text;
@@ -217,5 +220,19 @@ input[type="range"]::-webkit-slider-thumb {
     text-decoration: none;
     font-size: 24px;
     padding: 1px;
+}
+
+.alert-message {
+    background: linear-gradient(to right, #5b2b95, #24113b);
+    font-size: 30px;
+    color: white;
+    font-family: "Calibri Light", sans-serif;
+    letter-spacing: 3px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
 }
