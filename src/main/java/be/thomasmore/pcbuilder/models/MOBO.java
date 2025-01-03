@@ -1,16 +1,18 @@
 package be.thomasmore.pcbuilder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
-import java.util.Collection;
-
+/*
+ * @author Jento Pieters
+ *
+ * Entity and Discriminator:
+ * The @Entity and @DiscriminatorValue("MOBO") annotations mark this class as a JPA entity and set the discriminator value to "MOBO."
+ *
+ */
 @Entity
-public class MOBO {
-    @Id
-    private Integer id;
+@DiscriminatorValue("MOBO")
+public class MOBO extends Component {
+//    private Integer id;
     private String name;
     private String manufacturer;
     private String chipset;
@@ -22,10 +24,20 @@ public class MOBO {
     private boolean m2Support;
     private Double price;
 
-    @OneToMany(mappedBy = "mobo", fetch = FetchType.LAZY)
-    private Collection<Build> builds;
+    /*
+     * Compatibility Check:
+     * The isCompatibleWith method checks if the other component is a CPU and compares the socket types for compatibility.
+     */
+    @Override
+    public boolean isCompatibleWith(Component other) {
+        if (other instanceof CPU) {
+            return ((CPU) other).getSocketType().equals(this.socketType);
+        } // Add compatibility checks for other components like RAM, GPU, etc. return true
+        return true;
+    }
 
-    public boolean isM2Support() {
+    //Getters and setters
+    public boolean hasM2Support() {
         return m2Support;
     }
 
@@ -40,13 +52,14 @@ public class MOBO {
     public void setPrice(Double price) {
         this.price = price;
     }
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -110,14 +123,5 @@ public class MOBO {
 
     public void setSocketType(String socketType) {
         this.socketType = socketType;
-    }
-
-
-    public Collection<Build> getBuilds() {
-        return builds;
-    }
-
-    public void setBuilds(Collection<Build> builds) {
-        this.builds = builds;
     }
 }

@@ -18,9 +18,9 @@ public class CHASSIS {
     private String psuFormFactor;
     private String color;
     private Double price;
-
-    @OneToMany(mappedBy = "chassis", fetch = FetchType.LAZY)
-    private Collection<Build> builds;
+//
+//    @OneToMany(mappedBy = "chassis", fetch = FetchType.LAZY)
+//    private Collection<PcBuild> pcBuilds;
 
 
     public Double getPrice() {
@@ -87,12 +87,12 @@ public class CHASSIS {
         this.color = color;
     }
 
-
-    public Collection<Build> getBuilds() {
-        return builds;
-    }
-
-    public void setBuilds(Collection<Build> builds) {
-        this.builds = builds;
-    }
+//
+//    public Collection<PcBuild> getBuilds() {
+//        return pcBuilds;
+//    }
+//
+//    public void setBuilds(Collection<PcBuild> pcBuilds) {
+//        this.pcBuilds = pcBuilds;
+//    }
 }

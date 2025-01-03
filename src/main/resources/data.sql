@@ -10,12 +10,12 @@ VALUES (1, 'Corsair H100i', 'Corsair', TRUE, 120, 240, TRUE, 'LGA1151', 'Black',
        (3, 'NZXT Kraken X63', 'NZXT', TRUE, 140, 280, TRUE, 'LGA1200', 'Black', 160),
        (4, 'Cooler Master Hyper 212 EVO', 'Cooler Master', FALSE, 120, NULL, FALSE, 'AM4', 'Black', 35);
 
-INSERT INTO CPU (ID, NAME, MANUFACTURER, ARCHITECTURE, WATTAGE_USAGE, SOCKET_TYPE, CPU_MODEL, CORE_COUNT, CLOCK_SPEED,
+INSERT INTO CPU (NAME, MANUFACTURER, ARCHITECTURE, WATTAGE_USAGE, SOCKET_TYPE, CPU_MODEL, CORE_COUNT, CLOCK_SPEED,
                  PRICE)
-VALUES (1, 'Intel Core i9-12900K', 'Intel', 'Alder Lake', 125, 'LGA1700', 'i9-12900K', 16, 3.2, 600),
-       (2, 'AMD Ryzen 9 5900X', 'AMD', 'Zen 3', 105, 'AM4', 'Ryzen 9 5900X', 12, 3.7, 550),
-       (3, 'Intel Core i7-12700K', 'Intel', 'Alder Lake', 125, 'LGA1700', 'i7-12700K', 12, 3.6, 420),
-       (4, 'AMD Ryzen 5 5600X', 'AMD', 'Zen 3', 65, 'AM4', 'Ryzen 5 5600X', 6, 3.7, 300);
+VALUES ( 'Intel Core i9-12900K', 'Intel', 'Alder Lake', 125, 'LGA1700', 'i9-12900K', 16, 3.2, 600),
+       ( 'AMD Ryzen 9 5900X', 'AMD', 'Zen 3', 105, 'AM4', 'Ryzen 9 5900X', 12, 3.7, 550),
+       ('Intel Core i7-12700K', 'Intel', 'Alder Lake', 125, 'LGA1700', 'i7-12700K', 12, 3.6, 420),
+       ( 'AMD Ryzen 5 5600X', 'AMD', 'Zen 3', 65, 'AM4', 'Ryzen 5 5600X', 6, 3.7, 300);
 
 INSERT INTO DATA (ID, NAME, MANUFACTURER, DATA_MODEL, INTERFACE_TYPE, STORAGE_TYPE, WATTAGE_USAGE, CAPACITY,
                   CACHE_MEMORY, PRICE)
@@ -24,12 +24,12 @@ VALUES (1, 'Samsung 970 Evo', 'Samsung', 'MZ-V7E1T0BW', 'NVMe', 'SSD', 5, 1000, 
        (3, 'Western Digital Blue', 'Western Digital', 'WD10EZEX', 'SATA', 'HDD', 6, 1000, 64, 50),
        (4, 'Crucial MX500', 'Crucial', 'CT1000MX500SSD1', 'SATA', 'SSD', 5, 1000, 512, 120);
 
-INSERT INTO GPU (ID, NAME, MANUFACTURER, WATTAGE_USAGE, GPU_MODEL, CHIPSET, MEMORY_CAPACITY, INTERFACE_TYPE,
+INSERT INTO GPU (NAME, MANUFACTURER, WATTAGE_USAGE, GPU_MODEL, CHIPSET, MEMORY_CAPACITY, INTERFACE_TYPE,
                  CLOCK_SPEED, COLOR, PRICE)
-VALUES (1, 'NVIDIA GeForce RTX 3080', 'NVIDIA', 320, 'RTX 3080', 'Ampere', 10, 'PCIe 4.0', '1.44 GHz', 'Black', 700),
-       (2, 'AMD Radeon RX 6800 XT', 'AMD', 300, 'RX 6800 XT', 'RDNA 2', 16, 'PCIe 4.0', '1.82 GHz', 'Red', 650),
-       (3, 'NVIDIA GeForce RTX 3070', 'NVIDIA', 220, 'RTX 3070', 'Ampere', 8, 'PCIe 4.0', '1.50 GHz', 'Black', 500),
-       (4, 'AMD Radeon RX 6700 XT', 'AMD', 230, 'RX 6700 XT', 'RDNA 2', 12, 'PCIe 4.0', '1.94 GHz', 'Red', 480);
+VALUES ('NVIDIA GeForce RTX 3080', 'NVIDIA', 320, 'RTX 3080', 'Ampere', 10, 'PCIe 4.0', '1.44 GHz', 'Black', 700),
+       ( 'AMD Radeon RX 6800 XT', 'AMD', 300, 'RX 6800 XT', 'RDNA 2', 16, 'PCIe 4.0', '1.82 GHz', 'Red', 650),
+       ( 'NVIDIA GeForce RTX 3070', 'NVIDIA', 220, 'RTX 3070', 'Ampere', 8, 'PCIe 4.0', '1.50 GHz', 'Black', 500),
+       ( 'AMD Radeon RX 6700 XT', 'AMD', 230, 'RX 6700 XT', 'RDNA 2', 12, 'PCIe 4.0', '1.94 GHz', 'Red', 480);
 
 INSERT INTO MOBO (ID, NAME, MANUFACTURER, CHIPSET, WATTAGE_USAGE, MOBO_FORM_FACTOR, MEMORY_TYPE, INTERFACE_TYPE, SOCKET_TYPE, PRICE, M2SUPPORT)
 VALUES (1, 'ASUS ROG Strix Z690-E', 'ASUS', 'Z690', 70, 'ATX', 'DDR5', 'PCIe 5.0', 'LGA1700', 400, 'Yes'),

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
-public class Build {
+public class PcBuild {
     @Id
     private Integer id;
     private Integer userId;

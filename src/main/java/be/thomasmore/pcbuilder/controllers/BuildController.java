@@ -33,14 +33,14 @@ public class BuildController {
 
     @GetMapping("/builder")
     public String pcBuilder(Model model) {
-//        model.addAttribute("allProcessors", processors.findAll());
-//        model.addAttribute("allMotherboards", motherboards.findAll());
-//        model.addAttribute("allCases", cases.findAll());
-//        model.addAttribute("allCooling", coolingSolutions.findAll());
-//        model.addAttribute("allGraphicCards", graphicCards.findAll());
-//        model.addAttribute("allMemory", memoryKits.findAll());
-//        model.addAttribute("allPowerSupplies", powerSupplies.findAll());
-//        model.addAttribute("allStorage", storage.findAll());
+        model.addAttribute("allProcessors", processors.findAll());
+        model.addAttribute("allMotherboards", motherboards.findAll());
+        model.addAttribute("allCases", cases.findAll());
+        model.addAttribute("allCooling", coolingSolutions.findAll());
+        model.addAttribute("allGraphicCards", graphicCards.findAll());
+        model.addAttribute("allMemory", memoryKits.findAll());
+        model.addAttribute("allPowerSupplies", powerSupplies.findAll());
+        model.addAttribute("allStorage", storage.findAll());
 
         return "builder";
     }

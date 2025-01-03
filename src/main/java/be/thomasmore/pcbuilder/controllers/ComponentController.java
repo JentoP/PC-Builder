@@ -400,7 +400,7 @@ public class ComponentController {
 
     //methods for detail pages
     @GetMapping("/components/motherboard/{id}")
-    public String motherboards(@PathVariable Integer id, Model model) {
+    public String motherboardDetails(@PathVariable Integer id, Model model) {
         Optional<MOBO> moboFromDb = motherboards.findById(id);
         long count = motherboards.count();
         if (moboFromDb.isPresent()) {
@@ -412,7 +412,7 @@ public class ComponentController {
     }
 
     @GetMapping("/components/case/{id}")
-    public String cases(@PathVariable Integer id, Model model) {
+    public String chassisDetails(@PathVariable Integer id, Model model) {
         Optional<CHASSIS> caseFromDb = cases.findById(id);
         long count = cases.count();
         if (caseFromDb.isPresent()) {
@@ -424,7 +424,7 @@ public class ComponentController {
     }
 
     @GetMapping("/components/cooling/{id}")
-    public String cooling(@PathVariable Integer id, Model model) {
+    public String coolingDetails(@PathVariable Integer id, Model model) {
         Optional<COOLING> coolingFromDb = coolingSolutions.findById(id);
         long count = coolingSolutions.count();
         if (coolingFromDb.isPresent()) {
@@ -436,7 +436,7 @@ public class ComponentController {
     }
 
     @GetMapping("/components/graphiccard/{id}")
-    public String graphicCards(@PathVariable Integer id, Model model) {
+    public String graphicCardsDetails(@PathVariable Integer id, Model model) {
         Optional<GPU> graphicCardFromDb = graphicCards.findById(id);
         long count = graphicCards.count();
         if (graphicCardFromDb.isPresent()) {
@@ -448,7 +448,7 @@ public class ComponentController {
     }
 
     @GetMapping("/components/memory/{id}")
-    public String memory(@PathVariable Integer id, Model model) {
+    public String memoryDetails(@PathVariable Integer id, Model model) {
         Optional<RAM> memoryKitsFromDb = memoryKits.findById(id);
         long count = memoryKits.count();
         if (memoryKitsFromDb.isPresent()) {
@@ -460,7 +460,7 @@ public class ComponentController {
     }
 
     @GetMapping("/components/powersupply/{id}")
-    public String powerSupplies(@PathVariable Integer id, Model model) {
+    public String powerSuppliesDetails(@PathVariable Integer id, Model model) {
         Optional<PSU> powerSuppliesFromDb = powerSupplies.findById(id);
         long count = powerSupplies.count();
         if (powerSuppliesFromDb.isPresent()) {
@@ -472,7 +472,7 @@ public class ComponentController {
     }
 
     @GetMapping("/components/storage/{id}")
-    public String storage(@PathVariable Integer id, Model model) {
+    public String storageDetails(@PathVariable Integer id, Model model) {
         Optional<DATA> storageFromDb = storage.findById(id);
         long count = storage.count();
         if (storageFromDb.isPresent()) {

@@ -21,8 +21,8 @@ public class COOLING {
     private String color;
     private Double price;
 
-    @OneToMany(mappedBy = "coolingSolution", fetch = FetchType.LAZY)
-    private Collection<Build> builds;
+//    @OneToMany(mappedBy = "coolingSolution", fetch = FetchType.LAZY)
+//    private Collection<PcBuild> pcBuilds;
 
 
     public Double getPrice() {
@@ -105,12 +105,12 @@ public class COOLING {
         this.RGB = RGB;
     }
 
-
-    public Collection<Build> getBuilds() {
-        return builds;
-    }
-
-    public void setBuilds(Collection<Build> builds) {
-        this.builds = builds;
-    }
+//
+//    public Collection<PcBuild> getBuilds() {
+//        return pcBuilds;
+//    }
+//
+//    public void setBuilds(Collection<PcBuild> pcBuilds) {
+//        this.pcBuilds = pcBuilds;
+//    }
 }

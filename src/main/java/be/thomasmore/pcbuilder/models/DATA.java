@@ -17,8 +17,8 @@ public class DATA {
     private Integer capacity;
     private Integer cacheMemory;
     private Double price;
-    @ManyToMany(mappedBy = "storage", fetch = FetchType.LAZY)
-    private Collection<Build> builds;
+//    @ManyToMany(mappedBy = "storage", fetch = FetchType.LAZY)
+//    private Collection<PcBuild> pcBuilds;
 
 
     public Double getPrice() {
@@ -101,12 +101,12 @@ public class DATA {
         this.cacheMemory = cacheMemory;
     }
 
-
-    public Collection<Build> getBuilds() {
-        return builds;
-    }
-
-    public void setBuilds(Collection<Build> builds) {
-        this.builds = builds;
-    }
+//
+//    public Collection<PcBuild> getBuilds() {
+//        return pcBuilds;
+//    }
+//
+//    public void setBuilds(Collection<PcBuild> pcBuilds) {
+//        this.pcBuilds = pcBuilds;
+//    }
 }

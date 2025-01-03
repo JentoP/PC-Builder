@@ -4,11 +4,17 @@ import jakarta.persistence.*;
 
 import java.util.Collection;
 
+/*
+ * @author Jento Pieters
+ *
+ * Entity and Discriminator:
+ * The @Entity and @DiscriminatorValue("CPU") annotations mark this class as a JPA entity and set the discriminator value to "CPU."
+ */
 @Entity
-public class CPU {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+@DiscriminatorValue("CPU")
+@Table(name = "CPU")
+public class CPU extends Component {
+//    private Integer id;
     private String name;
     private String manufacturer;
     private String architecture;
@@ -19,8 +25,17 @@ public class CPU {
     private Integer clockSpeed;
     private Double price;
 
-    @OneToMany(mappedBy = "cpu", fetch = FetchType.LAZY)
-    private Collection<Build> builds;
+    /*
+     * Compatibility Check:
+     * The isCompatibleWith method checks if the other component is a motherboard (MOBO) and compares the socket types for compatibility.
+     */
+    @Override
+    public boolean isCompatibleWith(Component other) {
+        if (other instanceof MOBO) {
+            return ((MOBO) other).getSocketType().equals(this.socketType);
+        }
+        return false;
+    }
 
     public Double getPrice() {
         return price;
@@ -29,13 +44,14 @@ public class CPU {
     public void setPrice(Double price) {
         this.price = price;
     }
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -99,14 +115,5 @@ public class CPU {
 
     public void setClockSpeed(Integer clockSpeed) {
         this.clockSpeed = clockSpeed;
-    }
-
-
-    public Collection<Build> getBuilds() {
-        return builds;
-    }
-
-    public void setBuilds(Collection<Build> builds) {
-        this.builds = builds;
     }
 }

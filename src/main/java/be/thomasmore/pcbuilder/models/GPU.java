@@ -22,8 +22,8 @@ public class GPU {
     private String color;
     private Double price;
 
-    @OneToMany(mappedBy = "gpu", fetch = FetchType.LAZY)
-    private Collection<Build> builds;
+//    @OneToMany(mappedBy = "gpu", fetch = FetchType.LAZY)
+//    private Collection<PcBuild> pcBuilds;
 
 
     public Double getPrice() {
@@ -115,11 +115,11 @@ public class GPU {
 
 
 
-    public Collection<Build> getBuilds() {
-        return builds;
-    }
-
-    public void setBuilds(Collection<Build> builds) {
-        this.builds = builds;
-    }
+//    public Collection<PcBuild> getBuilds() {
+//        return pcBuilds;
+//    }
+//
+//    public void setBuilds(Collection<PcBuild> pcBuilds) {
+//        this.pcBuilds = pcBuilds;
+//    }
 }
