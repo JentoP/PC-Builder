@@ -37,9 +37,9 @@
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allMotherboards}"
-                                        th:value="${p.manufacturer}"
-                                        th:text="${p.manufacturer}"
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="${m.manufacturer}"
+                                        th:text="${m.manufacturer}"
                                 ></option>
                             </select>
                         </div>
@@ -49,9 +49,9 @@
                         <div class="container input-group row">
                             <select id="filterSocket" name="filterSocket" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allMotherboards}"
-                                        th:value="${p.socketType}"
-                                        th:text="${p.socketType}"
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="${m.socketType}"
+                                        th:text="${m.socketType}"
                                 ></option>
                             </select>
                         </div>
@@ -61,9 +61,9 @@
                         <div class="container input-group row">
                             <select id="filterChipset" name="filterChipset" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allMotherboards}"
-                                        th:value="${p.chipset}"
-                                        th:text="${p.chipset}"
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="${m.chipset}"
+                                        th:text="${m.chipset}"
                                 ></option>
                             </select>
                         </div>
@@ -73,9 +73,9 @@
                         <div class="container input-group row">
                             <select id="filterMemory" name="filterMemory" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allMotherboards}"
-                                        th:value="${p.memoryType}"
-                                        th:text="${p.memoryType}"
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="${m.memoryType}"
+                                        th:text="${m.memoryType}"
                                 ></option>
                             </select>
                         </div>
@@ -85,9 +85,9 @@
                         <div class="container input-group row">
                             <select id="filterMoboFormFactor" name="filterMoboFormFactor" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allMotherboards}"
-                                        th:value="${p.moboFormFactor}"
-                                        th:text="${p.moboFormFactor}"
+                                <option th:each="m : ${allMotherboards}"
+                                        th:value="${m.moboFormFactor}"
+                                        th:text="${m.moboFormFactor}"
                                 ></option>
                             </select>
                         </div>
@@ -150,7 +150,7 @@
                 <h3>Resultaten</h3>
                 <div class="row">
                     <div class="col-md-6">
-                        <div th:each="MOBO : ${filteredMotherboard}">
+                        <div th:each="MOBO : ${filteredMotherboards}">
                             <ul class="list">
                                 <li><a th:href="@{/components/motherboard/{id}(id=${MOBO.id})}" th:text="${MOBO.name}"
                                        title="Click to view more details about this motherboard."></a></li>

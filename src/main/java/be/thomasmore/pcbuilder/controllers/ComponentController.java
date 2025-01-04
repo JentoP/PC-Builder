@@ -148,7 +148,7 @@ public class ComponentController {
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
-        } else if (filterManufacturer == null && filterMemoryCapacity == 0 && filterMemoryType == null && filterClockSpeed == 0) {
+        } else if (filterManufacturer == null && filterMemoryCapacity == null && filterMemoryType == null && filterClockSpeed == null) {
             filteredMemory = (List<RAM>) memoryKits.findAll();
         } else {
             filteredMemory = memoryKits.findByFilter(
@@ -181,7 +181,7 @@ public class ComponentController {
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
-        } else if (filterManufacturer == null && filterChipset == null && filterMemoryCapacity == 0 && filterInterfaceType == null) {
+        } else if (filterManufacturer == null && filterChipset == null && filterMemoryCapacity == null && filterInterfaceType == null) {
             filteredGraphicCards = (List<GPU>) graphicCards.findAll();
         } else {
             filteredGraphicCards = graphicCards.findByFilter(
@@ -295,7 +295,7 @@ public class ComponentController {
         return "cases";
     }
 
-    @GetMapping({"/lists/powersupplies"})
+    @GetMapping({"/lists/powersupplys"})
     public String powerSuppliesList(Model model,
                                     @RequestParam(required = false) String searchWord,
                                     @RequestParam(required = false) Double filterMinPrice,
@@ -322,7 +322,7 @@ public class ComponentController {
         }
         model.addAttribute("allPowerSupplies", powerSupplies.findAll());
         model.addAttribute("filteredPowerSupplies", filteredPowerSupplies);
-        return "psudetails";
+        return "powersupplies";
     }
 
     @GetMapping("/components/{type}/{id}")

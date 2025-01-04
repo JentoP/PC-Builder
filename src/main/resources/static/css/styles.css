@@ -38,6 +38,12 @@ body h3 {
     padding-right: 2px;
 }
 
+h5 {
+    background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 body a {
     text-decoration: none;
     color: white;
@@ -161,7 +167,6 @@ option {
     color: white;
 }
 
-
 .applied-filters {
     background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
     -webkit-background-clip: text;
@@ -172,12 +177,6 @@ option {
     text-align: center;
     list-style-type: none;
     font-size: 14px;
-}
-
-h5 {
-    background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 input[type="range"] {
@@ -202,6 +201,7 @@ input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 
+/*FORMS*/
 .form-box {
     background: none;
     color: white;
@@ -234,5 +234,19 @@ input[type="range"]::-webkit-slider-thumb {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
+}
 
+/*LISTS*/
+table.custom-table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #000000;
+    font-size: 20px;
+    color: white;
+}
+
+table.custom-table td {
+    padding-right: 10px;
+    padding-bottom: 15px;
+    text-align: left;
 }

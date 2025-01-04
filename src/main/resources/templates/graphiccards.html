@@ -37,9 +37,9 @@
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allGraphicCards}"
-                                        th:value="${p.manufacturer}"
-                                        th:text="${p.manufacturer}"
+                                <option th:each="g : ${allGraphicCards}"
+                                        th:value="${g.manufacturer}"
+                                        th:text="${g.manufacturer}"
                                 ></option>
                             </select>
                         </div>
@@ -49,9 +49,9 @@
                         <div class="container input-group row">
                             <select id="filterChipset" name="filterChipset" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allGraphicCards}"
-                                        th:value="${p.chipset}"
-                                        th:text="${p.chipset}"
+                                <option th:each="g : ${allGraphicCards}"
+                                        th:value="${g.chipset}"
+                                        th:text="${g.chipset}"
                                 ></option>
                             </select>
                         </div>
@@ -61,9 +61,9 @@
                         <div class="container input-group row">
                             <select id="filterMemoryCapacity" name="filterMemoryCapacity" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allGraphicCards}"
-                                        th:value="${p.memoryCapacity}"
-                                        th:text="${p.memoryCapacity}"
+                                <option th:each="g : ${allGraphicCards}"
+                                        th:value="${g.memoryCapacity}"
+                                        th:text="${g.memoryCapacity}"
                                 ></option>
                             </select>
                         </div>
@@ -73,9 +73,9 @@
                         <div class="container input-group row">
                             <select id="filterInterfaceType" name="filterInterfaceType" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allGraphicCards}"
-                                        th:value="${p.interfaceType}"
-                                        th:text="${p.interfaceType}"
+                                <option th:each="g : ${allGraphicCards}"
+                                        th:value="${g.interfaceType}"
+                                        th:text="${g.interfaceType}"
                                 ></option>
                             </select>
                         </div>
