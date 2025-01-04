@@ -130,20 +130,29 @@
                     </div>
                 </div>
             </div>
-
             <!--Results-->
             <div class="col-md-9">
                 <h3>Resultaten</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div th:each="COOLING : ${filteredCooling}">
-                            <ul class="list">
-                                <li><a th:href="@{/components/cooling/{id}(id=${COOLING.id})}" th:text="${COOLING.name}"
-                                       title="Click to view more details about this cooling solution."></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <table class="custom-table">
+                    <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Socket Type</th>
+                        <th>Waterkoeling?</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="COOLING : ${filteredCooling}">
+                        <td th:text="${COOLING.name}"></td>
+                        <td th:text="${COOLING.socketType}"></td>
+                        <td class="text-center" th:text="${COOLING.waterCooling} ? 'Ja' : 'Nee'"></td>
+                        <td>
+                            <a th:href="@{/components/cooling/{id}(id=${COOLING.id})}" class="btn-custom"
+                               Style="margin-left: 50px" th:text="'DETAILS'"
+                               title="Klik hier om details over deze processor te bekijken"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="bottom-margin"></div>

@@ -9,7 +9,8 @@
 <main class="container">
     <h2>Processoren in stock</h2>
     <p>Op deze pagina vind je alle beschikbare processorcomponenten die momenteel op voorraad zijn.</p>
-    <p>Je kunt zoeken en filteren op naam, fabrikant, socket, kern, architectuur of prijs. Klik op de naam van een component
+    <p>Je kunt zoeken en filteren op naam, fabrikant, socket, kern, architectuur of prijs. Klik op de naam van een
+        component
         om meer details te zien.</p>
 
     <div class="container">
@@ -137,26 +138,32 @@
             <!--Results-->
             <div class="col-md-9">
                 <h3>Resultaten</h3>
-                <div class="row">
-                    <div class="col">
-                        <div th:each="CPU : ${filteredProcessors}">
-                            <ul class="list">
-                                <li>
-                                    <a th:text="${CPU.name}" t></a>
-                                    <span class='small' th:text="'€ ' + ${CPU.price}" Style="margin-left: 50px"></span>
-                                    <a th:href="@{/components/processor/{id}(id=${CPU.id})}" class="btn-custom"
-                                       Style="margin-left: 200px" th:text="'DETAILS'"
-                                       title="Klik hier om details over deze processor te bekijken"></a>
-<!--                                    <a th:href="@{/addbuild?selectedCPUId=${CPU.id}}" class="btn-custom"-->
-<!--                                       Style="margin-left: 20px" th:text="'TOEVOEGEN AAN BUILD'"-->
-<!--                                       title="Klik hier om deze processor toe te voegen aan je build."></a>-->
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <table class="custom-table">
+                    <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Socket</th>
+                        <th>Snelheid</th>
+                        <th>Prijs</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="CPU : ${filteredProcessors}">
+                        <td th:text="${CPU.name}"></td>
+                        <td th:text="${CPU.socketType}"></td>
+                        <td th:text="${CPU.clockSpeed}  + ' GHz'"></td>
+                        <td th:text="${CPU.price} + '€'"></td>
+                        <td>
+                            <a th:href="@{/components/processor/{id}(id=${CPU.id})}" class="btn-custom"
+                               Style="margin-left: 50px" th:text="'DETAILS'"
+                               title="Klik hier om details over deze processor te bekijken"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
     </div>
     <div class="bottom-margin"></div>
 </main>

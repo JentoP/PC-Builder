@@ -6,7 +6,8 @@
 <body class="d-flex flex-column h-100">
 <h1>Behuizingen</h1>
 <p>Op deze pagina vind je alle beschikbare behuizingen die momenteel op voorraad zijn.</p>
-<p>Je kunt zoeken en filteren op naam, fabrikant, moederbord-formfactor, voeding-formfactor, zijpaneel of prijs. Klik op de naam van een component om meer details te zien.</p>
+<p>Je kunt zoeken en filteren op naam, fabrikant, moederbord-formfactor, voeding-formfactor, zijpaneel of prijs. Klik op
+    de naam van een component om meer details te zien.</p>
 
 <main class="container">
     <h2>Behuizingen in stock</h2>
@@ -67,18 +68,6 @@
                             </select>
                         </div>
 
-<!--                        &lt;!&ndash; Side Panel Filter &ndash;&gt;-->
-<!--                        <label for="filterSidePanel" class="form-label mt-2">Zijpaneel</label>-->
-<!--                        <div class="container input-group row">-->
-<!--                            <select id="filterSidePanel" name="filterSidePanel" class="filter-box">-->
-<!--                                <option value="">&#45;&#45;&#45;&#45;</option>-->
-<!--                                <option th:each="p : ${#lists.newArrayList('Ja', 'Nee')}"-->
-<!--                                        th:value="${p}"-->
-<!--                                        th:text="${p}"-->
-<!--                                ></option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-
                         <div class="container row mt-4 small">
                             <button type="submit" class="btn-custom small">TOEPASSEN</button>
                         </div>
@@ -133,16 +122,26 @@
             <!--Results-->
             <div class="col-md-9">
                 <h3>Resultaten</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div th:each="CHASSIS : ${filteredCases}">
-                            <ul class="list">
-                                <li><a th:href="@{/components/case/{id}(id=${CHASSIS.id})}" th:text="${CHASSIS.name}"
-                                       title="Click to view more details about this case."></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <table class="custom-table">
+                    <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Moederbord Support</th>
+                        <th>Prijs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="CASE : ${filteredCases}">
+                        <td th:text="${CASE.name}"></td>
+                        <td th:text="${CASE.moboFormFactor}"></td>
+                        <td th:text="${CASE.price} + ' €'"></td>
+                        <td>
+                            <a th:href="@{/components/case/{id}(id=${CASE.id})}" class="btn-custom"
+                               Style="margin-left: 50px" th:text="'DETAILS'"
+                               title="Klik hier om details over deze processor te bekijken"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="bottom-margin"></div>

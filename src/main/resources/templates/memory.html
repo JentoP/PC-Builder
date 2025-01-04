@@ -133,16 +133,28 @@
             <!--Results-->
             <div class="col-md-9">
                 <h3>Resultaten</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div th:each="RAM : ${filteredMemory}">
-                            <ul class="list">
-                                <li><a th:href="@{/components/memory/{id}(id=${RAM.id})}" th:text="${RAM.name}"
-                                       title="Click to view more details about this memory kit."></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <table class="custom-table">
+                    <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Type</th>
+                        <th>Capaciteit</th>
+                        <th>Prijs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="RAM : ${filteredMemory}">
+                        <td th:text="${RAM.name}"></td>
+                        <td th:text="${RAM.memoryType}"></td>
+                        <td th:text="${RAM.memoryCapacity}"></td>
+                        <td th:text="${RAM.price} + '€'"></td>
+                        <td>
+                            <a th:href="@{/components/memory/{id}(id=${RAM.id})}" class="btn-custom"
+                               Style="margin-left: 50px" th:text="'DETAILS'"
+                               title="Klik hier om details over deze processor te bekijken"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="bottom-margin"></div>

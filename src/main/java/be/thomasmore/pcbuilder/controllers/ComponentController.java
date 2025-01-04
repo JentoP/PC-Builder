@@ -130,7 +130,7 @@ public class ComponentController {
         return "motherboards";
     }
 
-    @GetMapping({"/lists/memory"})
+    @GetMapping({"/lists/memorys"})
     public String memoryList(Model model,
                              @RequestParam(required = false) String searchWord,
                              @RequestParam(required = false) Double filterMinPrice,
@@ -197,7 +197,7 @@ public class ComponentController {
     }
 
 
-    @GetMapping({"/lists/storage"})
+    @GetMapping({"/lists/storages"})
     public String storageList(Model model,
                               @RequestParam(required = false) String searchWord,
                               @RequestParam(required = false) Double filterMinPrice,
@@ -233,7 +233,7 @@ public class ComponentController {
     }
 
 
-    @GetMapping({"/lists/cooling"})
+    @GetMapping({"/lists/coolings"})
     public String coolingList(Model model,
                               @RequestParam(required = false) String searchWord,
                               @RequestParam(required = false) Double filterMinPrice,

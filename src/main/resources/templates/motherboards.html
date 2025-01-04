@@ -144,20 +144,31 @@
                     </div>
                 </div>
             </div>
-
             <!--Results-->
             <div class="col-md-9">
                 <h3>Resultaten</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div th:each="MOBO : ${filteredMotherboards}">
-                            <ul class="list">
-                                <li><a th:href="@{/components/motherboard/{id}(id=${MOBO.id})}" th:text="${MOBO.name}"
-                                       title="Click to view more details about this motherboard."></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <table class="custom-table">
+                    <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Socket</th>
+                        <th>Memory Support</th>
+                        <th>Prijs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="MOBO : ${filteredMotherboards}">
+                        <td th:text="${MOBO.name}"></td>
+                        <td th:text="${MOBO.socketType}"></td>
+                        <td th:text="${MOBO.memoryType}"></td>
+                        <td th:text="${MOBO.price} + '€'"></td>
+                        <td>
+                            <a th:href="@{/components/motherboard/{id}(id=${MOBO.id})}" class="btn-custom"
+                               Style="margin-left: 50px" th:text="'DETAILS'"
+                               title="Klik hier om details over deze processor te bekijken"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="bottom-margin"></div>

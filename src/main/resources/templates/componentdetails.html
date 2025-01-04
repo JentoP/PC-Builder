@@ -8,7 +8,12 @@
 <main th:object="${component}" th:if="${component}" class="container">
     <h2 th:text="${component.name}"></h2>
 
-    <!-- Common Fields -->
+    <!-- Price -->
+    <div class="row p-2">
+            <h3>Price</h3>
+            <h4 th:text="${#strings.replace(#numbers.formatDecimal(component.price,0,'POINT',2,'COMMA'),',00', '') }+' EURO'"></h4>
+    </div>
+    <!-- Common -->
     <div class="row p-2" th:if="${component.manufacturer}">
         <div class="col-6 col-sm-4 p-1 m-1">
             <h3>Manufacturer</h3>
@@ -17,7 +22,7 @@
     </div>
 
     <div th:switch="${type}">
-        <!-- Processor Specific Fields -->
+        <!-- Processor -->
         <div th:case="'processor'">
             <div class="row p-2" th:if="${component.architecture}">
                 <div class="col-6 col-sm-4 p-1 m-1">
@@ -40,7 +45,7 @@
         </div>
 
 
-        <!-- Motherboard Specific Fields -->
+        <!-- Motherboard -->
         <div th:case="'motherboard'">
             <div class="row p-2" th:if="${component.chipset}">
                 <div class="col-6 col-sm-4 p-1 m-1">
@@ -75,7 +80,7 @@
             </div>
         </div>
 
-        <!-- Memory Specific Fields -->
+        <!-- Memory -->
         <div th:case="'memory'">
             <div class="row p-2">
                 <div class="col-6 col-sm-4 p-1 m-1">
@@ -96,7 +101,7 @@
                 <h4 th:text="|${component.clockSpeed} GHz|"></h4>
             </div>
         </div>
-        <!-- Storage Specific Fields -->
+        <!-- Storage-->
         <div th:case="'storage'">
             <div class="row p-2">
                 <div class="col-6 col-sm-4 p-1 m-1">
@@ -121,7 +126,7 @@
                 </div>
             </div>
         </div>
-        <!-- Power Supply Specific Fields -->
+        <!-- Power Supply -->
         <div th:case="'powersupply'">
             <div class="row p-2">
                 <div class="col-6 col-sm-4 p-1 m-1">
@@ -148,7 +153,7 @@
                 </div>
             </div>
         </div>
-        <!-- Computer Case Specific Fields -->
+        <!-- Computer Case-->
         <div th:case="'case'">
             <div class="row p-2">
                 <div class="col-6 col-sm-4 p-1 m-1">
@@ -170,13 +175,9 @@
                 </div>
             </div>
         </div>
-        <!-- Graphic Card Specific Fields -->
+        <!-- Graphic Card -->
         <div th:case="'graphiccard'">
             <div class="row p-2">
-                <div class="col-6 col-sm-4 p-1 m-1">
-                    <h3>Manufacturer</h3>
-                    <h4 th:text="${component.manufacturer}"></h4>
-                </div>
                 <div class="col-6 col-sm-4 p-1 m-1">
                     <h3>Model</h3>
                     <h4 th:text="${component.gpuModel}"></h4>
@@ -203,13 +204,9 @@
                 </div>
             </div>
         </div>
-        <!-- Cooling Specific Fields -->
+        <!-- Cooling -->
         <div th:case="'cooling'">
             <div class="row p-2">
-                <div class="col-6 col-sm-4 p-1 m-1">
-                    <h3>Manufacturer</h3>
-                    <h4 th:text="${component.manufacturer}"></h4>
-                </div>
                 <div class="col-6 col-sm-4 p-1 m-1">
                     <h3>Watercooling</h3>
                     <h4 th:if="${component.waterCooling}">Yes</h4>
@@ -239,13 +236,6 @@
             </div>
         </div>
 
-        <!-- Price Field (Common) -->
-        <div class="row p-2">
-            <div class="col-6 col-sm-4 p-1 m-1">
-                <h2>Price</h2>
-                <h4 th:text="${#strings.replace(#numbers.formatDecimal(component.price,0,'POINT',2,'COMMA'),',00', '') }+' EURO'"></h4>
-            </div>
-        </div>
 
         <!-- Navigation -->
         <div class="d-flex justify-content-between mt-5 bottom-margin">
@@ -256,7 +246,7 @@
 </main>
 
 <main th:object="${component}" th:unless="${component}">
-    <h3>No ${type} found.</h3>
+    <h3>Geen component gevonden.</h3>
     <a class="btn-custom mt-5" th:href="@{|/components|}">GA TERUG</a>
 </main>
 </body>
