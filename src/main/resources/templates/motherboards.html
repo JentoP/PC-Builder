@@ -134,9 +134,9 @@
                         <li th:if="${not #strings.isEmpty(param.filterMoboFormFactor)}"
                             th:text="|Form Factor: ${param.filterMoboFormFactor}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            th:text="|Min Price:${'&euro;'}${param.filterMinPrice}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                            th:text="|Max Price:${'&euro;'}${param.filterMaxPrice}|"></li>
                     </div>
 
                     <div class="small">
@@ -161,7 +161,7 @@
                         <td th:text="${MOBO.name}"></td>
                         <td th:text="${MOBO.socketType}"></td>
                         <td th:text="${MOBO.memoryType}"></td>
-                        <td th:text="${MOBO.price} + '€'"></td>
+                        <td th:text="|${'&euro; '}${MOBO.price}|"></td>
                         <td>
                             <a th:href="@{/components/motherboard/{id}(id=${MOBO.id})}" class="btn-custom"
                                Style="margin-left: 50px" th:text="'DETAILS'"

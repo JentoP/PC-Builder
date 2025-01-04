@@ -33,7 +33,7 @@ body h3 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-top: 10px;
-    margin-bottom: 2px;
+    margin-bottom: 15px;
     font-size: 26px;
     padding-right: 2px;
 }
@@ -249,4 +249,16 @@ table.custom-table td {
     padding-right: 10px;
     padding-bottom: 15px;
     text-align: left;
+}
+
+.component-box {
+    background: none;
+    border-radius: 20px;
+    border: #24113b 1px solid;
+    padding: 15px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+.border-price {
+    border-top: #5c2c95 2px solid;
 }

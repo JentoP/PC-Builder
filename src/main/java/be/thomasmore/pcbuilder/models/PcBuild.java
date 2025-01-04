@@ -2,6 +2,9 @@ package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 @Entity
 @Table(name = "pcbuilds")
 public class PcBuild {
@@ -62,7 +65,24 @@ public class PcBuild {
 
         return totalPrice;
     }
-
+    public void printToTextFile(Integer id) {
+        try (FileWriter writer = new FileWriter("pcbuild.txt")) {
+            writer.write("PC Build Details\n");
+            writer.write("=================\n");
+            writer.write("Build Name: " + buildName + "\n");
+            writer.write("Processor: " + (selectedCPU != null ? selectedCPU.getName() : "None") + "\n");
+            writer.write("Motherboard: " + (selectedMOBO != null ? selectedMOBO.getName() : "None") + "\n");
+            writer.write("Case: " + (selectedCase != null ? selectedCase.getName() : "None") + "\n");
+            writer.write("Cooler: " + (selectedCooler != null ? selectedCooler.getName() : "None") + "\n");
+            writer.write("GPU: " + (selectedGPU != null ? selectedGPU.getName() : "None") + "\n");
+            writer.write("Memory: " + (selectedMemory != null ? selectedMemory.getName() : "None") + "\n");
+            writer.write("Storage: " + (selectedStorage != null ? selectedStorage.getName() : "None") + "\n");
+            writer.write("Power Supply: " + (selectedPowerSupply != null ? selectedPowerSupply.getName() : "None") + "\n");
+            writer.write("Total Price: " + (totalPrice != null ? String.format("%.2f", totalPrice) : "0.00") + "\n");
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
     // Getters and setters
 
     public Integer getBuildId() {

@@ -120,9 +120,9 @@
                         <li th:if="${not #strings.isEmpty(param.filterRadiatorSize)}"
                             th:text="|Radiator Size: ${param.filterRadiatorSize}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            th:text="|Min Price: ${'&euro;'} ${param.filterMinPrice}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                            th:text="|Max Price: ${'&euro;'} ${param.filterMaxPrice}|"></li>
                     </div>
 
                     <div class="small">
@@ -137,8 +137,9 @@
                     <thead>
                     <tr>
                         <th>Naam</th>
-                        <th>Socket Type</th>
+                        <th>Socket</th>
                         <th>Waterkoeling?</th>
+                        <th>Prijs</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -146,6 +147,7 @@
                         <td th:text="${cooler.name}"></td>
                         <td th:text="${cooler.socketType}"></td>
                         <td class="text-center" th:text="${cooler.waterCooling} ? 'Ja' : 'Nee'"></td>
+                        <td th:text="${'&euro; '} + ${cooler.price}"></td>
                         <td>
                             <a th:href="@{/components/cooler/{id}(id=${cooler.id})}" class="btn-custom"
                                Style="margin-left: 50px" th:text="'DETAILS'"

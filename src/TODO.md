@@ -11,7 +11,8 @@
 
 ### Insert & update
 
-[//]: # (- Admins kunnen componenten toevoegen en verwijderen)
+- Admins kunnen componenten toevoegen en verwijderen
+
 [//]: # (- Users kunnen builds aanmaken, aanpassen en verwijderen)
 [//]: # (- Minstens 1 pagina met componenten kunnen toevoegen en verwijderen OK)
 
@@ -47,3 +48,4 @@
 ### Components
 - Images toe voegen aan componenten
 - Meer componenten toevoegen
+- extra kolommen aan components toevoegen (release date, wattage, etc.)

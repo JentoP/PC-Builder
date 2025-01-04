@@ -30,6 +30,8 @@ public class PcBuildController {
     private StorageRepository storage;
     @Autowired
     private PcBuildRepository pcBuildRepository;
+//    @Autowired
+//    private PcBuildService pcBuildService;
 
     @RequestMapping("/builder")
     public String pcBuilderHome() {
@@ -102,6 +104,27 @@ public class PcBuildController {
         return "redirect:/pcbuilds"; // Redirect to the list of PC builds
     }
 
+    // View specific PC build details
+    @GetMapping("/viewbuild/{id}")
+    public String viewPcBuild(@PathVariable Integer id, Model model) {
+        Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
+        if (optionalPcBuild.isPresent()) {
+            PcBuild pcBuild = optionalPcBuild.get();
+            model.addAttribute("pcBuild", pcBuild);
+            return "viewbuild"; // Show build details
+        }
+        return "redirect:/pcbuilds";
+    }
+
+    // List all PC builds for the user
+    @GetMapping("/pcbuilds")
+    public String viewPcBuilds(Model model) {
+        Iterable<PcBuild> pcBuilds = pcBuildRepository.findAll();
+        model.addAttribute("pcBuilds", pcBuilds);
+        return "pcbuilds"; // Display all PC builds
+    }
+
+
     // Handle the request to delete a PC build
     @GetMapping("/deletebuild/{id}")
     public String deletePcBuild(@PathVariable Integer id) {
@@ -112,6 +135,17 @@ public class PcBuildController {
         return "redirect:/pcbuilds";
     }
 
+//    @GetMapping("/print/{id}")
+//    public String printBuildToFile(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+//        try {
+//            PcBuildService.printToTextFile(id); // Ensure this method is implemented in the service layer.
+//            redirectAttributes.addFlashAttribute("message", "PC Build printed to text file successfully!");
+//        } catch (Exception e) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "Failed to print PC Build to text file.");
+//        }
+//        return "redirect:/viewbuild/" + id; // Redirect back to the build view.
+//    }
+
     // Check if the selected components are compatible
     private boolean isCompatible(PcBuild pcBuild) {
         CPU selectedCPU = pcBuild.getSelectedCPU();
@@ -120,8 +154,8 @@ public class PcBuildController {
         GPU selectedGPU = pcBuild.getSelectedGPU();
         PSU selectedPowerSupply = pcBuild.getSelectedPowerSupply();
         CHASSIS selectedCase = pcBuild.getSelectedCase();
-        DATA selectedStorage = pcBuild.getSelectedStorage();
-        COOLER selectedCooler = pcBuild.getSelectedCooler();
+//        DATA selectedStorage = pcBuild.getSelectedStorage();
+//        COOLER selectedCooler = pcBuild.getSelectedCooler();
 
         // Check CPU and MOBO compatibility
         if (selectedCPU != null && selectedMOBO != null) {
@@ -153,28 +187,6 @@ public class PcBuildController {
                 return false;
             }
         }
-//        // Check Cooling and CPU compatibility (fan slots, radiator size)
-//        if (selectedCooler != null && selectedCPU != null) {
-//            if (!selectedCPU.hasCompatibleCoolerSupport(selectedCooler)) {
-//                return false;
-//            }
-//        }
-//
-//        // Check Graphics Card and Case compatibility (GPU length, PCIe slots)
-//        if (selectedGPU != null && selectedCase != null) {
-//            if (!selectedCase.canFitGPU(selectedGPU)) {
-//                return false;
-//            }
-//        }
-
-//        // Check Power Supply wattage against the entire build
-//        if (selectedPowerSupply != null) {
-//            int totalWattageRequired = calculateTotalWattage(pcBuild);
-//            if (selectedPowerSupply.getWattageCapacity() < totalWattageRequired) {
-//                return false;
-//            }
-//        }
-
         return true;
     }
 
@@ -197,25 +209,5 @@ public class PcBuildController {
         return totalWattage;
     }
 
-    // View specific PC build details
-    @GetMapping("/viewbuild/{id}")
-    public String viewPcBuild(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes) {
-        Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
-        if (optionalPcBuild.isPresent()) {
-            PcBuild pcBuild = optionalPcBuild.get();
-            model.addAttribute("pcBuild", pcBuild);
-            return "viewbuild"; // Show build details
 
-        }
-        redirectAttributes.addFlashAttribute("errorMessage", "PC build not found.");
-        return "redirect:/pcbuilds";
-    }
-
-    // List all PC builds for the user
-    @GetMapping("/pcbuilds")
-    public String viewPcBuilds(Model model) {
-        Iterable<PcBuild> pcBuilds = pcBuildRepository.findAll();
-        model.addAttribute("pcBuilds", pcBuilds);
-        return "pcbuilds"; // Display all PC builds
-    }
 }

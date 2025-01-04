@@ -120,9 +120,9 @@
                         <li th:if="${not #strings.isEmpty(param.filterCapacity)}"
                             th:text="|Capacity: ${param.filterCapacity}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            th:text="|Min Price:${'&euro; '}${param.filterMinPrice}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                            th:text="|Max Price:${'&euro; '}${param.filterMaxPrice}|"></li>
                     </div>
 
                     <div class="small">
@@ -148,7 +148,7 @@
                         <td th:text="${DATA.name}"></td>
                         <td th:text="${DATA.storageType}"></td>
                         <td th:text="${DATA.capacity}  + ' MB'"></td>
-                        <td th:text="${DATA.price} + '€'"></td>
+                        <td th:text="|${'&euro; '}${DATA.price}|"></td>
                         <td>
                             <a th:href="@{/components/storage/{id}(id=${DATA.id})}" class="btn-custom"
                                Style="margin-left: 50px" th:text="'DETAILS'"

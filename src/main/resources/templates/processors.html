@@ -124,9 +124,9 @@
                         <li th:if="${not #strings.isEmpty(param.filterArchitecture)}"
                             th:text="|Architecture: ${param.filterArchitecture}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            th:text="|Min Price:${'&euro; '}${param.filterMinPrice}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                            th:text="|Max Price:${'&euro; '}${param.filterMaxPrice}|"></li>
                     </div>
 
                     <div class="small">
@@ -153,7 +153,7 @@
                         <td th:text="${CPU.name}"></td>
                         <td th:text="${CPU.socketType}"></td>
                         <td th:text="${CPU.clockSpeed}  + ' GHz'"></td>
-                        <td th:text="${CPU.price} + '€'"></td>
+                        <td th:text="|${'&euro; '}${CPU.price}|"></td>
                         <td>
                             <a th:href="@{/components/processor/{id}(id=${CPU.id})}" class="btn-custom"
                                Style="margin-left: 50px" th:text="'DETAILS'"

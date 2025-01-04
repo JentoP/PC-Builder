@@ -14,41 +14,141 @@
     </div>
 
     <div class="row">
-        <h3 class="">Componenten</h3>
+        <h3>Componenten</h3>
+
+        <!-- Processor -->
         <div class="d-flex align-items-center component-box">
             <div class="me-3">
-                <!-- Replace with the image URL or path -->
                 <img th:src="@{/img/icons/gradient/cpu.png}" alt="cpu" width="40" height="40" class="m-3">
             </div>
-            <div>
-                <h5>Processor: </h5>
-                <strong><p th:text="${pcBuild.selectedCPU.name}"></p></strong>
+            <div class="flex-grow-1">
+                <h5>Processor</h5>
+                <h4 th:text="${pcBuild.selectedCPU.name}"></h4>
+            </div>
+            <div class="d-flex flex-column align-items-end ms-auto">
+                <a th:href="@{/components/processor/{id}(id=${pcBuild.selectedCPU.id})}" class="btn-custom small mb-3"
+                   th:text="'DETAILS'" title="Klik hier om details over deze processor te bekijken"
+                   style="margin-left: 20px"></a>
+                <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedCPU.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
             </div>
         </div>
 
-        <h5>Processor: </h5>
-        <strong><p th:text="${pcBuild.selectedCPU.name}"></p></strong>
+        <div class="d-flex align-items-center component-box">
+            <div class="me-3">
+                <img th:src="@{/img/icons/gradient/motherboard.png}" alt="mobo" width="40" height="40" class="m-3">
+            </div>
+            <div class="flex-grow-1">
+                <h5>Moederbord</h5>
+                <h4 th:text="${pcBuild.selectedMOBO.name}"></h4>
+            </div>
+            <div class="d-flex flex-column align-items-end ms-auto">
+                <a th:href="@{/components/motherboard/{id}(id=${pcBuild.selectedMOBO.id})}"
+                   class="btn-custom small mb-3"
+                   th:text="'DETAILS'" title="Klik hier om details over deze moederbord te bekijken"></a>
+                <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedMOBO.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+            </div>
+        </div>
 
-        <h5>Moederbord: </h5>
-        <strong><p th:text="${pcBuild.selectedMOBO.name}"></p></strong>
 
-        <h5>Koeler: </h5>
-        <strong><p th:text="${pcBuild.selectedCooler.name}"></p></strong>
+        <div class="d-flex align-items-center component-box">
+            <div class="me-3">
+                <img th:src="@{/img/icons/gradient/video-card.png}" alt="gpu" width="40" height="40" class="m-3">
+            </div>
+            <div class="flex-grow-1">
+                <h5>GPU</h5>
+                <h4 th:text="${pcBuild.selectedGPU.name}"></h4>
+            </div>
+            <div class="d-flex flex-column align-items-end ms-auto">
+                <a th:href="@{/components/gpu/{id}(id=${pcBuild.selectedGPU.id})}" class="btn-custom small mb-3"
+                   th:text="'DETAILS'" title="Klik hier om details over deze GPU te bekijken"></a>
+                <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedGPU.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+            </div>
+        </div>
 
-        <h5>Grafische kaart: </h5>
-        <strong><p th:text="${pcBuild.selectedGPU.name}"></p></strong>
+        <div class="d-flex align-items-center component-box">
+            <div class="me-3">
+                <img th:src="@{/img/icons/gradient/ram-memory.png}" alt="ram" width="40" height="40" class="m-3">
+            </div>
+            <div class="flex-grow-1">
+                <h5>RAM</h5>
+                <h4 th:text="${pcBuild.selectedMemory.name}"></h4>
+            </div>
+            <div class="d-flex flex-column align-items-end ms-auto">
+                <a th:href="@{/components/ram/{id}(id=${pcBuild.selectedMemory.id})}" class="btn-custom small mb-3"
+                   th:text="'DETAILS'" title="Klik hier om details over deze RAM te bekijken"></a>
+                <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedMemory.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+            </div>
+        </div>
 
-        <h5>Geheugen: </h5>
-        <strong><p th:text="${pcBuild.selectedMemory.name}"></p></strong>
+        <!-- Case -->
+        <div class="d-flex align-items-center component-box">
+            <div class="me-3">
+                <img th:src="@{/img/icons/gradient/computer.png}" alt="case" width="40" height="40" class="m-3">
+            </div>
+            <div class="flex-grow-1">
+                <h5>Case</h5>
+                <h4 th:text="${pcBuild.selectedCase.name}"></h4>
+            </div>
+            <div class="d-flex flex-column align-items-end ms-auto">
+                <a th:href="@{/components/case/{id}(id=${pcBuild.selectedCase.id})}" class="btn-custom small mb-3"
+                   th:text="'DETAILS'" title="Klik hier om details over deze case te bekijken"></a>
+                <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedCase.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+            </div>
+        </div>
 
-        <h5>Opslag: </h5>
-        <strong><p th:text="${pcBuild.selectedStorage.name}"></p></strong>
 
-        <h5>Voeding: </h5>
-        <strong><p th:text="${pcBuild.selectedPowerSupply.name}"></p></strong>
+        <!-- Cooler -->
+        <div class="d-flex align-items-center component-box">
+            <div class="me-3">
+                <img th:src="@{/img/icons/gradient/fan.png}" alt="cooler" width="40" height="40" class="m-3">
+            </div>
+            <div class="flex-grow-1">
+                <h5>Cooler</h5>
+                <h4 th:text="${pcBuild.selectedCooler.name}"></h4>
+            </div>
+            <div class="d-flex flex-column align-items-end ms-auto">
+                <a th:href="@{/components/cooler/{id}(id=${pcBuild.selectedCooler.id})}" class="btn-custom small mb-3"
+                   th:text="'DETAILS'" title="Klik hier om details over deze cooler te bekijken"></a>
+                <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedCooler.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+            </div>
+        </div>
 
-        <h5>Totale prijs: </h5>
-        <strong><p th:text="${pcBuild.calculateTotalPrice()}"></p></strong>
+        <!-- Storage -->
+        <div class="d-flex align-items-center component-box">
+            <div class="me-3">
+                <img th:src="@{/img/icons/gradient/ssd.png}" alt="storage" width="40" height="40" class="m-3">
+            </div>
+            <div class="flex-grow-1">
+                <h5>Storage</h5>
+                <h4 th:text="${pcBuild.selectedStorage.name}"></h4>
+            </div>
+            <div class="d-flex flex-column align-items-end ms-auto">
+                <a th:href="@{/components/storage/{id}(id=${pcBuild.selectedStorage.id})}" class="btn-custom small mb-3"
+                   th:text="'DETAILS'" title="Klik hier om details over deze storage te bekijken"></a>
+                <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedStorage.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+            </div>
+        </div>
+
+        <!-- Power Supply -->
+        <div class="d-flex align-items-center component-box">
+            <div class="me-3">
+                <img th:src="@{/img/icons/gradient/power.png}" alt="power" width="40" height="40" class="m-3">
+            </div>
+            <div class="flex-grow-1">
+                <h5>Power Supply</h5>
+                <h4 th:text="${pcBuild.selectedPowerSupply.name}"></h4>
+            </div>
+            <div class="d-flex flex-column align-items-end ms-auto">
+                <a th:href="@{/components/psu/{id}(id=${pcBuild.selectedPowerSupply.id})}" class="btn-custom small mb-3"
+                   th:text="'DETAILS'" title="Klik hier om details over deze voeding te bekijken"></a>
+                <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedPowerSupply.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+            </div>
+        </div>
+        <div class="text-center border-price">
+            <h3>Totale prijs: </h3>
+            <h4 th:text="|${'&euro; '}${#strings.replace(#numbers.formatDecimal(pcBuild.calculateTotalPrice(),0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+
+        </div>
 
         <div class="d-flex justify-content-between mt-5 bottom-margin">
             <a th:href="@{/editbuild/{id}(id=${pcBuild.getBuildId()})}" class="btn-custom">BEWERKEN</a>
@@ -57,8 +157,10 @@
                onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">Verwijderen</a>
         </div>
     </div>
-    <div class="bottom-margin"></div>
 
+
+    </div>
+    <div class="bottom-margin"></div>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>

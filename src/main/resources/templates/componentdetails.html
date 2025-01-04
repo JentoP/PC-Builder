@@ -8,11 +8,7 @@
 <main th:object="${component}" th:if="${component}" class="container">
     <h2 th:text="${component.name}"></h2>
 
-    <!-- Price -->
-    <div class="row p-2">
-        <h3>Price</h3>
-        <h4 th:text="${#strings.replace(#numbers.formatDecimal(component.price,0,'POINT',2,'COMMA'),',00', '') }+' EURO'"></h4>
-    </div>
+
     <!-- Common -->
     <div class="row p-2" th:if="${component.manufacturer}">
         <div class="col-6 col-sm-4 p-1 m-1">
@@ -235,7 +231,11 @@
                 </div>
             </div>
         </div>
-
+        <!-- Price -->
+        <div class="col-12 text-center border-price">
+            <h3>Prijs</h3>
+            <h4 th:text="|${'&euro; '}${#strings.replace(#numbers.formatDecimal(component.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+        </div>
     </div>
     <!-- Navigation -->
     <div class="d-flex justify-content-between mt-5 bottom-margin">

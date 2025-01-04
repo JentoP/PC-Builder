@@ -108,9 +108,9 @@
                         <li th:if="${not #strings.isEmpty(param.filterSidePanel)}"
                             th:text="|Side Panel: ${param.filterSidePanel}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            th:text="|Min Price:${'&euro; '}${param.filterMinPrice}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                            th:text="|Max Price:${'&euro; '}${param.filterMaxPrice}|"></li>
                     </div>
 
                     <div class="small">
@@ -134,7 +134,7 @@
                     <tr th:each="CASE : ${filteredCases}">
                         <td th:text="${CASE.name}"></td>
                         <td th:text="${CASE.moboFormFactor}"></td>
-                        <td th:text="${CASE.price} + ' €'"></td>
+                        <td th:text="|${'&euro; '}${CASE.price}|"></td>
                         <td>
                             <a th:href="@{/components/case/{id}(id=${CASE.id})}" class="btn-custom"
                                Style="margin-left: 50px" th:text="'DETAILS'"

@@ -120,9 +120,9 @@
                         <li th:if="${not #strings.isEmpty(param.filterCapacity)}"
                             th:text="|Capacity: ${param.filterCapacity}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            th:text="|Min Price:${'&euro; '}${param.filterMinPrice}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                            th:text="|Max Price:${'&euro; '}${param.filterMaxPrice}|"></li>
                     </div>
 
                     <div class="small">
@@ -149,7 +149,7 @@
                         <td th:text="${PSU.name}"></td>
                         <td th:text="${PSU.wattageCapacity} + 'W'"></td>
                         <td th:text="${PSU.efficiency}"></td>
-                        <td th:text="${PSU.price} + '€'"></td>
+                        <td th:text="|${'&euro; '}${PSU.price}|"></td>
                         <td>
                             <a th:href="@{/components/powersupply/{id}(id=${PSU.id})}" class="btn-custom"
                                Style="margin-left: 200px" th:text="'DETAILS'"

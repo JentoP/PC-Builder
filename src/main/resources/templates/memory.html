@@ -119,9 +119,9 @@
                         <li th:if="${not #strings.isEmpty(param.filterTimings)}"
                             th:text="|Timings: ${param.filterTimings}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            th:text="|Min Price: ${'&euro;'} ${param.filterMinPrice}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                            th:text="|Max Price: ${'&euro;'} ${param.filterMaxPrice}|"></li>
                     </div>
 
                     <div class="small">
@@ -147,7 +147,7 @@
                         <td th:text="${RAM.name}"></td>
                         <td th:text="${RAM.memoryType}"></td>
                         <td th:text="${RAM.memoryCapacity}"></td>
-                        <td th:text="${RAM.price} + '€'"></td>
+                        <td th:text="|${'&euro; '}${RAM.price}|"></td>
                         <td>
                             <a th:href="@{/components/memory/{id}(id=${RAM.id})}" class="btn-custom"
                                Style="margin-left: 50px" th:text="'DETAILS'"

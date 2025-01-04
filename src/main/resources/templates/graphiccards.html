@@ -120,9 +120,9 @@
                         <li th:if="${not #strings.isEmpty(param.filterInterfaceType)}"
                             th:text="|Interface Type: ${param.filterInterfaceType}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMinPrice)}"
-                            th:text="|Min Price: € ${param.filterMinPrice}|"></li>
+                            th:text="|Min Price: ${'&euro;'} ${param.filterMinPrice}|"></li>
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
-                            th:text="|Max Price: € ${param.filterMaxPrice}|"></li>
+                            th:text="|Max Price: ${'&euro;'} ${param.filterMaxPrice}|"></li>
                     </div>
 
                     <div class="small">
@@ -147,7 +147,7 @@
                         <td th:text="${GPU.name}"></td>
                         <td th:text="${GPU.memoryCapacity} + ' GB'"></td>
                         <td th:text="${GPU.clockSpeed}"></td>
-                        <td th:text="${GPU.price} + '€'"></td>
+                        <td th:text="|${'&euro; '}${GPU.price}|"></td>
                         <td>
                             <a th:href="@{/components/graphiccard/{id}(id=${GPU.id})}" class="btn-custom"
                                Style="margin-left: 50px" th:text="'DETAILS'"
