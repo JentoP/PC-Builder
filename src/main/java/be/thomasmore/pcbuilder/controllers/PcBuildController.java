@@ -30,8 +30,6 @@ public class PcBuildController {
     private StorageRepository storage;
     @Autowired
     private PcBuildRepository pcBuildRepository;
-//    @Autowired
-//    private PcBuildService pcBuildService;
 
     @RequestMapping("/builder")
     public String pcBuilderHome() {
@@ -134,18 +132,6 @@ public class PcBuildController {
         }
         return "redirect:/pcbuilds";
     }
-
-//    @GetMapping("/print/{id}")
-//    public String printBuildToFile(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-//        try {
-//            PcBuildService.printToTextFile(id); // Ensure this method is implemented in the service layer.
-//            redirectAttributes.addFlashAttribute("message", "PC Build printed to text file successfully!");
-//        } catch (Exception e) {
-//            redirectAttributes.addFlashAttribute("errorMessage", "Failed to print PC Build to text file.");
-//        }
-//        return "redirect:/viewbuild/" + id; // Redirect back to the build view.
-//    }
-
     // Check if the selected components are compatible
     private boolean isCompatible(PcBuild pcBuild) {
         CPU selectedCPU = pcBuild.getSelectedCPU();

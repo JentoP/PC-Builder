@@ -65,8 +65,8 @@ public class PcBuild {
 
         return totalPrice;
     }
-    public void printToTextFile(Integer id) {
-        try (FileWriter writer = new FileWriter("pcbuild.txt")) {
+    public void printToTextFile(String filePath) {
+        try (FileWriter writer = new FileWriter(filePath)) {
             writer.write("PC Build Details\n");
             writer.write("=================\n");
             writer.write("Build Name: " + buildName + "\n");
