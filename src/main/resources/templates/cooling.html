@@ -17,7 +17,7 @@
             <div class="col-md-2 mt-5">
                 <!--Search-->
                 <div class="">
-                    <form th:action="@{|/lists/cooling|}" method="get" class="">
+                    <form th:action="@{|/lists/coolings|}" method="get" class="">
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
                         <div class="container row small">
@@ -29,7 +29,7 @@
 
                 <!--Filters-->
                 <div id="filterSection">
-                    <form th:action="@{|/lists/cooling|}" method="get" class="col text-start">
+                    <form th:action="@{|/lists/coolings|}" method="get" class="col text-start">
                         <h5 class="mt-4">Filter op</h5>
 
                         <!-- Manufacturer Filter -->
@@ -86,7 +86,7 @@
                     </form>
                 </div>
 
-                <form th:action="@{|/lists/cooling|}" method="get" class="col text-start">
+                <form th:action="@{|/lists/coolings|}" method="get" class="col text-start">
                     <h5 class="mt-5">Stel Prijsklasse In</h5>
                     <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
                     <div class="container input-group row">
@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="small">
-                        <a th:href="@{|/lists/cooling|}" class="btn-custom small">FILTERS WISSEN</a>
+                        <a th:href="@{|/lists/coolings|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>
