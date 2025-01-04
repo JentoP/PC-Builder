@@ -16,7 +16,7 @@
 - Maak javadocs aan en voeg info toe aan methodes
 
 ### Deployment
-- Deploy op Google Cloud
+- Fix naming convention voor google cloud (de deploy  heeft geen toegang tot  /lists en /components)
 
 ## EXTRAS
 ### Filters

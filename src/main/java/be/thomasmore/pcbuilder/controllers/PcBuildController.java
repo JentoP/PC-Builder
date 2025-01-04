@@ -76,7 +76,7 @@ public class PcBuildController {
         // Validate compatibility between selected CPU and MOBO
         if (!isCompatible(pcBuild.getSelectedCPU(), pcBuild.getSelectedMOBO())) {
 //            Flash attributes are used to pass the errorMessage to the view on redirect.
-            redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten waren niet compatibel met elkaar. Probeer opnieuw");
+            redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten zijn niet compatibel met elkaar. Probeer opnieuw.");
             if (pcBuild.getId() != null) {
                 return "redirect:/editbuild/" + pcBuild.getId();
             }

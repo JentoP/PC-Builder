@@ -52,40 +52,47 @@ public class ComponentController {
                                 @RequestParam(required = false) String filterCpuModel,
                                 @RequestParam(required = false) Double filterClockSpeed,
                                 @RequestParam(required = false) Double filterWattage) {
-//      declare list
+        // Declareert een lijst voor de gefilterde processors
         List<CPU> filteredProcessors;
 
-//      check first for  search
+        // Controleert of er een zoekwoord is opgegeven
         if (searchWord != null && !searchWord.isEmpty()) {
+            // Zoek processors op basis van het zoekwoord
             filteredProcessors = processors.findBySearch(searchWord);
 
-//      check for price filter
+            // Controleert of er een prijsfilter is opgegeven
         } else if (filterMinPrice != null || filterMaxPrice != null) {
+            // Zoek processors binnen het opgegeven prijsbereik
             filteredProcessors = processors.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
 
-//      if no filters are applied give all results
+            // Controleert of er geen filters zijn opgegeven
         } else if (filterManufacturer == null && filterSocket == null && filterCore == null && filterArchitecture == null && filterCpuModel == null && filterClockSpeed == null && filterWattage == null) {
+            // Haal alle processors op als er geen filters zijn
             filteredProcessors = (List<CPU>) processors.findAll();
 
-//      if filters are applied give individual filtered results
-        } else filteredProcessors = processors.findByFilter(
-                filterManufacturer == null ? "" : filterManufacturer,
-                filterSocket == null ? "" : filterSocket,
-                filterCore == null ? 0 : filterCore,
-                filterArchitecture == null ? "" : filterArchitecture,
-                filterCpuModel == null ? "" : filterCpuModel,
-                filterClockSpeed == null ? 0.0 : filterClockSpeed,
-                filterWattage == null ? 0.0 : filterWattage
-        );
+            // Als er filters zijn opgegeven, pas individuele filters toe
+        } else {
+            filteredProcessors = processors.findByFilter(
+                    filterManufacturer == null ? "" : filterManufacturer,
+                    filterSocket == null ? "" : filterSocket,
+                    filterCore == null ? 0 : filterCore,
+                    filterArchitecture == null ? "" : filterArchitecture,
+                    filterCpuModel == null ? "" : filterCpuModel,
+                    filterClockSpeed == null ? 0.0 : filterClockSpeed,
+                    filterWattage == null ? 0.0 : filterWattage
+            );
+        }
 
-
+        // Voeg alle processors toe aan het model voor gebruik in de template
         model.addAttribute("allProcessors", processors.findAll());
+        // Voeg de gefilterde processors toe aan het model
         model.addAttribute("filteredProcessors", filteredProcessors);
 
-        return "/lists/processors";
+        // Retourneer de naam van de Thymeleaf-template voor de processorlijst
+        return "processors";
     }
 
 
@@ -120,7 +127,7 @@ public class ComponentController {
         }
         model.addAttribute("allMotherboards", motherboards.findAll());
         model.addAttribute("filteredMotherboards", filteredMotherboards);
-        return "/lists/motherboards";
+        return "motherboards";
     }
 
     @GetMapping({"/lists/memory"})
@@ -153,7 +160,7 @@ public class ComponentController {
         }
         model.addAttribute("allMemory", memoryKits.findAll());
         model.addAttribute("filteredMemory", filteredMemory);
-        return "/lists/memory";
+        return "memory";
     }
 
 
@@ -186,7 +193,7 @@ public class ComponentController {
         }
         model.addAttribute("allGraphicCards", graphicCards.findAll());
         model.addAttribute("filteredGraphicCards", filteredGraphicCards);
-        return "/lists/graphiccards";
+        return "graphiccards";
     }
 
 
@@ -222,7 +229,7 @@ public class ComponentController {
         }
         model.addAttribute("allStorage", storage.findAll());
         model.addAttribute("filteredStorage", filteredStorage);
-        return "/lists/storage";
+        return "storage";
     }
 
 
@@ -255,7 +262,7 @@ public class ComponentController {
         }
         model.addAttribute("allCooling", coolingSolutions.findAll());
         model.addAttribute("filteredCooling", filteredCooling);
-        return "/lists/cooling";
+        return "cooling";
     }
 
     @GetMapping({"/lists/cases"})
@@ -285,19 +292,7 @@ public class ComponentController {
         }
         model.addAttribute("allCases", cases.findAll());
         model.addAttribute("filteredCases", filteredCases);
-        return "/lists/cases";
-    }
-
-    @GetMapping("/components/processor/{id}")
-    public String processors(@PathVariable Integer id, Model model) {
-        Optional<CPU> cpuFromDb = processors.findById(id);
-        long count = processors.count();
-        if (cpuFromDb.isPresent()) {
-            model.addAttribute("cpu", cpuFromDb.get());
-            model.addAttribute("previousId", id > 1 ? id - 1 : count);
-            model.addAttribute("nextId", id < count ? id + 1 : 1);
-        }
-        return "/components/processordetails";
+        return "cases";
     }
 
     @GetMapping({"/lists/powersupplies"})
@@ -327,92 +322,78 @@ public class ComponentController {
         }
         model.addAttribute("allPowerSupplies", powerSupplies.findAll());
         model.addAttribute("filteredPowerSupplies", filteredPowerSupplies);
-        return "/lists/powersupplies";
+        return "psudetails";
     }
 
-    //methods for detail pages
-    @GetMapping("/components/motherboard/{id}")
-    public String motherboardDetails(@PathVariable Integer id, Model model) {
-        Optional<MOBO> moboFromDb = motherboards.findById(id);
-        long count = motherboards.count();
-        if (moboFromDb.isPresent()) {
-            model.addAttribute("mobo", moboFromDb.get());
+    @GetMapping("/components/{type}/{id}")
+    public String componentDetails(@PathVariable String type, @PathVariable Integer id, Model model) {
+        // Haalt het totaal aantal componenten van een bepaald type op
+        long count = getCount(type);
+        // Vindt het specifieke component op basis van het type en ID uit de database
+        Optional<?> componentFromDb = getComponentFromDb(type, id);
+
+        if (componentFromDb.isPresent()) {
+            // Voeg het gevonden component toe aan het model
+            model.addAttribute("component", componentFromDb.get());
+            // Voeg het ID van het vorige component toe (circulair: terug naar het laatste als ID 1 is)
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
+            // Voeg het ID van het volgende component toe (circulair: terug naar het eerste als het het laatste is)
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        return "components/motherboarddetails";
+        // Voeg het type component toe aan het model om een dynamische detailpagina te genereren
+        model.addAttribute("type", type);
+        // Retourneer de naam van de Thymeleaf-template voor de detailpagina
+        return "componentdetails";
     }
 
-    @GetMapping("/components/case/{id}")
-    public String chassisDetails(@PathVariable Integer id, Model model) {
-        Optional<CHASSIS> caseFromDb = cases.findById(id);
-        long count = cases.count();
-        if (caseFromDb.isPresent()) {
-            model.addAttribute("cases", caseFromDb.get());
-            model.addAttribute("previousId", id > 1 ? id - 1 : count);
-            model.addAttribute("nextId", id < count ? id + 1 : 1);
+    private long getCount(String type) {
+        // Retourneert het totaal aantal componenten op basis van het type
+        switch (type) {
+            case "processor":
+                return processors.count();
+            case "motherboard":
+                return motherboards.count();
+            case "case":
+                return cases.count();
+            case "cooling":
+                return coolingSolutions.count();
+            case "graphiccard":
+                return graphicCards.count();
+            case "memory":
+                return memoryKits.count();
+            case "powersupply":
+                return powerSupplies.count();
+            case "storage":
+                return storage.count();
+            default:
+                // Gooi een uitzondering als het type onbekend is
+                throw new IllegalArgumentException("Onbekend componenttype: " + type);
         }
-        return "components/casedetails";
     }
 
-    @GetMapping("/components/cooling/{id}")
-    public String coolingDetails(@PathVariable Integer id, Model model) {
-        Optional<COOLING> coolingFromDb = coolingSolutions.findById(id);
-        long count = coolingSolutions.count();
-        if (coolingFromDb.isPresent()) {
-            model.addAttribute("cooling", coolingFromDb.get());
-            model.addAttribute("previousId", id > 1 ? id - 1 : count);
-            model.addAttribute("nextId", id < count ? id + 1 : 1);
+    private Optional<?> getComponentFromDb(String type, Integer id) {
+        // Zoekt een specifiek component op basis van type en ID in de database
+        switch (type) {
+            case "processor":
+                return processors.findById(id);
+            case "motherboard":
+                return motherboards.findById(id);
+            case "case":
+                return cases.findById(id);
+            case "cooling":
+                return coolingSolutions.findById(id);
+            case "graphiccard":
+                return graphicCards.findById(id);
+            case "memory":
+                return memoryKits.findById(id);
+            case "powersupply":
+                return powerSupplies.findById(id);
+            case "storage":
+                return storage.findById(id);
+            default:
+                // Gooi een uitzondering als het type onbekend is
+                throw new IllegalArgumentException("Onbekend componenttype: " + type);
         }
-        return "components/coolingdetails";
     }
 
-    @GetMapping("/components/graphiccard/{id}")
-    public String graphicCardsDetails(@PathVariable Integer id, Model model) {
-        Optional<GPU> graphicCardFromDb = graphicCards.findById(id);
-        long count = graphicCards.count();
-        if (graphicCardFromDb.isPresent()) {
-            model.addAttribute("gpu", graphicCardFromDb.get());
-            model.addAttribute("previousId", id > 1 ? id - 1 : count);
-            model.addAttribute("nextId", id < count ? id + 1 : 1);
-        }
-        return "components/gpudetails";
-    }
-
-    @GetMapping("/components/memory/{id}")
-    public String memoryDetails(@PathVariable Integer id, Model model) {
-        Optional<RAM> memoryKitsFromDb = memoryKits.findById(id);
-        long count = memoryKits.count();
-        if (memoryKitsFromDb.isPresent()) {
-            model.addAttribute("memory", memoryKitsFromDb.get());
-            model.addAttribute("previousId", id > 1 ? id - 1 : count);
-            model.addAttribute("nextId", id < count ? id + 1 : 1);
-        }
-        return "components/memorydetails";
-    }
-
-    @GetMapping("/components/powersupply/{id}")
-    public String powerSuppliesDetails(@PathVariable Integer id, Model model) {
-        Optional<PSU> powerSuppliesFromDb = powerSupplies.findById(id);
-        long count = powerSupplies.count();
-        if (powerSuppliesFromDb.isPresent()) {
-            model.addAttribute("psu", powerSuppliesFromDb.get());
-            model.addAttribute("previousId", id > 1 ? id - 1 : count);
-            model.addAttribute("nextId", id < count ? id + 1 : 1);
-        }
-
-        return "components/psudetails";
-    }
-
-    @GetMapping("/components/storage/{id}")
-    public String storageDetails(@PathVariable Integer id, Model model) {
-        Optional<DATA> storageFromDb = storage.findById(id);
-        long count = storage.count();
-        if (storageFromDb.isPresent()) {
-            model.addAttribute("data", storageFromDb.get());
-            model.addAttribute("previousId", id > 1 ? id - 1 : count);
-            model.addAttribute("nextId", id < count ? id + 1 : 1);
-        }
-        return "components/storagedetails";
-    }
 }
