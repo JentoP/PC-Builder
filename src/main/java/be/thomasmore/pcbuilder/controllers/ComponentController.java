@@ -16,7 +16,7 @@ public class ComponentController {
     @Autowired
     private ChassisRepository cases;
     @Autowired
-    private CoolingRepository coolingSolutions;
+    private CoolerRepository coolers;
     @Autowired
     private GraphicsRepository graphicCards;
     @Autowired
@@ -233,8 +233,8 @@ public class ComponentController {
     }
 
 
-    @GetMapping({"/lists/coolings"})
-    public String coolingList(Model model,
+    @GetMapping({"/lists/coolers"})
+    public String coolerList(Model model,
                               @RequestParam(required = false) String searchWord,
                               @RequestParam(required = false) Double filterMinPrice,
                               @RequestParam(required = false) Double filterMaxPrice,
@@ -242,27 +242,27 @@ public class ComponentController {
                               @RequestParam(required = false) String filterSocketType,
                               @RequestParam(required = false) Integer filterFanSize,
                               @RequestParam(required = false) Integer filterRadiatorSize) {
-        List<COOLING> filteredCooling;
+        List<COOLER> filteredCOOLER;
         if (searchWord != null && !searchWord.isEmpty()) {
-            filteredCooling = coolingSolutions.findBySearch(searchWord);
+            filteredCOOLER = coolers.findBySearch(searchWord);
         } else if (filterMinPrice != null || filterMaxPrice != null) {
-            filteredCooling = coolingSolutions.findByPrice(
+            filteredCOOLER = coolers.findByPrice(
                     filterMinPrice != null ? filterMinPrice : DEFAULT_MIN_PRICE,
                     filterMaxPrice != null ? filterMaxPrice : DEFAULT_MAX_PRICE
             );
         } else if (filterManufacturer == null && filterSocketType == null && filterFanSize == null && filterRadiatorSize == null) {
-            filteredCooling = (List<COOLING>) coolingSolutions.findAll();
+            filteredCOOLER = (List<COOLER>) coolers.findAll();
         } else {
-            filteredCooling = coolingSolutions.findByFilter(
+            filteredCOOLER = coolers.findByFilter(
                     filterManufacturer == null ? "" : filterManufacturer,
                     filterSocketType == null ? "" : filterSocketType,
                     filterFanSize == null ? 0 : filterFanSize,
                     filterRadiatorSize == null ? 0 : filterRadiatorSize
             );
         }
-        model.addAttribute("allCooling", coolingSolutions.findAll());
-        model.addAttribute("filteredCooling", filteredCooling);
-        return "cooling";
+        model.addAttribute("allCoolers", coolers.findAll());
+        model.addAttribute("filteredCooler", filteredCOOLER);
+        return "coolers";
     }
 
     @GetMapping({"/lists/cases"})
@@ -355,8 +355,8 @@ public class ComponentController {
                 return motherboards.count();
             case "case":
                 return cases.count();
-            case "cooling":
-                return coolingSolutions.count();
+            case "cooler":
+                return coolers.count();
             case "graphiccard":
                 return graphicCards.count();
             case "memory":
@@ -380,8 +380,8 @@ public class ComponentController {
                 return motherboards.findById(id);
             case "case":
                 return cases.findById(id);
-            case "cooling":
-                return coolingSolutions.findById(id);
+            case "coolers":
+                return coolers.findById(id);
             case "graphiccard":
                 return graphicCards.findById(id);
             case "memory":

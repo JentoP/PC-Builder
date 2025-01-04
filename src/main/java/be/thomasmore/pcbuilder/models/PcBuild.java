@@ -8,41 +8,69 @@ public class PcBuild {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer buildId;
+    private Integer id;
 
     private String buildName;
 
-//    @ManyToOne
-//    private User user;
-
-    // Many-to-One relationship with CPU: Each build has exactly one CPU
+    // Many-to-one relationships for other components
     @ManyToOne
     @JoinColumn(name = "cpu_id", nullable = false)
     private CPU selectedCPU;
 
-    // Many-to-One relationship with MOBO: Each build has exactly one MOBO
     @ManyToOne
     @JoinColumn(name = "mobo_id", nullable = false)
     private MOBO selectedMOBO;
 
+    @ManyToOne
+    @JoinColumn(name = "chassis_id", nullable = false)
+    private CHASSIS selectedCase;
+
+    @ManyToOne
+    @JoinColumn(name = "cooler_id", nullable = false)
+    private COOLER selectedCooler;
+
+    @ManyToOne
+    @JoinColumn(name = "gpu_id", nullable = false)
+    private GPU selectedGPU;
+
+    @ManyToOne
+    @JoinColumn(name = "ram_id", nullable = false)
+    private RAM selectedMemory;
+
+    @ManyToOne
+    @JoinColumn(name = "storage_id", nullable = false)
+    private DATA selectedStorage;
+
+    @ManyToOne
+    @JoinColumn(name = "psu_id", nullable = false)
+    private PSU selectedPowerSupply;
+
     private Double totalPrice;
 
     public Double calculateTotalPrice() {
-        if (selectedCPU != null && selectedMOBO != null) {
-            this.totalPrice = selectedCPU.getPrice() + selectedMOBO.getPrice();
-            return this.totalPrice;
-        } else {
-            return this.totalPrice = 0.0;
-        }
-    }
-    // Getters and setters for all fields
+        // Calculating total price by adding all the selected component prices
+        totalPrice = 0.0;
 
-    public Integer getId() {
-        return buildId;
+        if (selectedCPU != null) totalPrice += selectedCPU.getPrice();
+        if (selectedMOBO != null) totalPrice += selectedMOBO.getPrice();
+        if (selectedCase != null) totalPrice += selectedCase.getPrice();
+        if (selectedCooler != null) totalPrice += selectedCooler.getPrice();
+        if (selectedGPU != null) totalPrice += selectedGPU.getPrice();
+        if (selectedMemory != null) totalPrice += selectedMemory.getPrice();
+        if (selectedStorage != null) totalPrice += selectedStorage.getPrice();
+        if (selectedPowerSupply != null) totalPrice += selectedPowerSupply.getPrice();
+
+        return totalPrice;
     }
 
-    public void setId(Integer id) {
-        this.buildId = id;
+    // Getters and setters
+
+    public Integer getBuildId() {
+        return id;
+    }
+
+    public void setBuildId(Integer id) {
+        this.id = id;
     }
 
     public String getBuildName() {
@@ -52,14 +80,6 @@ public class PcBuild {
     public void setBuildName(String buildName) {
         this.buildName = buildName;
     }
-
-//    public User getUser() {
-//        return user;
-//    }
-
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
 
     public CPU getSelectedCPU() {
         return selectedCPU;
@@ -75,5 +95,57 @@ public class PcBuild {
 
     public void setSelectedMOBO(MOBO selectedMOBO) {
         this.selectedMOBO = selectedMOBO;
+    }
+
+    public CHASSIS getSelectedCase() {
+        return selectedCase;
+    }
+
+    public void setSelectedCase(CHASSIS selectedCase) {
+        this.selectedCase = selectedCase;
+    }
+
+    public COOLER getSelectedCooler() {
+        return selectedCooler;
+    }
+
+    public void setSelectedCooler(COOLER selectedCooler) {
+        this.selectedCooler = selectedCooler;
+    }
+
+    public GPU getSelectedGPU() {
+        return selectedGPU;
+    }
+
+    public void setSelectedGPU(GPU selectedGPU) {
+        this.selectedGPU = selectedGPU;
+    }
+
+    public RAM getSelectedMemory() {
+        return selectedMemory;
+    }
+
+    public void setSelectedMemory(RAM selectedMemory) {
+        this.selectedMemory = selectedMemory;
+    }
+
+    public DATA getSelectedStorage() {
+        return selectedStorage;
+    }
+
+    public void setSelectedStorage(DATA selectedStorage) {
+        this.selectedStorage = selectedStorage;
+    }
+
+    public PSU getSelectedPowerSupply() {
+        return selectedPowerSupply;
+    }
+
+    public void setSelectedPowerSupply(PSU selectedPowerSupply) {
+        this.selectedPowerSupply = selectedPowerSupply;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 }

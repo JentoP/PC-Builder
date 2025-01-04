@@ -15,22 +15,45 @@
 
     <div class="row">
         <h3 class="">Componenten</h3>
-        <div class="list"></div>
+        <div class="d-flex align-items-center component-box">
+            <div class="me-3">
+                <!-- Replace with the image URL or path -->
+                <img th:src="@{/img/icons/gradient/cpu.png}" alt="cpu" width="40" height="40" class="m-3">
+            </div>
+            <div>
+                <h5>Processor: </h5>
+                <strong><p th:text="${pcBuild.selectedCPU.name}"></p></strong>
+            </div>
+        </div>
+
         <h5>Processor: </h5>
         <strong><p th:text="${pcBuild.selectedCPU.name}"></p></strong>
+
         <h5>Moederbord: </h5>
         <strong><p th:text="${pcBuild.selectedMOBO.name}"></p></strong>
+
+        <h5>Koeler: </h5>
+        <strong><p th:text="${pcBuild.selectedCooler.name}"></p></strong>
+
+        <h5>Grafische kaart: </h5>
+        <strong><p th:text="${pcBuild.selectedGPU.name}"></p></strong>
+
+        <h5>Geheugen: </h5>
+        <strong><p th:text="${pcBuild.selectedMemory.name}"></p></strong>
+
+        <h5>Opslag: </h5>
+        <strong><p th:text="${pcBuild.selectedStorage.name}"></p></strong>
+
+        <h5>Voeding: </h5>
+        <strong><p th:text="${pcBuild.selectedPowerSupply.name}"></p></strong>
+
         <h5>Totale prijs: </h5>
         <strong><p th:text="${pcBuild.calculateTotalPrice()}"></p></strong>
-        <!--      <p><strong>Grafische Kaart:</strong> <span th:text="${pcBuild.selectedGPU.name}">GPU Name</span></p>-->
-        <!--      <p><strong>Geheugen:</strong> <span th:text="${pcBuild.selectedRAM.name}">RAM Name</span></p>-->
-        <!--      <p><strong>Opslag:</strong> <span th:text="${pcBuild.selectedStorage.name}">Storage Name</span></p>-->
-        <!--      <p><strong>Voeding:</strong> <span th:text="${pcBuild.selectedPSU.name}">Power Supply Name</span></p>-->
-        <!--      <p><strong>Koeling:</strong> <span th:text="${pcBuild.selectedCooling.name}">Cooling Name</span></p>-->
+
         <div class="d-flex justify-content-between mt-5 bottom-margin">
-            <a th:href="@{/editbuild/{id}(id=${pcBuild.id})}" class="btn-custom">BEWERKEN</a>
+            <a th:href="@{/editbuild/{id}(id=${pcBuild.getBuildId()})}" class="btn-custom">BEWERKEN</a>
             <a th:href="@{/pcbuilds}" class="btn-custom">TERUG</a>
-            <a th:href="@{/deletebuild/{id}(id=${pcBuild.id})}" class="btn-custom"
+            <a th:href="@{/deletebuild/{id}(id=${pcBuild.getBuildId()})}" class="btn-custom"
                onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">Verwijderen</a>
         </div>
     </div>

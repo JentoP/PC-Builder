@@ -1,15 +1,14 @@
 package be.thomasmore.pcbuilder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class RAM {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String manufacturer;
@@ -19,6 +18,11 @@ public class RAM {
     private Integer timings;
     private Integer clockSpeed;
     private Double price;
+    // Inverse side of the relationship to PcBuild
+    @OneToMany(mappedBy = "selectedMemory")
+    private List<PcBuild> pcBuilds;
+
+
     public Double getPrice() {
         return price;
     }

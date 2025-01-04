@@ -1,12 +1,12 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
-
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class DATA {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String manufacturer;
@@ -17,6 +17,9 @@ public class DATA {
     private Integer capacity;
     private Integer cacheMemory;
     private Double price;
+    // Inverse side of the relationship to PcBuild
+    @OneToMany(mappedBy = "selectedStorage")
+    private List<PcBuild> pcBuilds;
 
     public Double getPrice() {
         return price;

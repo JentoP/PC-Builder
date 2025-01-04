@@ -1,15 +1,15 @@
 package be.thomasmore.pcbuilder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class PSU {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
     private String name;
     private String manufacturer;
@@ -19,8 +19,10 @@ public class PSU {
     private String psuFormFactor;
     private String color;
     private Double price;
-//    @OneToMany(mappedBy = "powerSupply", fetch = FetchType.LAZY)
-//    private Collection<PcBuild> pcBuilds;
+
+    // Inverse side of the relationship to PcBuild
+    @OneToMany(mappedBy = "selectedPowerSupply")
+    private List<PcBuild> pcBuilds;
 
     public Double getPrice() {
         return price;

@@ -17,7 +17,7 @@
             <div class="col-md-2 mt-5">
                 <!--Search-->
                 <div class="">
-                    <form th:action="@{|/lists/coolings|}" method="get" class="">
+                    <form th:action="@{|/lists/coolers|}" method="get" class="">
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
                         <div class="container row small">
@@ -29,7 +29,7 @@
 
                 <!--Filters-->
                 <div id="filterSection">
-                    <form th:action="@{|/lists/coolings|}" method="get" class="col text-start">
+                    <form th:action="@{|/lists/coolers|}" method="get" class="col text-start">
                         <h5 class="mt-4">Filter op</h5>
 
                         <!-- Manufacturer Filter -->
@@ -37,7 +37,7 @@
                         <div class="container input-group row">
                             <select id="filterManufacturer" name="filterManufacturer" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allCooling}"
+                                <option th:each="p : ${allCoolers}"
                                         th:value="${p.manufacturer}"
                                         th:text="${p.manufacturer}"
                                 ></option>
@@ -49,7 +49,7 @@
                         <div class="container input-group row">
                             <select id="filterSocketType" name="filterSocketType" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allCooling}"
+                                <option th:each="p : ${allCoolers}"
                                         th:value="${p.socketType}"
                                         th:text="${p.socketType}"
                                 ></option>
@@ -61,7 +61,7 @@
                         <div class="container input-group row">
                             <select id="filterFanSize" name="filterFanSize" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allCooling}"
+                                <option th:each="p : ${allCoolers}"
                                         th:value="${p.fanSize}"
                                         th:text="${p.fanSize}"
                                 ></option>
@@ -73,7 +73,7 @@
                         <div class="container input-group row">
                             <select id="filterRadiatorSize" name="filterRadiatorSize" class="filter-box">
                                 <option value="">----</option>
-                                <option th:each="p : ${allCooling}"
+                                <option th:each="p : ${allCoolers}"
                                         th:value="${p.radiatorSize}"
                                         th:text="${p.radiatorSize}"
                                 ></option>
@@ -86,7 +86,7 @@
                     </form>
                 </div>
 
-                <form th:action="@{|/lists/coolings|}" method="get" class="col text-start">
+                <form th:action="@{|/lists/coolers|}" method="get" class="col text-start">
                     <h5 class="mt-5">Stel Prijsklasse In</h5>
                     <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
                     <div class="container input-group row">
@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="small">
-                        <a th:href="@{|/lists/coolings|}" class="btn-custom small">FILTERS WISSEN</a>
+                        <a th:href="@{|/lists/coolers|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>
@@ -142,12 +142,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="COOLING : ${filteredCooling}">
-                        <td th:text="${COOLING.name}"></td>
-                        <td th:text="${COOLING.socketType}"></td>
-                        <td class="text-center" th:text="${COOLING.waterCooling} ? 'Ja' : 'Nee'"></td>
+                    <tr th:each="cooler : ${filteredCooler}">
+                        <td th:text="${cooler.name}"></td>
+                        <td th:text="${cooler.socketType}"></td>
+                        <td class="text-center" th:text="${cooler.waterCooling} ? 'Ja' : 'Nee'"></td>
                         <td>
-                            <a th:href="@{/components/cooling/{id}(id=${COOLING.id})}" class="btn-custom"
+                            <a th:href="@{/components/cooler/{id}(id=${cooler.id})}" class="btn-custom"
                                Style="margin-left: 50px" th:text="'DETAILS'"
                                title="Klik hier om details over deze processor te bekijken"></a></td>
                     </tr>

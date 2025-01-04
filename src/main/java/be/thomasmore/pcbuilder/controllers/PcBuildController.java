@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -16,7 +15,7 @@ public class PcBuildController {
     @Autowired
     private ChassisRepository cases;
     @Autowired
-    private CoolingRepository coolingSolutions;
+    private CoolerRepository coolers;
     @Autowired
     private GraphicsRepository graphicCards;
     @Autowired
@@ -60,8 +59,22 @@ public class PcBuildController {
 
         Iterable<CPU> allCPUs = processors.findAll();
         Iterable<MOBO> allMOBOS = motherboards.findAll();
+        Iterable<CHASSIS> allCases = cases.findAll();
+        Iterable<COOLER> allCoolers = coolers.findAll();
+        Iterable<GPU> allGPUs = graphicCards.findAll();
+        Iterable<RAM> allMemory = memoryKits.findAll();
+        Iterable<PSU> allPowerSupplies = powerSupplies.findAll();
+        Iterable<DATA> allStorage = storage.findAll();
+
+        model.addAttribute("allCases", allCases);
+        model.addAttribute("allCoolers", allCoolers);
+        model.addAttribute("allGPUs", allGPUs);
+        model.addAttribute("allMemory", allMemory);
+        model.addAttribute("allPowerSupplies", allPowerSupplies);
+        model.addAttribute("allStorage", allStorage);
         model.addAttribute("allProcessors", allCPUs);
         model.addAttribute("allMotherboards", allMOBOS);
+        System.out.println("Selected Cooling: " + pcBuild.getSelectedCooler());  // Log selected cooling
 
         // Add a flag to distinguish between "edit" and "add" modes in the template
         model.addAttribute("isEditMode", id != null);
@@ -74,11 +87,11 @@ public class PcBuildController {
     public String addOrEditPcBuildPost(@ModelAttribute PcBuild pcBuild, Model model, RedirectAttributes redirectAttributes) {
 
         // Validate compatibility between selected CPU and MOBO
-        if (!isCompatible(pcBuild.getSelectedCPU(), pcBuild.getSelectedMOBO())) {
+        if (!isCompatible(pcBuild)) {
 //            Flash attributes are used to pass the errorMessage to the view on redirect.
             redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten zijn niet compatibel met elkaar. Probeer opnieuw.");
-            if (pcBuild.getId() != null) {
-                return "redirect:/editbuild/" + pcBuild.getId();
+            if (pcBuild.getBuildId() != null) {
+                return "redirect:/editbuild/" + pcBuild.getBuildId();
             }
             return "redirect:/addbuild";
         }
@@ -99,12 +112,89 @@ public class PcBuildController {
         return "redirect:/pcbuilds";
     }
 
-    // Check if the selected CPU and motherboard are compatible
-    private boolean isCompatible(CPU selectedCPU, MOBO selectedMOBO) {
-        if (selectedCPU == null || selectedMOBO == null) {
-            return false;
+    // Check if the selected components are compatible
+    private boolean isCompatible(PcBuild pcBuild) {
+        CPU selectedCPU = pcBuild.getSelectedCPU();
+        MOBO selectedMOBO = pcBuild.getSelectedMOBO();
+        RAM selectedMemory = pcBuild.getSelectedMemory();
+        GPU selectedGPU = pcBuild.getSelectedGPU();
+        PSU selectedPowerSupply = pcBuild.getSelectedPowerSupply();
+        CHASSIS selectedCase = pcBuild.getSelectedCase();
+        DATA selectedStorage = pcBuild.getSelectedStorage();
+        COOLER selectedCooler = pcBuild.getSelectedCooler();
+
+        // Check CPU and MOBO compatibility
+        if (selectedCPU != null && selectedMOBO != null) {
+            if (!selectedCPU.getSocketType().equals(selectedMOBO.getSocketType())) {
+                return false;
+            }
         }
-        return selectedCPU.getSocketType().equals(selectedMOBO.getSocketType());
+        // Check MOBO and Memory compatibility
+        if (selectedMOBO != null && selectedMemory != null) {
+            if (!selectedMOBO.getMemoryType().equals(selectedMemory.getMemoryType())) {
+                return false;
+            }
+        }
+        // Check GPU power requirement and Power Supply capacity
+        if (selectedGPU != null && selectedPowerSupply != null) {
+            if (selectedGPU.getWattageUsage() > selectedPowerSupply.getWattageCapacity()) {
+                return false;
+            }
+        }
+        // Check MOBO and Case compatibility (form factor)
+        if (selectedMOBO != null && selectedCase != null) {
+            if (!selectedCase.getMoboFormFactor().equals(selectedMOBO.getMoboFormFactor())) {
+                return false;
+            }
+        }
+        // Check Power Supply and Case compatibility (form factor)
+        if (selectedPowerSupply != null && selectedCase != null) {
+            if (!selectedCase.getPsuFormFactor().equals(selectedPowerSupply.getPsuFormFactor())) {
+                return false;
+            }
+        }
+//        // Check Cooling and CPU compatibility (fan slots, radiator size)
+//        if (selectedCooler != null && selectedCPU != null) {
+//            if (!selectedCPU.hasCompatibleCoolerSupport(selectedCooler)) {
+//                return false;
+//            }
+//        }
+//
+//        // Check Graphics Card and Case compatibility (GPU length, PCIe slots)
+//        if (selectedGPU != null && selectedCase != null) {
+//            if (!selectedCase.canFitGPU(selectedGPU)) {
+//                return false;
+//            }
+//        }
+
+//        // Check Power Supply wattage against the entire build
+//        if (selectedPowerSupply != null) {
+//            int totalWattageRequired = calculateTotalWattage(pcBuild);
+//            if (selectedPowerSupply.getWattageCapacity() < totalWattageRequired) {
+//                return false;
+//            }
+//        }
+
+        return true;
+    }
+
+    // Helper method to calculate total wattage
+    private int calculateTotalWattage(PcBuild pcBuild) {
+        int totalWattage = 0;
+
+        if (pcBuild.getSelectedCPU() != null) {
+            totalWattage += pcBuild.getSelectedCPU().getWattageUsage();
+        }
+        if (pcBuild.getSelectedGPU() != null) {
+            totalWattage += pcBuild.getSelectedGPU().getWattageUsage();
+        }
+        if (pcBuild.getSelectedStorage() != null) {
+            totalWattage += pcBuild.getSelectedStorage().getWattageUsage();
+        }
+//        if (pcBuild.getSelectedCooler() != null) {
+//            totalWattage += pcBuild.getSelectedCooler().getWattage();
+//        }
+        return totalWattage;
     }
 
     // View specific PC build details

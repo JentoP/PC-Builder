@@ -1,16 +1,15 @@
 package be.thomasmore.pcbuilder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
-import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class COOLING {
+public class COOLER {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
     private String manufacturer;
     private boolean waterCooling;
@@ -21,9 +20,17 @@ public class COOLING {
     private String color;
     private Double price;
 
-//    @OneToMany(mappedBy = "coolingSolution", fetch = FetchType.LAZY)
-//    private Collection<PcBuild> pcBuilds;
+    // Inverse side of the relationship to PcBuild
+    @OneToMany(mappedBy = "selectedCooler")
+    private List<PcBuild> pcBuilds;
 
+    public List<PcBuild> getPcBuilds() {
+        return pcBuilds;
+    }
+
+    public void setPcBuilds(List<PcBuild> pcBuilds) {
+        this.pcBuilds = pcBuilds;
+    }
 
     public Double getPrice() {
         return price;
@@ -105,12 +112,4 @@ public class COOLING {
         this.RGB = RGB;
     }
 
-//
-//    public Collection<PcBuild> getBuilds() {
-//        return pcBuilds;
-//    }
-//
-//    public void setBuilds(Collection<PcBuild> pcBuilds) {
-//        this.pcBuilds = pcBuilds;
-//    }
 }

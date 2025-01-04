@@ -26,20 +26,22 @@ public class CPU {
     @OneToMany(mappedBy = "selectedCPU")
     private List<PcBuild> pcBuilds = new ArrayList<>();
 
-    // Many-to-Many relationship with MOBO (CPU can be compatible with multiple MOBOS)
-    @ManyToMany
-    @JoinTable(
-            name = "cpu_mobo_compatibility",
-            joinColumns = @JoinColumn(name = "cpu_id"),
-            inverseJoinColumns = @JoinColumn(name = "mobo_id")
-    )
-    private List<MOBO> compatibleMOBOs;
+//    // Many-to-Many relationship with MOBO (CPU can be compatible with multiple MOBOS)
+//    @ManyToMany
+//    @JoinTable(
+//            name = "cpu_mobo_compatibility",
+//            joinColumns = @JoinColumn(name = "cpu_id"),
+//            inverseJoinColumns = @JoinColumn(name = "mobo_id"))
+//    private List<MOBO> compatibleMOBOs;
 
     // Getters and setters for all fields
     public List<PcBuild> getPcBuilds() {
         return pcBuilds;
     }
 
+    /**
+     * @param pcBuilds A list of PcBuild objects
+     */
     public void setPcBuilds(List<PcBuild> pcBuilds) {
         this.pcBuilds = pcBuilds;
     }
