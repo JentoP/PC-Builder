@@ -13,6 +13,7 @@ import java.util.*;
 
 @Controller
 public class ComponentController {
+
     @Autowired
     private ChassisRepository cases;
     @Autowired
@@ -33,13 +34,25 @@ public class ComponentController {
     private static final double DEFAULT_MIN_PRICE = 0.0;
     private static final double DEFAULT_MAX_PRICE = Double.MAX_VALUE;
 
+    /**
+     * Displays the components page.
+     *
+     * @param model the model object to store attributes for the view.
+     * @return the name of the Thymeleaf template for components.
+     */
     @GetMapping({"/components"})
     public String components(Model model) {
-
         return "components";
     }
 
-
+    /**
+     * Lijst alle processors met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
+     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     *
+     * @param model      het modelobject om attributen voor de view op te slaan.
+     * @param searchWord het woord om processors op naam te doorzoeken.
+     * @return de naam van de Thymeleaf-template voor de processorlijst.
+     */
     @GetMapping({"/lists/processors"})
     public String processorList(Model model,
                                 @RequestParam(required = false) String searchWord,
@@ -95,7 +108,14 @@ public class ComponentController {
         return "processors";
     }
 
-
+    /**
+     * Lijst alle motherboards met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
+     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     *
+     * @param model      het modelobject om attributen voor de view op te slaan.
+     * @param searchWord het woord om processors op naam te doorzoeken.
+     * @return
+     */
     @GetMapping({"/lists/motherboards"})
     public String motherboardList(Model model,
                                   @RequestParam(required = false) String searchWord,
@@ -130,6 +150,14 @@ public class ComponentController {
         return "motherboards";
     }
 
+    /**
+     * Lijst alle memorykits met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
+     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     *
+     * @param model      het modelobject om attributen voor de view op te slaan.
+     * @param searchWord het woord om processors op naam te doorzoeken.
+     * @return
+     */
     @GetMapping({"/lists/memorys"})
     public String memoryList(Model model,
                              @RequestParam(required = false) String searchWord,
@@ -163,7 +191,14 @@ public class ComponentController {
         return "memory";
     }
 
-
+    /**
+     * Lijst alle graphiccards met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
+     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     *
+     * @param model      het modelobject om attributen voor de view op te slaan.
+     * @param searchWord het woord om processors op naam te doorzoeken.
+     * @return
+     */
     @GetMapping({"/lists/graphiccards"})
     public String graphicCardList(Model model,
                                   @RequestParam(required = false) String searchWord,
@@ -196,7 +231,15 @@ public class ComponentController {
         return "graphiccards";
     }
 
-
+    /**
+     * Lijst alle storages met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
+     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     *
+     * @param model          het modelobject om attributen voor de view op te slaan.
+     * @param searchWord     het woord om processors op naam te doorzoeken.
+     * @param filterMinPrice de minimumprijs voor het filteren van processors.
+     * @return
+     */
     @GetMapping({"/lists/storages"})
     public String storageList(Model model,
                               @RequestParam(required = false) String searchWord,
@@ -232,16 +275,23 @@ public class ComponentController {
         return "storage";
     }
 
-
+    /**
+     * Lijst alle coolers met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
+     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     *
+     * @param model      het modelobject om attributen voor de view op te slaan.
+     * @param searchWord het woord om processors op naam te doorzoeken.
+     * @return
+     */
     @GetMapping({"/lists/coolers"})
     public String coolerList(Model model,
-                              @RequestParam(required = false) String searchWord,
-                              @RequestParam(required = false) Double filterMinPrice,
-                              @RequestParam(required = false) Double filterMaxPrice,
-                              @RequestParam(required = false) String filterManufacturer,
-                              @RequestParam(required = false) String filterSocketType,
-                              @RequestParam(required = false) Integer filterFanSize,
-                              @RequestParam(required = false) Integer filterRadiatorSize) {
+                             @RequestParam(required = false) String searchWord,
+                             @RequestParam(required = false) Double filterMinPrice,
+                             @RequestParam(required = false) Double filterMaxPrice,
+                             @RequestParam(required = false) String filterManufacturer,
+                             @RequestParam(required = false) String filterSocketType,
+                             @RequestParam(required = false) Integer filterFanSize,
+                             @RequestParam(required = false) Integer filterRadiatorSize) {
         List<COOLER> filteredCOOLER;
         if (searchWord != null && !searchWord.isEmpty()) {
             filteredCOOLER = coolers.findBySearch(searchWord);
@@ -264,6 +314,15 @@ public class ComponentController {
         model.addAttribute("filteredCooler", filteredCOOLER);
         return "coolers";
     }
+
+    /**
+     * Lijst alle cases met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
+     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     *
+     * @param model      het modelobject om attributen voor de view op te slaan.
+     * @param searchWord het woord om processors op naam te doorzoeken.
+     * @return
+     */
 
     @GetMapping({"/lists/cases"})
     public String caseList(Model model,
@@ -295,6 +354,14 @@ public class ComponentController {
         return "cases";
     }
 
+    /**
+     * Lijst alle power supplies met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
+     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     *
+     * @param model      het modelobject om attributen voor de view op te slaan.
+     * @param searchWord het woord om processors op naam te doorzoeken.
+     * @return
+     */
     @GetMapping({"/lists/powersupplys"})
     public String powerSuppliesList(Model model,
                                     @RequestParam(required = false) String searchWord,
@@ -325,6 +392,15 @@ public class ComponentController {
         return "powersupplies";
     }
 
+    /**
+     * Haalt de details op van een specifiek component op basis van het type en de ID.
+     * Het toont het vorige en volgende component, circulair.
+     *
+     * @param type  het type van het component (bijv. processor, moederbord, enz.)
+     * @param id    het ID van het component
+     * @param model het modelobject voor het doorgeven van gegevens aan de weergave
+     * @return de naam van de Thymeleaf-template voor de detailpagina van het component
+     */
     @GetMapping("/components/{type}/{id}")
     public String componentDetails(@PathVariable String type, @PathVariable Integer id, Model model) {
         // Haalt het totaal aantal componenten van een bepaald type op
@@ -346,6 +422,13 @@ public class ComponentController {
         return "componentdetails";
     }
 
+    /**
+     * Retourneert het totaal aantal componenten op basis van het opgegeven type.
+     *
+     * @param type het type van het component (bijv. processor, moederbord, enz.)
+     * @return het totaal aantal componenten van het opgegeven type
+     * @throws IllegalArgumentException als het type onbekend is
+     */
     private long getCount(String type) {
         // Retourneert het totaal aantal componenten op basis van het type
         switch (type) {
@@ -371,6 +454,14 @@ public class ComponentController {
         }
     }
 
+    /**
+     * Zoekt een specifiek component op basis van type en ID in de database.
+     *
+     * @param type het type van het component (bijv. processor, moederbord, enz.)
+     * @param id   het ID van het component
+     * @return een Optional met het component als het wordt gevonden, anders Optional.empty()
+     * @throws IllegalArgumentException als het type onbekend is
+     */
     private Optional<?> getComponentFromDb(String type, Integer id) {
         // Zoekt een specifiek component op basis van type en ID in de database
         switch (type) {
@@ -395,5 +486,4 @@ public class ComponentController {
                 throw new IllegalArgumentException("Onbekend componenttype: " + type);
         }
     }
-
 }

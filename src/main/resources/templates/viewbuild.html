@@ -59,7 +59,7 @@
                 <h4 th:text="${pcBuild.selectedGPU.name}"></h4>
             </div>
             <div class="d-flex flex-column align-items-end ms-auto">
-                <a th:href="@{/components/gpu/{id}(id=${pcBuild.selectedGPU.id})}" class="btn-custom small mb-3"
+                <a th:href="@{/components/graphiccard/{id}(id=${pcBuild.selectedGPU.id})}" class="btn-custom small mb-3"
                    th:text="'DETAILS'" title="Klik hier om details over deze GPU te bekijken"></a>
                 <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedGPU.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
             </div>
@@ -74,7 +74,7 @@
                 <h4 th:text="${pcBuild.selectedMemory.name}"></h4>
             </div>
             <div class="d-flex flex-column align-items-end ms-auto">
-                <a th:href="@{/components/ram/{id}(id=${pcBuild.selectedMemory.id})}" class="btn-custom small mb-3"
+                <a th:href="@{/components/memory/{id}(id=${pcBuild.selectedMemory.id})}" class="btn-custom small mb-3"
                    th:text="'DETAILS'" title="Klik hier om details over deze RAM te bekijken"></a>
                 <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedMemory.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
             </div>
@@ -139,7 +139,7 @@
                 <h4 th:text="${pcBuild.selectedPowerSupply.name}"></h4>
             </div>
             <div class="d-flex flex-column align-items-end ms-auto">
-                <a th:href="@{/components/psu/{id}(id=${pcBuild.selectedPowerSupply.id})}" class="btn-custom small mb-3"
+                <a th:href="@{/components/powersupply/{id}(id=${pcBuild.selectedPowerSupply.id})}" class="btn-custom small mb-3"
                    th:text="'DETAILS'" title="Klik hier om details over deze voeding te bekijken"></a>
                 <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedPowerSupply.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
             </div>
