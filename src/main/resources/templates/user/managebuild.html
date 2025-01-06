@@ -15,7 +15,7 @@
         <p th:text="${errorMessage}"></p>
     </div>
 
-    <form th:action="@{${isEditMode} ? '/editbuild/' + ${pcBuild.getBuildId()} : '/addbuild'}" method="post">
+    <form th:action="@{${isEditMode} ? '/user/editbuild/' + ${pcBuild.getBuildId()} : '/user/addbuild'}" method="post">
         <!-- PC Build Name -->
         <div class="form-group">
             <label for="pcBuildName" class="build-text">Naam van uw PC</label>
@@ -111,7 +111,7 @@
 
         <div th:unless="${isEditMode}" class="form-group mt-3">
             <label for="selectedRAM" class="build-text">Kies een geheugen</label>
-            <p>Geheugen is vergelijkbaar met je korte termijn geheugen. Het slaat tijdelijke informatie op die de
+            <p>Geheugen is vergelijkbaar met je kortetermijngeheugen. Het slaat tijdelijke informatie op die de
                 processor snel nodig heeft, net zoals je hersenen tijdelijk informatie opslaan voor snelle toegang.</p>
             <select id="selectedAddRAM" name="selectedMemory" class="form-box">
                 <option value="">-----</option>

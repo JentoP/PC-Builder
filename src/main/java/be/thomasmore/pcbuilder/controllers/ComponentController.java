@@ -471,7 +471,7 @@ public class ComponentController {
                 return motherboards.findById(id);
             case "case":
                 return cases.findById(id);
-            case "coolers":
+            case "cooler":
                 return coolers.findById(id);
             case "graphiccard":
                 return graphicCards.findById(id);

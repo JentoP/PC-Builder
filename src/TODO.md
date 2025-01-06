@@ -1,16 +1,16 @@
 # TO DO LIST
 ## MINIMUM REQUIREMENTS
-- OK
+- ERD EN UML
+- minstens 1 select voor de gerelateerde data (zoals: 'geef de Venue voor deze
+  Party' of 'geef alle Parties in deze Venue'. )
+- er is overbodige code of overbodige variabelen, functies, ...
 ## OPTIONAL REQUIREMENTS
-### Insert & update
-
+## Insert & update
+### Accounts (admin and users)
+- Log in functionality
+- Add user accounts functionality
 - Admins kunnen componenten toevoegen en verwijderen
 
-
-### Accounts (admin and users)
-- Add user accounts functionality
-
-- Log in functionality
 
 
 ### Components

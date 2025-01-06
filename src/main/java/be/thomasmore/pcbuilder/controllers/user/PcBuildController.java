@@ -1,4 +1,4 @@
-package be.thomasmore.pcbuilder.controllers;
+package be.thomasmore.pcbuilder.controllers.user;
 
 import be.thomasmore.pcbuilder.models.*;
 import be.thomasmore.pcbuilder.repos.*;
@@ -15,6 +15,8 @@ import java.util.Optional;
  * deleting, and listing PC builds.
  */
 @Controller
+@RequestMapping("/user")
+
 public class PcBuildController {
 
     @Autowired
@@ -36,14 +38,6 @@ public class PcBuildController {
     @Autowired
     private PcBuildRepository pcBuildRepository;
 
-    /**
-     * Displays the home page for the PC builder.
-     * @return the builder template.
-     */
-    @RequestMapping("/builder")
-    public String pcBuilderHome() {
-        return "builder";
-    }
 
     /**
      * Creates or retrieves a PC build based on the provided ID.
@@ -95,7 +89,7 @@ public class PcBuildController {
         // Add a flag to distinguish between "edit" and "add" modes in the template
         model.addAttribute("isEditMode", id != null);
 
-        return "managebuild";  // Use the same template for both add and edit operations.
+        return "user/managebuild";  // Use the same template for both add and edit operations.
     }
 
     /**
@@ -112,15 +106,15 @@ public class PcBuildController {
         if (!isCompatible(pcBuild)) {
             redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten zijn niet compatibel met elkaar. Probeer opnieuw.");
             if (pcBuild.getBuildId() != null) {
-                return "redirect:/editbuild/" + pcBuild.getBuildId();
+                return "redirect:/user/editbuild/" + pcBuild.getBuildId();
             }
-            return "redirect:/addbuild";
+            return "redirect:/user/addbuild";
         }
 
         // Save the new or updated PC build
         pcBuildRepository.save(pcBuild);
         redirectAttributes.addFlashAttribute("successMessage", "Uw build werd opgeslagen!");
-        return "redirect:/pcbuilds"; // Redirect to the list of PC builds
+        return "redirect:/user/pcbuilds"; // Redirect to the list of PC builds
     }
 
     /**
@@ -135,9 +129,9 @@ public class PcBuildController {
         if (optionalPcBuild.isPresent()) {
             PcBuild pcBuild = optionalPcBuild.get();
             model.addAttribute("pcBuild", pcBuild);
-            return "viewbuild"; // Show build details
+            return "user/viewbuild"; // Show build details
         }
-        return "redirect:/pcbuilds";
+        return "redirect:pcbuilds";
     }
 
     /**
@@ -149,7 +143,7 @@ public class PcBuildController {
     public String viewPcBuilds(Model model) {
         Iterable<PcBuild> pcBuilds = pcBuildRepository.findAll();
         model.addAttribute("pcBuilds", pcBuilds);
-        return "pcbuilds"; // Display all PC builds
+        return "user/pcbuilds"; // Display all PC builds
     }
 
     /**
@@ -163,7 +157,7 @@ public class PcBuildController {
         if (pcBuild.isPresent()) {
             pcBuildRepository.deleteById(id);
         }
-        return "redirect:/pcbuilds";
+        return "redirect:user/pcbuilds";
     }
 
     /**

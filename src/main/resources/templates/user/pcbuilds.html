@@ -13,13 +13,13 @@
                  title="Klik hier om deze build te bekijken">
                 <img th:src="@{/img/icons/gradient/computer.png}" alt="cpu" width="40" height="40" class="m-3">
                 <h2 class="flex-grow-1" th:text="${pcBuild.buildName}">PC Build Name</h2>
-                <a type="button" class="btn-custom" th:href="@{/viewbuild/{id}(id=${pcBuild.getBuildId()})}">BEKIJKEN</a>
+                <a type="button" class="btn-custom" th:href="@{/user/viewbuild/{id}(id=${pcBuild.getBuildId()})}">BEKIJKEN</a>
             </div>
         </div>
         <div class="bottom-margin"></div>
     </div>
     <div class="mt-5 text-center">
-        <a class="btn-custom" th:href="@{/addbuild}" role="button">NIEUWE PC MAKEN</a>
+        <a class="btn-custom" th:href="@{/user/addbuild}" role="button">NIEUWE PC MAKEN</a>
     </div>
     <div class="bottom-margin"></div>
 </main>
