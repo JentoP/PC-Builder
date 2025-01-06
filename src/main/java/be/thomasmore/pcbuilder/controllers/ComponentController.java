@@ -98,7 +98,14 @@ public class ComponentController {
                     filterWattage == null ? 0.0 : filterWattage
             );
         }
-
+//berekent de hoogste prijs voor filters
+        Double highestPrice = 0.0;
+        for (CPU cpu : filteredProcessors) {
+            if (cpu.getPrice() > highestPrice) {
+                highestPrice = cpu.getPrice();
+            }
+        }
+        model.addAttribute("highestPrice", highestPrice);
         // Voeg alle processors toe aan het model voor gebruik in de template
         model.addAttribute("allProcessors", processors.findAll());
         // Voeg de gefilterde processors toe aan het model
@@ -145,6 +152,13 @@ public class ComponentController {
                     filterMoboFormFactor == null ? "" : filterMoboFormFactor
             );
         }
+        Double highestPrice = 0.0;
+        for (MOBO mobo : filteredMotherboards) {
+            if (mobo.getPrice() > highestPrice) {
+                highestPrice = mobo.getPrice();
+            }
+        }
+        model.addAttribute("highestPrice", highestPrice);
         model.addAttribute("allMotherboards", motherboards.findAll());
         model.addAttribute("filteredMotherboards", filteredMotherboards);
         return "motherboards";
@@ -186,6 +200,14 @@ public class ComponentController {
                     filterClockSpeed == null ? 0 : filterClockSpeed
             );
         }
+        Double highestPrice = 0.0;
+        for (RAM ram : filteredMemory) {
+            if (ram.getPrice() > highestPrice) {
+                highestPrice = ram.getPrice();
+            }
+        }
+
+        model.addAttribute("highestPrice", highestPrice);
         model.addAttribute("allMemory", memoryKits.findAll());
         model.addAttribute("filteredMemory", filteredMemory);
         return "memory";
@@ -226,6 +248,13 @@ public class ComponentController {
                     filterInterfaceType == null ? "" : filterInterfaceType
             );
         }
+        Double highestPrice = 0.0;
+        for (GPU gpu : filteredGraphicCards) {
+            if (gpu.getPrice() > highestPrice) {
+                highestPrice = gpu.getPrice();
+            }
+        }
+        model.addAttribute("highestPrice", highestPrice);
         model.addAttribute("allGraphicCards", graphicCards.findAll());
         model.addAttribute("filteredGraphicCards", filteredGraphicCards);
         return "graphiccards";
@@ -270,6 +299,14 @@ public class ComponentController {
                     filterCapacity == null ? 0 : filterCapacity
             );
         }
+        Double highestPrice = 0.0;
+        for (DATA data : filteredStorage) {
+            if (data.getPrice() > highestPrice) {
+                highestPrice = data.getPrice();
+            }
+        }
+
+        model.addAttribute("highestPrice", highestPrice);
         model.addAttribute("allStorage", storage.findAll());
         model.addAttribute("filteredStorage", filteredStorage);
         return "storage";
@@ -310,6 +347,13 @@ public class ComponentController {
                     filterRadiatorSize == null ? 0 : filterRadiatorSize
             );
         }
+        Double highestPrice = 0.0;
+        for (COOLER cooler : filteredCOOLER) {
+            if (cooler.getPrice() > highestPrice) {
+                highestPrice = cooler.getPrice();
+            }
+        }
+        model.addAttribute("highestPrice", highestPrice);
         model.addAttribute("allCoolers", coolers.findAll());
         model.addAttribute("filteredCooler", filteredCOOLER);
         return "coolers";
@@ -349,6 +393,13 @@ public class ComponentController {
                     filterPsuFormFactor == null ? "" : filterPsuFormFactor
             );
         }
+        Double highestPrice = 0.0;
+        for (CHASSIS chassis : filteredCases) {
+            if (chassis.getPrice() > highestPrice) {
+                highestPrice = chassis.getPrice();
+            }
+        }
+        model.addAttribute("highestPrice", highestPrice);
         model.addAttribute("allCases", cases.findAll());
         model.addAttribute("filteredCases", filteredCases);
         return "cases";
@@ -387,6 +438,14 @@ public class ComponentController {
                     filterEfficiency,
                     filterPsuFormFactor);
         }
+
+        Double highestPrice = 0.0;
+        for (PSU powerSupply : filteredPowerSupplies) {
+            if (powerSupply.getPrice() > highestPrice) {
+                highestPrice = powerSupply.getPrice();
+            }
+        }
+        model.addAttribute("highestPrice", highestPrice);
         model.addAttribute("allPowerSupplies", powerSupplies.findAll());
         model.addAttribute("filteredPowerSupplies", filteredPowerSupplies);
         return "powersupplies";
@@ -486,4 +545,5 @@ public class ComponentController {
                 throw new IllegalArgumentException("Onbekend componenttype: " + type);
         }
     }
+
 }

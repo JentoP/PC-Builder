@@ -1,6 +1,7 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +14,7 @@ public class PcBuild {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "build_name", length = 26, nullable = false)
     private String buildName;
 
     // Many-to-one relationships for other components

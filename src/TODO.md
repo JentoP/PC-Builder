@@ -14,7 +14,6 @@
 
 
 ### Components
-- aantallen in builds (bijvoorbeeld 4 ram slots, manyto4?)
 - Nieuwe componenten toevoegen
 - release date aan components toevoegen
 - check voor m2 support
