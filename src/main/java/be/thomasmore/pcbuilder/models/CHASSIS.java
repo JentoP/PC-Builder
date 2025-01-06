@@ -85,13 +85,4 @@ public class CHASSIS {
     public void setColor(String color) {
         this.color = color;
     }
-
-//
-//    public Collection<PcBuild> getBuilds() {
-//        return pcBuilds;
-//    }
-//
-//    public void setBuilds(Collection<PcBuild> pcBuilds) {
-//        this.pcBuilds = pcBuilds;
-//    }
 }

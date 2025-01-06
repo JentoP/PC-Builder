@@ -1,8 +1,11 @@
 # TO DO LIST
 ## MINIMUM REQUIREMENTS
 - ERD EN UML
+
+
 - minstens 1 select voor de gerelateerde data (zoals: 'geef de Venue voor deze
   Party' of 'geef alle Parties in deze Venue'. )
+  - (dus bv:geef computers met deze processor)
 - er is overbodige code of overbodige variabelen, functies, ...
 ## OPTIONAL REQUIREMENTS
 ## Insert & update
@@ -11,11 +14,8 @@
 - Add user accounts functionality
 - Admins kunnen componenten toevoegen en verwijderen
 
-
-
 ### Components
-- Nieuwe componenten toevoegen
 - release date aan components toevoegen
 - check voor m2 support
 - melding indien niet compatibel met andere componenten geeft melding welk en wat
-- optionele grafische kaart
+-  grafische kaart optioneel maken

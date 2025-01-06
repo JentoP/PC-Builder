@@ -1,10 +1,6 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-
-import java.io.FileWriter;
-import java.io.IOException;
 
 @Entity
 @Table(name = "pcbuilds")
@@ -53,13 +49,6 @@ public class PcBuild {
     private Double totalPrice;
     private Integer memoryQuantities;
     private Integer storageQuantities;
-//    private Integer cpuQuantities = 1;
-//    private Integer coolerQuantities = 1;
-//    private Integer gpuQuantities = 1;
-//    private Integer psuQuantities = 1;
-//    private Integer moboQuantities = 1;
-//    private Integer chassisQuantities = 1;
-
 
     public Double calculateTotalPrice() {
         // Calculating total price by adding all the selected component prices
@@ -73,7 +62,6 @@ public class PcBuild {
         if (selectedMemory != null) totalPrice += selectedMemory.getPrice() * memoryQuantities;
         if (selectedStorage != null) totalPrice += selectedStorage.getPrice() * storageQuantities;
         if (selectedPowerSupply != null) totalPrice += selectedPowerSupply.getPrice();
-
 
         return totalPrice;
     }

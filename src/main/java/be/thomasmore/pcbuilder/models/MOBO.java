@@ -27,24 +27,6 @@ public class MOBO {
     @OneToMany(mappedBy = "selectedMOBO")
     private List<PcBuild> pcBuilds = new ArrayList<>();
 
-    //    // Many-to-Many relationship with CPU (A motherboard can be compatible with many CPUs)
-//    @ManyToMany(mappedBy = "compatibleMOBOs")
-//    private List<CPU> compatibleCPUs;
-    public boolean isCompatibleWith(CPU cpu) {
-
-        return this.socketType.equals(cpu.getSocketType());
-    }
-
-    // Method to check compatibility with the motherboard
-    public boolean isCompatibleWith(MOBO mobo) {
-        if (mobo == null) {
-            return false;
-        }
-        // Check if the memory type is supported by the motherboard
-        boolean isMemoryTypeCompatible = this.memoryType.equals(mobo.getMemoryType());
-        return isMemoryTypeCompatible;
-    }
-
     // Getters and setters for all fields
     public List<PcBuild> getPcBuilds() {
         return pcBuilds;
@@ -53,6 +35,7 @@ public class MOBO {
     public void setPcBuilds(List<PcBuild> pcBuilds) {
         this.pcBuilds = pcBuilds;
     }
+
     public Integer getId() {
         return id;
     }
@@ -65,7 +48,10 @@ public class MOBO {
         return name;
     }
 
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getManufacturer() {
         return manufacturer;
     }
@@ -137,6 +123,4 @@ public class MOBO {
     public void setPrice(Double price) {
         this.price = price;
     }
-
-
 }
