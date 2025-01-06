@@ -18,9 +18,6 @@ public class RAM {
     private Integer timings;
     private Integer clockSpeed;
     private Double price;
-    // Inverse side of the relationship to PcBuild
-    @OneToMany(mappedBy = "selectedMemory")
-    private List<PcBuild> pcBuilds;
 
 
     public Double getPrice() {

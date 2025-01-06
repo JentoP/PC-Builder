@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.Optional;
+
 
 /**
  * Controller for handling PC build operations including creating, editing, viewing,
@@ -37,7 +37,6 @@ public class PcBuildController {
     private StorageRepository storage;
     @Autowired
     private PcBuildRepository pcBuildRepository;
-
 
     /**
      * Creates or retrieves a PC build based on the provided ID.
@@ -96,12 +95,11 @@ public class PcBuildController {
      * Handles the POST request to either add a new PC build or edit an existing one.
      * This method also validates the compatibility of selected components.
      * @param pcBuild the PC build object containing selected components.
-     * @param model the model object to store attributes for the view.
      * @param redirectAttributes the redirect attributes to pass flash messages.
      * @return a redirect URL based on the success or failure of the operation.
      */
     @PostMapping({"/addbuild", "/editbuild/{id}"})
-    public String addOrEditPcBuildPost(@ModelAttribute PcBuild pcBuild, Model model, RedirectAttributes redirectAttributes) {
+    public String addOrEditPcBuildPost(@ModelAttribute PcBuild pcBuild, RedirectAttributes redirectAttributes) {
         // Validate compatibility between selected CPU and MOBO
         if (!isCompatible(pcBuild)) {
             redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten zijn niet compatibel met elkaar. Probeer opnieuw.");
@@ -128,7 +126,9 @@ public class PcBuildController {
         Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
         if (optionalPcBuild.isPresent()) {
             PcBuild pcBuild = optionalPcBuild.get();
+           Integer totalWattage = calculateTotalWattage(pcBuild);
             model.addAttribute("pcBuild", pcBuild);
+            model.addAttribute("totalWattage", totalWattage);
             return "user/viewbuild"; // Show build details
         }
         return "redirect:pcbuilds";
@@ -225,4 +225,5 @@ public class PcBuildController {
         }
         return totalWattage;
     }
+
 }

@@ -49,6 +49,15 @@ public class PcBuild {
     private PSU selectedPowerSupply;
 
     private Double totalPrice;
+    private Integer memoryQuantities;
+    private Integer storageQuantities;
+//    private Integer cpuQuantities = 1;
+//    private Integer coolerQuantities = 1;
+//    private Integer gpuQuantities = 1;
+//    private Integer psuQuantities = 1;
+//    private Integer moboQuantities = 1;
+//    private Integer chassisQuantities = 1;
+
 
     public Double calculateTotalPrice() {
         // Calculating total price by adding all the selected component prices
@@ -59,30 +68,14 @@ public class PcBuild {
         if (selectedCase != null) totalPrice += selectedCase.getPrice();
         if (selectedCooler != null) totalPrice += selectedCooler.getPrice();
         if (selectedGPU != null) totalPrice += selectedGPU.getPrice();
-        if (selectedMemory != null) totalPrice += selectedMemory.getPrice();
-        if (selectedStorage != null) totalPrice += selectedStorage.getPrice();
+        if (selectedMemory != null) totalPrice += selectedMemory.getPrice() * memoryQuantities;
+        if (selectedStorage != null) totalPrice += selectedStorage.getPrice() * storageQuantities;
         if (selectedPowerSupply != null) totalPrice += selectedPowerSupply.getPrice();
+
 
         return totalPrice;
     }
-    public void printToTextFile(String filePath) {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write("PC Build Details\n");
-            writer.write("=================\n");
-            writer.write("Build Name: " + buildName + "\n");
-            writer.write("Processor: " + (selectedCPU != null ? selectedCPU.getName() : "None") + "\n");
-            writer.write("Motherboard: " + (selectedMOBO != null ? selectedMOBO.getName() : "None") + "\n");
-            writer.write("Case: " + (selectedCase != null ? selectedCase.getName() : "None") + "\n");
-            writer.write("Cooler: " + (selectedCooler != null ? selectedCooler.getName() : "None") + "\n");
-            writer.write("GPU: " + (selectedGPU != null ? selectedGPU.getName() : "None") + "\n");
-            writer.write("Memory: " + (selectedMemory != null ? selectedMemory.getName() : "None") + "\n");
-            writer.write("Storage: " + (selectedStorage != null ? selectedStorage.getName() : "None") + "\n");
-            writer.write("Power Supply: " + (selectedPowerSupply != null ? selectedPowerSupply.getName() : "None") + "\n");
-            writer.write("Total Price: " + (totalPrice != null ? String.format("%.2f", totalPrice) : "0.00") + "\n");
-        } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
-        }
-    }
+
     // Getters and setters
 
     public Integer getBuildId() {
@@ -165,7 +158,19 @@ public class PcBuild {
         this.selectedPowerSupply = selectedPowerSupply;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public Integer getStorageQuantities() {
+        return storageQuantities;
+    }
+
+    public void setStorageQuantities(Integer storageQuantities) {
+        this.storageQuantities = storageQuantities;
+    }
+
+    public Integer getMemoryQuantities() {
+        return memoryQuantities;
+    }
+
+    public void setMemoryQuantities(Integer memoryQuantities) {
+        this.memoryQuantities = memoryQuantities;
     }
 }

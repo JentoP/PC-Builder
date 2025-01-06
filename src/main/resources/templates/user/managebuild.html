@@ -8,7 +8,7 @@
 
 <main class="container">
     <h2>Computer</h2>
-    <p th:text="${isEditMode} ? 'Beheer uw computer, maak aanpassingen aan uw componenten hieronder.' : 'Maak uw eigen computer, kies componenten uit de lijst hieronder. Voor meer info over een component bezoek de componenten pagina.'"></p>
+    <p th:text="${isEditMode} ? 'Maak aanpassingen aan uw componenten hieronder.' : 'Maak uw eigen computer, kies componenten uit de lijst hieronder. Voor meer info over een component bezoek de componenten pagina.'"></p>
 
     <!-- Display error message if any -->
     <div th:if="${errorMessage}" class="alert-message">
@@ -19,14 +19,14 @@
         <!-- PC Build Name -->
         <div class="form-group">
             <label for="pcBuildName" class="build-text">Naam van uw PC</label>
-                <input type="text" id="pcBuildName" name="buildName" class="form-box" th:field="${pcBuild.buildName}"
-                       required>
+            <input type="text" id="pcBuildName" name="buildName" class="form-box" th:field="${pcBuild.buildName}"
+                   required>
         </div>
 
         <!-- CPU Selection -->
         <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedCPU" class="build-text">Wijzig de processor</label>
-            <select id="selectedCPU" name="selectedCPU" class="form-box">
+            <select id="selectedCPU" name="selectedCPU" class="form-box" required>
                 <option th:each="CPU : ${allProcessors}"
                         th:value="${CPU.id}"
                         th:selected="${isEditMode ? CPU.id == pcBuild.selectedCPU.id : false}"
@@ -38,8 +38,8 @@
             <label for="selectedAddCPU" class="build-text">Kies een processor</label>
             <p>De processor is als de hersenen van je pc. Het verwerkt informatie en geeft instructies aan de rest van
                 de componenten, net zoals je hersenen alles coördineren in je lichaam.</p>
-            <select id="selectedAddCPU" name="selectedCPU" class="form-box">
-                <option value="">-----</option>
+            <select id="selectedAddCPU" name="selectedCPU" class="form-box" required>
+                <option value="" disabled selected></option>
                 <option th:each="CPU : ${allProcessors}"
                         th:value="${CPU.id}"
                         th:text="${CPU.name}">
@@ -50,7 +50,7 @@
         <!-- Moederbord Selection -->
         <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedMOBO" class="build-text">Wijzig het moederbord</label>
-            <select id="selectedMOBO" name="selectedMOBO" class="form-box">
+            <select id="selectedMOBO" name="selectedMOBO" class="form-box" required>
                 <option th:each="mobo : ${allMotherboards}"
                         th:value="${mobo.id}"
                         th:selected="${isEditMode ? mobo.id == pcBuild.selectedMOBO.id : false}"
@@ -63,8 +63,8 @@
             <label for="selectedAddMOBO" class="build-text">Kies het moederbord</label>
             <p>Het moederbord is vergelijkbaar met het zenuwstelsel. Het verbindt alle componenten en zorgt ervoor dat
                 ze met elkaar communiceren, zoals je zenuwen signalen van je hersenen naar je lichaam sturen.</p>
-            <select id="selectedAddMOBO" name="selectedMOBO" class="form-box">
-                <option value="">-----</option>
+            <select id="selectedAddMOBO" name="selectedMOBO" class="form-box" required>
+                <option value=""></option>
                 <option th:each="mobo : ${allMotherboards}"
                         th:value="${mobo.id}"
                         th:text="${mobo.name}">
@@ -75,7 +75,7 @@
         <!-- GPU Selection -->
         <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedGPU" class="build-text">Wijzig de grafische kaart</label>
-            <select id="selectedGPU" name="selectedGPU" class="form-box">
+            <select id="selectedGPU" name="selectedGPU" class="form-box" required>
                 <option th:each="gpu : ${allGPUs}"
                         th:value="${gpu.id}"
                         th:selected="${isEditMode ? gpu.id == pcBuild.selectedGPU.id : false}"
@@ -88,8 +88,8 @@
             <label for="selectedAddGPU" class="build-text">Kies een grafische kaart</label>
             <p>De grafische kaart werkt als de ogen van je pc. Het interpreteert en toont visuele informatie, net zoals
                 je ogen beelden aan je hersenen doorgeven.</p>
-            <select id="selectedAddGPU" name="selectedGPU" class="form-box">
-                <option value="">-----</option>
+            <select id="selectedAddGPU" name="selectedGPU" class="form-box" required>
+                <option value=""></option>
                 <option th:each="gpu : ${allGPUs}"
                         th:value="${gpu.id}"
                         th:text="${gpu.name}">
@@ -99,33 +99,45 @@
 
         <!-- RAM Selection -->
         <div th:if="${isEditMode}" class="form-group mt-3">
-            <label for="selectedAddRAM" class="build-text">Wijzig het geheugen</label>
-            <select id="selectedRAM" name="selectedMemory" class="form-box">
+            <label for="selectedRAM" class="build-text">Wijzig het geheugen</label>
+            <select id="selectedRAM" name="selectedMemory" class="form-box" required>
                 <option th:each="ram : ${allMemory}"
                         th:value="${ram.id}"
                         th:selected="${isEditMode ? ram.id == pcBuild.selectedMemory.id : false}"
                         th:text="${ram.name}">
                 </option>
             </select>
+            <label for="memoryQuantities"></label>
+            <input type="number" id="memoryQuantities" th:field="${pcBuild.memoryQuantities}" class="form-box small"
+                   min="1" max="4"/>
+
         </div>
 
         <div th:unless="${isEditMode}" class="form-group mt-3">
-            <label for="selectedRAM" class="build-text">Kies een geheugen</label>
+            <label for="selectedAddRAM" class="build-text">Kies een geheugen</label>
             <p>Geheugen is vergelijkbaar met je kortetermijngeheugen. Het slaat tijdelijke informatie op die de
                 processor snel nodig heeft, net zoals je hersenen tijdelijk informatie opslaan voor snelle toegang.</p>
-            <select id="selectedAddRAM" name="selectedMemory" class="form-box">
-                <option value="">-----</option>
+
+            <select id="selectedAddRAM" name="selectedMemory" class="form-box" required>
+                <option value=""></option>
                 <option th:each="ram : ${allMemory}"
                         th:value="${ram.id}"
                         th:text="${ram.name}">
                 </option>
             </select>
+
+            <div class="mt-3 small">
+                <label for="memoryAddQuantities">Aantal: </label>
+                <input type="number" id="memoryAddQuantities" th:field="${pcBuild.memoryQuantities}"
+                       class="form-box small" min="1" max="4"/>
+            </div>
         </div>
+
 
         <!-- Chassis Selection -->
         <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedAddChassis" class="build-text">Wijzig de behuizing</label>
-            <select id="selectedChassis" name="selectedCase" class="form-box">
+            <select id="selectedChassis" name="selectedCase" class="form-box" required>
                 <option th:each="chassis : ${allCases}"
                         th:value="${chassis.id}"
                         th:selected="${isEditMode ? chassis.id == pcBuild.selectedCase.id : false}"
@@ -138,8 +150,8 @@
             <label for="selectedChassis" class="build-text">Kies een behuizing</label>
             <p>De behuizing is zoals het skelet van je lichaam. Het beschermt en ondersteunt de interne componenten, net
                 zoals je skelet je organen beschermt en structurele ondersteuning biedt.</p>
-            <select id="selectedAddChassis" name="selectedCase" class="form-box">
-                <option value="">-----</option>
+            <select id="selectedAddChassis" name="selectedCase" class="form-box" required>
+                <option value=""></option>
                 <option th:each="chassis : ${allCases}"
                         th:value="${chassis.id}"
                         th:text="${chassis.name}">
@@ -150,7 +162,7 @@
         <!-- Cooling Selection -->
         <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedAddCooler" class="build-text">Wijzig de koeler</label>
-            <select id="selectedCooler" name="selectedCooler" class="form-box">
+            <select id="selectedCooler" name="selectedCooler" class="form-box" required>
                 <option th:each="cooler : ${allCoolers}"
                         th:value="${cooler.id}"
                         th:selected="${isEditMode ? cooler.id == pcBuild.selectedCooler.id : false}"
@@ -164,8 +176,8 @@
             <label for="selectedCooler" class="build-text">Kies een koeler</label>
             <p>De koeling is als het ademhalingssysteem van je pc. Het houdt alles op temperatuur en voorkomt
                 oververhitting.</p>
-            <select id="selectedAddCooler" name="selectedCooler" class="form-box">
-                <option value="">-----</option>
+            <select id="selectedAddCooler" name="selectedCooler" class="form-box" required>
+                <option value=""></option>
                 <option th:each="cooler : ${allCoolers}"
                         th:value="${cooler.id}"
                         th:text="${cooler.name}">
@@ -176,32 +188,41 @@
         <!-- Storage Selection -->
         <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedStorage" class="build-text">Wijzig de opslag</label>
-            <select id="selectedStorage" name="selectedStorage" class="form-box">
+            <select id="selectedStorage" name="selectedStorage" class="form-box" required>
                 <option th:each="data : ${allStorage}"
                         th:value="${data.id}"
                         th:selected="${isEditMode ? data.id == pcBuild.selectedStorage.id : false}"
                         th:text="${data.name}">
                 </option>
             </select>
+            <label for="storageQuantities"></label>
+            <input type="number" id="storageQuantities" th:field="${pcBuild.storageQuantities}" class="form-box small"
+                   min="1" max="4"/>
         </div>
+
 
         <div th:unless="${isEditMode}" class="form-group mt-3">
             <label for="selectedAddStorage" class="build-text">Kies een opslag</label>
-            <p>Opslag is als je lange termijn geheugen. Het bewaart gegevens voor later gebruik, net zoals je hersenen
+            <p>Opslag is als je langetermijngeheugen. Het bewaart gegevens voor later gebruik, net zoals je hersenen
                 informatie opslaan die je voor langere tijd nodig hebt.</p>
-            <select id="selectedAddStorage" name="selectedStorage" class="form-box">
-                <option value="">-----</option>
+            <select id="selectedAddStorage" name="selectedStorage" class="form-box" required>
+                <option value=""></option>
                 <option th:each="data : ${allStorage}"
                         th:value="${data.id}"
                         th:text="${data.name}">
                 </option>
             </select>
+            <div class="mt-3 small">
+                <label for="storageAddQuantities">Aantal: </label>
+                <input type="number" id="storageAddQuantities" th:field="${pcBuild.storageQuantities}"
+                       class="form-box small" min="1" max="6"/>
+            </div>
         </div>
 
         <!-- Power Supply Selection -->
         <div th:if="${isEditMode}" class="form-group mt-3">
             <label for="selectedPowerSupply" class="build-text">Wijzig de voeding</label>
-            <select id="selectedPowerSupply" name="selectedPowerSupply" class="form-box">
+            <select id="selectedPowerSupply" name="selectedPowerSupply" class="form-box" required>
                 <option th:each="psu : ${allPowerSupplies}"
                         th:value="${psu.id}"
                         th:selected="${isEditMode ? psu.id == pcBuild.selectedPowerSupply.id : false}"
@@ -212,11 +233,11 @@
 
         <div th:unless="${isEditMode}" class="form-group mt-3">
             <label for="selectedAddPowerSupply" class="build-text">Kies een voeding</label>
-            <p>De voeding is als je hart. Het levert energie aan alle onderdelen van je pc, net zoals je hart bloed naar
+            <p>De voeding is als je hart. Het levert energie aan alle onderdelen van je pc, net zoals je hart bloed
+                naar
                 al je organen pompt.</p>
-
-            <select id="selectedAddPowerSupply" name="selectedPowerSupply" class="form-box">
-                <option value="">-----</option>
+            <select id="selectedAddPowerSupply" name="selectedPowerSupply" class="form-box" required>
+                <option value=""></option>
                 <option th:each="psu : ${allPowerSupplies}"
                         th:value="${psu.id}"
                         th:text="${psu.name}">
@@ -231,8 +252,9 @@
                     th:text="${isEditMode} ? 'WIJZIGINGEN OPSLAAN' : 'COMPUTER AANMAKEN'"></button>
         </div>
     </form>
+    <div class="bottom-margin"></div>
+
 </main>
-<div class="bottom-margin"></div>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
