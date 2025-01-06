@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.Optional;
 
 
@@ -41,6 +42,7 @@ public class PcBuildController {
     /**
      * Creates or retrieves a PC build based on the provided ID.
      * If the ID is null, a new PC build is created.
+     *
      * @param id the ID of the PC build to retrieve, can be null for a new build.
      * @return the PcBuild object to be used in the view.
      */
@@ -57,7 +59,8 @@ public class PcBuildController {
      * Adds or edits a PC build depending on whether an ID is provided.
      * This method retrieves the relevant components from repositories
      * and prepares them for use in the view.
-     * @param id the ID of the PC build to edit, can be null for adding a new build.
+     *
+     * @param id    the ID of the PC build to edit, can be null for adding a new build.
      * @param model the model object to store attributes for the view.
      * @return the name of the template to render.
      */
@@ -94,7 +97,8 @@ public class PcBuildController {
     /**
      * Handles the POST request to either add a new PC build or edit an existing one.
      * This method also validates the compatibility of selected components.
-     * @param pcBuild the PC build object containing selected components.
+     *
+     * @param pcBuild            the PC build object containing selected components.
      * @param redirectAttributes the redirect attributes to pass flash messages.
      * @return a redirect URL based on the success or failure of the operation.
      */
@@ -117,7 +121,8 @@ public class PcBuildController {
 
     /**
      * Views the details of a specific PC build.
-     * @param id the ID of the PC build to view.
+     *
+     * @param id    the ID of the PC build to view.
      * @param model the model object to store attributes for the view.
      * @return the name of the template to render.
      */
@@ -126,7 +131,7 @@ public class PcBuildController {
         Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
         if (optionalPcBuild.isPresent()) {
             PcBuild pcBuild = optionalPcBuild.get();
-           Integer totalWattage = calculateTotalWattage(pcBuild);
+            Integer totalWattage = calculateTotalWattage(pcBuild);
             model.addAttribute("pcBuild", pcBuild);
             model.addAttribute("totalWattage", totalWattage);
             return "user/viewbuild"; // Show build details
@@ -136,6 +141,7 @@ public class PcBuildController {
 
     /**
      * Lists all PC builds.
+     *
      * @param model the model object to store attributes for the view.
      * @return the name of the template to render.
      */
@@ -148,6 +154,7 @@ public class PcBuildController {
 
     /**
      * Handles the request to delete a PC build.
+     *
      * @param id the ID of the PC build to delete.
      * @return a redirect URL to the list of PC builds.
      */
@@ -157,11 +164,12 @@ public class PcBuildController {
         if (pcBuild.isPresent()) {
             pcBuildRepository.deleteById(id);
         }
-        return "redirect:user/pcbuilds";
+        return "redirect:/user/pcbuilds";
     }
 
     /**
      * Checks if the selected components are compatible with each other.
+     *
      * @param pcBuild the PC build object containing selected components.
      * @return true if all selected components are compatible, false otherwise.
      */
@@ -208,6 +216,7 @@ public class PcBuildController {
 
     /**
      * Helper method to calculate the total wattage usage of the selected components.
+     *
      * @param pcBuild the PC build object containing selected components.
      * @return the total wattage usage of the selected components.
      */

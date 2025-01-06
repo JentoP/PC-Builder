@@ -24,7 +24,7 @@ public class MOBO {
     private Double price;
 
     // Many-to-One relationship with PcBuild (A MOBO can be part of many builds)
-    @OneToMany(mappedBy = "selectedMOBO")
+    @OneToMany(mappedBy = "selectedMOBO", fetch = FetchType.LAZY)
     private List<PcBuild> pcBuilds = new ArrayList<>();
 
     // Getters and setters for all fields

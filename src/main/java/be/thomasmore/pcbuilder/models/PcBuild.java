@@ -10,7 +10,7 @@ public class PcBuild {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "build_name", length = 26, nullable = false)
+    @Column(name = "build_name", length = 30, nullable = false)
     private String buildName;
 
     // Many-to-one relationships for other components

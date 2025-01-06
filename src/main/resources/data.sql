@@ -140,9 +140,55 @@ VALUES ('Corsair Dominator Platinum', 'Corsair', 12, 32, 'DDR4', 16, 3600, 200),
        ('Patriot Signature Line', 'Patriot', 5, 8, 'DDR4', 19, 2666, 40),
        ('Samsung DDR4-2666', 'Samsung', 5, 16, 'DDR4', 19, 2666, 70);
 
+INSERT INTO CHASSIS (NAME, MANUFACTURER, SIDE_PANEL, MOBO_FORM_FACTOR, PSU_FORM_FACTOR, COLOR, PRICE)
+VALUES ('O11 Dynamic', 'Lian Li', TRUE, 'ATX', 'ATX', 'Black', 130);
+
+INSERT INTO COOLER (NAME, MANUFACTURER, WATER_COOLING, FAN_SIZE, RADIATOR_SIZE, RGB, SOCKET_TYPE, COLOR, PRICE)
+VALUES ('Corsair H150i Elite Capellix LCD', 'Corsair', TRUE, 120, 360, TRUE, 'AM4', 'Black', 180);
+
+INSERT INTO CPU (NAME, MANUFACTURER, ARCHITECTURE, WATTAGE_USAGE, SOCKET_TYPE, CPU_MODEL, CORE_COUNT, CLOCK_SPEED,
+                 PRICE)
+VALUES ('AMD Ryzen 9 5900X', 'AMD', 'Zen 3', 105, 'AM4', 'Ryzen 9 5900X', 12, 3.7, 550);
+
+INSERT INTO DATA (NAME, MANUFACTURER, DATA_MODEL, INTERFACE_TYPE, STORAGE_TYPE, WATTAGE_USAGE, CAPACITY, CACHE_MEMORY,
+                  PRICE)
+VALUES ('Samsung 970 Evo Plus', 'Samsung', 'MZ-V7E1T0BW', 'NVMe', 'SSD', 5, 2000, 1024, 300);
+
+INSERT INTO GPU (NAME, MANUFACTURER, WATTAGE_USAGE, GPU_MODEL, CHIPSET, MEMORY_CAPACITY, INTERFACE_TYPE, CLOCK_SPEED,
+                 COLOR, PRICE)
+VALUES ('MSI Gaming X Trio RTX 4080', 'MSI', 320, 'RTX 4080', 'Ampere', 16, 'PCIe 4.0', '1.44 GHz', 'Black', 1600);
+
+INSERT INTO MOBO (NAME, MANUFACTURER, CHIPSET, WATTAGE_USAGE, MOBO_FORM_FACTOR, MEMORY_TYPE, INTERFACE_TYPE,
+                  SOCKET_TYPE, PRICE, M2SUPPORT)
+VALUES ('Gigabyte B550 AORUS Master', 'Gigabyte', 'B550', 70, 'ATX', 'DDR4', 'PCIe 4.0', 'AM4', 250, 'Yes');
+
+INSERT INTO PSU (NAME, MANUFACTURER, WATTAGE_CAPACITY, PSU_MODEL, EFFICIENCY, PSU_FORM_FACTOR, COLOR, PRICE)
+VALUES ('Corsair RM1000x', 'Corsair', 1000, 'RM1000x', '80+ Gold', 'ATX', 'Black', 130);
+
+INSERT INTO RAM (NAME, MANUFACTURER, WATTAGE_USAGE, MEMORY_CAPACITY, MEMORY_TYPE, TIMINGS, CLOCK_SPEED, PRICE)
+VALUES ('Corsair DDR4 Vengeance RGB', 'Corsair', 10, 64, 'DDR4', 16, 3600, 300);
+
+
+
 INSERT INTO PCBUILDS (BUILD_NAME, CPU_ID, MOBO_ID, GPU_ID, RAM_ID, CHASSIS_ID, COOLER_ID, STORAGE_ID, PSU_ID,
                       MEMORY_QUANTITIES, STORAGE_QUANTITIES)
-VALUES ('My PC Build', 2, 2, 1, 2, 1, 1, 4, 1, 2, 1),
+VALUES
+    ('My PC Build',
+     16,
+     16,
+     16,
+     16,
+     16,
+     16,
+     16,
+     16,
+     4,
+     3);
+
+
+INSERT INTO PCBUILDS (BUILD_NAME, CPU_ID, MOBO_ID, GPU_ID, RAM_ID, CHASSIS_ID, COOLER_ID, STORAGE_ID, PSU_ID,
+                      MEMORY_QUANTITIES, STORAGE_QUANTITIES)
+VALUES ('Test Build', 2, 2, 1, 2, 1, 1, 4, 1, 2, 1),
        ('High-Performance AMD Setup', 2, 3, 2, 3, 2, 3, 2, 3, 2, 1),
        ('Budget Intel Build', 4, 4, 3, 4, 3, 4, 3, 4, 2, 1),
        ('Mid-Range Gaming PC', 3, 2, 3, 2, 2, 2, 3, 2, 2, 1),
@@ -150,6 +196,7 @@ VALUES ('My PC Build', 2, 2, 1, 2, 1, 1, 4, 1, 2, 1),
        ('High-End AMD Gaming PC', 1, 5, 2, 1, 1, 1, 1, 1, 2, 1),
        ('Intel Workstation Build', 3, 1, 4, 1, 2, 2, 1, 3, 2, 1),
        ('Content Creation Build', 1, 3, 1, 2, 2, 1, 2, 2, 2, 2),
-       ('AMD Ryzen 5 Gaming Build', 4, 2, 4, 4, 3, 3, 3, 4, 2, 1),
        ('Entry-Level Work PC', 3, 4, 3, 2, 4, 4, 4, 5, 1, 1);
+
+// Mijn eigen PC
 

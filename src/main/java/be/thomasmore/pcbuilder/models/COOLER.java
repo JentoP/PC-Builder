@@ -21,7 +21,7 @@ public class COOLER {
     private Double price;
 
     // Inverse side of the relationship to PcBuild
-    @OneToMany(mappedBy = "selectedCooler")
+    @OneToMany(mappedBy = "selectedCooler", fetch = FetchType.LAZY)
     private List<PcBuild> pcBuilds;
 
     public List<PcBuild> getPcBuilds() {

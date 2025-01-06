@@ -19,7 +19,7 @@ public class CHASSIS {
     private Double price;
 
     // Inverse side of the relationship to PcBuild
-    @OneToMany(mappedBy = "selectedCase")
+    @OneToMany(mappedBy = "selectedCase", fetch = FetchType.LAZY)
     private List<PcBuild> pcBuilds;
 
     public Double getPrice() {

@@ -23,7 +23,7 @@ public class CPU {
     private Double price;
 
     // Many-to-One relationship with PcBuild (A CPU can be part of many builds)
-    @OneToMany(mappedBy = "selectedCPU")
+    @OneToMany(mappedBy = "selectedCPU", fetch = FetchType.LAZY)
     private List<PcBuild> pcBuilds = new ArrayList<>();
 
     // Getters and setters for all fields

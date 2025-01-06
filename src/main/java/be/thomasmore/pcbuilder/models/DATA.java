@@ -18,7 +18,7 @@ public class DATA {
     private Integer cacheMemory;
     private Double price;
     // Inverse side of the relationship to PcBuild
-    @OneToMany(mappedBy = "selectedStorage")
+    @OneToMany(mappedBy = "selectedStorage", fetch = FetchType.LAZY)
     private List<PcBuild> pcBuilds;
 
     public Double getPrice() {

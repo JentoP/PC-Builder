@@ -21,7 +21,7 @@ public class PSU {
     private Double price;
 
     // Inverse side of the relationship to PcBuild
-    @OneToMany(mappedBy = "selectedPowerSupply")
+    @OneToMany(mappedBy = "selectedPowerSupply", fetch = FetchType.LAZY)
     private List<PcBuild> pcBuilds;
 
     public Double getPrice() {
