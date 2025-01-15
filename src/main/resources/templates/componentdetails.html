@@ -8,7 +8,7 @@
 <main th:object="${component}" th:if="${component}" class="container">
     <div class="header-container">
         <h2 class="container-title" th:text="${component.name}"></h2>
-        <div class="button-container" >
+        <div class="button-container">
             <a class="btn-custom small" th:href="@{|/components/${type}/${previousId}|}">VORIGE</a>
             <a class="btn-custom small" th:href="@{|/components/${type}/${nextId}|}">VOLGENDE</a>
             <a class="btn-custom small" style="margin-left: 20px" th:href="@{|/lists/${type}|}">TERUG</a>
@@ -16,264 +16,289 @@
         </div>
     </div>
 
-        <!-- Common -->
-        <div class="row p-2" th:if="${component.manufacturer}">
-            <div class="col-6 col-sm-4 p-1 m-1">
-                <h3>Fabrikant</h3>
-                <h4 th:text="${component.manufacturer}"></h4>
-            </div>
+    <!-- Common -->
+    <div class="row p-2" th:if="${component.manufacturer}">
+        <div class="col-6 col-sm-4 p-1 m-1">
+            <h3>Fabrikant</h3>
+            <h4 th:text="${component.manufacturer}"></h4>
         </div>
+    </div>
 
-        <div th:switch="${type}">
-            <!-- Processor -->
-            <div th:case="'processor'">
-                <div class="row p-2">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Architectuur</h3>
-                        <h4 th:text="${component.architecture}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Model Naam</h3>
-                        <h4 th:text="${component.cpuModel}"></h4>
-                    </div>
-
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Socket Type</h3>
-                        <h4 th:text="${component.socketType}"></h4>
-                    </div>
+    <div th:switch="${type}">
+        <!-- Processor -->
+        <div th:case="'processor'">
+            <div class="row p-2">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Architectuur</h3>
+                    <h4 th:text="${component.architecture}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Model Naam</h3>
+                    <h4 th:text="${component.cpuModel}"></h4>
                 </div>
 
-                <div class="row p-2">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Aantal Kernen</h3>
-                        <h4 th:text="|${component.coreCount} cores|"></h4>
-                    </div>
-
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Maximum Snelheid</h3>
-                        <h4 th:text="|${component.clockSpeed} GHz|"></h4>
-                    </div>
-                </div>
-
-
-                <div class="row p-2">
-                    <div class="col-6 p-1 m-1" th:if="${component.wattageUsage}">
-                        <h3>Stroomverbruik</h3>
-                        <h4 th:text="|${component.wattageUsage} Watt|"></h4>
-                    </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Socket Type</h3>
+                    <h4 th:text="${component.socketType}"></h4>
                 </div>
             </div>
 
+            <div class="row p-2">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Aantal Kernen</h3>
+                    <h4 th:text="|${component.coreCount} cores|"></h4>
+                </div>
 
-            <!-- Motherboard -->
-            <div th:case="'motherboard'">
-                <div class="row p-2" th:if="${component.chipset}">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Chipset</h3>
-                        <h4 th:text="${component.chipset}"></h4>
-                    </div>
-                </div>
-                <div class="row p-2" th:if="${component.memoryType}">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Geheugen Type</h3>
-                        <h4 th:text="${component.memoryType}"></h4>
-                    </div>
-                </div>
-                <div class="row p-2" th:if="${component.moboFormFactor}">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Vormfactor</h3>
-                        <h4 th:text="${component.moboFormFactor}"></h4>
-                    </div>
-                </div>
-                <div class="row p-2" th:if="${component.interfaceType}">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Interface</h3>
-                        <h4 th:text="${component.interfaceType}"></h4>
-                    </div>
-                </div>
-                <div class="row p-2" th:if="${component.m2Support}">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>NVMe slot</h3>
-                        <h4 th:if="${component.m2Support}">Heeft M.2 support</h4>
-                        <h4 th:unless="${component.m2Support}">Geen M.2 support</h4>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Memory -->
-            <div th:case="'memory'">
-                <div class="row p-2">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Capaciteit</h3>
-                        <h4 th:text="|${component.memoryCapacity} GB|"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Geheugen Type</h3>
-                        <h4 th:text="${component.memoryType}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Timings</h3>
-                        <h4 th:text="${component.timings}"></h4>
-                    </div>
-                </div>
                 <div class="col-6 col-sm-4 p-1 m-1">
                     <h3>Maximum Snelheid</h3>
                     <h4 th:text="|${component.clockSpeed} GHz|"></h4>
                 </div>
             </div>
-            <!-- Storage-->
-            <div th:case="'storage'">
-                <div class="row p-2">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Model</h3>
-                        <h4 th:text="${component.dataModel}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Interface</h3>
-                        <h4 th:text="|${component.interfaceType} connection|"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Type</h3>
-                        <h4 th:text="${component.storageType}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Cache</h3>
-                        <h4 th:text="|${component.cacheMemory} MB|"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Capaciteit</h3>
-                        <h4 th:text="|${component.capacity} GB|"></h4>
-                    </div>
+
+
+            <div class="row p-2">
+                <div class="col-6 p-1 m-1" th:if="${component.wattageUsage}">
+                    <h3>Stroomverbruik</h3>
+                    <h4 th:text="|${component.wattageUsage} Watt|"></h4>
                 </div>
             </div>
-            <!-- Power Supply -->
-            <div th:case="'powersupply'">
-                <div class="row p-2">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Maximum Wattage</h3>
-                        <h4 th:text="${component.wattageCapacity}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Model</h3>
-                        <h4 th:text="${component.psuModel}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Efficiëntie</h3>
-                        <h4 th:text="${component.efficiency}"></h4>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-6 col-sm-4 p-1 m-1">
-                            <h3>Vormfactor</h3>
-                            <h4 th:text="${component.psuFormFactor}"></h4>
-                        </div>
-                        <div class="col-6 col-sm-4 p-1 m-1">
-                            <h3>Kleur</h3>
-                            <h4 th:text="${component.color}"></h4>
-                        </div>
-                    </div>
+        </div>
+
+
+        <!-- Motherboard -->
+        <div th:case="'motherboard'">
+            <div class="row p-2" th:if="${component.chipset}">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Chipset</h3>
+                    <h4 th:text="${component.chipset}"></h4>
                 </div>
             </div>
-            <!-- Computer Case-->
-            <div th:case="'case'">
+            <div class="row p-2" th:if="${component.memoryType}">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Geheugen Type</h3>
+                    <h4 th:text="${component.memoryType}"></h4>
+                </div>
+            </div>
+            <div class="row p-2" th:if="${component.socketType}">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Socket Type</h3>
+                    <h4 th:text="${component.socketType}"></h4>
+                </div>
+            </div>
+            <div class="row p-2" th:if="${component.moboFormFactor}">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Vormfactor</h3>
+                    <h4 th:text="${component.moboFormFactor}"></h4>
+                </div>
+            </div>
+            <div class="row p-2" th:if="${component.interfaceType}">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Interface</h3>
+                    <h4 th:text="${component.interfaceType}"></h4>
+                </div>
+            </div>
+            <div class="row p-2" th:if="${component.m2Support}">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>NVMe slot</h3>
+                    <h4 th:if="${component.m2Support}">Heeft M.2 support</h4>
+                    <h4 th:unless="${component.m2Support}">Geen M.2 support</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memory -->
+        <div th:case="'memory'">
+            <div class="row p-2">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Capaciteit</h3>
+                    <h4 th:text="|${component.memoryCapacity} GB|"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Geheugen Type</h3>
+                    <h4 th:text="${component.memoryType}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Timings</h3>
+                    <h4 th:text="${component.timings}"></h4>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 p-1 m-1">
+                <h3>Maximum Snelheid</h3>
+                <h4 th:text="|${component.clockSpeed} GHz|"></h4>
+            </div>
+        </div>
+        <!-- Storage-->
+        <div th:case="'storage'">
+            <div class="row p-2">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Model</h3>
+                    <h4 th:text="${component.dataModel}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Interface</h3>
+                    <h4 th:text="|${component.interfaceType} connection|"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Type</h3>
+                    <h4 th:text="${component.storageType}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Cache</h3>
+                    <h4 th:text="|${component.cacheMemory} MB|"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Capaciteit</h3>
+                    <h4 th:text="|${component.capacity} GB|"></h4>
+                </div>
+            </div>
+        </div>
+        <!-- Power Supply -->
+        <div th:case="'powersupply'">
+            <div class="row p-2">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Maximum Wattage</h3>
+                    <h4 th:text="${component.wattageCapacity}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Model</h3>
+                    <h4 th:text="${component.psuModel}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Efficiëntie</h3>
+                    <h4 th:text="${component.efficiency}"></h4>
+                </div>
                 <div class="row p-2">
                     <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Moederbord vormfactor</h3>
-                        <h4 th:text="${component.moboFormFactor}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Vormfactor van de voeding</h3>
+                        <h3>Vormfactor</h3>
                         <h4 th:text="${component.psuFormFactor}"></h4>
                     </div>
                     <div class="col-6 col-sm-4 p-1 m-1">
                         <h3>Kleur</h3>
                         <h4 th:text="${component.color}"></h4>
                     </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Zijpaneel</h3>
-                        <h4 th:if="${component.sidePanel}">Heeft een transparent side panel</h4>
-                        <h4 th:unless="${component.sidePanel}">Heeft geen transparent side panel</h4>
-                    </div>
                 </div>
-            </div>
-            <!-- Graphic Card -->
-            <div th:case="'graphiccard'">
-                <div class="row p-2">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Model</h3>
-                        <h4 th:text="${component.gpuModel}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Chipset</h3>
-                        <h4 th:text="${component.chipset}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Geheugen Capaciteit</h3>
-                        <h4 th:text="|${component.memoryCapacity} GB|"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Interface</h3>
-                        <h4 th:text="${component.interfaceType}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Clock Snelheid</h3>
-                        <h4 th:text="${component.clockSpeed}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Wattage</h3>
-                        <h4 th:text="|${component.wattageUsage} watt|"></h4>
-                    </div>
-                </div>
-            </div>
-            <!-- Cooling -->
-            <div th:case="'cooler'">
-                <div class="row p-2">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Waterkoeling</h3>
-                        <h4 th:if="${component.waterCooling}">Ja</h4>
-                        <h4 th:unless="${component.waterCooling}">Nee</h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Fan grootte</h3>
-                        <h4 th:text="|${component.fanSize} mm|"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Radiator</h3>
-                        <h4 th:text="${component.radiatorSize != null ? component.radiatorSize + ' mm' : 'Geen radiator'}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Socket Type</h3>
-                        <h4 th:text="${component.socketType}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Color</h3>
-                        <h4 th:text="${component.color}"></h4>
-                    </div>
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>RGB</h3>
-                        <h4 th:if="${component.RGB}">Heeft RGB</h4>
-                        <h4 th:unless="${component.RGB}">Geen RGB</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- Price -->
-            <div class="col-12 text-center border-price">
-                <h3>Prijs</h3>
-                <h4 th:text="|${'&euro; '}${#strings.replace(#numbers.formatDecimal(component.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
             </div>
         </div>
-        <!-- Navigation -->
-        <div class="d-flex justify-content-between mt-5 bottom-margin">
-            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="get" class="inline-form">
-                <button class="btn-custom" type="submit">TOEVOEGEN</button>
-            </form>
-            <form th:action="@{/admin/editcomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
-                  class="inline-form">
-                <button class="btn-custom" type="submit">AANPASSEN</button>
-            </form>
-            <a th:href="@{/admin/removecomponent/{type}/{id}(type=${type}, id=${id})}" class="btn-custom"
-               onclick="return confirm('Weet je het zeker? Alle PC Builds met dit component worden ook verwijderd!')">VERWIJDEREN</a>
+        <!-- Computer Case-->
+        <div th:case="'case'">
+            <div class="row p-2">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Moederbord vormfactor</h3>
+                    <h4 th:text="${component.moboFormFactor}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Vormfactor van de voeding</h3>
+                    <h4 th:text="${component.psuFormFactor}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Kleur</h3>
+                    <h4 th:text="${component.color}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Zijpaneel</h3>
+                    <h4 th:if="${component.sidePanel}">Heeft een transparent side panel</h4>
+                    <h4 th:unless="${component.sidePanel}">Heeft geen transparent side panel</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Graphic Card -->
+        <div th:case="'graphiccard'">
+            <div class="row p-2">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Model</h3>
+                    <h4 th:text="${component.gpuModel}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Chipset</h3>
+                    <h4 th:text="${component.chipset}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Geheugen Capaciteit</h3>
+                    <h4 th:text="|${component.memoryCapacity} GB|"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Interface</h3>
+                    <h4 th:text="${component.interfaceType}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Clock Snelheid</h3>
+                    <h4 th:text="${component.clockSpeed}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Wattage</h3>
+                    <h4 th:text="|${component.wattageUsage} watt|"></h4>
+                </div>
+            </div>
+        </div>
+        <!-- Cooling -->
+        <div th:case="'cooler'">
+            <div class="row p-2">
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Waterkoeling</h3>
+                    <h4 th:if="${component.waterCooling}">Ja</h4>
+                    <h4 th:unless="${component.waterCooling}">Nee</h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Fan grootte</h3>
+                    <h4 th:text="|${component.fanSize} mm|"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Radiator</h3>
+                    <h4 th:text="${component.radiatorSize != null ? component.radiatorSize + ' mm' : 'Geen radiator'}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Socket Type</h3>
+                    <h4 th:text="${component.socketType}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>Color</h3>
+                    <h4 th:text="${component.color}"></h4>
+                </div>
+                <div class="col-6 col-sm-4 p-1 m-1">
+                    <h3>RGB</h3>
+                    <h4 th:if="${component.RGB}">Heeft RGB</h4>
+                    <h4 th:unless="${component.RGB}">Geen RGB</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Price -->
+        <div class="col-12 text-center border-price">
+            <h3>Prijs</h3>
+            <h4 th:text="|${'&euro; '}${#strings.replace(#numbers.formatDecimal(component.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+        </div>
+    </div>
+    <!-- Navigation -->
+    <div class="d-flex justify-content-between mt-5 bottom-margin">
+        <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="get" class="inline-form">
+            <button class="btn-custom" type="submit">TOEVOEGEN</button>
+        </form>
+        <form th:action="@{/admin/editcomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
+              class="inline-form">
+            <button class="btn-custom" type="submit">AANPASSEN</button>
+        </form>
+        <a th:href="@{/admin/removecomponent/{type}/{id}(type=${type}, id=${id})}" class="btn-custom"
+           onclick="return confirm('Weet je het zeker? Alle PC Builds met dit component worden ook verwijderd!')">VERWIJDEREN</a>
+    </div>
+
+    <div th:if="${componentInUse}" >
+        <h2>Aanwezig in de volgende computers:</h2>
+        <div th:each="build : ${buildsUsingComponent}" class="d-flex align-items-center component-box row" >
+            <div class="col-md-4 col-sm-12 p-1">
+                <h3>Computer naam: </h3>
+                <h4 th:text="${build.buildName}"></h4>
+            </div>
+            <div class="col-md-4 col-sm-12 p-1">
+                <h3>Prijs</h3>
+                <h4 th:text="|${'&euro; '}${#strings.replace(#numbers.formatDecimal(build.calculateTotalPrice(),0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
+            </div>
+            <div class="col-md-4 col-sm-12 p-1 d-flex flex-column align-items-end">
+                <a type="button" class="btn-custom" th:href="@{/user/viewbuild/{id}(id=${build.getBuildId()})}">BEKIJKEN</a>
+            </div>
+
         </div>
 
+    </div>
+    <div class="bottom-margin"></div>
 </main>
 
 <main th:object="${component}" th:unless="${component}">

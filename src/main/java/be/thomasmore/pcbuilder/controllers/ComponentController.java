@@ -30,6 +30,8 @@ public class ComponentController {
     private ProcessorRepository processors;
     @Autowired
     private StorageRepository storage;
+    @Autowired
+    private PcBuildRepository pcBuilds;
 
     private static final double DEFAULT_MIN_PRICE = 0.0;
     private static final double DEFAULT_MAX_PRICE = Double.MAX_VALUE;
@@ -469,6 +471,46 @@ public class ComponentController {
             model.addAttribute("component", componentFromDb.get());
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
             model.addAttribute("nextId", id < count ? id + 1 : 1);
+            boolean isComponentInUse = false;
+            List<PcBuild> buildsUsingComponent = new ArrayList<>();
+            switch (type) {
+                case "processor":
+                    buildsUsingComponent = pcBuilds.findBuildsByCPU(id);
+                    isComponentInUse = !buildsUsingComponent.isEmpty();
+                    break;
+                case "motherboard":
+                    buildsUsingComponent = pcBuilds.findBuildsByMOBO(id);
+                    isComponentInUse = !buildsUsingComponent.isEmpty();
+                    break;
+                case "memory":
+                    buildsUsingComponent = pcBuilds.findBuildsByMemory(id);
+                    isComponentInUse = !buildsUsingComponent.isEmpty();
+                    break;
+                case "storage":
+                    buildsUsingComponent = pcBuilds.findBuildsByStorage(id);
+                    isComponentInUse = !buildsUsingComponent.isEmpty();
+                    break;
+                case "graphiccard":
+                    buildsUsingComponent= pcBuilds.findBuildsByGPU(id);
+                    isComponentInUse = !buildsUsingComponent.isEmpty();
+                    break;
+                case "case":
+                    buildsUsingComponent= pcBuilds.findBuildsByCase(id);
+                    isComponentInUse = !buildsUsingComponent.isEmpty();
+                    break;
+                case "cooler":
+                    buildsUsingComponent= pcBuilds.findBuildsByCooler(id);
+                    isComponentInUse = !buildsUsingComponent.isEmpty();
+                    break;
+                case "powersupply":
+                    buildsUsingComponent = pcBuilds.findBuildsByPowerSupply(id);
+                    isComponentInUse = !buildsUsingComponent.isEmpty();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid component type: " + type);
+            }
+            model.addAttribute("componentInUse", isComponentInUse);
+            model.addAttribute("buildsUsingComponent", buildsUsingComponent);
         }
         model.addAttribute("type", type);
         return "componentdetails";
@@ -509,6 +551,7 @@ public class ComponentController {
     /**
      * Zoekt een specifiek component op basis van type en ID in de database.
      * Optional<?> is a Java class that represents a value that may or may not be present. The ? is a wildcard character that means the type of the value is unknown. In this context, it's used to represent a component that could be of any type (e.g. processor, motherboard, case, etc.)
+     *
      * @param type het type van het component (bijv. processor, moederbord, enz.)
      * @param id   het ID van het component
      * @return een Optional met het component als het wordt gevonden, anders Optional.empty()

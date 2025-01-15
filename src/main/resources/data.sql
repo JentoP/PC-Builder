@@ -188,8 +188,8 @@ VALUES
 
 INSERT INTO PCBUILDS (BUILD_NAME, CPU_ID, MOBO_ID, GPU_ID, RAM_ID, CHASSIS_ID, COOLER_ID, STORAGE_ID, PSU_ID,
                       MEMORY_QUANTITIES, STORAGE_QUANTITIES)
-VALUES ('Test Build', 2, 2, 1, 2, 1, 1, 4, 1, 2, 1),
-       ('High-Performance AMD Setup', 2, 3, 2, 3, 2, 3, 2, 3, 2, 1),
+VALUES ('Test Build', 2, 3, 1, 2, 1, 1, 4, 1, 2, 1),
+       ('High-Performance AMD Setup', 2, 4, 2, 3, 2, 3, 2, 3, 2, 1),
        ('Budget Intel Build', 4, 4, 3, 4, 3, 4, 3, 4, 2, 1),
        ('Mid-Range Gaming PC', 3, 2, 3, 2, 2, 2, 3, 2, 2, 1),
        ('Ultra Budget Build', 4, 4, 4, 3, 4, 4, 4, 5, 1, 1),

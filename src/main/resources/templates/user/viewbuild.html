@@ -41,7 +41,7 @@
             <div class="flex-grow-1 small">
                 <h5>Moederbord</h5>
                 <h4 th:text="${pcBuild.selectedMOBO.name}"></h4>
-                <a th:href="@{/components/processor/{id}(id=${pcBuild.selectedCPU.id})}" class="btn-custom small"
+                <a th:href="@{/components/motherboard/{id}(id=${pcBuild.selectedCPU.id})}" class="btn-custom small"
                    th:text="'DETAILS'" title="Klik hier om details over deze processor te bekijken"></a>
             </div>
             <div class="d-flex flex-column align-items-end ms-auto">
@@ -164,8 +164,9 @@
             <p th:text="|${totalWattage} watt|"></p>
         </div>
         <div class="d-flex justify-content-between mt-5 bottom-margin">
-            <a th:href="@{/user/editbuild/{id}(id=${pcBuild.getBuildId()})}" class="btn-custom">BEWERKEN</a>
             <a th:href="@{/user/pcbuilds}" class="btn-custom">TERUG</a>
+            <a th:href="@{/user/editbuild/{id}(id=${pcBuild.getBuildId()})}" class="btn-custom">BEWERKEN</a>
+
             <a th:href="@{/user/deletebuild/{id}(id=${pcBuild.getBuildId()})}" class="btn-custom"
                onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">VERWIJDEREN</a>
         </div>
