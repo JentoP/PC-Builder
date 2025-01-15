@@ -9,9 +9,8 @@
 <main class="container">
     <h2>Processoren in stock</h2>
     <p>Op deze pagina vind je alle beschikbare processorcomponenten die momenteel op voorraad zijn.</p>
-    <p>Je kunt zoeken en filteren op naam, fabrikant, socket, kern, architectuur of prijs. Klik op de naam van een
-        component
-        om meer details te zien.</p>
+    <p>Je kunt zoeken en filteren op naam, fabrikant, socket, kern, architectuur of prijs. Klik op de knop 'details' van een
+        component om meer informatie te zien.</p>
 
     <div class="container">
         <div class="row">
@@ -59,13 +58,13 @@
                         </div>
 
                         <!--                         Core Filter -->
-                        <label for="filterCore" class="form-label mt-2">Kern</label>
+                        <label for="filterClockSpeed" class="form-label mt-2">Snelheid</label>
                         <div class="container input-group row">
-                            <select id="filterCore" name="filterCore" class="filter-box">
+                            <select id="filterClockSpeed" name="filterClockSpeed" class="filter-box">
                                 <option value="">----</option>
                                 <option th:each="p : ${allProcessors}"
-                                        th:value="${p.coreCount}"
-                                        th:text="${p.coreCount}"
+                                        th:value="${p.clockSpeed}"
+                                        th:text="${p.clockSpeed}"
                                 ></option>
                             </select>
                         </div>

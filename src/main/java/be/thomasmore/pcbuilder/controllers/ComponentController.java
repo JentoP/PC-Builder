@@ -462,22 +462,15 @@ public class ComponentController {
      */
     @GetMapping("/components/{type}/{id}")
     public String componentDetails(@PathVariable String type, @PathVariable Integer id, Model model) {
-        // Haalt het totaal aantal componenten van een bepaald type op
         long count = getCount(type);
-        // Vindt het specifieke component op basis van het type en ID uit de database
         Optional<?> componentFromDb = getComponentFromDb(type, id);
 
         if (componentFromDb.isPresent()) {
-            // Voeg het gevonden component toe aan het model
             model.addAttribute("component", componentFromDb.get());
-            // Voeg het ID van het vorige component toe (circulair: terug naar het laatste als ID 1 is)
             model.addAttribute("previousId", id > 1 ? id - 1 : count);
-            // Voeg het ID van het volgende component toe (circulair: terug naar het eerste als het het laatste is)
             model.addAttribute("nextId", id < count ? id + 1 : 1);
         }
-        // Voeg het type component toe aan het model om een dynamische detailpagina te genereren
         model.addAttribute("type", type);
-        // Retourneer de naam van de Thymeleaf-template voor de detailpagina
         return "componentdetails";
     }
 
