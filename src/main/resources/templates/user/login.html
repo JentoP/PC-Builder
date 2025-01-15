@@ -19,10 +19,13 @@
                 <label class="build-text" for="password">Wachtwoord:</label>
                 <input type="password" class="form-box" id="password" name="password" required>
             </div>
-            <div class="">
-                <button type="submit" class="btn-custom mt-5">Inloggen</button>
-                <a th:href="@{/register}" class="btn-custom mt-5">Terug</a>
+            <div class="button-container">
+                <div class="row">
+                    <button type="submit" class="btn-custom mt-5">Inloggen</button>
+                    <a th:href="@{/account}" class="btn-custom mt-5">Terug</a>
+                </div>
             </div>
+
         </form>
 
     </div>

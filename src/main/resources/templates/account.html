@@ -5,24 +5,28 @@
 
 <body class="d-flex flex-column h-100">
 <main class="container">
-        <div class="d-flex justify-content-center align-items-center">
-            <img th:src="@{/img/uwpcbe7.png}" alt="Logo" width="200" height="100" class="">
-        </div>
-        <div class="text-center m-5">
-            <h3 sec:authorize="isAuthenticated()" th:text="|Hallo ${#authentication.name}!|"></h3>
-            <h3 sec:authorize="isAnonymous()" th:text="|Hallo! U bent nog niet ingelogd.|"></h3>
-
-            <p sec:authorize="isAuthenticated()" th:text="|U bent succesvol ingelogd.|"></p>
+    <div class="d-flex justify-content-center align-items-center">
+        <img th:src="@{/img/uwpcbe7.png}" alt="Logo" width="200" height="100" class="">
     </div>
-    <div class="row text-center m-5">
-        <a class="btn-custom col m-4" sec:authorize="isAnonymous()" th:href="@{/user/login}" role="button">INLOGGEN</a>
+    <div class="text-center">
+        <h2 class="m-5">Account</h2>
+        <h3 sec:authorize="isAuthenticated()" th:text="|Hallo ${#authentication.name}!|"></h3>
+        <h3 sec:authorize="isAnonymous()" th:text="|Hallo!|"></h3>
+        <p sec:authorize="isAnonymous()" th:text="|U bent nog niet ingelogd.|"></p>
 
-        <a class="btn-custom col m-4" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"
-           role="button">UITLOGGEN</a>
+        <p sec:authorize="isAuthenticated()" th:text="|U bent succesvol ingelogd.|"></p>
 
-        <a class="btn-custom col m-4" sec:authorize="isAnonymous()" th:href="@{/user/register}"
-           role="button">REGISTREREN</a>
+    <div class="button-container">
+        <div class="row">
+            <a class="btn-custom" sec:authorize="isAnonymous()" th:href="@{/user/login}"
+               role="button">INLOGGEN</a>
 
+            <a class="btn-custom mt-5" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"
+               role="button">UITLOGGEN</a>
+
+            <a class="btn-custom mt-5" sec:authorize="isAnonymous()" th:href="@{/user/register}"
+               role="button">REGISTREREN</a>
+        </div>
     </div>
 </main>
 </body>
