@@ -4,29 +4,18 @@
 
 <body class="d-flex flex-column h-100">
 <header th:replace="~{fragments/header :: header}"></header>
-
-<main th:object="${component}" th:if="${component}">
-
+<h1 th:text="Specificaties"></h1>
+<main th:object="${component}" th:if="${component}" class="container">
     <div class="header-container">
-        <h1 th:text="Specificaties"></h1>
+        <h2 class="container-title" th:text="${component.name}"></h2>
+        <div class="button-container" >
+            <a class="btn-custom small" th:href="@{|/components/${type}/${previousId}|}">VORIGE</a>
+            <a class="btn-custom small" th:href="@{|/components/${type}/${nextId}|}">VOLGENDE</a>
+            <a class="btn-custom small" style="margin-left: 20px" th:href="@{|/lists/${type}|}">TERUG</a>
 
-        <div class="button-container">
-            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="get" class="inline-form">
-                <button class="btn-custom" type="submit">Toevoegen</button>
-            </form>
-            <form th:action="@{/admin/editcomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
-                  class="inline-form">
-                <button class="btn-custom" type="submit">Aanpassen</button>
-            </form>
-            <form th:action="@{/admin/removecomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
-                  class="inline-form">
-                <button class="btn-custom" type="submit">Verwijderen</button>
-            </form>
         </div>
     </div>
 
-    <div class="container">
-        <h2 th:text="${component.name}"></h2>
         <!-- Common -->
         <div class="row p-2" th:if="${component.manufacturer}">
             <div class="col-6 col-sm-4 p-1 m-1">
@@ -274,11 +263,16 @@
         </div>
         <!-- Navigation -->
         <div class="d-flex justify-content-between mt-5 bottom-margin">
-            <a class="btn-custom" th:href="@{|/components/${type}/${previousId}|}"><<</a>
-            <a class="btn-custom" th:href="@{|/lists/${type}|}">GA TERUG</a>
-            <a class="btn-custom" th:href="@{|/components/${type}/${nextId}|}">>></a>
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="get" class="inline-form">
+                <button class="btn-custom" type="submit">TOEVOEGEN</button>
+            </form>
+            <form th:action="@{/admin/editcomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
+                  class="inline-form">
+                <button class="btn-custom" type="submit">AANPASSEN</button>
+            </form>
+            <a th:href="@{/admin/removecomponent/{type}/{id}(type=${type}, id=${id})}" class="btn-custom"
+               onclick="return confirm('Weet je het zeker? Alle PC Builds met dit component worden ook verwijderd!')">VERWIJDEREN</a>
         </div>
-    </div>
 
 </main>
 

@@ -6,12 +6,15 @@
 <body class="d-flex flex-column h-100">
 <main class="container">
     <div class="container">
-        <img th:src="@{/img/uwpcbe7.png}" alt="Logo" width="150" height="70" class="">
-
+        <div class="d-flex justify-content-center align-items-center">
+            <img th:src="@{/img/uwpcbe7.png}" alt="Logo" width="200" height="100" class="">
+        </div>
         <div class="row text-center m-5">
             <a class="btn-custom col m-4 " th:href="@{/login}" role="button">INLOGGEN</a>
             <a class="btn-custom col m-4 " th:href="@{/register}" role="button">REGISTREREN</a>
         </div>
+    </div>
+</main>
 </body>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>

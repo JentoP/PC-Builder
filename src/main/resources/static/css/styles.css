@@ -125,8 +125,17 @@ body p {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: #7b3cd0 1px solid;
 }
-
+.container-title{
+    background: linear-gradient(to bottom, #7b3cd0, #1e90ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 2px;
+    border-bottom: none !important;
+}
 .button-container {
     display: flex;
     gap: 10px;

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminComponentController {
@@ -27,8 +29,10 @@ public class AdminComponentController {
     private ProcessorRepository processors;
     @Autowired
     private StorageRepository storage;
+    @Autowired
+    private PcBuildRepository pcBuilds;
 
-//Models
+    //Models
     @ModelAttribute("processor")
     public CPU findProcessor(@PathVariable(required = false) Integer id) {
         if (id == null) {
@@ -93,7 +97,7 @@ public class AdminComponentController {
         return powerSupplies.findById(id).orElse(null);
     }
 
-//Add view
+    //Add view
     @GetMapping("/addcomponent/{type}")
     public String addComponent(@PathVariable String type, Model model) {
         Object component;
@@ -131,7 +135,7 @@ public class AdminComponentController {
         return "admin/addcomponent";
     }
 
-//Edit view
+    //Edit view
     @GetMapping("/editcomponent/{type}/{id}")
     public String editComponent(@PathVariable String type, @PathVariable Integer id, Model model) {
         Object component;
@@ -169,41 +173,87 @@ public class AdminComponentController {
         return "admin/editcomponent";
     }
 
-//    delete view
-    @DeleteMapping("/removecomponent/{type}/{id}")
-    public String removeComponent(@PathVariable String type, @PathVariable Integer id) {
+    //    delete view
+//    verwijderd ook een pcbuild waar het te verwijderen component in bevindt
+    @GetMapping("/removecomponent/{type}/{id}")
+    public String removeComponent(@PathVariable String type, @PathVariable Integer id, Model model) {
         switch (type) {
             case "processor":
+                removeSavedBuildsByComponent(id, "CPU");
                 processors.deleteById(id);
                 break;
             case "motherboard":
+                removeSavedBuildsByComponent(id, "MOBO");
                 motherboards.deleteById(id);
                 break;
             case "memory":
+                removeSavedBuildsByComponent(id, "RAM");
                 memoryKits.deleteById(id);
                 break;
             case "storage":
+                removeSavedBuildsByComponent(id, "DATA");
                 storage.deleteById(id);
                 break;
             case "graphiccard":
+                removeSavedBuildsByComponent(id, "GPU");
                 graphicCards.deleteById(id);
                 break;
             case "case":
+                removeSavedBuildsByComponent(id, "CHASSIS");
                 cases.deleteById(id);
                 break;
             case "cooler":
+                removeSavedBuildsByComponent(id, "COOLER");
                 coolers.deleteById(id);
                 break;
             case "powersupply":
+                removeSavedBuildsByComponent(id, "PSU");
                 powerSupplies.deleteById(id);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid component type: " + type);
         }
-        return "redirect:/lists/{type}";
+
+        return "redirect:/lists/" + type;
     }
 
-//add en update post methodes
+    private void removeSavedBuildsByComponent(Integer componentId, String type) {
+        List<PcBuild> builds;
+        switch (type) {
+            case "CPU":
+                builds = pcBuilds.findBuildsByCPU(componentId);
+                break;
+            case "MOBO":
+                builds = pcBuilds.findBuildsByMOBO(componentId);
+                break;
+            case "RAM":
+                builds = pcBuilds.findBuildsByMemory(componentId);
+                break;
+            case "DATA":
+                builds = pcBuilds.findBuildsByStorage(componentId);
+                break;
+            case "GPU":
+                builds = pcBuilds.findBuildsByGPU(componentId);
+                break;
+            case "CHASSIS":
+                builds = pcBuilds.findBuildsByCase(componentId);
+                break;
+            case "COOLER":
+                builds = pcBuilds.findBuildsByCooler(componentId);
+                break;
+            case "PSU":
+                builds = pcBuilds.findBuildsByPowerSupply(componentId);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid component type: " + type);
+        }
+        for (PcBuild build : builds) {
+            pcBuilds.delete(build);
+        }
+    }
+
+
+    //add en update post methodes
     @PostMapping("/addcomponent/processor")
     public String saveProcessor(@ModelAttribute("processor") CPU component) {
         CPU newCPU = processors.save(component);
