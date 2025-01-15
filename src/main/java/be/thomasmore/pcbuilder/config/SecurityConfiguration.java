@@ -1,9 +1,9 @@
 package be.thomasmore.pcbuilder.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -21,16 +21,21 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
-    //    dataSource(dataSource): we geven de default datasource voor onze applicatie door als datasouce
-//    Noot: een datasource is een object dat gebruikt wordt om te connecteren met een database
+
     @Autowired
+//    dataSource(dataSource): we geven de default datasource voor onze applicatie door als datasouce
+//    Noot: een datasource is een object dat gebruikt wordt om te connecteren met een database
     private DataSource dataSource;
+
+
+    @Value("true")
+    private boolean h2ConsoleNeeded;
+
 
 //    Functie jdbcUserDetailsManager: hiermee zeggen we Spring dat we jdbc
 //    Authentication willen gebruiken. Dat betekent dat Spring de users en passwords uit
 //    de database zal halen
 //    Noot: jdbc = java database connectivity
-
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager() {
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
@@ -38,10 +43,7 @@ public class SecurityConfiguration {
         userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
         return userDetailsManager;
     }
-//        return new JdbcUserDetailsManager(dataSource);
-
-
-    //    Functie passwordEncoder: hiermee geven we aan welke soort encrypte we willen
+//    Functie passwordEncoder: hiermee geven we aan welke soort encrypte we willen
 //    gebruiken om de passwoorden op te slaan in de database. Als je dit niet doet dan zal het login proces niet werken.
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -58,9 +60,8 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(auth -> auth.requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER", "ADMIN"));
 
 
-//        De method http.authorizeHttpRequests(…) heeft als parameter een lambda functie
-        http.authorizeHttpRequests(auth -> auth
 //                Dus: als je een url request die begint met ‘/admin/’ dan moet je ingelogd zijn.
+        http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasAuthority("ADMIN")
 //                Dus: elke request die niet met ‘/admin’ begint is toegankelijk voor iedereen.
                 .anyRequest().permitAll());
@@ -72,8 +73,11 @@ public class SecurityConfiguration {
         http.logout(form -> form.logoutUrl("/user/logout"));
 
 //        enables h2-console
-        http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()));
+        //to enable h2-console:
+        if (h2ConsoleNeeded) {
+                  http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()));
         http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+        }
         return http.build();
     }
 }

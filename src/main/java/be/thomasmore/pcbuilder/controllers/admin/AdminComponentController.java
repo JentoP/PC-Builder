@@ -47,6 +47,7 @@ public class AdminComponentController {
      * @return a CPU object from the database or a new instance if the ID is null.
      *
      * explanation: This method retrieves a CPU by its ID. If no ID is provided, it creates a new CPU object.
+     * This method is similar to the following methods
      */
     @ModelAttribute("processor")
     public CPU findProcessor(@PathVariable(required = false) Integer id) {
@@ -111,6 +112,9 @@ public class AdminComponentController {
         }
         return powerSupplies.findById(id).orElse(null);
     }
+
+
+    //Add view
     /**
      * Displays the form for adding a new component based on the specified type.
      *
@@ -120,7 +124,6 @@ public class AdminComponentController {
      *
      * Non-coder explanation: This method determines the type of component to add, prepares a blank form, and shows it to the user.
      */
-    //Add view
     @GetMapping("/addcomponent/{type}")
     public String addComponent(@PathVariable String type, Model model) {
         Object component;
@@ -159,6 +162,16 @@ public class AdminComponentController {
     }
 
     //Edit view
+    /**
+     * Loads an existing component of the given type and ID for editing and populates the model with the component data.
+     *
+     * @param type the type of the component to edit
+     * @param id the ID of the component to edit
+     * @param model the model to populate with the component data
+     * @return the name of the view for editing a component
+     *
+     * This method fetches the details of an existing component for updating. It ensures the right information is displayed in the editing form.
+     */
     @GetMapping("/editcomponent/{type}/{id}")
     public String editComponent(@PathVariable String type, @PathVariable Integer id, Model model) {
         Object component;
@@ -198,6 +211,16 @@ public class AdminComponentController {
     }
 
     //    delete view
+    /**
+     * Handles the deletion of a component and its associated PC builds based on the provided type and ID.
+     *
+     * @param type the type of the component to delete
+     * @param id the ID of the component to delete
+     * @param model the model to populate with data (if needed)
+     * @return a redirect URL to the list of components of the given type
+     *
+     * This method removes a selected component from the database and also deletes any PC builds that use this component.
+     */
 //    verwijderd ook een pcbuild waar het te verwijderen component in bevindt
     @GetMapping("/removecomponent/{type}/{id}")
     public String removeComponent(@PathVariable String type, @PathVariable Integer id, Model model) {
@@ -280,6 +303,15 @@ public class AdminComponentController {
 
 
     //add en update post methodes
+
+    /**
+     * Saves a new processor to the database and redirects to its details page.
+     *
+     * @param component the CPU object to save
+     * @return a redirect URL to the details page of the saved processor
+     *
+     * This method saves a newly created processor in the system and takes you to the page showing its details.
+     */
     @PostMapping("/addcomponent/processor")
     public String saveProcessor(@ModelAttribute("processor") CPU component) {
         CPU newCPU = processors.save(component);

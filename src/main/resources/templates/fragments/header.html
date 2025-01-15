@@ -23,6 +23,11 @@
                     <a class="nav-link" th:href="@{/components}">Componenten</a>
                     <a class="nav-link" th:href="@{/account}">Account</a>
                 </div>
+
+            </div>
+            <div sec:authorize="isAuthenticated()" class="small ml-5">
+                <span>Ingelogd als: </span>
+                <span sec:authentication="name"></span>
             </div>
         </div>
     </nav>
