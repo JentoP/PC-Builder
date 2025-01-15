@@ -2,6 +2,8 @@ package be.thomasmore.pcbuilder.controllers;
 
 import be.thomasmore.pcbuilder.models.*;
 import be.thomasmore.pcbuilder.repos.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -35,6 +38,7 @@ public class ComponentController {
 
     private static final double DEFAULT_MIN_PRICE = 0.0;
     private static final double DEFAULT_MAX_PRICE = Double.MAX_VALUE;
+    private final Logger logger = LoggerFactory.getLogger(ComponentController.class);
 
     /**
      * Displays the components page.
@@ -463,7 +467,10 @@ public class ComponentController {
      * @return de naam van de Thymeleaf-template voor de detailpagina van het component
      */
     @GetMapping("/components/{type}/{id}")
-    public String componentDetails(@PathVariable String type, @PathVariable Integer id, Model model) {
+    public String componentDetails(@PathVariable String type, @PathVariable Integer id, Model model, Principal principal) {
+        final String loginName = principal != null ? principal.getName() : null;
+        logger.info("Login name: " + loginName);
+
         long count = getCount(type);
         Optional<?> componentFromDb = getComponentFromDb(type, id);
 

@@ -137,7 +137,7 @@ body p {
     border-bottom: none !important;
 }
 .button-container {
-    display: flex;
+    display: inline-flex;
     gap: 10px;
 }
 

@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html class="h-100" lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html class="h-100" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
 <header th:replace="~{fragments/header :: header}"></header>
 
 <body class="d-flex flex-column h-100">
-<h1>Welkom bij <i>UW PC</i> !</h1>
+<h1 sec:authorize="isAuthenticated()" th:text="|Welkom terug ${#authentication.name}!|"></h1>
+
+<h1 sec:authorize="isAnonymous()" >Welkom bij UW PC!</h1>
 <main class="container">
 <h2>De ultieme bestemming voor uw Persoonlijke Computer</h2>
-
 <div class="row">
     <div class="intro-container col">
         <p>Wij geloven dat elke individu recht heeft op een computer die past bij zijn of haar unieke behoeften en persoonlijkheid. Of je nu een gamer bent die op zoek is naar de ultieme prestaties, een creatieve professional die krachtige graphics nodig heeft, of gewoon een betrouwbare machine voor dagelijks gebruik, op deze site kun je alles vinden wat je nodig hebt.</p>

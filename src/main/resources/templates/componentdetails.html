@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html class="h-100" lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html class="h-100" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: headerelement('Component details')}"></head>
 
 <body class="d-flex flex-column h-100">
@@ -9,10 +9,9 @@
     <div class="header-container">
         <h2 class="container-title" th:text="${component.name}"></h2>
         <div class="button-container">
-            <a class="btn-custom small" th:href="@{|/components/${type}/${previousId}|}">VORIGE</a>
+            <a class="btn-custom small"  th:href="@{|/components/${type}/${previousId}|}">VORIGE</a>
             <a class="btn-custom small" th:href="@{|/components/${type}/${nextId}|}">VOLGENDE</a>
             <a class="btn-custom small" style="margin-left: 20px" th:href="@{|/lists/${type}|}">TERUG</a>
-
         </div>
     </div>
 
@@ -269,14 +268,14 @@
     </div>
     <!-- Navigation -->
     <div class="d-flex justify-content-between mt-5 bottom-margin">
-        <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="get" class="inline-form">
+        <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/admin/addcomponent/{type}(type=${type})}" method="get" class="inline-form">
             <button class="btn-custom" type="submit">TOEVOEGEN</button>
         </form>
-        <form th:action="@{/admin/editcomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
+        <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/admin/editcomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
               class="inline-form">
             <button class="btn-custom" type="submit">AANPASSEN</button>
         </form>
-        <a th:href="@{/admin/removecomponent/{type}/{id}(type=${type}, id=${id})}" class="btn-custom"
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/removecomponent/{type}/{id}(type=${type}, id=${id})}" class="btn-custom"
            onclick="return confirm('Weet je het zeker? Alle PC Builds met dit component worden ook verwijderd!')">VERWIJDEREN</a>
     </div>
 

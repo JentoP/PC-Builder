@@ -1,20 +1,28 @@
-<!DOCTYPE html>
-<html class="h-100" lang="en">
-<head th:replace="~{fragments/header :: headerelement('Computers, assemble!')}"></head>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html class="h-100" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: headerelement('Account')}"></head>
 <header th:replace="~{fragments/header :: header}"></header>
 
 <body class="d-flex flex-column h-100">
 <main class="container">
-    <div class="container">
         <div class="d-flex justify-content-center align-items-center">
             <img th:src="@{/img/uwpcbe7.png}" alt="Logo" width="200" height="100" class="">
         </div>
-        <div class="row text-center m-5">
-            <a class="btn-custom col m-4 " th:href="@{/login}" role="button">INLOGGEN</a>
-            <a class="btn-custom col m-4 " th:href="@{/logout}" role="button">UITLOGGEN</a>
-            <a class="btn-custom col m-4 " th:href="@{/register}" role="button">REGISTREREN</a>
+        <div class="text-center m-5">
+            <h3 sec:authorize="isAuthenticated()" th:text="|Hallo ${#authentication.name}!|"></h3>
+            <h3 sec:authorize="isAnonymous()" th:text="|Hallo! U bent nog niet ingelogd.|"></h3>
 
-        </div>
+            <p sec:authorize="isAuthenticated()" th:text="|U bent succesvol ingelogd.|"></p>
+    </div>
+    <div class="row text-center m-5">
+        <a class="btn-custom col m-4" sec:authorize="isAnonymous()" th:href="@{/user/login}" role="button">INLOGGEN</a>
+
+        <a class="btn-custom col m-4" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"
+           role="button">UITLOGGEN</a>
+
+        <a class="btn-custom col m-4" sec:authorize="isAnonymous()" th:href="@{/user/register}"
+           role="button">REGISTREREN</a>
+
     </div>
 </main>
 </body>

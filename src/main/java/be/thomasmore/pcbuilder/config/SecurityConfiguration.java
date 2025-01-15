@@ -21,14 +21,23 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
+    //    dataSource(dataSource): we geven de default datasource voor onze applicatie door als datasouce
+//    Noot: een datasource is een object dat gebruikt wordt om te connecteren met een database
     @Autowired
     private DataSource dataSource;
+
+//    Functie jdbcUserDetailsManager: hiermee zeggen we Spring dat we jdbc
+//    Authentication willen gebruiken. Dat betekent dat Spring de users en passwords uit
+//    de database zal halen
+//    Noot: jdbc = java database connectivity
 
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager() {
         return new JdbcUserDetailsManager(dataSource);
     }
 
+    //    Functie passwordEncoder: hiermee geven we aan welke soort encrypte we willen
+//    gebruiken om de passwoorden op te slaan in de database. Als je dit niet doet dan zal het login proces niet werken.
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -42,11 +51,14 @@ public class SecurityConfiguration {
 //        De method http.authorizeHttpRequests(…) heeft als parameter een lambda functie
         http.authorizeHttpRequests(auth -> auth
 //                Dus: als je een url request die begint met ‘/admin/’ dan moet je ingelogd zijn.
-                .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasAuthority("ADMIN")
 //                Dus: elke request die niet met ‘/admin’ begint is toegankelijk voor iedereen.
                 .anyRequest().permitAll());
-//        enables login form when admin page is accessed
-        http.formLogin(Customizer.withDefaults());
+//        enables login form when login page is accessed
+        http.formLogin(form -> form.loginPage("/user/login").permitAll());
+
+//        enables logout
+        http.logout(form -> form.logoutUrl("/user/logout"));
 
 //        enables h2-console
         http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()));

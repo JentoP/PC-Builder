@@ -1,7 +1,10 @@
 package be.thomasmore.pcbuilder.controllers.admin;
 
+import be.thomasmore.pcbuilder.controllers.ComponentController;
 import be.thomasmore.pcbuilder.models.*;
 import be.thomasmore.pcbuilder.repos.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +34,7 @@ public class AdminComponentController {
     private StorageRepository storage;
     @Autowired
     private PcBuildRepository pcBuilds;
+    private final Logger logger = LoggerFactory.getLogger(AdminComponentController.class);
 
     //Models
 
