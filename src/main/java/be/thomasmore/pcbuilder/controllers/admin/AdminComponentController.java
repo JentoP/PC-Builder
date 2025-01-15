@@ -33,6 +33,12 @@ public class AdminComponentController {
     private PcBuildRepository pcBuilds;
 
     //Models
+
+// Spring roept eerst de @ModelAttribute method op die het gevraagde object uit de database gaat halen
+// Dan kijkt Spring welke input fields geassocieerd zijn met dit object en vult die in in dit object. Hiervoor gebruikt Spring de attributen th:object en th:field.
+// De parameter party die we binnenkrijgen in de POST request handler is dit object: dus de waardes uit de database, overschreven met de waardes uit de input fields.
+// We vragen de CrudRepository om dit object te saven in de database
+//Het object bevat het correcte id, en daardoor weet de CrudRepository welk update statement hij moet sturen naar de database
     @ModelAttribute("processor")
     public CPU findProcessor(@PathVariable(required = false) Integer id) {
         if (id == null) {
@@ -139,6 +145,7 @@ public class AdminComponentController {
     @GetMapping("/editcomponent/{type}/{id}")
     public String editComponent(@PathVariable String type, @PathVariable Integer id, Model model) {
         Object component;
+        //            eerst kijkt die naar het type, die type is een String die word opgehaald uit de view
         switch (type) {
             case "processor":
                 component = findProcessor(id);
@@ -178,6 +185,7 @@ public class AdminComponentController {
     @GetMapping("/removecomponent/{type}/{id}")
     public String removeComponent(@PathVariable String type, @PathVariable Integer id, Model model) {
         switch (type) {
+//            haalt de pcbuilds op die het te verwijderen component bevatten
             case "processor":
                 removeSavedBuildsByComponent(id, "CPU");
                 processors.deleteById(id);
@@ -219,6 +227,7 @@ public class AdminComponentController {
 
     private void removeSavedBuildsByComponent(Integer componentId, String type) {
         List<PcBuild> builds;
+//        type wordt opgehaald tijdens de methode removeComponent
         switch (type) {
             case "CPU":
                 builds = pcBuilds.findBuildsByCPU(componentId);
@@ -275,79 +284,79 @@ public class AdminComponentController {
     @PostMapping("/editcomponent/motherboard/{id}")
     public String updateMotherboard(@PathVariable Integer id, @ModelAttribute("motherboard") MOBO component) {
         motherboards.save(component);
-        return "redirect:/components/motherboard" + id;
+        return "redirect:/components/motherboard/" + id;
     }
 
     @PostMapping("/addcomponent/memory")
     public String saveMemory(@ModelAttribute("memory") RAM component) {
         RAM newRAM = memoryKits.save(component);
-        return "redirect:/components/memory" + newRAM.getId();
+        return "redirect:/components/memory/" + newRAM.getId();
     }
 
     @PostMapping("/editcomponent/memory/{id}")
     public String updateMemory(@PathVariable Integer id, @ModelAttribute("memory") RAM component) {
         memoryKits.save(component);
-        return "redirect:/components/memory" + id;
+        return "redirect:/components/memory/" + id;
     }
 
     @PostMapping("/addcomponent/storage")
     public String saveStorage(@ModelAttribute("storage") DATA component) {
         DATA newDATA = storage.save(component);
-        return "redirect:/components/storage" + newDATA.getId();
+        return "redirect:/components/storage/" + newDATA.getId();
     }
 
     @PostMapping("/editcomponent/storage/{id}")
     public String updateStorage(@PathVariable Integer id, @ModelAttribute("storage") DATA component) {
         storage.save(component);
-        return "redirect:/components/storage" + id;
+        return "redirect:/components/storage/" + id;
     }
 
     @PostMapping("/addcomponent/graphiccard")
     public String saveGraphicCard(@ModelAttribute("graphiccard") GPU component) {
         GPU newGPU = graphicCards.save(component);
-        return "redirect:/components/storage" + newGPU.getId();
+        return "redirect:/components/graphiccard/" + newGPU.getId();
     }
 
     @PostMapping("/editcomponent/graphiccard/{id}")
     public String updateGraphicCard(@PathVariable Integer id, @ModelAttribute("graphiccard") GPU component) {
         graphicCards.save(component);
-        return "redirect:/components/storage" + id;
+        return "redirect:/components/graphiccard/" + id;
     }
 
     @PostMapping("/addcomponent/case")
     public String saveCase(@ModelAttribute("case") CHASSIS component) {
         CHASSIS newCHASSIS = cases.save(component);
-        return "redirect:/components/storage" + newCHASSIS.getId();
+        return "redirect:/components/case/" + newCHASSIS.getId();
     }
 
     @PostMapping("/editcomponent/case/{id}")
     public String updateCase(@PathVariable Integer id, @ModelAttribute("case") CHASSIS component) {
         cases.save(component);
-        return "redirect:/components/" + id;
+        return "redirect:/components/case/" + id;
     }
 
     @PostMapping("/addcomponent/cooler")
     public String saveCooler(@ModelAttribute("cooler") COOLER component) {
         COOLER newCOOLER = coolers.save(component);
-        return "redirect:/componentdetails/" + newCOOLER.getId();
+        return "redirect:/components/cooler/" + newCOOLER.getId();
     }
 
     @PostMapping("/editcomponent/cooler/{id}")
     public String updateCooler(@PathVariable Integer id, @ModelAttribute("cooler") COOLER component) {
         coolers.save(component);
-        return "redirect:/componentdetails/" + id;
+        return "redirect:/components/cooler/" + id;
     }
 
     @PostMapping("/addcomponent/powersupply")
     public String savePowerSupply(@ModelAttribute("powersupply") PSU component) {
         PSU newPSU = powerSupplies.save(component);
-        return "redirect:/componentdetails/" + newPSU.getId();
+        return "redirect:/components/powersupply/" + newPSU.getId();
     }
 
     @PostMapping("/editcomponent/powersupply/{id}")
     public String updatePowerSupply(@PathVariable Integer id, @ModelAttribute("powersupply") PSU component) {
         powerSupplies.save(component);
-        return "redirect:/componentdetails/" + id;
+        return "redirect:/components/powersupply/" + id;
     }
 
 }
