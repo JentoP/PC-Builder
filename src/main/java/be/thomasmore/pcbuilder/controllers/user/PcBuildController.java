@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -37,7 +39,9 @@ public class PcBuildController {
     @Autowired
     private StorageRepository storage;
     @Autowired
-    private PcBuildRepository pcBuildRepository;
+    private PcBuildRepository pcBuilds;
+    @Autowired
+    private UserRepository users;
 
     /**
      * Creates or retrieves a PC build based on the provided ID.
@@ -51,7 +55,7 @@ public class PcBuildController {
         if (id == null) {
             return new PcBuild();
         }
-        Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
+        Optional<PcBuild> optionalPcBuild = pcBuilds.findById(id);
         return optionalPcBuild.orElse(null);
     }
 
@@ -103,7 +107,7 @@ public class PcBuildController {
      * @return a redirect URL based on the success or failure of the operation.
      */
     @PostMapping({"/addbuild", "/editbuild/{id}"})
-    public String addOrEditPcBuildPost(@ModelAttribute PcBuild pcBuild, RedirectAttributes redirectAttributes) {
+    public String addOrEditPcBuildPost(@ModelAttribute PcBuild pcBuild, RedirectAttributes redirectAttributes, Principal principal) {
         // Validate compatibility between selected CPU and MOBO
         if (!isCompatible(pcBuild)) {
             redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten zijn niet compatibel met elkaar. Probeer opnieuw.");
@@ -112,9 +116,12 @@ public class PcBuildController {
             }
             return "redirect:/user/addbuild";
         }
+        // Associate the build with the logged-in user
+        User user = users.findByUsername(principal.getName());
+        pcBuild.setUsername(user);
 
         // Save the new or updated PC build
-        pcBuildRepository.save(pcBuild);
+        pcBuilds.save(pcBuild);
         redirectAttributes.addFlashAttribute("successMessage", "Uw build werd opgeslagen!");
         return "redirect:/user/pcbuilds"; // Redirect to the list of PC builds
     }
@@ -127,16 +134,27 @@ public class PcBuildController {
      * @return the name of the template to render.
      */
     @GetMapping("/viewbuild/{id}")
-    public String viewPcBuild(@PathVariable Integer id, Model model) {
-        Optional<PcBuild> optionalPcBuild = pcBuildRepository.findById(id);
+    public String viewPcBuild(@PathVariable Integer id, Model model, Principal principal) {
+
+        User user = users.findByUsername(principal.getName());
+
+        Optional<PcBuild> optionalPcBuild = pcBuilds.findByIdAndUser(id, user);
         if (optionalPcBuild.isPresent()) {
             PcBuild pcBuild = optionalPcBuild.get();
             Integer totalWattage = calculateTotalWattage(pcBuild);
             model.addAttribute("pcBuild", pcBuild);
             model.addAttribute("totalWattage", totalWattage);
             return "user/viewbuild"; // Show build details
+
+//        List<PcBuild> pcBuildList = pcBuilds.findByIdAndUser(id, user);
+//           if (!pcBuildList.isEmpty()) {
+//            PcBuild pcBuild = pcBuildList.get(0);
+//            Integer totalWattage = calculateTotalWattage(pcBuild);
+//            model.addAttribute("pcBuild", pcBuildList);
+//            model.addAttribute("totalWattage", totalWattage);
+//            return "user/viewbuild"; // Show build details
         }
-        return "redirect:pcbuilds";
+        return "redirect:/pcbuilds";
     }
 
     /**
@@ -146,10 +164,11 @@ public class PcBuildController {
      * @return the name of the template to render.
      */
     @GetMapping("/pcbuilds")
-    public String viewPcBuilds(Model model) {
-        Iterable<PcBuild> pcBuilds = pcBuildRepository.findAll();
-        model.addAttribute("pcBuilds", pcBuilds);
-        return "user/pcbuilds"; // Display all PC builds
+    public String viewPcBuilds(Model model, Principal principal) {
+        User user = users.findByUsername(principal.getName());
+        List<PcBuild> allPcBuild = pcBuilds.findAllByUser(user);
+        model.addAttribute("pcBuilds", allPcBuild);
+        return "user/pcbuilds"; // Display all PC builds from matching user
     }
 
     /**
@@ -160,9 +179,9 @@ public class PcBuildController {
      */
     @GetMapping("/deletebuild/{id}")
     public String deletePcBuild(@PathVariable Integer id) {
-        Optional<PcBuild> pcBuild = pcBuildRepository.findById(id);
+        Optional<PcBuild> pcBuild = pcBuilds.findById(id);
         if (pcBuild.isPresent()) {
-            pcBuildRepository.deleteById(id);
+            pcBuilds.deleteById(id);
         }
         return "redirect:/user/pcbuilds";
     }

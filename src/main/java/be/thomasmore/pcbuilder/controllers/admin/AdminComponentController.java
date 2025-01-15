@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * Controller for managing admin operations related to PC components.
+ * Handles operations such as adding, editing, and removing components.
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminComponentController {
@@ -37,12 +40,14 @@ public class AdminComponentController {
     private final Logger logger = LoggerFactory.getLogger(AdminComponentController.class);
 
     //Models
-
-// Spring roept eerst de @ModelAttribute method op die het gevraagde object uit de database gaat halen
-// Dan kijkt Spring welke input fields geassocieerd zijn met dit object en vult die in in dit object. Hiervoor gebruikt Spring de attributen th:object en th:field.
-// De parameter party die we binnenkrijgen in de POST request handler is dit object: dus de waardes uit de database, overschreven met de waardes uit de input fields.
-// We vragen de CrudRepository om dit object te saven in de database
-//Het object bevat het correcte id, en daardoor weet de CrudRepository welk update statement hij moet sturen naar de database
+    /**
+     * Finds or initializes a CPU object based on the provided ID.
+     *
+     * @param id the ID of the CPU (optional)
+     * @return a CPU object from the database or a new instance if the ID is null.
+     *
+     * explanation: This method retrieves a CPU by its ID. If no ID is provided, it creates a new CPU object.
+     */
     @ModelAttribute("processor")
     public CPU findProcessor(@PathVariable(required = false) Integer id) {
         if (id == null) {
@@ -106,7 +111,15 @@ public class AdminComponentController {
         }
         return powerSupplies.findById(id).orElse(null);
     }
-
+    /**
+     * Displays the form for adding a new component based on the specified type.
+     *
+     * @param type  the type of component (e.g., processor, motherboard, etc.)
+     * @param model the model to hold attributes for the view
+     * @return the name of the view template to display
+     *
+     * Non-coder explanation: This method determines the type of component to add, prepares a blank form, and shows it to the user.
+     */
     //Add view
     @GetMapping("/addcomponent/{type}")
     public String addComponent(@PathVariable String type, Model model) {

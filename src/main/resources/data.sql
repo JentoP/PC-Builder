@@ -140,6 +140,7 @@ VALUES ('Corsair Dominator Platinum', 'Corsair', 12, 32, 'DDR4', 16, 3600, 200),
        ('Patriot Signature Line', 'Patriot', 5, 8, 'DDR4', 19, 2666, 40),
        ('Samsung DDR4-2666', 'Samsung', 5, 16, 'DDR4', 19, 2666, 70);
 
+-- // Mijn eigen PC
 INSERT INTO CHASSIS (NAME, MANUFACTURER, SIDE_PANEL, MOBO_FORM_FACTOR, PSU_FORM_FACTOR, COLOR, PRICE)
 VALUES ('O11 Dynamic', 'Lian Li', TRUE, 'ATX', 'ATX', 'Black', 130);
 
@@ -168,36 +169,6 @@ VALUES ('Corsair RM1000x', 'Corsair', 1000, 'RM1000x', '80+ Gold', 'ATX', 'Black
 INSERT INTO RAM (NAME, MANUFACTURER, WATTAGE_USAGE, MEMORY_CAPACITY, MEMORY_TYPE, TIMINGS, CLOCK_SPEED, PRICE)
 VALUES ('Corsair DDR4 Vengeance RGB', 'Corsair', 10, 64, 'DDR4', 16, 3600, 300);
 
-
-// Mijn eigen PC
-INSERT INTO PCBUILDS (BUILD_NAME, CPU_ID, MOBO_ID, GPU_ID, RAM_ID, CHASSIS_ID, COOLER_ID, STORAGE_ID, PSU_ID,
-                      MEMORY_QUANTITIES, STORAGE_QUANTITIES)
-VALUES
-    ('My PC Build',
-     16,
-     16,
-     16,
-     16,
-     16,
-     16,
-     16,
-     16,
-     4,
-     3);
-
-// Gemaakte PC's
-INSERT INTO PCBUILDS (BUILD_NAME, CPU_ID, MOBO_ID, GPU_ID, RAM_ID, CHASSIS_ID, COOLER_ID, STORAGE_ID, PSU_ID,
-                      MEMORY_QUANTITIES, STORAGE_QUANTITIES)
-VALUES ('Test Build', 2, 3, 1, 2, 1, 1, 4, 1, 2, 1),
-       ('High-Performance AMD Setup', 2, 4, 2, 3, 2, 3, 2, 3, 2, 1),
-       ('Budget Intel Build', 4, 4, 3, 4, 3, 4, 3, 4, 2, 1),
-       ('Mid-Range Gaming PC', 3, 2, 3, 2, 2, 2, 3, 2, 2, 1),
-       ('Ultra Budget Build', 4, 4, 4, 3, 4, 4, 4, 5, 1, 1),
-       ('High-End AMD Gaming PC', 1, 5, 2, 1, 1, 1, 1, 1, 2, 1),
-       ('Intel Workstation Build', 3, 1, 4, 1, 2, 2, 1, 3, 2, 1),
-       ('Content Creation Build', 1, 3, 1, 2, 2, 1, 2, 2, 2, 2),
-       ('Entry-Level Work PC', 3, 4, 3, 2, 4, 4, 4, 5, 1, 1);
-
 -- Gebruikers
 INSERT INTO USERS (USERNAME, PASSWORD, ENABLED)
 VALUES ('admin', '$2a$10$7eIaR5Kh.agBqkACvm9PwevLf8u8IA7klCqcECnHKawhthfzGGDqK', true);
@@ -207,4 +178,35 @@ INSERT INTO USERS (USERNAME, PASSWORD, ENABLED)
 VALUES ('Jento', '$2a$10$Svk906cQ870DE2QeLbaGYuddiiWLIXUV2BvVTN/Nfxx8dmNCblcMy', true);
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('Jento', 'USER');
+
+-- // Mijn eigen PC
+INSERT INTO PCBUILDS (BUILD_NAME, USERNAME, CPU_ID, MOBO_ID, GPU_ID, RAM_ID, CHASSIS_ID, COOLER_ID, STORAGE_ID, PSU_ID,
+                      MEMORY_QUANTITIES, STORAGE_QUANTITIES)
+VALUES ('My PC Build',
+        'Jento',
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        4,
+        3);
+
+// Gemaakte PC's
+INSERT INTO PCBUILDS (BUILD_NAME, USERNAME, CPU_ID, MOBO_ID, GPU_ID, RAM_ID, CHASSIS_ID, COOLER_ID, STORAGE_ID, PSU_ID,
+                      MEMORY_QUANTITIES, STORAGE_QUANTITIES)
+VALUES ('Test Build', 'admin', 2, 3, 1, 2, 1, 1, 4, 1, 2, 1),
+       ('High-Performance AMD Setup', 'admin', 2, 4, 2, 3, 2, 3, 2, 3, 2, 1),
+       ('Budget Intel Build', 'admin', 4, 4, 3, 4, 3, 4, 3, 4, 2, 1),
+       ('Mid-Range Gaming PC', 'admin', 3, 2, 3, 2, 2, 2, 3, 2, 2, 1),
+       ('Ultra Budget Build', 'admin', 4, 4, 4, 3, 4, 4, 4, 5, 1, 1),
+       ('High-End AMD Gaming PC', 'admin', 1, 5, 2, 1, 1, 1, 1, 1, 2, 1),
+       ('Intel Workstation Build', 'admin', 3, 1, 4, 1, 2, 2, 1, 3, 2, 1),
+       ('Content Creation Build', 'admin', 1, 3, 1, 2, 2, 1, 2, 2, 2, 2),
+       ('Entry-Level Work PC', 'admin', 3, 4, 3, 2, 4, 4, 4, 5, 1, 1);
+
+
 

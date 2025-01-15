@@ -8,20 +8,21 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
-//
-//    @OneToMany(mappedBy = "user")  // One user can have multiple builds
-//    private List<PcBuild> pcBuilds;
 
-    public Integer getId() {
-        return id;
-    }
+    @Column(nullable = false, length = 100)
+    private String password;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Column(nullable = false)
+    private boolean enabled;
+
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//    private List<Authority> authorities;
+
+
+    @OneToMany(mappedBy = "user")  // One user can have multiple builds
+    private List<PcBuild> pcBuilds;
 
     public String getUsername() {
         return username;
@@ -31,11 +32,20 @@ public class User {
         this.username = username;
     }
 
-//    public List<PcBuild> getPcBuilds() {
-//        return pcBuilds;
-//    }
+    public List<PcBuild> getPcBuilds() {
+        return pcBuilds;
+    }
 
-//    public void setPcBuilds(List<PcBuild> pcBuilds) {
-//        this.pcBuilds = pcBuilds;
+    public void setPcBuilds(List<PcBuild> pcBuilds) {
+        this.pcBuilds = pcBuilds;
+    }
+
+//    public List<Authority> getAuthorities() {
+//        return authorities;
+//    }
+//
+//    public void setAuthorities(List<Authority> authorities) {
+//        this.authorities = authorities;
 //    }
 }
+

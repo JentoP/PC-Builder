@@ -6,14 +6,20 @@ import jakarta.persistence.*;
 @Table(name = "pcbuilds")
 public class PcBuild {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
 
     @Column(name = "build_name", length = 30, nullable = false)
     private String buildName;
 
     // Many-to-one relationships for other components
+    @ManyToOne
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
+    private User user;
+
     @ManyToOne
     @JoinColumn(name = "cpu_id", nullable = false)
     private CPU selectedCPU;
@@ -67,6 +73,9 @@ public class PcBuild {
     }
 
     // Getters and setters
+    public User getUsername() {
+        return user;
+    }
 
     public Integer getBuildId() {
         return id;
@@ -162,5 +171,9 @@ public class PcBuild {
 
     public void setMemoryQuantities(Integer memoryQuantities) {
         this.memoryQuantities = memoryQuantities;
+    }
+
+    public void setUsername(User username) {
+        this.user = username;
     }
 }

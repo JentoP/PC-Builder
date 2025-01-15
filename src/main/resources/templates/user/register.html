@@ -1,0 +1,61 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html class="h-100" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: headerelement('Account')}"></head>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="d-flex flex-column h-100">
+<main class="container">
+    <div class="d-flex justify-content-center align-items-center">
+        <img th:src="@{/img/uwpcbe7.png}" alt="Logo" width="200" height="100" class="">
+    </div>
+    <div class="row gy-2">
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                <input id="username" class="form-control" placeholder="username" name="username"
+                       required/>
+                <label for="username" class="form-label">username</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                <input id="password" type="password" class="form-control" placeholder="password"
+                       name="password" required/>
+                <label for="password" class="form-label">password</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                <input id="name" type="text" class="form-control" placeholder="name"
+                       name="name" required/>
+                <label for="name" class="form-label">naam</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                <input id="city" type="text" class="form-control" placeholder="city"
+                       name="city" required/>
+                <label for="city" class="form-label">stad</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                                    <textarea id="bio" type="text" class="form-control" placeholder="bio"
+                                              name="bio" required></textarea>
+                <label for="bio" class="form-label">bio</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mb-4">
+            register
+        </button>
+
+        <div class="text-center">
+            <p>Al geregistreerd? <a th:href="@{|/user/login|}">Login</a></p>
+        </div>
+    </div>
+
+</main>
+</body>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</html>

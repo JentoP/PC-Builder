@@ -1,11 +1,4 @@
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS authorities;
-CREATE TABLE users
-(
-    username varchar(50) not null primary key,
-    password varchar(100) not null,
-    enabled boolean not null
-);
 CREATE TABLE authorities
 (
     username VARCHAR(50) NOT NULL,

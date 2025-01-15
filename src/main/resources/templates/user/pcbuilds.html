@@ -8,7 +8,7 @@
 <main class="container">
     <div class="row">
         <!-- Display all the PC builds -->
-        <div th:each="pcBuild : ${pcBuilds}" class="col-md-6 ">
+        <div sec:authorize="isAuthenticated()" th:each="pcBuild : ${pcBuilds}" class="col-md-6 ">
             <div class="d-flex align-items-center justify-content-between component-box"
                  title="Klik hier om deze build te bekijken">
                 <img th:src="@{/img/icons/gradient/computer1.png}" alt="cpu" width="50" height="50" class="m-3">

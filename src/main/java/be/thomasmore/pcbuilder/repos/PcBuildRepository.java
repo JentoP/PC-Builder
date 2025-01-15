@@ -1,20 +1,21 @@
 package be.thomasmore.pcbuilder.repos;
 
 import be.thomasmore.pcbuilder.models.PcBuild;
+import be.thomasmore.pcbuilder.models.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PcBuildRepository extends CrudRepository<PcBuild, Integer> {
     // Find builds by user
-    // List<PcBuild> findByUser(User user);
+    Optional<PcBuild> findByIdAndUser(Integer id, User user);
 
-    // Or find a specific build by its name
-    // Optional<PcBuild> findByBuildName(String buildName);
+    List<PcBuild> findAllByUser(User user);
 
     @Query("SELECT b FROM PcBuild b WHERE b.selectedCPU.id = :componentId")
     List<PcBuild> findBuildsByCPU(@Param("componentId") Integer componentId);

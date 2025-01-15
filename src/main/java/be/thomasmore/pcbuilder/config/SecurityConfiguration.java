@@ -33,8 +33,13 @@ public class SecurityConfiguration {
 
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager() {
-        return new JdbcUserDetailsManager(dataSource);
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+        userDetailsManager.setUsersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?");
+        userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
+        return userDetailsManager;
     }
+//        return new JdbcUserDetailsManager(dataSource);
+
 
     //    Functie passwordEncoder: hiermee geven we aan welke soort encrypte we willen
 //    gebruiken om de passwoorden op te slaan in de database. Als je dit niet doet dan zal het login proces niet werken.
@@ -48,13 +53,19 @@ public class SecurityConfiguration {
         HandlerMappingIntrospector introspector = new HandlerMappingIntrospector();
         MvcRequestMatcher.Builder mvcMatcherBuilder =
                 new MvcRequestMatcher.Builder(introspector);
+
+        //    elke request die met '/user' begint is toegankelijk voor de gebruiker
+        http.authorizeHttpRequests(auth -> auth.requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER", "ADMIN"));
+
+
 //        De method http.authorizeHttpRequests(…) heeft als parameter een lambda functie
         http.authorizeHttpRequests(auth -> auth
 //                Dus: als je een url request die begint met ‘/admin/’ dan moet je ingelogd zijn.
                 .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasAuthority("ADMIN")
 //                Dus: elke request die niet met ‘/admin’ begint is toegankelijk voor iedereen.
                 .anyRequest().permitAll());
-//        enables login form when login page is accessed
+
+        //        enables login form when login page is accessed
         http.formLogin(form -> form.loginPage("/user/login").permitAll());
 
 //        enables logout
