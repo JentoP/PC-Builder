@@ -508,7 +508,7 @@ public class ComponentController {
 
     /**
      * Zoekt een specifiek component op basis van type en ID in de database.
-     *
+     * Optional<?> is a Java class that represents a value that may or may not be present. The ? is a wildcard character that means the type of the value is unknown. In this context, it's used to represent a component that could be of any type (e.g. processor, motherboard, case, etc.)
      * @param type het type van het component (bijv. processor, moederbord, enz.)
      * @param id   het ID van het component
      * @return een Optional met het component als het wordt gevonden, anders Optional.empty()
