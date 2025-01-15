@@ -4,17 +4,28 @@
 
 <body class="d-flex flex-column h-100">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1 th:text="${#strings.capitalize(type)} + ' Specificaties'"></h1>
-<main th:object="${component}" th:if="${component}" class="container">
 
-            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="get">
-                <button type="submit">Toevoegen</button>
+<main th:object="${component}" th:if="${component}">
+
+    <div class="header-container">
+        <h1 th:text="Specificaties"></h1>
+
+        <div class="button-container">
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="get" class="inline-form">
+                <button class="btn-custom" type="submit">Toevoegen</button>
             </form>
-    <form th:action="@{/admin/editcomponent/{type}/{id}(type=${type}, id=${id})}" method="get">
-        <button type="submit">Aanpassen</button>
-    </form>
+            <form th:action="@{/admin/editcomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
+                  class="inline-form">
+                <button class="btn-custom" type="submit">Aanpassen</button>
+            </form>
+            <form th:action="@{/admin/removecomponent/{type}/{id}(type=${type}, id=${id})}" method="get"
+                  class="inline-form">
+                <button class="btn-custom" type="submit">Verwijderen</button>
+            </form>
+        </div>
+    </div>
 
-
+    <div class="container">
         <h2 th:text="${component.name}"></h2>
         <!-- Common -->
         <div class="row p-2" th:if="${component.manufacturer}">
@@ -27,22 +38,39 @@
         <div th:switch="${type}">
             <!-- Processor -->
             <div th:case="'processor'">
-                <div class="row p-2" th:if="${component.architecture}">
-                    <div class="p-1 m-1">
+                <div class="row p-2">
+                    <div class="col-6 col-sm-4 p-1 m-1">
                         <h3>Architectuur</h3>
                         <h4 th:text="${component.architecture}"></h4>
                     </div>
+                    <div class="col-6 col-sm-4 p-1 m-1">
+                        <h3>Model Naam</h3>
+                        <h4 th:text="${component.cpuModel}"></h4>
+                    </div>
+
+                    <div class="col-6 col-sm-4 p-1 m-1">
+                        <h3>Socket Type</h3>
+                        <h4 th:text="${component.socketType}"></h4>
+                    </div>
                 </div>
-                <div class="row p-2" th:if="${component.clockSpeed}">
+
+                <div class="row p-2">
+                    <div class="col-6 col-sm-4 p-1 m-1">
+                        <h3>Aantal Kernen</h3>
+                        <h4 th:text="|${component.coreCount} cores|"></h4>
+                    </div>
+
                     <div class="col-6 col-sm-4 p-1 m-1">
                         <h3>Maximum Snelheid</h3>
                         <h4 th:text="|${component.clockSpeed} GHz|"></h4>
                     </div>
                 </div>
-                <div class="row p-2" th:if="${component.coreCount}">
-                    <div class="col-6 col-sm-4 p-1 m-1">
-                        <h3>Aantal kernen</h3>
-                        <h4 th:text="|${component.coreCount} cores|"></h4>
+
+
+                <div class="row p-2">
+                    <div class="col-6 p-1 m-1" th:if="${component.wattageUsage}">
+                        <h3>Stroomverbruik</h3>
+                        <h4 th:text="|${component.wattageUsage} Watt|"></h4>
                     </div>
                 </div>
             </div>
@@ -247,9 +275,11 @@
         <!-- Navigation -->
         <div class="d-flex justify-content-between mt-5 bottom-margin">
             <a class="btn-custom" th:href="@{|/components/${type}/${previousId}|}"><<</a>
-            <a class="btn-custom" th:href="@{|/lists/${type}s|}">GA TERUG</a>
+            <a class="btn-custom" th:href="@{|/lists/${type}|}">GA TERUG</a>
             <a class="btn-custom" th:href="@{|/components/${type}/${nextId}|}">>></a>
         </div>
+    </div>
+
 </main>
 
 <main th:object="${component}" th:unless="${component}">

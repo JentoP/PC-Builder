@@ -8,7 +8,7 @@
 
 <main class="container">
     <h2>Processoren in stock</h2>
-    <p>Op deze pagina vind je alle beschikbare processorcomponenten die momenteel op voorraad zijn.</p>
+    <p>Op deze pagina vind je alle beschikbare processor componenten die momenteel op voorraad zijn.</p>
     <p>Je kunt zoeken en filteren op naam, fabrikant, socket, kern, architectuur of prijs. Klik op de knop 'details' van een
         component om meer informatie te zien.</p>
 
@@ -18,7 +18,7 @@
             <div class="col-md-2 mt-5">
                 <!--Search-->
                 <div class="">
-                    <form th:action="@{|/lists/processors|}" method="get" class="">
+                    <form th:action="@{|/lists/processor|}" method="get" class="">
                         <span>
                         <label><input name="searchWord" class="filter-box" placeholder="Zoek..."></label>
                        <div class="container row small">
@@ -30,7 +30,7 @@
 
                 <!--Filters-->
                 <div id="filterSection">
-                    <form th:action="@{|/lists/processors|}" method="get" class="col text-start">
+                    <form th:action="@{|/lists/processor|}" method="get" class="col text-start">
                         <h5 class="mt-4">Filter op</h5>
 
                         <!-- Manufacturer Filter -->
@@ -88,13 +88,18 @@
 
                     </form>
                 </div>
-                <form th:action="@{|/lists/processors|}" method="get" class="col text-start">
+                <form th:action="@{|/lists/processor|}" method="get" class="col text-start">
                     <h5 class="mt-5">Stel Prijsklasse In</h5>
                     <label for="filterMinPrice" class="form-label mt-2">Minimum</label>
                     <div class="container input-group row">
                         <input type="range" id="filterMinPrice" name="filterMinPrice" class="filter-box" min="0"
                                max="1000" step="10" value="0" oninput="this.nextElementSibling.value = this.value">
                         <output>0</output>
+<!--                        oninput="this.nextElementSibling.value = this.value":-->
+<!--                        This is an inline JavaScript event handler.-->
+<!--                        When the slider's value changes, the script updates the next sibling element's value to match the slider's current value.-->
+<!--                        this refers to the <input> element itself.-->
+<!--                        nextElementSibling targets the next sibling element, which is the <output>.-->
                     </div>
                     <label for="filterMaxPrice" class="form-label mt-2">Maximum</label>
                     <div class="container input-group row">
@@ -129,7 +134,7 @@
                     </div>
 
                     <div class="small">
-                        <a th:href="@{|/lists/processors|}" class="btn-custom small">FILTERS WISSEN</a>
+                        <a th:href="@{|/lists/processor|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>

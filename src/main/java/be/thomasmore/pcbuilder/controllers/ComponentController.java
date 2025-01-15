@@ -53,7 +53,7 @@ public class ComponentController {
      * @param searchWord het woord om processors op naam te doorzoeken.
      * @return de naam van de Thymeleaf-template voor de processorlijst.
      */
-    @GetMapping({"/lists/processors"})
+    @GetMapping({"/lists/processor"})
     public String processorList(Model model,
                                 @RequestParam(required = false) String searchWord,
                                 @RequestParam(required = false) Double filterMinPrice,
@@ -123,7 +123,7 @@ public class ComponentController {
      * @param searchWord het woord om processors op naam te doorzoeken.
      * @return
      */
-    @GetMapping({"/lists/motherboards"})
+    @GetMapping({"/lists/motherboard"})
     public String motherboardList(Model model,
                                   @RequestParam(required = false) String searchWord,
                                   @RequestParam(required = false) Double filterMinPrice,
@@ -172,7 +172,7 @@ public class ComponentController {
      * @param searchWord het woord om processors op naam te doorzoeken.
      * @return
      */
-    @GetMapping({"/lists/memorys"})
+    @GetMapping({"/lists/memory"})
     public String memoryList(Model model,
                              @RequestParam(required = false) String searchWord,
                              @RequestParam(required = false) Double filterMinPrice,
@@ -221,7 +221,7 @@ public class ComponentController {
      * @param searchWord het woord om processors op naam te doorzoeken.
      * @return
      */
-    @GetMapping({"/lists/graphiccards"})
+    @GetMapping({"/lists/graphiccard"})
     public String graphicCardList(Model model,
                                   @RequestParam(required = false) String searchWord,
                                   @RequestParam(required = false) Double filterMinPrice,
@@ -262,14 +262,14 @@ public class ComponentController {
 
     /**
      * Lijst alle storages met optionele filters zoals prijsklasse, fabrikant, socket type, enz.
-     * Filters worden toegepast op basis van de requestparameters, en het resultaat wordt doorgegeven aan de view.
+     * Filters worden toegepast op basis van de request parameters, en het resultaat wordt doorgegeven aan de view.
      *
      * @param model          het modelobject om attributen voor de view op te slaan.
      * @param searchWord     het woord om processors op naam te doorzoeken.
      * @param filterMinPrice de minimumprijs voor het filteren van processors.
      * @return
      */
-    @GetMapping({"/lists/storages"})
+    @GetMapping({"/lists/storage"})
     public String storageList(Model model,
                               @RequestParam(required = false) String searchWord,
                               @RequestParam(required = false) Double filterMinPrice,
@@ -320,7 +320,7 @@ public class ComponentController {
      * @param searchWord het woord om processors op naam te doorzoeken.
      * @return
      */
-    @GetMapping({"/lists/coolers"})
+    @GetMapping({"/lists/cooler"})
     public String coolerList(Model model,
                              @RequestParam(required = false) String searchWord,
                              @RequestParam(required = false) Double filterMinPrice,
@@ -368,7 +368,7 @@ public class ComponentController {
      * @return
      */
 
-    @GetMapping({"/lists/cases"})
+    @GetMapping({"/lists/case"})
     public String caseList(Model model,
                            @RequestParam(required = false) String searchWord,
                            @RequestParam(required = false) Double filterMinPrice,
@@ -413,7 +413,7 @@ public class ComponentController {
      * @param searchWord het woord om processors op naam te doorzoeken.
      * @return
      */
-    @GetMapping({"/lists/powersupplys"})
+    @GetMapping({"/lists/powersupply"})
     public String powerSuppliesList(Model model,
                                     @RequestParam(required = false) String searchWord,
                                     @RequestParam(required = false) Double filterMinPrice,

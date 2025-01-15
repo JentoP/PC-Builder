@@ -1,29 +1,312 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html class="h-100" lang="en">
 <head th:replace="~{fragments/header :: headerelement('Component details')}"></head>
 
 <body class="d-flex flex-column h-100">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1 th:text="${#strings.capitalize(type)} + ' toevoegen'"></h1>
+<h1>Component Toevoegen</h1>
 <main th:object="${component}" th:if="${component}" class="container">
-<!--    <div th:switch="${type}">-->
-<!--&lt;!&ndash;        CPU&ndash;&gt;-->
-<!--        <div th:case="'processor'">-->
-<!--            <h2>Voeg een processor toe</h2>-->
-<!--            <form th:action="@{/admin/addcomponent/{type}/{id}(type=${type}, id=${id})}" method="post">-->
-<!--                        <h3>Fabrikant</h3>-->
+    <div th:switch="${type}">
+        <!-- CPU -->
+        <div th:case="'processor'">
+            <h2>Voeg een processor toe</h2>
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="post">
+                <div>
+                    <label class="h4" for="name">Naam:</label>
+                    <input  class="form-box"  type="text" focus id="name" th:field="*{name}">
+                </div>
+                <div>
+                    <label class="h4" for="manufacturer">Fabrikant:</label>
+                    <input class="form-box"  type="text" id="manufacturer" th:field="*{manufacturer}">
+                </div>
+                <div>
+                    <label class="h4" for="architecture">Architectuur:</label>
+                    <input class="form-box"  type="text" id="architecture" th:field="*{architecture}">
+                </div>
+                <div>
+                    <label class="h4" for="wattageUsage">Stroomverbruik (Watt):</label>
+                    <input class="form-box"  type="number" id="wattageUsage" th:field="*{wattageUsage}">
+                </div>
+                <div>
+                    <label class="h4" for="socketType">Socket Type:</label>
+                    <input class="form-box"  type="text" id="socketType" th:field="*{socketType}">
+                </div>
+                <div>
+                    <label class="h4" for="cpuModel">Model naam:</label>
+                    <input class="form-box"  type="text" id="cpuModel" th:field="*{cpuModel}">
+                </div>
+                <div>
+                    <label class="h4" for="coreCount">Aantal kernen:</label>
+                    <input class="form-box"  type="number" id="coreCount" th:field="*{coreCount}">
+                </div>
+                <div>
+                    <label class="h4" for="clockSpeed">Kloksnelheid (GHz):</label>
+                    <input class="form-box"  type="number" step="1" id="clockSpeed" th:field="*{clockSpeed}">
+                </div>
+                <div>
+                    <label class="h4" for="price">Prijs (€):</label>
+                    <input class="form-box"  type="number" step="0.01" id="price" th:field="*{price}">
+                </div>
+                <button class="btn-custom" type="submit">Toevoegen</button>
+            </form>
+        </div>
+        <!-- Motherboard -->
+        <div th:case="'motherboard'">
+            <h2>Voeg een moederbord toe</h2>
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="post">
+                <div>
+                    <label class="h4" for="name">Naam:</label>
+                    <input class="form-box" type="text" id="name" th:field="*{name}">
+                </div>
+                <div>
+                    <label class="h4" for="manufacturer">Fabrikant:</label>
+                    <input class="form-box" type="text" id="manufacturer" th:field="*{manufacturer}">
+                </div>
+                <div>
+                    <label class="h4" for="chipset">Chipset:</label>
+                    <input class="form-box" type="text" id="chipset" th:field="*{chipset}">
+                </div>
+                <div>
+                    <label class="h4" for="wattageUsage">Stroomverbruik (Watt):</label>
+                    <input class="form-box" type="number" id="wattageUsage" th:field="*{wattageUsage}">
+                </div>
+                <div>
+                    <label class="h4" for="moboFormFactor">Vormfactor:</label>
+                    <input class="form-box" type="text" id="moboFormFactor" th:field="*{moboFormFactor}">
+                </div>
+                <div>
+                    <label class="h4" for="memoryType">Geheugentype:</label>
+                    <input class="form-box" type="text" id="memoryType" th:field="*{memoryType}">
+                </div>
+                <div>
+                    <label class="h4" for="interfaceType">Interface Type:</label>
+                    <input class="form-box" type="text" id="interfaceType" th:field="*{interfaceType}">
+                </div>
+                <div>
+                    <label class="h4" for="socketType">Socket Type:</label>
+                    <input class="form-box" type="text" id="socketType" th:field="*{socketType}">
+                </div>
+                <div>
+                    <label class="h4" for="m2Support">M.2 Support:</label>
+                    <input class="form-box" type="checkbox" id="m2Support" th:field="*{m2Support}">
+                </div>
+                <div>
+                    <label class="h4" for="price">Prijs (€):</label>
+                    <input class="form-box" type="number" step="0.01" id="price" th:field="*{price}">
+                </div>
+                <button class="btn-custom" type="submit">Toevoegen</button>
+            </form>
+        </div>
+        <!-- Cooler -->
+        <div th:case="'cooler'">
+            <h2>Voeg een koeler toe</h2>
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="post">
+                <div>
+                    <label class="h4" for="name">Naam:</label>
+                    <input class="form-box" type="text" id="name" th:field="*{name}">
+                </div>
+                <div>
+                    <label class="h4" for="manufacturer">Fabrikant:</label>
+                    <input class="form-box" type="text" id="manufacturer" th:field="*{manufacturer}">
+                </div>
+                <div>
+                    <label class="h4" for="waterCooling">Waterkoeling:</label>
+                    <input class="form-box" type="checkbox" id="waterCooling" th:field="*{waterCooling}">
+                </div>
+                <div>
+                    <label class="h4" for="fanSize">Ventilator Grootte (mm):</label>
+                    <input class="form-box" type="number" id="fanSize" th:field="*{fanSize}">
+                </div>
+                <div>
+                    <label class="h4" for="radiatorSize">Radiator Grootte (mm):</label>
+                    <input class="form-box" type="number" id="radiatorSize" th:field="*{radiatorSize}">
+                </div>
+                <div>
+                    <label class="h4" for="RGB">RGB:</label>
+                    <input class="form-box" type="checkbox" id="RGB" th:field="*{RGB}">
+                </div>
+                <div>
+                    <label class="h4" for="socketType">Socket Type:</label>
+                    <input class="form-box" type="text" id="socketType" th:field="*{socketType}">
+                </div>
+                <div>
+                    <label class="h4" for="color">Kleur:</label>
+                    <input class="form-box" type="text" id="color" th:field="*{color}">
+                </div>
+                <div>
+                    <label class="h4" for="price">Prijs (€):</label>
+                    <input class="form-box" type="number" step="0.01" id="price" th:field="*{price}">
+                </div>
+                <button class="btn-custom" type="submit">Toevoegen</button>
+            </form>
+        </div>
+        <!-- Chassis -->
+        <div th:case="'case'">
+            <h2>Voeg een behuizing toe</h2>
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="post">
+                <div>
+                    <label class="h4" for="name">Naam:</label>
+                    <input class="form-box" type="text" id="name" th:field="*{name}">
+                </div>
+                <div>
+                    <label class="h4" for="manufacturer">Fabrikant:</label>
+                    <input class="form-box" type="text" id="manufacturer" th:field="*{manufacturer}">
+                </div>
+                <div>
+                    <label class="h4" for="sidePanel">Zijpaneel:</label>
+                    <input class="form-box" type="checkbox" id="sidePanel" th:field="*{sidePanel}">
+                </div>
+                <div>
+                    <label class="h4" for="moboFormFactor">Vormfactor Moederbord:</label>
+                    <input class="form-box" type="text" id="moboFormFactor" th:field="*{moboFormFactor}">
+                </div>
+                <div>
+                    <label class="h4" for="psuFormFactor">Vormfactor Voeding:</label>
+                    <input class="form-box" type="text" id="psuFormFactor" th:field="*{psuFormFactor}">
+                </div>
+                <div>
+                    <label class="h4" for="color">Kleur:</label>
+                    <input class="form-box" type="text" id="color" th:field="*{color}">
+                </div>
+                <div>
+                    <label class="h4" for="price">Prijs (€):</label>
+                    <input class="form-box" type="number" step="0.01" id="price" th:field="*{price}">
+                </div>
+                <button class="btn-custom" type="submit">Toevoegen</button>
+            </form>
+        </div>
+        <!-- RAM -->
+        <div th:case="'memory'">
+            <h2>Voeg een geheugenkit toe</h2>
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="post">
+                <div>
+                    <label class="h4" for="name">Naam:</label>
+                    <input class="form-box" type="text" id="name" th:field="*{name}">
+                </div>
+                <div>
+                    <label class="h4" for="manufacturer">Fabrikant:</label>
+                    <input class="form-box" type="text" id="manufacturer" th:field="*{manufacturer}">
+                </div>
+                <div>
+                    <label class="h4" for="wattageUsage">Stroomverbruik (Watt):</label>
+                    <input class="form-box" type="number" id="wattageUsage" th:field="*{wattageUsage}">
+                </div>
+                <div>
+                    <label class="h4" for="memoryCapacity">Geheugencapaciteit (GB):</label>
+                    <input class="form-box" type="number" id="memoryCapacity" th:field="*{memoryCapacity}">
+                </div>
+                <div>
+                    <label class="h4" for="memoryType">Geheugentype:</label>
+                    <input class="form-box" type="text" id="memoryType" th:field="*{memoryType}">
+                </div>
+                <div>
+                    <label class="h4" for="timings">Timings:</label>
+                    <input class="form-box" type="number" id="timings" th:field="*{timings}">
+                </div>
+                <div>
+                    <label class="h4" for="clockSpeed">Kloksnelheid (MHz):</label>
+                    <input class="form-box" type="number" id="clockSpeed" th:field="*{clockSpeed}">
+                </div>
+                <div>
+                    <label class="h4" for="price">Prijs (€):</label>
+                    <input class="form-box" type="number" step="0.01" id="price" th:field="*{price}">
+                </div>
+                <button class="btn-custom" type="submit">Toevoegen</button>
+            </form>
+        </div>
+        <!-- Storage -->
+        <div th:case="'storage'">
+            <h2>Voeg een opslagapparaat toe</h2>
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="post">
+                <div>
+                    <label class="h4" for="name">Naam:</label>
+                    <input class="form-box" type="text" id="name" th:field="*{name}">
+                </div>
+                <div>
+                    <label class="h4" for="manufacturer">Fabrikant:</label>
+                    <input class="form-box" type="text" id="manufacturer" th:field="*{manufacturer}">
+                </div>
+                <div>
+                    <label class="h4" for="dataModel">Modelnaam:</label>
+                    <input class="form-box" type="text" id="dataModel" th:field="*{dataModel}">
+                </div>
+                <div>
+                    <label class="h4" for="interfaceType">Interface Type:</label>
+                    <input class="form-box" type="text" id="interfaceType" th:field="*{interfaceType}">
+                </div>
+                <div>
+                    <label class="h4" for="storageType">Opslagtype:</label>
+                    <input class="form-box" type="text" id="storageType" th:field="*{storageType}">
+                </div>
+                <div>
+                    <label class="h4" for="wattageUsage">Stroomverbruik (Watt):</label>
+                    <input class="form-box" type="number" id="wattageUsage" th:field="*{wattageUsage}">
+                </div>
+                <div>
+                    <label class="h4" for="capacity">Capaciteit (GB):</label>
+                    <input class="form-box" type="number" id="capacity" th:field="*{capacity}">
+                </div>
+                <div>
+                    <label class="h4" for="cacheMemory">Cache Geheugen (MB):</label>
+                    <input class="form-box" type="number" id="cacheMemory" th:field="*{cacheMemory}">
+                </div>
+                <div>
+                    <label class="h4" for="price">Prijs (€):</label>
+                    <input class="form-box" type="number" step="0.01" id="price" th:field="*{price}">
+                </div>
+                <button class="btn-custom" type="submit">Toevoegen</button>
+            </form>
+        </div>
+        <!-- Power Supply -->
+        <div th:case="'powersupply'">
+            <h2>Voeg een voedingsapparaat toe</h2>
+            <form th:action="@{/admin/addcomponent/{type}(type=${type})}" method="post">
+                <div>
+                    <label class="h4" for="name">Naam:</label>
+                    <input class="form-box" type="text" id="name" th:field="*{name}">
+                </div>
+                <div>
+                    <label class="h4" for="manufacturer">Fabrikant:</label>
+                    <input class="form-box" type="text" id="manufacturer" th:field="*{manufacturer}">
+                </div>
+                <div>
+                    <label class="h4" for="wattageCapacity">Vermogen (Watt):</label>
+                    <input class="form-box" type="number" id="wattageCapacity" th:field="*{wattageCapacity}">
+                </div>
+                <div>
+                    <label class="h4" for="psuModel">Model:</label>
+                    <input class="form-box" type="text" id="psuModel" th:field="*{psuModel}">
+                </div>
+                <div>
+                    <label class="h4" for="efficiency">Efficiëntie:</label>
+                    <input class="form-box" type="text" id="efficiency" th:field="*{efficiency}">
+                </div>
+                <div>
+                    <label class="h4" for="psuFormFactor">Vormfactor:</label>
+                    <input class="form-box" type="text" id="psuFormFactor" th:field="*{psuFormFactor}">
+                </div>
+                <div>
+                    <label class="h4" for="color">Kleur:</label>
+                    <input class="form-box" type="text" id="color" th:field="*{color}">
+                </div>
+                <div>
+                    <label class="h4" for="price">Prijs (€):</label>
+                    <input class="form-box" type="number" step="0.01" id="price" th:field="*{price}">
+                </div>
+                <button class="btn-custom" type="submit">Toevoegen</button>
+            </form>
+        </div>
 
-<!--                <label for="name">Processor naam:</label>-->
-<!--                <input type="text" id="name" name="name"><br><br>-->
+    </div>
 
-<!--                <label for="description">Description:</label>-->
-<!--                <textarea id="description" name="description"></textarea><br><br>-->
-
-<!--                <button type="submit">Submit</button>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
 </main>
 
+<main th:object="${component}" th:unless="${component}">
+    <h3>Geen component gevonden.</h3>
+    <a class="btn-custom mt-5" th:href="@{|/components|}">GA TERUG</a>
+</main>
 </body>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </html>
