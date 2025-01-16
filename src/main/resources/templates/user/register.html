@@ -9,7 +9,7 @@
         <img th:src="@{/img/uwpcbe7.png}" alt="Logo" width="200" height="100" class="">
     </div>
     <div class="text-center mb-5">
-        <h2 class="m-5">Registreren</h2>
+        <h2 class="m-5">Registratie</h2>
         <form th:action="@{/user/register}" method="post">
             <div class="form-group">
                 <label class="build-text" for="username">Gebruikersnaam:</label>
@@ -21,14 +21,12 @@
             </div>
             <div class="button-container">
                 <div class="row">
-                    <button type="submit" class="btn-custom mt-5">Registreren</button>
-                    <p class="mt-5">Al geregistreerd? </p>
-                    <a class="btn-custom" th:href="@{|/user/login|}">Login</a>
+                    <button type="submit" class="btn-custom mt-5">REGISTREER</button>
+                    <a th:href="@{|/user/login|}" class="btn-custom mt-5">TERUG</a>
                 </div>
             </div>
         </form>
     </div>
-
 </main>
 </body>
 

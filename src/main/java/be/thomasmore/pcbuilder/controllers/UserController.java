@@ -27,58 +27,69 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-@Autowired
+    @Autowired
     private UserRepository users;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private JdbcUserDetailsManager jdbcUserDetailsManager;
-
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private DataSource dataSource;
 
     @GetMapping("/login")
     public String login(Principal principal) {
         logger.info("Logging in: ");
-        if (principal != null) return "redirect:/account";
+        if (principal != null) {
+            logger.info("User already logged in: {}", principal.getName());
+            return "redirect:/account";
+        }
         return "user/login";
     }
 
     @GetMapping("/logout")
-    public String logout(Principal principal) {
-        logger.info("Logging out: " + principal.getName());
-        if (principal == null) return "redirect:/account";
-        return "user/logout";
+    public String logout(HttpServletRequest request) {
+        logger.info("Logging out user.");
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/user/login?logout";
     }
 
     @GetMapping("/register")
     public String register(Principal principal) {
-        logger.info("Registering...");
-        if (principal != null) return "redirect:/account";
+        if (principal != null) {
+            logger.info("User already registered: {}", principal.getName());
+            return "redirect:/account";
+        }
         return "user/register";
     }
 
     @PostMapping("/register")
-    public String registerPost(Principal principal,
-                               HttpServletRequest request,
+    public String registerPost(HttpServletRequest request,
                                @RequestParam String username,
                                @RequestParam String password) throws ServletException {
-        if (principal != null) return "redirect:/account";
-        if (username == null || username.isBlank()) return "redirect:/account";
-        if (jdbcUserDetailsManager.userExists(username)) return "redirect:/account";
+        if (username == null || username.isBlank()) {
+            logger.warn("Registration failed: username is blank.");
+            return "redirect:/account";
+        }
+        if (jdbcUserDetailsManager.userExists(username)) {
+            logger.warn("Registration failed: username {} already exists.", username);
+            return "redirect:/account";
+        }
+        try {
 
 //        save user
-        User newUser = new User();
-        Authority authority = new Authority();
+            User newUser = new User();
+            Authority authority = new Authority();
 
-        newUser.setUsername(username);
-        newUser.setPassword(passwordEncoder.encode(password));
-        newUser.setEnabled(true);
-        authority.setAuthority("USER");
-        authority.setUser(newUser);
-        newUser.setAuthorities(List.of(authority));
-        users.save(newUser); // Insert authority using JDBC
+            newUser.setUsername(username);
+            newUser.setPassword(passwordEncoder.encode(password));
+            newUser.setEnabled(true);
+            authority.setAuthority("USER");
+            authority.setUser(newUser);
+            newUser.setAuthorities(List.of(authority));
+            users.save(newUser); // Insert authority using JDBC
 
 //        UserDetails user = org.springframework.security.core.userdetails.User
 //                .withUsername(username)
@@ -89,8 +100,13 @@ public class UserController {
 
 //        autologin:
 
-        request.login(username, password);
+            request.login(username, password);
+            logger.info("User {} registered and logged in successfully.", username);
 
-        return "redirect:/account";
+            return "redirect:/account";
+        } catch (Exception e) {
+            logger.error("Registration failed for username {}: {}", username, e.getMessage());
+            return "redirect:/user/register?error=server-error";
+        }
     }
 }

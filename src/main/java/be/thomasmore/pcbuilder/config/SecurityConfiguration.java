@@ -23,56 +23,51 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 public class SecurityConfiguration {
 
     @Autowired
-//    dataSource(dataSource): we geven de default datasource voor onze applicatie door als datasouce
-//    Noot: een datasource is een object dat gebruikt wordt om te connecteren met een database
     private DataSource dataSource;
 
-
-    @Value("${security.h2-console-needed}")
+    @Value("${security.h2-console-needed:false}")
     private boolean h2ConsoleNeeded;
 
-
-    //    Functie jdbcUserDetailsManager: hiermee zeggen we Spring dat we jdbc
-//    Authentication willen gebruiken. Dat betekent dat Spring de users en passwords uit
-//    de database zal halen
-//    Noot: jdbc = java database connectivity
+    // JDBC Authentication configuration
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager() {
-        //        userDetailsManager.setUsersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?");
-//        userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
         return new JdbcUserDetailsManager(dataSource);
     }
 
-    //    Functie passwordEncoder: hiermee geven we aan welke soort encrypte we willen
-//    gebruiken om de passwoorden op te slaan in de database. Als je dit niet doet dan zal het login proces niet werken.
+    // Password encoding using BCrypt
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Security filter chain
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
+        // MVC matcher for path-based security
         HandlerMappingIntrospector introspector = new HandlerMappingIntrospector();
-        MvcRequestMatcher.Builder mvcMatcherBuilder =
-                new MvcRequestMatcher.Builder(introspector);
+        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasAuthority("ADMIN")
-                .requestMatchers(mvcMatcherBuilder.pattern("/user/register")).permitAll()
-                .requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER", "ADMIN")
-                .anyRequest().permitAll());
-        //        enables login form when login page is accessed
-        http.formLogin(form -> form.loginPage("/user/login").permitAll());
+                .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasAuthority("ADMIN") // Admin access
+                .requestMatchers(mvcMatcherBuilder.pattern("/user/register")).permitAll()     // Public registration
+                .requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER", "ADMIN") // User access
+                .anyRequest().permitAll()); // Default: allow all other requests
 
-//        enables logout
-        http.logout(form -> form.logoutUrl("/user/logout"));
+        // Login and logout configuration
+        http.formLogin(form -> form
+                        .loginPage("/user/login").permitAll()) // Custom login page
+                .logout(form -> form
+                        .logoutUrl("/user/logout")
+                        .logoutSuccessUrl("/user/login?logout").permitAll()); // Logout redirect
+        http.formLogin(form -> form
+                .defaultSuccessUrl("/account", true)); // Redirect to /account post-login
 
-//        enables h2-console
+        // Enable H2 console access conditionally
         if (h2ConsoleNeeded) {
-            http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()));
-            http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+            http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console())) // Disable CSRF for H2 console
+                    .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)); // Allow frames
         }
+
         return http.build();
     }
 }
