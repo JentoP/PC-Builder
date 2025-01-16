@@ -66,6 +66,7 @@ public class SecurityConfiguration {
             http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console())) // Disable CSRF for H2 console
                     .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)); // Allow frames
         }
+
         return http.build();
     }
 }
