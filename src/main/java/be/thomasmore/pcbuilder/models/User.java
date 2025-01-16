@@ -69,12 +69,4 @@ public class User {
     public void setPcBuilds(List<PcBuild> pcBuilds) {
         this.pcBuilds = pcBuilds;
     }
-//    to make debugging and logging easier
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", enabled=" + enabled +
-                '}';
-    }
 }

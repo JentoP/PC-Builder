@@ -9,8 +9,8 @@ import java.util.List;
 public class GPU {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
+
     private String name;
     private String manufacturer;
     private Integer wattageUsage;

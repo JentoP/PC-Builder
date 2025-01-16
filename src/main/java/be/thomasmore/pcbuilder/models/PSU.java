@@ -9,7 +9,6 @@ import java.util.List;
 public class PSU {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
     private String name;
     private String manufacturer;
