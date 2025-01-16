@@ -1,5 +1,8 @@
 package be.thomasmore.pcbuilder.controllers;
 
+import be.thomasmore.pcbuilder.models.Authority;
+import be.thomasmore.pcbuilder.models.User;
+import be.thomasmore.pcbuilder.repos.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -14,13 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.sql.DataSource;
 import java.security.Principal;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-
+@Autowired
+    private UserRepository users;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -28,10 +36,11 @@ public class UserController {
     private JdbcUserDetailsManager jdbcUserDetailsManager;
 
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private DataSource dataSource;
 
     @GetMapping("/login")
     public String login(Principal principal) {
-        logger.info("Logging in: " );
+        logger.info("Logging in: ");
         if (principal != null) return "redirect:/account";
         return "user/login";
     }
@@ -45,7 +54,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(Principal principal) {
-        logger.info("Registering");
+        logger.info("Registering...");
         if (principal != null) return "redirect:/account";
         return "user/register";
     }
@@ -59,14 +68,21 @@ public class UserController {
         if (username == null || username.isBlank()) return "redirect:/account";
         if (jdbcUserDetailsManager.userExists(username)) return "redirect:/account";
 
-        UserDetails user = org.springframework.security.core.userdetails.User
-                .withUsername(username)
-                .password(passwordEncoder.encode(password))
-                .roles("USER")
-                .build();
-        jdbcUserDetailsManager.createUser(user);
+//        save user
+        User newUser = new User();
+        Authority authority = new Authority();
 
-        //autologin:
+        newUser.setUsername(username);
+        newUser.setPassword(passwordEncoder.encode(password));
+        newUser.setEnabled(true);
+
+        authority.setAuthority("USER");
+        authority.setUser(newUser);
+        newUser.setAuthorities(List.of(authority));
+        users.save(newUser); // Insert authority using JDBC
+
+//        autologin:
+
         request.login(username, password);
 
         return "redirect:/account";

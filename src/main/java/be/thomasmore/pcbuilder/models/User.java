@@ -17,12 +17,19 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-//    private List<Authority> authorities;
-
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Authority> authorities;
 
     @OneToMany(mappedBy = "user")  // One user can have multiple builds
     private List<PcBuild> pcBuilds;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
 
     public String getUsername() {
         return username;
@@ -40,12 +47,19 @@ public class User {
         this.pcBuilds = pcBuilds;
     }
 
-//    public List<Authority> getAuthorities() {
-//        return authorities;
-//    }
-//
-//    public void setAuthorities(List<Authority> authorities) {
-//        this.authorities = authorities;
-//    }
+    public void setPassword(String encode) {
+    }
+
+    public void setEnabled(boolean b) {
+    }
+
+    public List<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
 }
 

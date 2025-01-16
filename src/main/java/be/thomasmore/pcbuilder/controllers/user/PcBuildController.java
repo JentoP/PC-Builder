@@ -145,14 +145,6 @@ public class PcBuildController {
             model.addAttribute("pcBuild", pcBuild);
             model.addAttribute("totalWattage", totalWattage);
             return "user/viewbuild"; // Show build details
-
-//        List<PcBuild> pcBuildList = pcBuilds.findByIdAndUser(id, user);
-//           if (!pcBuildList.isEmpty()) {
-//            PcBuild pcBuild = pcBuildList.get(0);
-//            Integer totalWattage = calculateTotalWattage(pcBuild);
-//            model.addAttribute("pcBuild", pcBuildList);
-//            model.addAttribute("totalWattage", totalWattage);
-//            return "user/viewbuild"; // Show build details
         }
         return "redirect:/pcbuilds";
     }

@@ -32,7 +32,7 @@ public class SecurityConfiguration {
     private boolean h2ConsoleNeeded;
 
 
-//    Functie jdbcUserDetailsManager: hiermee zeggen we Spring dat we jdbc
+    //    Functie jdbcUserDetailsManager: hiermee zeggen we Spring dat we jdbc
 //    Authentication willen gebruiken. Dat betekent dat Spring de users en passwords uit
 //    de database zal halen
 //    Noot: jdbc = java database connectivity
@@ -43,7 +43,8 @@ public class SecurityConfiguration {
         userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
         return userDetailsManager;
     }
-//    Functie passwordEncoder: hiermee geven we aan welke soort encrypte we willen
+
+    //    Functie passwordEncoder: hiermee geven we aan welke soort encrypte we willen
 //    gebruiken om de passwoorden op te slaan in de database. Als je dit niet doet dan zal het login proces niet werken.
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -52,20 +53,16 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         HandlerMappingIntrospector introspector = new HandlerMappingIntrospector();
         MvcRequestMatcher.Builder mvcMatcherBuilder =
                 new MvcRequestMatcher.Builder(introspector);
 
-        //    elke request die met '/user' begint is toegankelijk voor de gebruiker
-        http.authorizeHttpRequests(auth -> auth.requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER", "ADMIN"));
-
-
-//                Dus: als je een url request die begint met ‘/admin/’ dan moet je ingelogd zijn.
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasAuthority("ADMIN")
-//                Dus: elke request die niet met ‘/admin’ begint is toegankelijk voor iedereen.
+                .requestMatchers(mvcMatcherBuilder.pattern("/user/register")).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern("/user/**")).hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().permitAll());
-
         //        enables login form when login page is accessed
         http.formLogin(form -> form.loginPage("/user/login").permitAll());
 
@@ -73,10 +70,9 @@ public class SecurityConfiguration {
         http.logout(form -> form.logoutUrl("/user/logout"));
 
 //        enables h2-console
-        //to enable h2-console:
         if (h2ConsoleNeeded) {
-                  http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()));
-        http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+            http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()));
+            http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         }
         return http.build();
     }

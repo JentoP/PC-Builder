@@ -1,6 +1,5 @@
 package be.thomasmore.pcbuilder.controllers.admin;
 
-import be.thomasmore.pcbuilder.controllers.ComponentController;
 import be.thomasmore.pcbuilder.models.*;
 import be.thomasmore.pcbuilder.repos.*;
 import org.slf4j.Logger;
@@ -11,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+
 /**
- * Controller for managing admin operations related to PC components.
- * Handles operations such as adding, editing, and removing components.
+ * Controller voor het beheren van beheerdersacties met betrekking tot pc-componenten.
+ * Behandelt acties zoals het toevoegen, bewerken en verwijderen van componenten.
  */
 @Controller
 @RequestMapping("/admin")
@@ -41,13 +42,13 @@ public class AdminComponentController {
 
     //Models
     /**
-     * Finds or initializes a CPU object based on the provided ID.
+     * Vindt of initialiseert een CPU-object op basis van het opgegeven ID.
      *
-     * @param id the ID of the CPU (optional)
-     * @return a CPU object from the database or a new instance if the ID is null.
+     * @param id het ID van de CPU (optioneel)
+     * @return een CPU-object uit de database of een nieuw exemplaar als het ID null is.
      *
-     * explanation: This method retrieves a CPU by its ID. If no ID is provided, it creates a new CPU object.
-     * This method is similar to the following methods
+     * Uitleg: Deze methode haalt een CPU op via het ID. Als er geen ID wordt opgegeven,
+     * wordt er een nieuw CPU-object aangemaakt. Deze methode is vergelijkbaar met de volgende methoden.
      */
     @ModelAttribute("processor")
     public CPU findProcessor(@PathVariable(required = false) Integer id) {
@@ -116,14 +117,16 @@ public class AdminComponentController {
 
     //Add view
     /**
-     * Displays the form for adding a new component based on the specified type.
+     * Toont het formulier voor het toevoegen van een nieuw component op basis van het opgegeven type.
      *
-     * @param type  the type of component (e.g., processor, motherboard, etc.)
-     * @param model the model to hold attributes for the view
-     * @return the name of the view template to display
+     * @param type het type component (bijv. processor, moederbord, enz.)
+     * @param model het model voor het toevoegen van attributen aan de view
+     * @return de naam van de view-template om weer te geven
      *
-     * Non-coder explanation: This method determines the type of component to add, prepares a blank form, and shows it to the user.
+     * uitleg: Deze methode bepaalt het type component dat moet worden toegevoegd,
+     * bereidt een leeg formulier voor en toont dit aan de gebruiker.
      */
+
     @GetMapping("/addcomponent/{type}")
     public String addComponent(@PathVariable String type, Model model) {
         Object component;
@@ -163,14 +166,15 @@ public class AdminComponentController {
 
     //Edit view
     /**
-     * Loads an existing component of the given type and ID for editing and populates the model with the component data.
+     * Laadt een bestaand component van het opgegeven type en ID voor bewerking en vult het model met de gegevens van het component.
      *
-     * @param type the type of the component to edit
-     * @param id the ID of the component to edit
-     * @param model the model to populate with the component data
-     * @return the name of the view for editing a component
+     * @param type het type van het component om te bewerken
+     * @param id het ID van het component om te bewerken
+     * @param model het model om te vullen met de gegevens van het component
+     * @return de naam van de view voor het bewerken van een component
      *
-     * This method fetches the details of an existing component for updating. It ensures the right information is displayed in the editing form.
+     * Deze methode haalt de details op van een bestaand component voor bijwerking.
+     * Het zorgt ervoor dat de juiste informatie wordt weergegeven in het bewerkingsformulier.
      */
     @GetMapping("/editcomponent/{type}/{id}")
     public String editComponent(@PathVariable String type, @PathVariable Integer id, Model model) {
@@ -212,14 +216,14 @@ public class AdminComponentController {
 
     //    delete view
     /**
-     * Handles the deletion of a component and its associated PC builds based on the provided type and ID.
+     * Verwijdert een component en de bijbehorende pc-builds op basis van het opgegeven type en ID.
      *
-     * @param type the type of the component to delete
-     * @param id the ID of the component to delete
-     * @param model the model to populate with data (if needed)
-     * @return a redirect URL to the list of components of the given type
+     * @param type het type van het component om te verwijderen
+     * @param id het ID van het component om te verwijderen
+     * @param model het model om gegevens te vullen (indien nodig)
+     * @return een doorverwijzings-URL naar de lijst met componenten van het opgegeven type
      *
-     * This method removes a selected component from the database and also deletes any PC builds that use this component.
+     * Deze methode verwijdert een geselecteerd component uit de database en verwijdert ook pc-builds die dit component gebruiken.
      */
 //    verwijderd ook een pcbuild waar het te verwijderen component in bevindt
     @GetMapping("/removecomponent/{type}/{id}")
@@ -265,9 +269,19 @@ public class AdminComponentController {
         return "redirect:/lists/" + type;
     }
 
+    /**
+     * Verwijdert pc-builds die een geselecteerd component gebruiken.
+     *
+     *
+     * @param componentId de ID van het geselecteerd component
+     * @param type het type van het geselecteerd component
+     *
+     * Uitleg: De methode haalt pc-builds op die een geselecteerd component gebruiken en verwijdert deze pc-builds uit de database.
+     *             Het type word gebruikt om te bepalen welke pc-builds verwijderd moeten worden.
+     *             Dit type is een String die word opgehaald uit de in de methode removeComponent().
+     */
     private void removeSavedBuildsByComponent(Integer componentId, String type) {
         List<PcBuild> builds;
-//        type wordt opgehaald tijdens de methode removeComponent
         switch (type) {
             case "CPU":
                 builds = pcBuilds.findBuildsByCPU(componentId);
@@ -305,12 +319,14 @@ public class AdminComponentController {
     //add en update post methodes
 
     /**
-     * Saves a new processor to the database and redirects to its details page.
+     * Slaat een nieuwe processor op in de database en verwijst door naar de detailpagina ervan.
      *
-     * @param component the CPU object to save
-     * @return a redirect URL to the details page of the saved processor
+     * @param component het CPU-object om op te slaan
+     * @return een doorverwijzings-URL naar de detailpagina van de opgeslagen processor
      *
-     * This method saves a newly created processor in the system and takes you to the page showing its details.
+     * Deze methode slaat een nieuw aangemaakte processor op in het systeem
+     * en brengt u naar de pagina met de details ervan.
+     *
      */
     @PostMapping("/addcomponent/processor")
     public String saveProcessor(@ModelAttribute("processor") CPU component) {

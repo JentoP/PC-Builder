@@ -1,4 +1,4 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!DOCTYPE html>
 <html class="h-100" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: headerelement('Account')}"></head>
 <header th:replace="~{fragments/header :: header}"></header>
@@ -22,13 +22,11 @@
             <div class="button-container">
                 <div class="row">
                     <button type="submit" class="btn-custom mt-5">Registreren</button>
-                    <a th:href="@{/account}" class="btn-custom mt-5">Terug</a>
+                    <p class="mt-5">Al geregistreerd? </p>
+                    <a class="btn-custom" th:href="@{|/user/login|}">Login</a>
                 </div>
             </div>
         </form>
-        <div class="text-center">
-            <p>Al geregistreerd? <a th:href="@{|/user/login|}">Login</a></p>
-        </div>
     </div>
 
 </main>
