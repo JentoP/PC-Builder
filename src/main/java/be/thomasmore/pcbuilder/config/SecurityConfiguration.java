@@ -38,10 +38,9 @@ public class SecurityConfiguration {
 //    Noot: jdbc = java database connectivity
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager() {
-        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        userDetailsManager.setUsersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?");
-        userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
-        return userDetailsManager;
+        //        userDetailsManager.setUsersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?");
+//        userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     //    Functie passwordEncoder: hiermee geven we aan welke soort encrypte we willen
