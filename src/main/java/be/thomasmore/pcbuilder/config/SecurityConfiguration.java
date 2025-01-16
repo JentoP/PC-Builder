@@ -28,7 +28,7 @@ public class SecurityConfiguration {
     private DataSource dataSource;
 
 
-    @Value("true")
+    @Value("${security.h2-console-needed}")
     private boolean h2ConsoleNeeded;
 
 
