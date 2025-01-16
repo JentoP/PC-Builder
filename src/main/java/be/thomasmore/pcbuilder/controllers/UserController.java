@@ -46,13 +46,11 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) throws ServletException {
         logger.info("Logging out user.");
-        try {
+
             request.logout();
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        }
+
         return "redirect:/user/login?logout";
     }
 
