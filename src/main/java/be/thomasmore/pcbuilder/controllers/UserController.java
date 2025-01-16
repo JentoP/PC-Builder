@@ -75,11 +75,17 @@ public class UserController {
         newUser.setUsername(username);
         newUser.setPassword(passwordEncoder.encode(password));
         newUser.setEnabled(true);
-
         authority.setAuthority("USER");
         authority.setUser(newUser);
         newUser.setAuthorities(List.of(authority));
         users.save(newUser); // Insert authority using JDBC
+
+//        UserDetails user = org.springframework.security.core.userdetails.User
+//                .withUsername(username)
+//                .password(passwordEncoder.encode(password))
+//                .roles("USER")
+//                .build();
+//        jdbcUserDetailsManager.createUser(user);
 
 //        autologin:
 

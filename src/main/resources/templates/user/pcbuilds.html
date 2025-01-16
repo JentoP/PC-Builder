@@ -5,7 +5,7 @@
 
 <body class="d-flex flex-column h-100">
 <h1>Bekijk uw PC's</h1>
-<main class="container">
+<main th:if="${!pcBuilds.isEmpty()}" class="container">
     <div class="row">
         <!-- Display all the PC builds -->
         <div sec:authorize="isAuthenticated()" th:each="pcBuild : ${pcBuilds}" class="col-md-6 ">
@@ -20,6 +20,13 @@
     </div>
     <div class="mt-5 text-center">
         <a class="btn-custom" th:href="@{/user/addbuild}" role="button">NIEUWE PC MAKEN</a>
+    </div>
+    <div class="bottom-margin"></div>
+</main>
+<main th:if="${pcBuilds.isEmpty()}" class="container">
+    <div class="mt-5 text-center">
+        <h2>Je hebt nog geen builds</h2>
+        <a class="btn-custom mt-5" th:href="@{/user/addbuild}" role="button">NIEUWE PC MAKEN</a>
     </div>
     <div class="bottom-margin"></div>
 </main>
