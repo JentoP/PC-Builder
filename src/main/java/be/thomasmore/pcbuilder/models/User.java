@@ -1,36 +1,35 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
+    @NotBlank
+    @Size(max = 50)
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
+    @NotBlank
+    @Size(min = 8, max = 100)
     @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false)
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Authority> authorities;
 
-    @OneToMany(mappedBy = "user")  // One user can have multiple builds
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PcBuild> pcBuilds;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
+    // Getters and setters
     public String getUsername() {
         return username;
     }
@@ -39,18 +38,20 @@ public class User {
         this.username = username;
     }
 
-    public List<PcBuild> getPcBuilds() {
-        return pcBuilds;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPcBuilds(List<PcBuild> pcBuilds) {
-        this.pcBuilds = pcBuilds;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setPassword(String encode) {
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setEnabled(boolean b) {
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public List<Authority> getAuthorities() {
@@ -61,5 +62,19 @@ public class User {
         this.authorities = authorities;
     }
 
-}
+    public List<PcBuild> getPcBuilds() {
+        return pcBuilds;
+    }
 
+    public void setPcBuilds(List<PcBuild> pcBuilds) {
+        this.pcBuilds = pcBuilds;
+    }
+//    to make debugging and logging easier
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", enabled=" + enabled +
+                '}';
+    }
+}

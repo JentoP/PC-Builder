@@ -1,19 +1,32 @@
 package be.thomasmore.pcbuilder.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "authorities")
 public class Authority {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
     @Column(nullable = false)
     private String authority;
 
-    @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "username")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
     private User user;
 
     // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getAuthority() {
         return authority;
@@ -31,5 +44,10 @@ public class Authority {
         this.user = user;
     }
 
-
+    @Override
+    public String toString() {
+        return "Authority{" +
+                "authority='" + authority + '\'' +
+                '}';
+    }
 }
