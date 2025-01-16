@@ -13,7 +13,6 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
-
 import javax.sql.DataSource;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
@@ -67,7 +66,6 @@ public class SecurityConfiguration {
             http.csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console())) // Disable CSRF for H2 console
                     .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)); // Allow frames
         }
-
         return http.build();
     }
 }

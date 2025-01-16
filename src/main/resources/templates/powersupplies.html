@@ -13,7 +13,6 @@
     <h2>Voedingen in stock</h2>
     <div class="container">
         <div class="row">
-
             <div class="col-md-2 mt-5">
                 <!--Search-->
                 <div class="">
@@ -124,7 +123,6 @@
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
                             th:text="|Max Price:${'&euro; '}${param.filterMaxPrice}|"></li>
                     </div>
-
                     <div class="small">
                         <a th:href="@{|/lists/powersupply|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
@@ -141,7 +139,6 @@
                         <th>Wattage</th>
                         <th>Efficiëntie</th>
                         <th>Prijs</th>
-
                     </tr>
                     </thead>
                     <tbody>
@@ -162,9 +159,7 @@
         <div class="bottom-margin"></div>
     </div>
 </main>
-
 <div class="bottom-margin"></div>
-
 </body>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </html>

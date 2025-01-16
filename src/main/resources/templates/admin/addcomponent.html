@@ -8,6 +8,7 @@
 <h1>Component Toevoegen</h1>
 <main th:object="${component}" th:if="${component}" class="container">
     <div th:switch="${type}">
+
         <!-- CPU -->
         <div th:case="'processor'">
             <h2>Voeg een processor toe</h2>
@@ -53,6 +54,7 @@
                     </div>
             </form>
         </div>
+
         <!-- Motherboard -->
         <div th:case="'motherboard'">
             <h2>Voeg een moederbord toe</h2>
@@ -101,6 +103,7 @@
                     <button class="btn-custom" type="submit">TOEVOEGEN</button>
                 </div>            </form>
         </div>
+
         <!-- Cooler -->
         <div th:case="'cooler'">
             <h2>Voeg een koeler toe</h2>
@@ -146,6 +149,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Chassis -->
         <div th:case="'case'">
             <h2>Voeg een behuizing toe</h2>
@@ -183,6 +187,7 @@
                 </div>
             </form>
         </div>
+
         <!-- RAM -->
         <div th:case="'memory'">
             <h2>Voeg een geheugenkit toe</h2>
@@ -224,6 +229,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Storage -->
         <div th:case="'storage'">
             <h2>Voeg een opslagapparaat toe</h2>
@@ -269,6 +275,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Power Supply -->
         <div th:case="'powersupply'">
             <h2>Voeg een voedingsapparaat toe</h2>
@@ -310,16 +317,14 @@
                 </div>
             </form>
         </div>
-
     </div>
-
 </main>
 
 <main th:object="${component}" th:unless="${component}">
     <h3>Geen component gevonden.</h3>
     <a class="btn-custom mt-5" th:href="@{|/components|}">GA TERUG</a>
 </main>
-</body>
 
+</body>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </html>

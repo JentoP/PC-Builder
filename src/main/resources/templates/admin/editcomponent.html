@@ -11,7 +11,6 @@
 
         <!-- CPU -->
         <div th:case="'processor'">
-
             <div class="header-container mb-5">
                 <h2 class="container-title" th:text="${component.name}"></h2>
                 <div class="button-container">
@@ -62,6 +61,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Motherboard -->
         <div th:case="'motherboard'">
             <div class="header-container mb-5">
@@ -118,6 +118,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Memory -->
         <div th:case="'memory'">
             <div class="header-container mb-5">
@@ -219,6 +220,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Graphic Card -->
         <div th:case="'graphiccard'">
             <div class="header-container mb-5">
@@ -271,6 +273,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Storage -->
         <div th:case="'storage'">
             <div class="header-container mb-5">
@@ -323,6 +326,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Power Supply -->
         <div th:case="'powersupply'">
             <div class="header-container mb-5">
@@ -371,6 +375,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Case -->
         <div th:case="'case'">
             <div class="header-container mb-5">
@@ -415,6 +420,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Cooler -->
         <div th:case="'cooler'">
             <div class="header-container mb-5">
@@ -467,14 +473,14 @@
                 </div>
             </form>
         </div>
-
-
     </div>
 </main>
+
 <main th:object="${component}" th:unless="${component}">
     <h3>Geen component gevonden.</h3>
     <a class="btn-custom mt-5" th:href="@{|/components|}">GA TERUG</a>
 </main>
+
 </body>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </html>

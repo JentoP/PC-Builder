@@ -7,12 +7,10 @@
 <h1>Bekijk uw PC's</h1>
 <main class="container">
     <h2 th:text="${pcBuild.buildName}">Build Name</h2>
-
     <!-- Display error message if any -->
     <div th:if="${errorMessage}" class="alert-message">
         <p th:text="${errorMessage}"></p>
     </div>
-
     <div class="row">
         <h3>Componenten</h3>
 
@@ -28,12 +26,10 @@
                    th:text="'DETAILS'" title="Klik hier om details over deze processor te bekijken"></a>
             </div>
             <div class="d-flex flex-column align-items-end ms-auto">
-
                 <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedCPU.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
                 <p>Aantal: 1</p>
             </div>
         </div>
-
         <div class="d-flex align-items-center component-box">
             <div class="me-3">
                 <img th:src="@{/img/icons/gradient/motherboard.png}" alt="mobo" width="40" height="40" class="m-3">
@@ -47,7 +43,6 @@
             <div class="d-flex flex-column align-items-end ms-auto">
                 <h4 th:text="|${'€ '}${#strings.replace(#numbers.formatDecimal(pcBuild.selectedMOBO.price,0,'POINT',2,'COMMA'),',00', ',00')}|"></h4>
                 <p>Aantal: 1</p>
-
             </div>
         </div>
 
@@ -166,12 +161,10 @@
         <div class="d-flex justify-content-between mt-5 bottom-margin">
             <a th:href="@{/user/pcbuilds}" class="btn-custom">TERUG</a>
             <a th:href="@{/user/editbuild/{id}(id=${pcBuild.getBuildId()})}" class="btn-custom">BEWERKEN</a>
-
             <a th:href="@{/user/deletebuild/{id}(id=${pcBuild.getBuildId()})}" class="btn-custom"
                onclick="return confirm('Weet je zeker dat je deze build wilt verwijderen?')">VERWIJDEREN</a>
         </div>
     </div>
-
     <div class="bottom-margin"></div>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>

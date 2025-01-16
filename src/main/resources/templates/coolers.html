@@ -13,8 +13,8 @@
     <h2>Koelingsoplossingen in stock</h2>
     <div class="container">
         <div class="row">
-
             <div class="col-md-2 mt-5">
+
                 <!--Search-->
                 <div class="">
                     <form th:action="@{|/lists/cooler|}" method="get" class="">
@@ -124,12 +124,12 @@
                         <li th:if="${not #strings.isEmpty(param.filterMaxPrice)}"
                             th:text="|Max Price: ${'&euro;'} ${param.filterMaxPrice}|"></li>
                     </div>
-
                     <div class="small">
                         <a th:href="@{|/lists/cooler|}" class="btn-custom small">FILTERS WISSEN</a>
                     </div>
                 </div>
             </div>
+
             <!--Results-->
             <div class="col-md-9">
                 <h3>Resultaten</h3>
@@ -160,9 +160,7 @@
         <div class="bottom-margin"></div>
     </div>
 </main>
-
 <div class="bottom-margin"></div>
-
 </body>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </html>

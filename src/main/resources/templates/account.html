@@ -1,5 +1,6 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html class="h-100" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html >
+<html class="h-100" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="~{fragments/header :: headerelement('Account')}"></head>
 <header th:replace="~{fragments/header :: header}"></header>
 
@@ -16,18 +17,18 @@
 
         <p sec:authorize="isAuthenticated()" th:text="|U bent succesvol ingelogd.|"></p>
 
-    <div class="button-container">
-        <div class="row">
-            <a class="btn-custom" sec:authorize="isAnonymous()" th:href="@{/user/login}"
-               role="button">INLOGGEN</a>
+        <div class="button-container">
+            <div class="row">
+                <a class="btn-custom" sec:authorize="isAnonymous()" th:href="@{/user/login}"
+                   role="button">INLOGGEN</a>
 
-            <a class="btn-custom mt-5" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"
-               role="button">UITLOGGEN</a>
+                <a class="btn-custom mt-5" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"
+                   role="button">UITLOGGEN</a>
 
-            <a class="btn-custom mt-5" sec:authorize="isAnonymous()" th:href="@{/user/register}"
-               role="button">REGISTREREN</a>
+                <a class="btn-custom mt-5" sec:authorize="isAnonymous()" th:href="@{/user/register}"
+                   role="button">REGISTREREN</a>
+            </div>
         </div>
-    </div>
 </main>
 </body>
 
