@@ -128,7 +128,7 @@
 
             <div class="mt-3 small">
                 <label for="memoryAddQuantities">Aantal: </label>
-                <input type="number" id="memoryAddQuantities" th:field="${pcBuild.memoryQuantities}"
+                <input required type="number" id="memoryAddQuantities" th:field="${pcBuild.memoryQuantities}"
                        class="form-box small" min="1" max="4"/>
             </div>
         </div>
@@ -214,7 +214,7 @@
             </select>
             <div class="mt-3 small">
                 <label for="storageAddQuantities">Aantal: </label>
-                <input type="number" id="storageAddQuantities" th:field="${pcBuild.storageQuantities}"
+                <input required type="number" id="storageAddQuantities" th:field="${pcBuild.storageQuantities}"
                        class="form-box small" min="1" max="6"/>
             </div>
         </div>

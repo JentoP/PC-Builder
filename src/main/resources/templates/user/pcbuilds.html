@@ -6,6 +6,7 @@
 <body class="d-flex flex-column h-100">
 <h1>Bekijk uw PC's</h1>
 <main th:if="${!pcBuilds.isEmpty()}" class="container">
+    <h2>Al uw persoonlijke computers</h2>
     <div class="row">
         <!-- Display all the PC builds -->
         <div sec:authorize="isAuthenticated()" th:each="pcBuild : ${pcBuilds}" class="col-md-6 ">
@@ -16,20 +17,19 @@
                 <a type="button" class="btn-custom" th:href="@{/user/viewbuild/{id}(id=${pcBuild.getBuildId()})}">BEKIJKEN</a>
             </div>
         </div>
-        <div class="bottom-margin"></div>
     </div>
-
-    <div class="mt-5 text-center">
-        <a class="btn-custom" th:href="@{/user/addbuild}" role="button">NIEUWE PC MAKEN</a>
+    <h5 th:text="|U heeft in totaal ${pcBuilds.size()} computer(s).|" class="text-center bottom-margin"></h5>
+    <div class="text-center border-price">
+        <div class="button-container">
+            <a class="btn-custom" th:href="@{/user/addbuild}" role="button">NIEUWE PC MAKEN</a>
+        </div>
     </div>
-
-    <div class="bottom-margin"></div>
 </main>
-
+<div class="bottom-margin"></div>
 
 <main th:if="${pcBuilds.isEmpty()}" class="container">
     <div class="mt-5 text-center">
-        <h2>Je hebt nog geen builds</h2>
+        <h2>U heeft nog geen computers aangemaakt.</h2>
         <a class="btn-custom mt-5" th:href="@{/user/addbuild}" role="button">NIEUWE PC MAKEN</a>
     </div>
     <div class="bottom-margin"></div>

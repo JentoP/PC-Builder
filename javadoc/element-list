@@ -1,0 +1,7 @@
+be.thomasmore.pcbuilder
+be.thomasmore.pcbuilder.config
+be.thomasmore.pcbuilder.controllers
+be.thomasmore.pcbuilder.controllers.admin
+be.thomasmore.pcbuilder.controllers.user
+be.thomasmore.pcbuilder.models
+be.thomasmore.pcbuilder.repos

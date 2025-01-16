@@ -104,14 +104,16 @@ public class PcBuildController {
      */
     @PostMapping({"/addbuild", "/editbuild/{id}"})
     public String addOrEditPcBuildPost(@ModelAttribute PcBuild pcBuild, RedirectAttributes redirectAttributes, Principal principal) {
-        // Validate compatibility between selected CPU and MOBO
-        if (!isCompatible(pcBuild)) {
-            redirectAttributes.addFlashAttribute("errorMessage", "De geselecteerde componenten zijn niet compatibel met elkaar. Probeer opnieuw.");
+        // Validate compatibility and get the error message
+        String compatibilityError = isCompatible(pcBuild);
+        if (compatibilityError != null) {
+            redirectAttributes.addFlashAttribute("errorMessage", compatibilityError);
             if (pcBuild.getBuildId() != null) {
                 return "redirect:/user/editbuild/" + pcBuild.getBuildId();
             }
             return "redirect:/user/addbuild";
         }
+
         // Associate the build with the logged-in user
         User user = users.findByUsername(principal.getName());
         pcBuild.setUsername(user);
@@ -121,6 +123,7 @@ public class PcBuildController {
         redirectAttributes.addFlashAttribute("successMessage", "Uw build werd opgeslagen!");
         return "redirect:/user/pcbuilds"; // Redirect to the list of PC builds
     }
+
 
     /**
      * Views the details of a specific PC build.
@@ -178,9 +181,9 @@ public class PcBuildController {
      * Checks if the selected components are compatible with each other.
      *
      * @param pcBuild the PC build object containing selected components.
-     * @return true if all selected components are compatible, false otherwise.
+     * @return a string containing an error message if the components are not compatible, or null if they are.
      */
-    private boolean isCompatible(PcBuild pcBuild) {
+    private String isCompatible(PcBuild pcBuild) {
         CPU selectedCPU = pcBuild.getSelectedCPU();
         MOBO selectedMOBO = pcBuild.getSelectedMOBO();
         RAM selectedMemory = pcBuild.getSelectedMemory();
@@ -191,34 +194,34 @@ public class PcBuildController {
         // Check CPU and MOBO compatibility
         if (selectedCPU != null && selectedMOBO != null) {
             if (!selectedCPU.getSocketType().equals(selectedMOBO.getSocketType())) {
-                return false;
+                return "De CPU en moederbord hebben verschillende socket types.";
             }
         }
         // Check MOBO and Memory compatibility
         if (selectedMOBO != null && selectedMemory != null) {
             if (!selectedMOBO.getMemoryType().equals(selectedMemory.getMemoryType())) {
-                return false;
+                return "Het geheugen is niet compatibel met het moederbord.";
             }
         }
         // Check GPU power requirement and Power Supply capacity
         if (selectedGPU != null && selectedPowerSupply != null) {
             if (selectedGPU.getWattageUsage() > selectedPowerSupply.getWattageCapacity()) {
-                return false;
+                return "De grafische kaart vereist meer vermogen dan de voeding kan leveren.";
             }
         }
         // Check MOBO and Case compatibility (form factor)
         if (selectedMOBO != null && selectedCase != null) {
             if (!selectedCase.getMoboFormFactor().equals(selectedMOBO.getMoboFormFactor())) {
-                return false;
+                return "Het moederbord past niet in de geselecteerde behuizing.";
             }
         }
         // Check Power Supply and Case compatibility (form factor)
         if (selectedPowerSupply != null && selectedCase != null) {
             if (!selectedCase.getPsuFormFactor().equals(selectedPowerSupply.getPsuFormFactor())) {
-                return false;
+                return "De voeding past niet in de geselecteerde behuizing.";
             }
         }
-        return true;
+        return null; // All components are compatible
     }
 
     /**
