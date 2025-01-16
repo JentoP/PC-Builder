@@ -498,15 +498,15 @@ public class ComponentController {
                     isComponentInUse = !buildsUsingComponent.isEmpty();
                     break;
                 case "graphiccard":
-                    buildsUsingComponent= pcBuilds.findBuildsByGPU(id);
+                    buildsUsingComponent = pcBuilds.findBuildsByGPU(id);
                     isComponentInUse = !buildsUsingComponent.isEmpty();
                     break;
                 case "case":
-                    buildsUsingComponent= pcBuilds.findBuildsByCase(id);
+                    buildsUsingComponent = pcBuilds.findBuildsByCase(id);
                     isComponentInUse = !buildsUsingComponent.isEmpty();
                     break;
                 case "cooler":
-                    buildsUsingComponent= pcBuilds.findBuildsByCooler(id);
+                    buildsUsingComponent = pcBuilds.findBuildsByCooler(id);
                     isComponentInUse = !buildsUsingComponent.isEmpty();
                     break;
                 case "powersupply":
@@ -588,5 +588,4 @@ public class ComponentController {
                 throw new IllegalArgumentException("Onbekend componenttype: " + type);
         }
     }
-
 }
